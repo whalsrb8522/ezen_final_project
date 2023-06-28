@@ -1,5 +1,23 @@
 @charset "UTF-8";
 
 header {
-	position: relative;
+    position: relative;
+    height: 120px;
+    border-bottom: 1px solid gray;
+    display: flex;
+    justify-content: center;
+}
+
+header #headerContainer {
+	width: 1080px;
+	display: flex;
+	padding: 20px 0;
+}
+
+header #logoImage {
+	height: 100%;
+}
+
+header #logoContainer {
+	
 }
