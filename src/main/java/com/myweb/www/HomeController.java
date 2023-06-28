@@ -16,7 +16,7 @@ public class HomeController {
 
 	@GetMapping("/")
 	public String home(Locale locale, Model model) {
-		log.info("test");
+		log.info(">>> home()");
 		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
@@ -28,4 +28,6 @@ public class HomeController {
 		return "home";
 	}
 	
+	@GetMapping("css_test")
+	public void css_test() {}
 }

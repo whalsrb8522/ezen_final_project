@@ -4,12 +4,10 @@
 <html>
 <head>
 	<title>Home</title>
+	<link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
-
-<P>  The time on the server is ${serverTime}. </P>
+	<jsp:include page="./layout/header.jsp"></jsp:include>
+	<jsp:include page="./layout/footer.jsp"></jsp:include>
 </body>
 </html>
