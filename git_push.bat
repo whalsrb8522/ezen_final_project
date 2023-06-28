@@ -1,7 +1,7 @@
 @echo off
 <<<<<<< HEAD
-set /p str1=branch ¼±ÅÃ : 
-set /p str2=commit ¸Þ½ÃÁö ÀÔ·Â : 
+set /p str1=branch ì„ íƒ : 
+set /p str2=commit ë©”ì‹œì§€ ìž…ë ¥ : 
 
 git add .
 git commit -m "%str2%"
