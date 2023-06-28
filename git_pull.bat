@@ -1,4 +1,4 @@
-set /p str1=branch ì„ íƒ : 
+set /p str1=branch ¼±ÅÃ : 
 
 git pull origin %str1%
 
