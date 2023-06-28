@@ -1,4 +1,4 @@
-package com.myweb.www;
+package com.myweb.www.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -28,6 +28,4 @@ public class HomeController {
 		return "home";
 	}
 	
-	@GetMapping("css_test")
-	public void css_test() {}
 }
