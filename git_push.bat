@@ -1,6 +1,6 @@
 @echo off
-set /p str1=branch ì„ íƒ : 
-set /p str2=commit ë©”ì‹œì§€ ì…ë ¥ : 
+set /p str1=branch ¼±ÅÃ : 
+set /p str2=commit ¸Ş½ÃÁö ÀÔ·Â : 
 
 git add .
 git commit -m "%str2%"
