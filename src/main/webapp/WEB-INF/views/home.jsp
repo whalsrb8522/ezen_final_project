@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
+	<meta charset="UTF-8">
 	<title>양심거래 파트너 양파마켓</title>
 	<link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/home.css">
@@ -11,7 +12,7 @@
 <body>
 	<jsp:include page="./layout/header.jsp"></jsp:include>
 	
-	<section>
+	<div id="container">
 		<div id="mainContainer">
 			<div>
 				<img alt="메인 이미지" src="" width="1024px" height="300px">
@@ -103,7 +104,7 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</div>
 	
 	<jsp:include page="./layout/footer.jsp"></jsp:include>
 </body>
