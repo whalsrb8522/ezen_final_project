@@ -9,15 +9,71 @@ header {
 }
 
 header #headerContainer {
-	width: 1080px;
-	display: flex;
+	width: 1024px;
 	padding: 20px 0;
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* 로고 (이미지 및 텍스트) */
+header #logoContainer {
+	display: flex;
+    align-items: center;
 }
 
 header #logoImage {
-	height: 100%;
+    width: 60;
+    height: 60px;
+    margin-bottom: 15px;
 }
 
-header #logoContainer {
+header #logoText {
+    padding-left: 8px;
+    font-weight: bold;
+    font-size: 28px;
+    color: #C97FE8;
+}
+
+/* 검색 관련 */
+header #searchContainer {
+    height: 35px;
+    width: 400px;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+header #searchContainer #searchIcon {
+    width: 33px;
+    height: 33px;
+    color: white;
+    background-color: #C97FE8;
+    text-align: center;
+    line-height: 33px;
+}
 	
+header #searchContainer #searchInput {
+    border: none;
+    width: 90%;
+} header #searchContainer #searchInput:focus {
+	outline: none;
+}	
+
+/* 회원관련 (로그인/회원가입 등) */
+header #memberContainer {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    width: 160px;
+    justify-content: space-between;
+    font-size: 17px;
+}
+
+header #memberContainer a {
+	color: black;
+	text-decoration: none;	
+} header #memberContainer a:hover {
+	color: #C97FE8;
+	font-weight: 550;
 }

@@ -1,8 +1,8 @@
 @echo off
 
-set /p str1=branch ¼±ÅÃ : 
+set /p str1=branch ì„ íƒ : 
 
-git checkout %str1%
+git remote update
 git pull origin %str1%
 
 pause
