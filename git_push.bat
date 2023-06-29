@@ -1,7 +1,8 @@
 @echo off
 
-set /p str1=branch ¼±ÅÃ : 
-set /p str2=commit ¸Ş½ÃÁö ÀÔ·Â : 
+
+set /p str1=branch Â¼Â±Ã…Ãƒ : 
+set /p str2=commit Â¸ÃÂ½ÃƒÃÃ¶ Ã€Ã”Â·Ã‚ : 
 
 git checkout %str1%
 git add *
