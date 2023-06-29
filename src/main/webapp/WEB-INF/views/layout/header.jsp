@@ -4,8 +4,8 @@
 <html>
 <head>
 	<title>header</title>
-	<link rel="stylesheet" type="text/css" href="/resources/css/header.css">
-	<link rel="stylesheet" type="text/css" href="/resources/css/nav.css">
+	<link rel="stylesheet" type="text/css" href="/resources/css/layout/header.css">
+	<link rel="stylesheet" type="text/css" href="/resources/css/layout/nav.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 	<style>
 	.material-symbols-outlined {
@@ -45,7 +45,14 @@
 	</header>
 	<nav>
 		<div id="navContainer">
-			네비입니다.
+			<span class="material-symbols-outlined">
+				menu
+			</span>
+			<div id="menuContainer">
+				<a href="#">양파타운</a>
+				<a href="#">1:1문의</a>
+				<a href="#">공지사항</a>
+			</div>
 		</div>
 	</nav>
 </body>
