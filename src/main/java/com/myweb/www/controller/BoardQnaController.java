@@ -10,5 +10,4 @@ public class BoardQnaController {
 
 	@GetMapping("list")
 	public void list() {}
-	
 }
