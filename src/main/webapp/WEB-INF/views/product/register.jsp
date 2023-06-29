@@ -4,11 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>양파마켓 | 글등록</title>
+<title>양파마켓 | 글보기</title>
 </head>
 <body>
 	<jsp:include page="../layout/header.jsp"></jsp:include>
-	
 	
 	
 	
