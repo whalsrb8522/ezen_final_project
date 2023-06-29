@@ -27,5 +27,7 @@ public class HomeController {
 		
 		return "home";
 	}
-	
+
+	@GetMapping("css_test")
+	public void css_test() {}
 }
