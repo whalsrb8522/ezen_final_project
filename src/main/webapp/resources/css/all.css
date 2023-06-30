@@ -35,4 +35,8 @@ input, button, label, a {
 	outline: none;
 	border-color: #c97fe8;
 	box-shadow: 0 0 5px #c97fe8;
+} textarea.border-gray:focus {
+	outline: none;
+	border-color: #c97fe8;
+	box-shadow: 0 0 5px #c97fe8;
 }
