@@ -9,7 +9,11 @@
 <body>
 	<footer>
 		<div id="footerContainer">
-			푸터입니다.
+			<ul>
+				<li><a href="/">/</a></li>
+				<li><a href="/member/signin">/member/signin</a></li>
+				<li><a href="/member/signup">/member/signup</a></li>
+			</ul>
 		</div>
 	</footer>
 </body>
