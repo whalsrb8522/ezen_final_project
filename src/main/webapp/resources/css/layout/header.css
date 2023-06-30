@@ -20,6 +20,7 @@ header #headerContainer {
 header #logoContainer {
 	display: flex;
     align-items: center;
+    text-decoration: none;
 }
 
 header #logoImage {

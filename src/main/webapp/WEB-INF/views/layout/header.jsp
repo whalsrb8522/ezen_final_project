@@ -20,7 +20,7 @@
 <body>
 	<header>
 		<div id="headerContainer">
-			<a id="logoContainer">
+			<a href="/" id="logoContainer">
 				<img alt="로고" src="/resources/img/logo.png" id="logoImage">
 				<span id="logoText">양파마켓</span>
 			</a>
@@ -34,12 +34,12 @@
 			
 			<div id="memberContainer">
 				<!-- 로그인 전 -->
-				<!-- <a href="#">회원가입</a>
-				<a href="#">로그인</a> -->
+				<a href="/member/signup">회원가입</a>
+				<a href="/member/signin">로그인</a>
 				
 				<!-- 로그인 후 -->
-				<a href="#">내 상점</a>
-				<a href="#">로그아웃</a>
+				<!-- <a href="/member/info">내 상점</a>
+				<a href="/member/signout">로그아웃</a> -->
 			</div>
 		</div>
 	</header>
