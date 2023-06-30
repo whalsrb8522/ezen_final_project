@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+/*board_qna/register.css*/
+
 	#container {
 	  margin-top: 20px;
 	  margin-bottom :50px;
@@ -26,7 +28,7 @@
 	
 	select.border-gray:focus {
 	  outline: none;
-	  border-color: #c97fe8;	  
+	  /*border-color: #c97fe8;*/	  
 	}
 	
 	select.border-gray optgroup {
@@ -64,7 +66,7 @@
 		border-radius: 4px;
   	}
 
-	  .file-box::after {
+	 .file-box::after {
 	    content: "+";
 	    position: absolute;
 	    top: 50%;
