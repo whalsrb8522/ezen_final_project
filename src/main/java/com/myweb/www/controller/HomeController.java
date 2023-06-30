@@ -1,4 +1,4 @@
-package com.myweb.www;
+package com.myweb.www.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -17,7 +17,7 @@ public class HomeController {
 	@GetMapping("/")
 	public String home(Locale locale, Model model) {
 		log.info(">>> home()");
-		
+	
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
@@ -27,7 +27,7 @@ public class HomeController {
 		
 		return "home";
 	}
-	
+
 	@GetMapping("css_test")
 	public void css_test() {}
 }

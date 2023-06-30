@@ -1,8 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<link rel="stylesheet" type="text/css" href="/resources/css/footer.css">
-
-<footer>
-
-</footer>
+<html>
+<head>
+	<title>footer</title>
+	<link rel="stylesheet" type="text/css" href="/resources/css/layout/footer.css">
+</head>
+<body>
+	<footer>
+		<div id="footerContainer">
+			푸터입니다.
+		</div>
+	</footer>
+</body>
+</html>
