@@ -7,10 +7,11 @@
 	<title>Insert title here</title>
 	<link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/member/signup.css">
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 	<div id="container">
-		<div id="innerContainer">
+		<form action="/member/signup" method="post" id="innerContainer">
 			<h1>회원가입</h1>
 			
 			<p id="signSnsText">SNS 계정으로 간편 로그인/회원가입</p>
@@ -23,10 +24,10 @@
 			
 			<div id="emailContainer">
 				<h2>이메일</h2>
-				<div>
-					<input type="text" class="border-gray">
+				<div id="emailInput">
+					<input type="text" name="" class="border-gray input-box" placeholder="이메일">
 					@
-					<select class="border-gray">
+					<select name="" class="border-gray input-box">
 						<option>선택해주세요</option>
 						<option>naver.com</option>
 						<option>daum.net</option>
@@ -35,24 +36,24 @@
 					</select>
 				</div>
 				
-				<button class="background-gray">이메일 인증하기</button>
+				<button type="button" id="emailBtn" class="background-gray">이메일 인증하기</button>
 			</div>
 			
 			<div id="passwordContainer">
 				<h2>비밀번호</h2>
-				<p>영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</p>
-				<input type="password" class="border-gray" placeholder="비밀번호">
+				<h6>영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</h6>
+				<input type="password" name="" class="border-gray input-box" placeholder="비밀번호">
 			</div>			
 			
 			<div id="passwordCheckContainer">
 				<h2>비밀번호 확인</h2>
-				<input type="password" class="border-gray" placeholder="비밀번호 확인">
+				<input type="password" name="" class="border-gray input-box" placeholder="비밀번호 확인">
 			</div>
 			
 			<div id="nickNameContainer">
 				<h2>닉네임</h2>
-				<p>다른 유저와 겹치지 않도록 입력해주세요. (2~15자)</p>
-				<input type="text" class="border-gray" placeholder="닉네임">
+				<h6>다른 유저와 겹치지 않도록 입력해주세요. (2~15자)</h6>
+				<input type="text" class="border-gray input-box" placeholder="닉네임">
 			</div>
 			
 			<div id="termsContainer">
@@ -84,7 +85,13 @@
 					</label>
 				</div>
 			</div>
-		</div>
+			
+			<div class="g-recaptcha" data-sitekey="6LeSzuEmAAAAAFNAFoHpVpKIeLw6Iso_AI757aeh"></div>
+			
+			<button type="submit" id="submitBtn" class="background-purple">회원가입하기</button>
+			
+			<p align="center">이미 아이디가 있으신가요? <a href="/member/signin">로그인</a>
+		</form>
 	</div>
 	
 	<script type="text/javascript" src="/resources/js/checkboxSelectAll.js"></script>
