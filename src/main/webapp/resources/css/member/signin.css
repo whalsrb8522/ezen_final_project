@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+html, body {
+	height:100%;
+}
+
+#container {
+	width: 100%;
+	height: 100%;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#container #innerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 로고 */
+#container #logoContainer {
+	display: flex;
+    align-items: center;
+}
+
+#container #logoImage {
+    width: 60;
+    height: 60px;
+    margin-bottom: 15px;
+}
+
+#container #logoText {
+    padding-left: 8px;
+    font-weight: bold;
+    font-size: 28px;
+    color: #C97FE8;
+}
