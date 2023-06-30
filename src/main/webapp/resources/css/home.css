@@ -1,0 +1,59 @@
+@charset "UTF-8";
+
+section {
+	display: flex;
+    justify-content: center;
+}
+
+section #inCnerontainer {
+	width: 1024px;
+}
+
+/* 오늘의 상품 */
+section #todayProduct {
+    padding: 30px 40px;
+}
+
+section #productContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 30px
+}
+
+section .product {
+	width: 210px;
+	border: 1px solid rgb(238, 238, 238);
+}
+
+section .product-image {
+	width: 100%;
+	height: 200px;
+	overflow: hidden;
+}
+
+section .product-image img {
+	width: 100%;
+	height: 100%;
+}
+
+section .product-text {
+    padding: 5px;
+}
+
+section .product-text ul {
+	list-style: none;
+}
+
+section .product-price {
+	font-weight: bold
+}
+
+section .product-location {	
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid black;
+    padding: 5px;
+}
