@@ -17,7 +17,7 @@ public class HomeController {
 	@GetMapping("/")
 	public String home(Locale locale, Model model) {
 //		log.info(">>> home()");
-		
+	
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
