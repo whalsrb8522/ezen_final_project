@@ -5,13 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/board_qna/*")
-public class BoardQnaController {
-
-	@GetMapping("list")
-	public void list() {}
+@RequestMapping("/chat/*")
+public class ChatController {
 	
-	@GetMapping("register")
-	public void register() {}
+	@GetMapping("main")
+	public void main() {}
 
 }
