@@ -1,6 +1,6 @@
 @echo off
 
-set /p str1=branch ì„ íƒ : 
+set /p str1=branch ¼±ÅÃ : 
 
 git remote update
 git pull origin %str1%
