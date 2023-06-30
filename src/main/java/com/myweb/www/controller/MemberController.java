@@ -10,7 +10,12 @@ public class MemberController {
 
 	@GetMapping("signin")
 	public void signin() {
-		
+
+	}
+	
+	@GetMapping("signup")
+	public void signup() {
+	
 	}
 	
 }

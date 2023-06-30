@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+#container {
+    display: flex;
+    justify-content: center;
+}
+
+#innerContainer {
+    width: 400px;
+    height: 900px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#innerContainer h1 {
+	font-size: 25px;	
+}
+
+#innerContainer h2 {
+	font-size: 20px;	
+}
+
+/* SNS 로그인/회원가입 부분 */
+#signSnsText {
+	color: gray;
+}
+
+#signSnsBtn {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    border-bottom: 1px solid gray;
+    padding-bottom: 30px;
+}
+
+/* 약관 동의 */
+#termsInnerContainer {
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    justify-content: space-between;
+    color: #888;
+} #termsInnerContainer label:first-child {
+    font-weight: bold;
+    font-size: 20px;
+    border-bottom: 1px solid gray;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    color: black;
+}
