@@ -1,14 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<<<<<<< HEAD
-<link rel="stylesheet" type="text/css" href="/resources/css/header.css">
-<link rel="stylesheet" type="text/css" href="/resources/css/all.css">
-
-<header>
-	
-</header>
-=======
 <html>
 <head>
 	<title>header</title>
@@ -58,4 +50,3 @@
 	</nav>
 </body>
 </html>
->>>>>>> 819fd1e665760234a881caea647029f23b2cf983
