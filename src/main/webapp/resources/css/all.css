@@ -7,7 +7,7 @@
 	box-sizing: border-box;
 }
 
-input, button, label {
+input, button, label, a {
 	cursor: pointer;
 }
 
@@ -32,8 +32,7 @@ input, button, label {
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	cursor: pointer;
-}
-input.border-gray:focus {
+} input.border-gray:focus {
 	outline: none;
 	border-color: #c97fe8;
 	box-shadow: 0 0 5px #c97fe8;
