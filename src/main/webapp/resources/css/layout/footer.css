@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+footer {
+	position: relative;
+	display: flex;
+    justify-content: center;
+    border-top: 1px solid gray;
+}
+
+footer #footerContainer {
+	width: 1024px;
+}

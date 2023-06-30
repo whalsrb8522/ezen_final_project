@@ -10,7 +10,10 @@ public class BoardQnaController {
 
 	@GetMapping("list")
 	public void list() {}
+<<<<<<< HEAD
 	
 	@GetMapping("register")
 	public void register() {}
+=======
+>>>>>>> 137f27c2450becb7b04bf990d3ea8d9d04c665eb
 }
