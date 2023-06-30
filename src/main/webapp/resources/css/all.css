@@ -23,6 +23,7 @@ input, button, label, a {
 .background-gray {
     border: none;
     color: #bbb;
+    border-radius: 5px;
     background-color: #eee;
 }
 
