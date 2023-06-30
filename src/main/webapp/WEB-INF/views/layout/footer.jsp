@@ -8,9 +8,15 @@
 </head>
 <body>
 	<footer>
-		<div id="footerContainer">
-			푸터입니다.
-		</div>
+	
+	<div id="footerContainer">
+	<br><br><br>푸터입니다. 민규 화이팅! 오류를 잡아줘
+	<a href="/board_qna/register"><button type="button" class="btn btn-primary">1:1 문의</button></a> 
+	<a href="/board_location/register"><button type="button" class="btn btn-primary">지역게시판 글쓰기</button></a> 
+	<a href="/board_location/detail"><button type="button" class="btn btn-primary">지역게시판 detail</button></a> 
+	<a href="/board_location/list"><button type="button" class="btn btn-primary">지역게시판 홈</button></a> 
+	<br><br><br>
+	</div>
 	</footer>
 </body>
 </html>
