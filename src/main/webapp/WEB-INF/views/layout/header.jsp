@@ -49,9 +49,9 @@
 				menu
 			</span>
 			<div id="menuContainer">
-				<a href="#">양파타운</a>
-				<a href="#">1:1문의</a>
-				<a href="#">공지사항</a>
+				<a href="/board_location/list">양파타운</a>
+				<a href="/board_qna/register">1:1문의</a>
+				<a href="/board_notice/list">공지사항</a>
 			</div>
 		</div>
 	</nav>
