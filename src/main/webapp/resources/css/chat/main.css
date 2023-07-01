@@ -1,1 +1,36 @@
 @charset "UTF-8";
+
+/* 전체 컨테이너 */
+.entireContainer {
+	width: 1024px;
+	height: 100%;
+	display: flex;
+	justify-content: center
+}
+
+/* 채팅 리스트 컨테이너 */
+.listContainer {
+	width: 510px;
+	margin: 50px 0px 0px;
+	
+}
+/* 채팅방 컨테이너 */
+.roomContainer {
+	width: 510px;
+	
+}
+/* 채팅 리스트 상단 */
+.listBox1 {
+	width: 142px;
+	font-size: 28px;
+	padding: 20px;
+}
+/* 리스트 목록 */
+.listBox2 {
+	
+}
+
+
+
+
+
