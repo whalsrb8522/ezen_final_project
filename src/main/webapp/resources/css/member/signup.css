@@ -41,6 +41,27 @@
     transform-origin:0 0;
 }
 
+/* 로고 (이미지 및 텍스트) */
+#logoContainer {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+#logoImage {
+    width: 60;
+    height: 60px;
+    margin-bottom: 15px;
+}
+
+#logoText {
+    padding-left: 8px;
+    font-weight: bold;
+    font-size: 28px;
+    color: #C97FE8;
+}
+
 /* SNS 로그인/회원가입 부분 */
 #signSnsText {
 	color: gray;
@@ -91,5 +112,5 @@
     height: 50px;
     width: 100%;
     font-size: 17px;
-    margin-top: 13px;
+    margin-top: 16px;
 }
