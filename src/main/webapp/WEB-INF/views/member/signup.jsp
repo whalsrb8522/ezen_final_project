@@ -4,14 +4,19 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>양파마켓 | 회원가입</title>
 	<link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/member/signup.css">
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 	<div id="container">
-		<form action="/member/signup" method="post" id="innerContainer">
+		<form action="/member/signup" method="POST" id="innerContainer">
+			<a href="/" id="logoContainer">	
+				<img alt="로고" src="/resources/img/logo.png" id="logoImage">
+				<span id="logoText">양파마켓</span>
+			</a>
+		
 			<h1>회원가입</h1>
 			
 			<p id="signSnsText">SNS 계정으로 간편 로그인/회원가입</p>
