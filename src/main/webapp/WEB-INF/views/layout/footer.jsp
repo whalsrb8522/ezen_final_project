@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>footer</title>
 	<link rel="stylesheet" type="text/css" href="/resources/css/layout/footer.css">
 </head>
 <body>
