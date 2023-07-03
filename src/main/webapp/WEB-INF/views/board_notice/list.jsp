@@ -103,20 +103,52 @@
 	#searchBox #searchInput {
 	    border: none;
  		width: 100%;
- 		 margin-left: 0; 
+ 		margin-left: 0;
+	} 
 	
 	#searchBox #searchInput:focus {
 		outline: none;
-	}
+	}	
 	
 	/*체크 아이콘 상하 여백 조정 */
-	#inner-box div span.material-symbols-outlined:first-child {
- 	 display: inline-block;
-	 vertical-align: middle;
- 	 margin-bottom: 3px;
+	#inner-box div span.material-symbols-outlined {
+  	  display: inline-block;
+	  vertical-align: middle;
+ 	  margin-bottom: 3px;
+ 	  color: #c97fe8;
+ 	  font-variation-settings:
+	  'FILL' 1,
+	  'wght' 400,
+	  'GRAD' 0,
+	  'opsz' 48
+	}
+		
+	#notice {
+	  font-size: 18px;
+	  margin : 20px 0;
+	  font-weight :700;
+	  color : #666;
 	}
 	
-
+	#not-title{
+		margin-bottom: 30px;
+		font-weight :700;
+		color : #888;
+	}
+	
+	/*문서 모두보기*/
+	#showAll{
+	  width: 1024px;
+	  margin: 30px auto;
+	}
+	
+	#showAll span{
+	  font-size : 14px;
+	  font-weight :700;
+	  color : #666;
+	}
+	
+	
 </style>
 </head>
 <body>
@@ -142,21 +174,28 @@
 		</div>
 		
 		<div id="inner-box">
-			<span>전체공지</span>			
-			<div>
+			<div id="notice">전체공지</div>			
+			<div id="not-title">
 				<span class="material-symbols-outlined">check_circle</span>
-				<span>7월, 고객센터 운영 시간 안내</span>
+				<a><span>7월, 고객센터 운영 시간 안내</span></a>
 			</div>
-			<div>
+			<div id="not-title">
 				<span class="material-symbols-outlined">check_circle</span>
-				<span>7월, 고객센터 운영 시간 안내</span>
+				<a><span>개인정보처리방침 개정 안내 (2023.07.03)</span></a>
 			</div>
-			<div>
+			<div id="not-title">
 				<span class="material-symbols-outlined">check_circle</span>
-				<span>7월, 고객센터 운영 시간 안내</span>
+				<a><span>서비스 이용약관 개정 안내 (2023.04.01)</span></a>
 			</div>
+			<div id="not-title">
+				<span class="material-symbols-outlined">check_circle</span>
+				<a><span>양파마켓을 사칭하는 메시지, 조심하세요!</span></a>
+			</div>	
 		</div>
-
+		
+		<div id="showAll">
+			<a><span>문서 모두보기</span></a>
+		</div>
 		
 	</div>
 
