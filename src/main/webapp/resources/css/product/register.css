@@ -17,6 +17,7 @@
 	align-items: center;
 }
 
+
 .file-ul{
 	display: flex;
     width: 700px;
@@ -162,12 +163,17 @@
 	padding: 10px;
 }
 
-#regi-map{
+.search-input{
+	width: 670px;
+	height: 40px;
+	padding: 0 10px;
+	margin-right: 20px;
 }
 
-
-
-
+.search-loca-btn{
+	width: 100px;
+	height: 40px;
+}
 
 input[type="radio"] {
   accent-color: #C97FE8;

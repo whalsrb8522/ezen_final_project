@@ -18,8 +18,8 @@ public class MemberController {
 	
 	}
 	
-	@GetMapping("info")
-	public void info() {
+	@GetMapping("detail")
+	public void detail() {
 		
 	}
 	
