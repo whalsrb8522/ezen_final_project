@@ -7,7 +7,8 @@
 <title>양파마켓 | 글등록</title>
 <link rel="stylesheet" type="text/css" href="/resources/css/product/register.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/all.css">
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=28524d982cffea013a5f7c234898c8df"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=28524d982cffea013a5f7c234898c8df&libraries=services"></script>
 </head>
 <body>
 <jsp:include page="../layout/header.jsp"></jsp:include>
@@ -79,9 +80,12 @@
 		</div>
 		
 		<div id="loca-wrap">
-			<div class="register-title">거래 희망 장소</div>
-			<div>주소 검색</div>
-			<div id="regi-map" style="width:500px; height:400px;">지도</div>
+			<div class="register-title regi-location">거래 희망 장소</div>
+			<div id="search-loca">
+				<input type="text" id="search-address" class="border-gray search-input" placeholder="주소">
+				<input type="button" class="background-gray search-loca-btn" onclick="search_loca()" value="주소 검색"><br>
+				<div id="regi-map" style="width:800px;height:300px;margin-top:10px;display:none">지도</div>
+			</div>
 		</div>
 		
 		<div id="price-wrap">
@@ -115,7 +119,7 @@
 			</div>
 		</div>
 		<div id="btn-wrap">
-			<button class="background-purple regi-btn">등록하기</button>
+			<button class="background-purple regi-btn">수정하기</button>
 			<button type="button" class="background-gray regi-btn">취소</button>
 		</div>
 	</div>

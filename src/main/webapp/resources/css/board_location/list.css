@@ -1,11 +1,6 @@
 @charset "UTF-8";
 /*board_location/list.css*/
-
-	#tmp-box{ 
-		height: 300px;
-		background-color: #ccc;
-		margin-bottom : 10px;
-	}
+	
 	
 	#container {
 	  margin-top: 20px;
@@ -43,8 +38,7 @@
    	 background-color: #C97FE8;
   	  color: white;
   	}
-  	
-  	 .border-gray {
+  	  .border-gray {
 	  width: 100%;
 	  box-sizing: border-box;
 	  border: 1px solid #ccc;
@@ -54,6 +48,7 @@
 	  margin-bottom: 15px; 
 	}
   	
+
   	.submit-button {
 	  width: 100px;
 	  height: 40px;
@@ -77,6 +72,44 @@
 	  display: flex;
 	  align-items: center;
 	}
+	
+	/* 카테고리 */
+
+	#cate-wrap{
+		margin: 20px 0;	
+		height: 200px;
+	}
+	
+	#cate-wrap span{
+		margin-bottom:20px;
+	}
+	
+	.category{
+		display:inline-block;
+		width: 250px;
+		height: 35px;
+		margin-bottom: 5px;
+		padding: 7px 10px;
+		font-size: 13px;
+		color: gray;
+	}
+	
+	/* 페이지네이션 */
+	#page-wrap{
+		display: flex;
+ 		justify-content : center;
+	}
+	
+	.page-btn{
+		width: 30px;
+		height: 30px;
+		padding: 2px 0;
+		margin: 0 2px;
+		text-align: center;
+		cursor: pointer;
+		
+	}
+		
 	
 	/* 검색 관련 */
 	#searchBox {

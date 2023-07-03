@@ -75,7 +75,7 @@
 			<div id="mapContainer">
 				<h2>주소 선택</h2>
 				<div style="display: flex;">
-					<input type="text" id="mapAddress" class="border-gray input-box" placeholder="주소">
+					<input type="text" id="mapAddress" class="border-gray input-box" placeholder="주소" disabled="disabled">
 					<input type="button" onclick="execDaumPostcode()" id="mapBtn" class="background-purple" value="주소 검색"><br>
 				</div>
 				<div id="kakaoMap">
