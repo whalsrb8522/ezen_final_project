@@ -54,6 +54,7 @@
 					</div>
 				</div>
 				<div id="btn-wrap">
+					<button type="button" class="background-gray detail-btn">다른 상품 찾기</button>
 					<button type="button" class="background-gray detail-btn">찜</button>
 					<button type="button" class="background-purple detail-btn">채팅하기</button>
 				</div>
@@ -83,8 +84,11 @@
 				</div>
 			</div>
 			<div id="location-wrap">
-				<div id="detail-loca"><b>거래 희망 장소</b></div>
-				<div id="detail-map">지도</div>
+				<div id="location-detail-wrap">
+					<div id="detail-loca"><b>거래 희망 장소</b></div>
+					<div id="detail-detail-loca">&gt; 장소</div>
+				</div>
+					<div id="detail-map">지도</div>
 			</div>
 		</div>
 	</div>
