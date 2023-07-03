@@ -70,6 +70,15 @@
 				</div>
 			</div>
 			
+			<div id="imageContainer">
+				<h2>프로필 사진</h2>
+				<div style="display: flex;">
+					<input type="text" id="imagePath" class="border-gray">
+					<input type="button" id="imageChoose" class="background-purple" value="파일 선택">
+				</div>
+				<div id="imagePrint	"></div>
+			</div>
+			
 			<div id="termsContainer">
 				<h2>약관동의</h2>
 				<div id="termsInnerContainer" class="border-gray">
@@ -95,9 +104,7 @@
 					</label>
 				</div>
 			</div>
-			
-			<div class="g-recaptcha" data-sitekey="6LeSzuEmAAAAAFNAFoHpVpKIeLw6Iso_AI757aeh"></div>
-			
+					
 			<button type="submit" id="submitBtn" class="background-purple">회원수정하기</button>
 			
 			<p align="center">이미 아이디가 있으신가요? <a href="/member/signin">로그인</a>
