@@ -33,8 +33,23 @@
 	
 		<div id="inner-box">
 			<!-- 카테고리 : 경아언니꺼 받아서 넣기 -->
-			<div id="tmp-box"></div>
+			<div id="cate-wrap">
+				<span><b>카테고리</b></span><br><br>
+			
+			<div class="border-gray category">강화군</div>
+			<div class="border-gray category">옹진군</div>
+			<div class="border-gray category">중구</div>
+			<div class="border-gray category">동구</div> <br>
+			<div class="border-gray category">미추홀구</div>
+			<div class="border-gray category">연수구</div>
+			<div class="border-gray category">남동구</div>
+			<div class="border-gray category">부평구</div>
+			<div class="border-gray category">계양구</div>
+			<div class="border-gray category">서구</div>
+			<br>
+			</div>
 		</div>
+
 		
 		<div id="inner-box">
 			<div id="third-inner">
@@ -50,6 +65,7 @@
 
 		<hr>
 		<div id="inner-box">
+		<a href="/board_location/detail">
 		<div id="list-box">
 			<div id="list-main">
 				<span>동물병원 추천해주세요..</span>
@@ -67,7 +83,8 @@
 				<span class="material-symbols-outlined">sms</span>
 				<span class="material-text">1</span>
 			</div>
-		</div>			
+		</div>
+		</a>			
 		</div>			
 		<hr>
 
@@ -135,9 +152,21 @@
 			</div>
 		</div>			
 		</div>			
-		<hr>
-
-
+		<hr><br>
+		
+		<div id="inner-box">
+			<!-- 페이지네이션 -->
+			<div id="page-wrap">
+				<!-- 이전페이지 -->
+				<div class="background-gray page-btn">&lt;</div>
+				<!-- 컨트롤러에서 page 정보를 싣고 와야 함 -->
+				<!-- 숫자 페이지 -->
+				<div class="background-gray page-btn">i</div>
+				<!-- 다음페이지 -->
+				<div class="background-gray page-btn">&gt;</div>
+			</div>
+		</div>
+		
 
 	</div>
 		

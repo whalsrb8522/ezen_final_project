@@ -308,8 +308,8 @@
 		
 		<div id="inner-box">
 		  <div class="button-container">
-		    <button class="background-gray submit-button">수정</button>
-		    <button class="background-gray cancel-button submit-button">삭제</button>
+		    <a href="/board_location/modify"><button class="background-gray submit-button">수정</button></a>
+		    <a href="#"><button class="background-gray cancel-button submit-button">삭제</button></a>
 		  </div>
 		</div>
 		
