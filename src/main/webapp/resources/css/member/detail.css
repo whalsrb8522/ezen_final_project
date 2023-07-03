@@ -31,10 +31,11 @@
 }
 
 #memberMainIntroduce {
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	font-size: 14px;
+    width: 512px;
+    height: 100%;
+    overflow: auto;
+    font-size: 14px;
+    text-overflow: ellipsis;
 }
 
 #memberImage {
@@ -80,6 +81,15 @@
 #memberMainRight {
     width: 250px;
     padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#memberMainRight #memberLeftMoney {
+    font-size: 22px;
+    text-align: right;
+    font-weight: bold;
 }
 
 .store-icon {
