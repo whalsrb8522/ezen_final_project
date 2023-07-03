@@ -7,7 +7,13 @@
 	<title>양파마켓 | 회원가입</title>
 	<link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/member/signup.css">
+	
+	<!-- 구글 폰트 -->
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+	
+	<!-- 카카오 지도 -->
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=28524d982cffea013a5f7c234898c8df&libraries=services"></script>
 </head>
 <body>
 	<div id="container">
@@ -61,6 +67,21 @@
 				<input type="text" class="border-gray input-box" placeholder="닉네임">
 			</div>
 			
+			<div id="introduceContainer">
+				<h2>자기 소개</h2>
+				<textarea name="" class="border-gray textarea-box" placeholder="자기 소개를 입력해주세요."></textarea>
+			</div>
+			
+			<div id="mapContainer">
+				<h2>주소 선택</h2>
+				<div style="display: flex;">
+					<input type="text" id="mapAddress" class="border-gray input-box" placeholder="주소">
+					<input type="button" onclick="execDaumPostcode()" id="mapBtn" class="background-purple" value="주소 검색"><br>
+				</div>
+				<div id="kakaoMap">
+				</div>
+			</div>
+			
 			<div id="termsContainer">
 				<h2>약관동의</h2>
 				<div id="termsInnerContainer" class="border-gray">
@@ -99,6 +120,6 @@
 		</form>
 	</div>
 	
-	<script type="text/javascript" src="/resources/js/checkboxSelectAll.js"></script>
+	<script type="text/javascript" src="/resources/js/member/signup.js"></script>
 </body>
 </html>
