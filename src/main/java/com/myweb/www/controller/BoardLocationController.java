@@ -16,4 +16,7 @@ public class BoardLocationController {
 	
 	@GetMapping("detail")
 	public void detail() {}
+	
+	@GetMapping("modify")
+	public void modify() {}
 }
