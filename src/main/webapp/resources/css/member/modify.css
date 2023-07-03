@@ -136,13 +136,6 @@
     padding: 20px;
     justify-content: space-between;
     color: #888;
-} #termsInnerContainer label:first-child {
-    font-weight: bold;
-    font-size: 20px;
-    border-bottom: 1px solid gray;
-    padding-bottom: 15px;
-    margin-bottom: 15px;
-    color: black;
 }
 
 /* 회원가입 */
@@ -150,5 +143,4 @@
     height: 50px;
     width: 100%;
     font-size: 17px;
-    margin-top: 16px;
 }

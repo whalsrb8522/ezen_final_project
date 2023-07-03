@@ -78,8 +78,16 @@
 					<input type="text" id="mapAddress" class="border-gray input-box" placeholder="주소" disabled="disabled">
 					<input type="button" onclick="execDaumPostcode()" id="mapBtn" class="background-purple" value="주소 검색"><br>
 				</div>
-				<div id="kakaoMap">
+				<div id="kakaoMap"></div>
+			</div>
+			
+			<div id="imageContainer">
+				<h2>프로필 사진</h2>
+				<div style="display: flex;">
+					<input type="text" id="imagePath" class="border-gray">
+					<input type="button" id="imageChoose" class="background-purple" value="파일 선택">
 				</div>
+				<div id="imagePrint	"></div>
 			</div>
 			
 			<div id="termsContainer">
