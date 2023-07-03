@@ -22,7 +22,7 @@
 					<button type="button" onclick="location.href='/member/modify'" id="profileModifyBtn" class="background-purple">프로필 수정</button>
 				</div>
 				<div id="memberProfileRight">
-					<h3>상점 002호</h3>
+					<h3>상점 002호(닉네임 오는 자리?)</h3>
 					<div id="memberStoreInfo">
 						<p>
 							<span class="material-symbols-outlined store-icon">
@@ -45,7 +45,7 @@
 						</div>
 						<div id="memberMainRight" class="background-purple">
 							<p>사용가능 양파머니</p>
-							<p>1,000,000 원</p>
+							<p id="memberLeftMoney">1,000,000 원</p>
 						</div>
 					</div>
 				</div>

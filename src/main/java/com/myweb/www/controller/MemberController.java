@@ -22,5 +22,10 @@ public class MemberController {
 	public void info() {
 		
 	}
+	
+	@GetMapping("modify")
+	public void modify() {
+		
+	}
 
 }
