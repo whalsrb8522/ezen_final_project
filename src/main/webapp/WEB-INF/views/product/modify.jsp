@@ -126,7 +126,7 @@
 	</div>
 </form>	
 	
-<jsp:include page="../layout/footer.jsp"></jsp:include>
-<script type="text/javascript" src="/resources/js/product/register.js"></script>
+	<jsp:include page="../layout/footer.jsp"></jsp:include>
+	<script type="text/javascript" src="/resources/js/product/register.js"></script>
 </body>
 </html>

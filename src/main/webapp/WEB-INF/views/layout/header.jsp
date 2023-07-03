@@ -33,12 +33,14 @@
 			
 			<div id="memberContainer">
 				<!-- 로그인 전 -->
+				<!-- 
 				<a href="/member/signup">회원가입</a>
 				<a href="/member/signin">로그인</a>
-				
+				 -->
+				 
 				<!-- 로그인 후 -->
-				<!-- <a href="/member/info">내 상점</a>
-				<a href="/member/signout">로그아웃</a> -->
+				<a href="/member/detail">내 상점</a>
+				<a href="/member/signout">로그아웃</a>
 			</div>
 		</div>
 	</header>
