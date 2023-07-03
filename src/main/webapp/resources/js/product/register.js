@@ -1,6 +1,45 @@
-const container = document.getElementById('regi-map'); //지도를 담을 영역의 DOM 레퍼런스
-let options = { //지도를 생성할 때 필요한 기본 옵션
-    center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
-    level: 3 //지도의 레벨(확대, 축소 정도)
-};
-let map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+let mapContainer = document.getElementById('regi-map'), // 지도를 표시할 div
+    mapOption = {
+        center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+        level: 2 // 지도의 확대 레벨
+    };
+
+//지도를 미리 생성
+let map = new daum.maps.Map(mapContainer, mapOption);
+//주소-좌표 변환 객체를 생성
+let geocoder = new daum.maps.services.Geocoder();
+//마커를 미리 생성
+let marker = new daum.maps.Marker({
+    position: new daum.maps.LatLng(37.537187, 127.005476),
+    map: map
+});
+
+
+function search_loca() {
+    new daum.Postcode({
+        oncomplete: function (data) {
+            let addr = data.address; // 최종 주소 변수
+
+            // 주소 정보를 해당 필드에 넣는다.
+            document.getElementById("search-address").value = addr;
+            // 주소로 상세 정보를 검색
+            geocoder.addressSearch(data.address, function (results, status) {
+                // 정상적으로 검색이 완료됐으면
+                if (status === daum.maps.services.Status.OK) {
+
+                    let result = results[0]; //첫번째 결과의 값을 활용
+
+                    // 해당 주소에 대한 좌표를 받아서
+                    let coords = new daum.maps.LatLng(result.y, result.x);
+                    // 지도를 보여준다.
+                    mapContainer.style.display = "block";
+                    map.relayout();
+                    // 지도 중심을 변경한다.
+                    map.setCenter(coords);
+                    // 마커를 결과값으로 받은 위치로 옮긴다.
+                    marker.setPosition(coords)
+                }
+            });
+        }
+    }).open();
+}

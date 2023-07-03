@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>양파마켓 | 목록</title>
+<link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/product/list.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
 </head>

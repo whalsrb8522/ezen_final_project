@@ -17,6 +17,9 @@ public class ProductController {
 	@GetMapping("/detail")
 	public void detail() {}
 	
+	@GetMapping("/modify")
+	public void modify() {}
+	
 	
 	
 	
