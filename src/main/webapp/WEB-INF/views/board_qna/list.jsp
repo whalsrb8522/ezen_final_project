@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>양파마켓 | 1:1문의하기</title>
+<link rel="icon" type="image/png" href="/resources/images/favicon.png">
 <link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <style>
@@ -23,7 +24,7 @@
 	    margin-bottom: 8px;
 	 }
 	
-	.border-gray {
+	#container .border-gray {
 	  width: 100%;
 	  box-sizing: border-box;
 	  border: 1px solid #ccc;
@@ -120,6 +121,22 @@
 	.table-light thead {
    		background-color: #c97fe8;
   	}
+  	
+  	/* 페이지네이션 */
+	#page-wrap{
+		display: flex;
+ 		justify-content : center;
+	}
+	
+	.page-btn{
+		width: 30px;
+		height: 30px;
+		padding: 2px 0;
+		margin: 0 2px;
+		text-align: center;
+		cursor: pointer;
+		
+	}
 	
 </style>	
 </head>
@@ -153,7 +170,6 @@
 							<th>제목</th>
 							<th>ID</th>
 							<th>등록시간</th>
-							<th>마지막활동</th>
 							<th>상태</th>
 						</tr>					
 					</thead>
@@ -162,11 +178,23 @@
 							<td><a href="/board_qna/detail">의뢰문의</a></td>
 							<td>mari</td>
 							<td>2023.07.04</td>
-							<td>몇 초 전</td>
 							<td>답변 전</td>
 						</tr>					
 					</tbody>
 				</table>
+			</div>
+		</div>
+		
+		<div id="inner-box">
+			<!-- 페이지네이션 -->
+			<div id="page-wrap">
+				<!-- 이전페이지 -->
+				<div class="background-gray page-btn">&lt;</div>
+				<!-- 컨트롤러에서 page 정보를 싣고 와야 함 -->
+				<!-- 숫자 페이지 -->
+				<div class="background-gray page-btn">i</div>
+				<!-- 다음페이지 -->
+				<div class="background-gray page-btn">&gt;</div>
 			</div>
 		</div>
 		
