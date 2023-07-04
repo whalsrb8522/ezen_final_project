@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/png" href="/resources/images/favicon.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 <title>양파마켓 | 공지사항</title>
@@ -31,11 +32,7 @@
 	  display: flex;
 	  justify-content: space-between;
 	  align-items: center;
-	  margin : 10px 0 20px 0;
-	}
-	
-	#inner-box h3 {
-	  margin: 0;
+	  margin : 5px 0 5px 0;
 	}
 	
 	#comment-btn {
@@ -47,7 +44,7 @@
 	    margin-bottom: 8px;
 	 }
 	
-	.border-gray {
+	#container .border-gray {
 	  width: 100%;
 	  box-sizing: border-box;
 	  border: 1px solid #ccc;
@@ -75,7 +72,7 @@
 	#inner-box h3 {
 	  font-size : 26px;
 	  margin-top: 15px;
-	  margin-bottom: 30px;
+	  margin-bottom: 20px;
 	}
 	
 	#inner-box:not(:first-child) {
@@ -110,7 +107,7 @@
 	    display: flex;
 	    justify-content: space-between;
 	    overflow: hidden;
-	    margin-top:4px;
+	    margin-bottom:10px;
 	}
 	
 	#searchBox #searchIcon {
@@ -172,6 +169,21 @@
 	  color : #666;
 	}
 	
+	/* 페이지네이션 */
+	#page-wrap{
+		display: flex;
+ 		justify-content : center;
+	}
+	
+	.page-btn{
+		width: 30px;
+		height: 30px;
+		padding: 2px 0;
+		margin: 0 2px;
+		text-align: center;
+		cursor: pointer;		
+	}
+	
 	
 </style>
 </head>
@@ -206,7 +218,7 @@
 			<div id="notice">전체공지</div>			
 			<div id="not-title">
 				<span class="material-symbols-outlined">check_circle</span>
-				<a><span>7월, 고객센터 운영 시간 안내</span></a>
+				<a href="/board_notice/detail"><span>7월, 고객센터 운영 시간 안내</span></a>
 			</div>
 			<div id="not-title">
 				<span class="material-symbols-outlined">check_circle</span>
@@ -220,10 +232,39 @@
 				<span class="material-symbols-outlined">check_circle</span>
 				<a><span>양파마켓을 사칭하는 메시지, 조심하세요!</span></a>
 			</div>	
+			<div id="not-title">
+				<span class="material-symbols-outlined">check_circle</span>
+				<a><span>모두보기 누르면 나올 것 1</span></a>
+			</div>	
+			<div id="not-title">
+				<span class="material-symbols-outlined">check_circle</span>
+				<a><span>모두보기 누르면 나올 것 2</span></a>
+			</div>	
+			<div id="not-title">
+				<span class="material-symbols-outlined">check_circle</span>
+				<a><span>모두보기 누르면 나올 것 3</span></a>
+			</div>	
+			<div id="not-title">
+				<span class="material-symbols-outlined">check_circle</span>
+				<a><span>모두보기 누르면 나올 것 4</span></a>
+			</div>	
 		</div>
 		
 		<div id="showAll">
 			<a><span>문서 모두보기</span></a>
+		</div>
+		
+		<div id="inner-box">
+			<!-- 페이지네이션 -->
+			<div id="page-wrap">
+				<!-- 이전페이지 -->
+				<div class="background-gray page-btn">&lt;</div>
+				<!-- 컨트롤러에서 page 정보를 싣고 와야 함 -->
+				<!-- 숫자 페이지 -->
+				<div class="background-gray page-btn">i</div>
+				<!-- 다음페이지 -->
+				<div class="background-gray page-btn">&gt;</div>
+			</div>
 		</div>
 		
 	</div>

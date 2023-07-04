@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/png" href="/resources/images/favicon.png">
 <link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/board_location/list.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -56,7 +57,7 @@
 				<div id="icon-box">
 					<a href="#"><span class="material-symbols-outlined">refresh</span></a>
 				</div>
-				<div id="searchBox" class="border-gray">
+				<div id="searchBox" class="border-gray2">
 					<span id="searchIcon" class="material-symbols-outlined">search</span>
 					<input type="text" id="searchInput" placeholder=" 계양구 근처에서 검색">
 				</div>
