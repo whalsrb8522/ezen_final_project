@@ -19,6 +19,30 @@
 	 
 	}
 	
+	.submit-button {
+	  width: 100px;
+	  height: 40px;
+	  font-size: 16px;
+	  border: 1px solid ;
+	  border-radius: 5px;
+	}
+	
+	#second-inner {
+	  display: flex;
+	  justify-content: space-between;
+	  align-items: center;
+	  margin : 10px 0 20px 0;
+	}
+	
+	#inner-box h3 {
+	  margin: 0;
+	}
+	
+	#comment-btn {
+	  display: flex;
+	  align-items: center;
+	}
+	
 	.qna-select, .qna-content {
 	    margin-bottom: 8px;
 	 }
@@ -163,7 +187,12 @@
 		</div>
 	
 		<div id="inner-box">
-			<h3>공지사항</h3>			
+			<div id="second-inner">
+				<h3>공지사항</h3>
+				<div id="comment-btn">
+					<a href="/board_notice/register"><button class="background-purple submit-button">등록하기</button></a>
+				</div>
+			</div>		
 		</div>
 		
 		<div id="inner-box">
