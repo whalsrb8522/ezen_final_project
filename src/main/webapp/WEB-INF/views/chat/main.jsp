@@ -23,86 +23,125 @@
 	<!-- 전체 채팅 리스트 및 채팅방을 감싸는 컨테이너 -->
 	<div class="bodyPage">
 		<div class="entireContainer">
-			<div class="listContainer">
-				<div class="listBox1">
-					전체 대화 
-					<span class="material-symbols-outlined">expand_more</span>
-				</div>
-				<div class="listBox2">
-					<ul>
-						<li>
-							<img alt="프로필 사진" src="">
-						</li>
-						<div>닉네임</div>
-						<div>오전 10:30</div>
-					</ul>
+			<div class="Container">
+				<div class="listContainer">
+					<div class="listContainer1">
+						<div class="listContainer2">
+						
+							<div class="listBox">
+								<div class="listBox1">
+									<div class="listBox2">
+										전체 대화 
+										<span class="material-symbols-outlined">expand_more</span>
+									</div>
+								</div>
+							</div>
+							
+							<div class="chatList">
+								<a class="chatList1">
+									<div class="chatList2">
+										<div class="chatList3">
+											<img alt="" src="" class="chatListImg">
+										</div>
+									
+									</div>
+								</a>
+								
+								<div class="chatListText">
+									<div class="chatListText1">
+										<div class="chatListText2">
+											<strong class="chatListText3">닉네임</strong>
+										</div>
+										<div class="chatListText4">
+											<div class="chatListText5">
+												<div class="chatListText6">마지막 메세지</div>
+												<div class="chatListText7">
+													&nbsp;・&nbsp;
+													대화 시간
+												</div>
+											</div>
+										</div>
+									</div>
+								
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 				
-			</div>
-			
-			<div class="roomContainer">
-				<div class="roomBox1">
-					<span class="material-symbols-outlined">keyboard_backspace</span>
-					<div id="nick">닉네임</div>
-					<div id="response">보통 10분 이내 응답</div>>
-					<hr>
-				</div>
-				<div class="roomBox2">
-					<a>
-						<img alt="판매 상품 썸네일 사진" src="">
-					</a>
-					<span>거래중</span>
-					<span>이케아 스탠드 판매합니다.</span>
-					<span>18,000원</span>
-					<hr>
-					
-				</div>
-				<div class="roomBox3">
-					<div class="myChat">
-						<ul>
-							<li>
-						
-							</li>
-						</ul>
-						<span>
-							<p>안녕하세요 물건 구매하고 싶은데요</p>
-						</span>
-						<span>
-							<div>보낸시간</div>
-						</span>
-					</div>
-					<div class="yourChat">
-						<a>
-							<img alt="프로필 사진" src="">
-						</a>
-						<span>
-							<p>네 안녕하세요</p>
-						</span>		
-						<span>
-							<div>보낸시간</div>
-						</span>	
-					</div>
-		
-				</div>
-				<div class="">
-						<span class="material-symbols-outlined">add</span>
-						<div>
-							<textarea rows="" cols="" placeholder="메세지를 입력하세요"></textarea>
+				<div class="roomContainer">
+					<div class="roomContainer1">
+						<div class="roomTopBox">
+							<span class="material-symbols-outlined" id="TopBoxicon">keyboard_backspace</span>
+							<div class="roomTopBox3">
+								<div class="roomTopBox-nick">닉네임</div>
+								<div class="roomTopBox-time">평균 응답 시간</div>
+							</div>
 						</div>
-						<a href="#">
-							<span class="material-symbols-outlined">send</span>
-						</a>
+						
+						<hr style="margin-bottom: 20px;">
+						
+						<div class="roomMidBoxEx">
+							<img alt="" src="" class="item-image">
+							<div class="item-info">
+								<span class="trade-status">거래중</span>
+								<span class="price">18,000원</span>
+							</div>	
+								<span class="trade-title">이케아 스탠드 판매합니다.</span>
+						</div>
+						
+						<hr style="margin-top: 20px;">
+						
+						<div class="roomMidBox">
+							<div class="roomMidBox1">
+								<div class="roomMidBoxChat">
+									<div class="roomMidBoxChat1">
+										<span class="roomMidBoxChat2">채팅 날짜</span>
+										<hr class="roomMidBoxChat3">
+									</div>
+								</div>
+								<div class="roomMidBoxChat4">
+									<span class="myChat">대화대화대화대화대화</span>
+									<span class="myChatTime">대화 시간</span>
+								</div>
+								<div class="roomMidBoxChat5">
+									<img alt="" src="">
+									<span class="yourChat">대화대화대화대화대화</span>
+									<span class="yourChatTime">대화 시간</span>
+								</div>
+							</div>
+						</div>
+						<div class="roomBotBox">
+							<div class="roomBotBox1">
+								<div class="roomBotBox2">
+									<span class="material-symbols-outlined">add</span>
+								</div>
+								
+								
+
+				
+								<div class="roomBotBox3">
+									<div class="roomBotBox4">
+										<textarea rows="" cols="" placeholder="메세지를 입력하세요" class="roomBotBoxText"></textarea>
+									</div>
+									<div class="roomBotBoxBtn">
+										<span class="material-symbols-outlined">send</span>
+									</div>
+								</div>
+							</div>
+						</div>
+		
+		
+		
+		
+							
+					</div>
 				</div>
-		
-		
-		
-		
-		
-	
-	
 			</div>
 		</div>
 	</div>
 	<jsp:include page="../layout/footer.jsp"></jsp:include>
+	<jsp:include page="../chat/modal.jsp"></jsp:include>
+	
 </body>
 </html>
