@@ -433,14 +433,6 @@ textarea {
     cursor: pointer;
 }
 
-.option {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
 
-.option-label {
-  margin-left: 10px;
-}
 
 
