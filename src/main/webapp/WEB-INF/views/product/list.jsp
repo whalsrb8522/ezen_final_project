@@ -38,6 +38,10 @@
 			<div class="product-wrapper">
 				<div class="product-photo">
 					<img alt="없음" src="/resources/image/44.jpg" class="product-photo">
+					<!-- 구매가능, 예약중, 거래완료 -->
+					<div class="product-status">
+						<img alt="" src="/resources/image/44.jpg" style="width:35px;height:16px;">
+					</div>
 				</div>
 				<div class="product-title">짱구놈 팔아요하나둘셋야빰빰빰빰빰빠빰빠마ㅃㅁ빰빰빰!</div>
 				<div class="product-price"><b>2,000 <span style="font-size:12px">원</span></b></div>
