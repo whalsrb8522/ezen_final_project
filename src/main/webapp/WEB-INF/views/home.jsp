@@ -5,6 +5,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>양심거래 파트너 양파마켓</title>
+	<link rel="shortcut icon" href="/resources/img/favicon.png">
 	<link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/home.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
