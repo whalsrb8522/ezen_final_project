@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/png" href="/resources/images/favicon.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/board_location/detail.css">
@@ -19,9 +20,7 @@
 	#inner-box {
 	  width: 1024px;
 	  margin: 0 auto;
-	  margin-bottom:20px;
-
-	  
+	  margin-bottom:20px; 
 	}
 	
 	.background-purple {
@@ -29,7 +28,7 @@
     color: white;
   	}
   	
-  	 .border-gray {
+  	 #container .border-gray {
 	  width: 100%;
 	  box-sizing: border-box;
 	  border: 1px solid #ccc;
@@ -37,7 +36,7 @@
 	  padding: 6px 12px;
 	  font-size: 14px;
 	  margin-bottom: 15px; /* 여백 추가 */
-	}
+	}  	
   	
   	.submit-button {
 	  width: 100px; /* 버튼 가로 크기를 100px로 설정 */
@@ -193,13 +192,13 @@
 	.button-container {
 	  display: flex;
 	  justify-content: center;
-	  width: 100%; /* 가로 폭을 100%로 설정 */
+	  width: 100%; 
 	  margin-top: 20px;
-	  gap: 20px; /* 버튼 사이에 30px의 여백 추가 */
+	  gap: 20px;
 	}
 	
 	.submit-button {
-	  width: 100px; /* 버튼 가로 크기를 100px로 설정 */
+	  width: 100px;
 	  height: 40px;
 	  font-size: 16px;
 	  border-radius: 5px;
@@ -207,7 +206,12 @@
 	}
 	
 	.cancel-button {
-	  border: none; /* 테두리 없음 */
+	  border: none; 
+	}
+	
+	.button-container button:hover {
+ 	 background-color: #C97FE8;
+ 	 color: white;
 	}
 	
 </style>	

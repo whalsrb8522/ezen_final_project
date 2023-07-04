@@ -9,6 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/home.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+	<link rel="icon" type="image/png" href="/resources/img/favicon.png">
 </head>
 <body>
 	<jsp:include page="./layout/header.jsp"></jsp:include>
