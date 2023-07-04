@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>양파마켓 | 채팅메인 </title>
+<link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/chat/main.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
@@ -72,7 +73,7 @@
 				<div class="roomContainer">
 					<div class="roomContainer1">
 						<div class="roomTopBox">
-							<span class="material-symbols-outlined" id="TopBoxicon">keyboard_backspace</span>
+							<span class="material-symbols-outlined" id="TopBoxIcon">keyboard_backspace</span>
 							<div class="roomTopBox3">
 								<div class="roomTopBox-nick">닉네임</div>
 								<div class="roomTopBox-time">평균 응답 시간</div>
