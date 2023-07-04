@@ -14,7 +14,7 @@ var mapContainer = document.getElementById('kakaoMap'); // 지도를 표시할 d
 mapOption = {
     center: new daum.maps.LatLng(37.45034013579847 , 126.70286743807637), // 지도의 중심좌표
     draggable: false,
-    level: 5 // 지도의 확대 레벨
+    level: 3 // 지도의 확대 레벨
 };
 
 //지도를 미리 생성
