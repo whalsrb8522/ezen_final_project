@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>header</title>
 	<link rel="stylesheet" type="text/css" href="/resources/css/layout/header.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/layout/nav.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -36,10 +35,12 @@
 				<!-- 로그인 전 -->
 				<a href="/member/signup">회원가입</a>
 				<a href="/member/signin">로그인</a>
-				
+				 
 				<!-- 로그인 후 -->
-				<!-- <a href="/member/info">내 상점</a>
-				<a href="/member/signout">로그아웃</a> -->
+				<!-- 
+				<a href="/member/detail">내 상점</a>
+				<a href="/member/signout">로그아웃</a>
+				 -->
 			</div>
 		</div>
 	</header>
@@ -49,9 +50,9 @@
 				menu
 			</span>
 			<div id="menuContainer">
-				<a href="#">양파타운</a>
-				<a href="#">1:1문의</a>
-				<a href="#">공지사항</a>
+				<a href="/board_location/list">양파타운</a>
+				<a href="/board_qna/register">1:1문의</a>
+				<a href="/board_notice/list">공지사항</a>
 			</div>
 		</div>
 	</nav>

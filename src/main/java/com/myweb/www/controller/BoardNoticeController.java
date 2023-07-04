@@ -5,18 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/board_location/*")
-public class BoardLocationController {
+@RequestMapping("/board_notice/*")
+public class BoardNoticeController {
 
 	@GetMapping("list")
 	public void list() {}
-		
-	@GetMapping("register")
-	public void register() {}
 	
-	@GetMapping("detail")
-	public void detail() {}
-	
-	@GetMapping("modify")
-	public void modify() {}
 }
+
