@@ -47,7 +47,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 10px;
+  margin: 15px;
 }
 
 .larger-icon {
@@ -55,6 +55,7 @@
   line-height: 1;
   margin-bottom: 8px;
   color: rgb(201, 127, 232);
+  cursor: pointer;
 }
 	
 
@@ -140,7 +141,7 @@ closeModal.addEventListener('click', function() {
 
 window.addEventListener('click', function(event) {
   if (event.target === modal) {
-    modal.style.display = 'none';
+    modal.style.display = 'block';
   }
 });
 
