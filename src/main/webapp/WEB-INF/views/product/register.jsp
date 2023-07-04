@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>양파마켓 | 글수정</title>
+<title>양파마켓 | 글등록</title>
 <link rel="stylesheet" type="text/css" href="/resources/css/product/register.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -12,8 +12,7 @@
 </head>
 <body>
 <jsp:include page="../layout/header.jsp"></jsp:include>
-	
-	<form action="/" method="post">
+<form action="/" method="post">
 	<div id="register-wrap">
 		
 		<div id="image-wrap">
@@ -120,13 +119,14 @@
 			</div>
 		</div>
 		<div id="btn-wrap">
-			<button class="background-purple regi-btn">등록하기</button>
+			<button class="background-purple regi-btn">수정하기</button>
 			<button type="button" class="background-gray regi-btn">취소</button>
 		</div>
 	</div>
 </form>	
-	
-	<jsp:include page="../layout/footer.jsp"></jsp:include>
-	<script type="text/javascript" src="/resources/js/product/register.js"></script>
+
+<jsp:include page="../layout/footer.jsp"></jsp:include>
+
+<script type="text/javascript" src="/resources/js/product/register.js"></script>
 </body>
 </html>

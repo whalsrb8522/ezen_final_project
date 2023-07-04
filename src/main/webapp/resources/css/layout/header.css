@@ -65,15 +65,15 @@ header #searchContainer #searchInput {
 header #memberContainer {
     display: flex;
     height: 100%;
-    align-items: center;
-    width: 160px;
+    align-items: flex-start;
+    width: 130px;
     justify-content: space-between;
-    font-size: 17px;
+    font-size: 15px;
 }
 
 header #memberContainer a {
-	color: black;
-	text-decoration: none;	
+	color: #666;
+	text-decoration: none;
 } header #memberContainer a:hover {
 	color: #C97FE8;
 	font-weight: 550;

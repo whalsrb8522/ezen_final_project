@@ -22,8 +22,9 @@
 }
 
 #container .product {
-	width: 210px;
-	border: 1px solid rgb(238, 238, 238);
+    width: 210px;
+    border: 1px solid rgb(238, 238, 238);
+    cursor: pointer;
 }
 
 #container .product-image {
