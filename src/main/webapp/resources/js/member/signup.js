@@ -6,16 +6,7 @@ function selectAll(selectAll)  {
        checkbox.checked = selectAll.checked;
     })
 }
-
-
-// 카카오 지도 API
-// var container = document.getElementById('kakaoMap'); //지도를 담을 영역의 DOM 레퍼런스
-// var options = { //지도를 생성할 때 필요한 기본 옵션
-// 	center: new kakao.maps.LatLng(37.45034013579847 , 126.70286743807637), //지도의 중심좌표.
-// 	level: 3 //지도의 레벨(확대, 축소 정도)
-// };
-
-// var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+// ------------------------------------------------------------
 
 // 주소 선택
 var mapContainer = document.getElementById('kakaoMap'); // 지도를 표시할 div
@@ -76,4 +67,16 @@ function execDaumPostcode() {
             }
         }
     }).open();
+}
+// --------------------------------------------------------------------------------
+
+// 회원탈퇴 체크
+function removeMember() {
+    var confirmcheck = confirm("정말로 탈퇴하시겠습니까?");
+
+    if(confirmcheck) {
+        alert("탈퇴되었습니다.");
+    } else {
+        alert("취소되었습니다.");
+    }
 }
