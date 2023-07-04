@@ -16,14 +16,14 @@
 	    margin-bottom: 8px;
 	 }
 	
-	.border-gray {
+	#container .border-gray {
 	  width: 100%;
 	  box-sizing: border-box;
 	  border: 1px solid #ccc;
 	  border-radius: 4px;
 	  padding: 6px 12px;
 	  font-size: 14px;
-	  margin-bottom: 15px; /* 여백 추가 */
+	  margin-bottom: 15px;
 	}
 	
 	select.border-gray:focus {
