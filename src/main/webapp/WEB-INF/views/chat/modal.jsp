@@ -22,9 +22,9 @@
 .modal-content {
   background-color: #fff;
   margin: 15% auto;
-  padding: 20px;
+  padding: 15px;
   border-radius: 5px;
-  max-width: 400px;
+  max-width: 430px;
 }
 
 .modal-header {
@@ -47,7 +47,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 10px;
+  margin: 15px;
 }
 
 .larger-icon {
@@ -55,6 +55,7 @@
   line-height: 1;
   margin-bottom: 8px;
   color: rgb(201, 127, 232);
+  cursor: pointer;
 }
 	
 
@@ -78,7 +79,7 @@
           <span class="option-label">장소선택</span>
         </div>
         <div class="option" data-action="showRemittanceWindow()">
-          <span class="material-symbols-outlined larger-icon">check_circle</span>
+          <span class="material-symbols-outlined larger-icon">calendar_today</span>
           <span class="option-label">거래약속</span>
         </div>
         <div class="option">
@@ -140,7 +141,7 @@ closeModal.addEventListener('click', function() {
 
 window.addEventListener('click', function(event) {
   if (event.target === modal) {
-    modal.style.display = 'none';
+    modal.style.display = 'block';
   }
 });
 
