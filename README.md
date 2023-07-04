@@ -118,7 +118,7 @@ bl_isDel tinyint default 0 not null,
 primary key(bl_number));
 
 // 지역 게시판 댓글
-create table bard_location_comment(
+create table board_location_comment(
 blc_number int not null auto_increment,
 bl_number int not null,
 blc_writer varchar(50) not null,
