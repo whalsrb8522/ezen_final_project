@@ -7,6 +7,7 @@
 <title>양파마켓 | 지역게시판</title>
 <link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/board_location/register.css">
+<link rel="icon" type="image/png" href="/resources/images/favicon.png">
 <style>
 </style>
 </head>
@@ -66,7 +67,7 @@
 		
 		<div id="inner-box">
 		  <div class="button-container">
-		    <button class="background-purple submit-button">제출</button>
+		    <a href="/board_location/list"><button class="background-purple submit-button">제출</button></a>
 		    <button class="background-gray cancel-button submit-button">취소</button>
 		  </div>
 		</div>

@@ -10,6 +10,15 @@ public class BoardNoticeController {
 
 	@GetMapping("list")
 	public void list() {}
+
+	@GetMapping("register")
+	public void register() {}
+	
+	@GetMapping("modify")
+	public void modify() {}
+	
+	@GetMapping("detail")
+	public void detail() {}
 	
 }
 

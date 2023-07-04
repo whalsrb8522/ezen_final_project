@@ -43,9 +43,18 @@
 	  box-sizing: border-box;
 	  border: 1px solid #ccc;
 	  border-radius: 4px;
+	  /*padding: 6px 12px;*/
+	  font-size: 14px;
+	  /*margin-bottom: 15px;*/ 
+	}
+  	  .border-gray2 {
+	  width: 100%;
+	  box-sizing: border-box;
+	  border: 1px solid #ccc;
+	  border-radius: 4px;
 	  padding: 6px 12px;
 	  font-size: 14px;
-	  margin-bottom: 15px; 
+	  margin-bottom: 15px;
 	}
   	
 
@@ -123,7 +132,7 @@
 	
 	#searchBox #searchIcon {
 	    width: 33px;
-	    height: 33px;
+	    height: 35px;
 	    color: white;
 	    background-color: #ccc;
 	    text-align: center;
@@ -167,7 +176,6 @@
 	  display: inline-flex;
 	  align-items: center;
 	  font-size: 20px;
-	  margin-top: -1px; 
 	}
 	
 	.material-symbols-outlined.favorite {
