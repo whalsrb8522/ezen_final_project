@@ -59,9 +59,8 @@
 		</div>
 		
 		<div id="inner-box">
-		<button class="background-purple submit-button">제출</button>
-		</div>
-		
+		<a href="/board_qna/list"><button class="background-purple submit-button">제출</button></a>
+		</div>		
 		</form>
 		
 	</div>
