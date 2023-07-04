@@ -1,5 +1,5 @@
 package com.myweb.www.repository;
 
-public class TextDAO {
+public class TestDAO {
 
 }
