@@ -107,6 +107,8 @@
 					
 			<button type="submit" id="submitBtn" class="background-purple">회원수정하기</button>
 			
+			<button type="button" onclick="removeMember()" id="removeBtn" class="background-gray">회원탈퇴하기</button>
+			
 			<p align="center">이미 아이디가 있으신가요? <a href="/member/signin">로그인</a>
 		</form>
 	</div>
