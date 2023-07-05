@@ -24,13 +24,13 @@ public class MemberController {
 	private MemberService memberService;
 
 	//회원가입
-	@GetMapping("signup")
+	@GetMapping("/signup")
 	public String index(Model m) {
 		log.info("home 접근");
 		return "/member/signup";
 	
 	}
-	
+	@PostMapping("/signup")
 	public String signupPost(Model m, MemberVO member) {
 		log.info("signUp 접근");
 		log.info(member.toString());
