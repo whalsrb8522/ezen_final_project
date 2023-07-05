@@ -6,151 +6,9 @@
 <meta charset="UTF-8">
 <title>양파마켓 | 1:1문의하기</title>
 <link rel="stylesheet" type="text/css" href="/resources/css/all.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/board_notice/detail.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <style>
-	#container {
-	  margin-top: 20px;
-	  margin-bottom :50px;
-	}
-	
-	#inner-box {
-	  width: 1024px;
-	  margin: 0 auto;
-	}
-	
-	.qna-select, .qna-content {
-	    margin-bottom: 8px;
-	 }
-	
-	.border-gray {
-	  width: 100%;
-	  box-sizing: border-box;
-	  border: 1px solid #ccc;
-	  border-radius: 4px;
-	  padding: 6px 12px;
-	  font-size: 14px;
-	  margin-bottom: 15px; /* 여백 추가 */
-	}
-	
-	select.border-gray:focus {
-	  outline: none;
-	  /*border-color: #c97fe8;*/	  
-	}
-	
-	select.border-gray optgroup {
-	  padding-top: 10px;
-	  padding-bottom: 10px;
-	}
-	
-	select.border-gray option {
-	  padding-top: 10px;
-	  padding-bottom: 10px;
-	}
-	
-	#inner-box h3 {
-	  font-size : 26px;
-	  margin-top: 30px;
-	  margin-bottom: 20px;
-	}
-	
-	#inner-box:not(:first-child) {
-	  margin-top: 5px;
-	}
-	  	
-	.background-purple {
-    background-color: #C97FE8;
-    color: white;
-  	}
-  	
-  	.attachment-text {
-    color: #666666;
-    font-size: 12px;
- 	}
- 	
- 	.attachment-text:first-child {
-    color: #C97FE8;
-    font-size: 12px;
-    font-weight:700;
- 	}
- 	
-    .attachment-text:nth-child(2) {
-      font-size: 12px;
-      font-weight: 700;
-    }
-    
-    hr{
-    	width:1024px;
-    	margin: 0 auto;
-    }
-    
-    
-    /*버튼*/
-	#comment_box{
-	  margin-bottom: 30px;
-	  display: flex;
-	  justify-content: center;
-	}
-	
-	#comment-btn {
-	  text-align: center;
-	}
-	
-	#comment-btn span{
-		font-size:13px;
-		color:#666;
-		font-weight:700;
-	}
-
-    .submit-button {
-	  width: 150px; 
-	  height: 40px;
-	  font-size: 16px;
-	  border-radius: 5px;
-	  border: none; 
-	  margin-top:10px;
-	}
-	
-	/*글내용*/
-	#content-box{
-		font-size:14px;
-		margin-bottom:40px;
-	}
-	
-	#content-box h3{
-		font-size:16px;
-		font-weight:700;
-	}
-
-	/*수정삭제 버튼*/
-		<!-- 버튼 -->
-
-	#inner-box {
-	  display: flex;
-	  justify-content: center;
-	  align-items: center;
-	  flex-wrap: wrap;
-	}
-	
-	.button-container {
-	  display: flex;
-	  justify-content: center;
-	  width: 100%; /* 가로 폭을 100%로 설정 */
-	  margin-top: 20px;
-	  gap: 20px; /* 버튼 사이에 30px의 여백 추가 */
-	}
-	
-	.button-container .submit-button {
-	  width: 100px; /* 버튼 가로 크기를 100px로 설정 */
-	  height: 40px;
-	  font-size: 16px;
-	  border-radius: 5px;
-	  border: none; 
-	}
-	
-	.cancel-button {
-	  border: none; /* 테두리 없음 */
-	}
-
 
 </style>	
 </head>
@@ -198,8 +56,10 @@
 			</div>
 		</div>
 		
+		<div id="inner-box">
 		<hr>
-
+		</div>
+		
 		<div id="inner-box">
 		  <div class="button-container">
 		    <a href="/board_notice/modify"><button class="background-gray submit-button">수정</button></a>
