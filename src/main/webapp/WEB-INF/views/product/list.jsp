@@ -33,10 +33,8 @@
 			<span><span style="color: #C97FE8"><b>수정</b></span>의 검색결과 <span style="color: gray">수정몇 개</span></span>
 		</div><br>
 		<!-- 상품 리스트 -->
-		<!-- forEach 돌리기 -->
 		<div>
-		
-		
+		<c:forEach items="${productList }" var="productList">
 			<div class="product-wrapper">
 				<div class="product-photo">
 					<img alt="없음" src="/resources/image/44.jpg" class="product-photo">
@@ -45,193 +43,16 @@
 						<img alt="" src="/resources/image/purchase.png">
 					</div>
 				</div>
-				<div class="product-title">짱구놈 팔아요하나둘셋야빰빰빰빰빰빠빰빠마ㅃㅁ빰빰빰!</div>
-				<div class="product-price"><b>2,000 <span style="font-size:12px">원</span></b></div>
+				<div style="display: none">${productList.p_number }</div>
+				<div class="product-title">${productList.p_name }</div>
+				<div class="product-price"><b>${productList.p_price } <span style="font-size:12px">원</span></b></div>
 				<hr>
 				<div class="product-location">
 					<span class="material-symbols-outlined">location_on</span>
-					인천광역시 계양구
+					${productList.p_location }
 				</div>
 			</div>
-			<div class="product-wrapper">
-				<div class="product-photo">
-					<img alt="없음" src="/resources/image/44.jpg" class="product-photo">
-					<!-- 구매가능, 예약중, 거래완료 -->
-					<div class="product-status">
-						<img alt="" src="/resources/image/reservation.png">
-					</div>
-				</div>
-				<div class="product-title">짱구놈 팔아요하나둘셋야빰빰빰빰빰빠빰빠마ㅃㅁ빰빰빰!</div>
-				<div class="product-price"><b>2,000 <span style="font-size:12px">원</span></b></div>
-				<hr>
-				<div class="product-location">
-					<span class="material-symbols-outlined">location_on</span>
-					인천광역시 계양구
-				</div>
-			</div>
-			<div class="product-wrapper">
-				<div class="product-photo">
-					<img alt="없음" src="/resources/image/44.jpg" class="product-photo">
-					<!-- 구매가능, 예약중, 거래완료 -->
-					<div class="product-status">
-						<img alt="" src="/resources/image/completed.png">
-					</div>
-				</div>
-				<div class="product-title">짱구놈 팔아요하나둘셋야빰빰빰빰빰빠빰빠마ㅃㅁ빰빰빰!</div>
-				<div class="product-price"><b>2,000 <span style="font-size:12px">원</span></b></div>
-				<hr>
-				<div class="product-location">
-					<span class="material-symbols-outlined">location_on</span>
-					인천광역시 계양구
-				</div>
-			</div>
-			<div class="product-wrapper">
-				<div class="product-photo">
-					<img alt="없음" src="/resources/image/44.jpg" class="product-photo">
-					<!-- 구매가능, 예약중, 거래완료 -->
-					<div class="product-status">
-						<img alt="" src="/resources/image/purchase.png">
-					</div>
-				</div>
-				<div class="product-title">짱구놈 팔아요하나둘셋야빰빰빰빰빰빠빰빠마ㅃㅁ빰빰빰!</div>
-				<div class="product-price"><b>2,000 <span style="font-size:12px">원</span></b></div>
-				<hr>
-				<div class="product-location">
-					<span class="material-symbols-outlined">location_on</span>
-					인천광역시 계양구
-				</div>
-			</div>
-			<div class="product-wrapper">
-				<div class="product-photo">
-					<img alt="없음" src="/resources/image/44.jpg" class="product-photo">
-					<!-- 구매가능, 예약중, 거래완료 -->
-					<div class="product-status">
-						<img alt="" src="/resources/image/purchase.png">
-					</div>
-				</div>
-				<div class="product-title">짱구놈 팔아요하나둘셋야빰빰빰빰빰빠빰빠마ㅃㅁ빰빰빰!</div>
-				<div class="product-price"><b>2,000 <span style="font-size:12px">원</span></b></div>
-				<hr>
-				<div class="product-location">
-					<span class="material-symbols-outlined">location_on</span>
-					인천광역시 계양구
-				</div>
-			</div>
-			<div class="product-wrapper">
-				<div class="product-photo">
-					<img alt="없음" src="/resources/image/44.jpg" class="product-photo">
-					<!-- 구매가능, 예약중, 거래완료 -->
-					<div class="product-status">
-						<img alt="" src="/resources/image/purchase.png">
-					</div>
-				</div>
-				<div class="product-title">짱구놈 팔아요하나둘셋야빰빰빰빰빰빠빰빠마ㅃㅁ빰빰빰!</div>
-				<div class="product-price"><b>2,000 <span style="font-size:12px">원</span></b></div>
-				<hr>
-				<div class="product-location">
-					<span class="material-symbols-outlined">location_on</span>
-					인천광역시 계양구
-				</div>
-			</div>
-			<div class="product-wrapper">
-				<div class="product-photo">
-					<img alt="없음" src="/resources/image/44.jpg" class="product-photo">
-					<!-- 구매가능, 예약중, 거래완료 -->
-					<div class="product-status">
-						<img alt="" src="/resources/image/purchase.png">
-					</div>
-				</div>
-				<div class="product-title">짱구놈 팔아요하나둘셋야빰빰빰빰빰빠빰빠마ㅃㅁ빰빰빰!</div>
-				<div class="product-price"><b>2,000 <span style="font-size:12px">원</span></b></div>
-				<hr>
-				<div class="product-location">
-					<span class="material-symbols-outlined">location_on</span>
-					인천광역시 계양구
-				</div>
-			</div>
-			<div class="product-wrapper">
-				<div class="product-photo">
-					<img alt="없음" src="/resources/image/44.jpg" class="product-photo">
-					<!-- 구매가능, 예약중, 거래완료 -->
-					<div class="product-status">
-						<img alt="" src="/resources/image/purchase.png">
-					</div>
-				</div>
-				<div class="product-title">짱구놈 팔아요하나둘셋야빰빰빰빰빰빠빰빠마ㅃㅁ빰빰빰!</div>
-				<div class="product-price"><b>2,000 <span style="font-size:12px">원</span></b></div>
-				<hr>
-				<div class="product-location">
-					<span class="material-symbols-outlined">location_on</span>
-					인천광역시 계양구
-				</div>
-			</div>
-			<div class="product-wrapper">
-				<div class="product-photo">
-					<img alt="없음" src="/resources/image/44.jpg" class="product-photo">
-					<!-- 구매가능, 예약중, 거래완료 -->
-					<div class="product-status">
-						<img alt="" src="/resources/image/purchase.png">
-					</div>
-				</div>
-				<div class="product-title">짱구놈 팔아요하나둘셋야빰빰빰빰빰빠빰빠마ㅃㅁ빰빰빰!</div>
-				<div class="product-price"><b>2,000 <span style="font-size:12px">원</span></b></div>
-				<hr>
-				<div class="product-location">
-					<span class="material-symbols-outlined">location_on</span>
-					인천광역시 계양구
-				</div>
-			</div>
-			<div class="product-wrapper">
-				<div class="product-photo">
-					<img alt="없음" src="/resources/image/44.jpg" class="product-photo">
-					<!-- 구매가능, 예약중, 거래완료 -->
-					<div class="product-status">
-						<img alt="" src="/resources/image/purchase.png">
-					</div>
-				</div>
-				<div class="product-title">짱구놈 팔아요하나둘셋야빰빰빰빰빰빠빰빠마ㅃㅁ빰빰빰!</div>
-				<div class="product-price"><b>2,000 <span style="font-size:12px">원</span></b></div>
-				<hr>
-				<div class="product-location">
-					<span class="material-symbols-outlined">location_on</span>
-					인천광역시 계양구
-				</div>
-			</div>
-			<div class="product-wrapper">
-				<div class="product-photo">
-					<img alt="없음" src="/resources/image/44.jpg" class="product-photo">
-					<!-- 구매가능, 예약중, 거래완료 -->
-					<div class="product-status">
-						<img alt="" src="/resources/image/purchase.png">
-					</div>
-				</div>
-				<div class="product-title">짱구놈 팔아요하나둘셋야빰빰빰빰빰빠빰빠마ㅃㅁ빰빰빰!</div>
-				<div class="product-price"><b>2,000 <span style="font-size:12px">원</span></b></div>
-				<hr>
-				<div class="product-location">
-					<span class="material-symbols-outlined">location_on</span>
-					인천광역시 계양구
-				</div>
-			</div>
-			<div class="product-wrapper">
-				<div class="product-photo">
-					<img alt="없음" src="/resources/image/44.jpg" class="product-photo">
-					<!-- 구매가능, 예약중, 거래완료 -->
-					<div class="product-status">
-						<img alt="" src="/resources/image/purchase.png">
-					</div>
-				</div>
-				<div class="product-title">짱구놈 팔아요하나둘셋야빰빰빰빰빰빠빰빠마ㅃㅁ빰빰빰!</div>
-				<div class="product-price"><b>2,000 <span style="font-size:12px">원</span></b></div>
-				<hr>
-				<div class="product-location">
-					<span class="material-symbols-outlined">location_on</span>
-					인천광역시 계양구
-				</div>
-			</div>
-			
-			
-			
+		</c:forEach>
 		</div> <br>
 		
 		<!-- 페이지네이션 -->
