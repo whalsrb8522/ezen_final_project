@@ -1,3 +1,4 @@
+
 // 약관 전체 선택
 function selectAll(selectAll)  {
     const checkboxes = document.getElementsByName('terms');

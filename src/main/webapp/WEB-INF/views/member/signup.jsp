@@ -39,15 +39,16 @@
 			<div id="emailContainer">
 				<h2>이메일</h2>
 				<div id="emailInput">
-					<input type="text" name="" class="border-gray input-box" placeholder="이메일">
+					<input type="text" id="user_email" name="user_email" class="border-gray input-box" placeholder="이메일">
 					@
-					<select name="" class="border-gray input-box">
+					<select id="email_address" name="email_address" class="border-gray input-box">
 						<option>선택해주세요</option>
-						<option>naver.com</option>
-						<option>daum.net</option>
-						<option>kakao.com</option>
-						<option>gmail.com</option>
+						<option value="naver.com">naver.com</option>
+						<option value="daum.net">daum.net</option>
+						<option value="kakao.com">kakao.com</option>
+						<option value="gmail.com">gmail.com</option>
 					</select>
+					
 				</div>
 				
 				<button type="button" id="emailBtn" class="background-gray">이메일 인증하기</button>
@@ -56,29 +57,29 @@
 			<div id="passwordContainer">
 				<h2>비밀번호</h2>
 				<h6>영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</h6>
-				<input type="password" name="" class="border-gray input-box" placeholder="비밀번호">
+				<input type="password" name="m_pw" class="border-gray input-box" placeholder="비밀번호">
 			</div>			
 			
 			<div id="passwordCheckContainer">
 				<h2>비밀번호 확인</h2>
-				<input type="password" name="" class="border-gray input-box" placeholder="비밀번호 확인">
+				<input type="password" name="m_pw" class="border-gray input-box" placeholder="비밀번호 확인">
 			</div>
 			
 			<div id="nickNameContainer">
 				<h2>닉네임</h2>
 				<h6>다른 유저와 겹치지 않도록 입력해주세요. (2~15자)</h6>
-				<input type="text" class="border-gray input-box" placeholder="닉네임">
+				<input type="text" class="border-gray input-box" placeholder="닉네임" name="m_nick_name">
 			</div>
 			
 			<div id="introduceContainer">
 				<h2>자기 소개</h2>
-				<textarea name="" class="border-gray textarea-box" placeholder="자기 소개를 입력해주세요."></textarea>
+				<textarea name="m_introduct" class="border-gray textarea-box" placeholder="자기 소개를 입력해주세요."></textarea>
 			</div>
 			
 			<div id="mapContainer">
 				<h2>주소 선택</h2>
 				<div style="display: flex;">
-					<input type="text" id="mapAddress" class="border-gray input-box" placeholder="주소" disabled="disabled">
+					<input type="text" id="mapAddress" class="border-gray input-box" placeholder="주소" disabled="disabled" name="m_address">
 					<input type="button" onclick="execDaumPostcode()" id="mapBtn" class="background-purple" value="주소 검색"><br>
 				</div>
 				<div id="kakaoMap"></div>
