@@ -43,6 +43,7 @@
 				<!-- 로그인 후 -->
 				<!-- 
 				<a href="/member/detail">내 상점</a>
+				<a href="/chat/test">채팅방</a>
 				<a href="/member/signout">로그아웃</a>
 				 -->
 			</div>
