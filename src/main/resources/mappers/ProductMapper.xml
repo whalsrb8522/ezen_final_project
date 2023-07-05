@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myweb.www.repository.ProductDAO">
+	<select id="productList" resultType="com.myweb.www.domain.ProductVO">
+		select a.p_number, p_name, p_price, p_location from 
+		(select p_number from product 
+		where p_isDel=0
+		order by p_number desc
+		limit #{pageStrart}, #{qty}) a left join product b
+		on a.p_number = b.p_number
+	</select>
+	
+	<select id="getTotalCount" resultType="int">
+		select count(p_number) from product where p_isDel=0
+	</select>
+</mapper>
