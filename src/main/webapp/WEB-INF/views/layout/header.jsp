@@ -4,8 +4,8 @@
 <html>
 <head>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 	<link rel="icon" type="image/png" href="/resources/img/favicon.png">
 	<link rel="stylesheet" type="text/css" href="/resources/css/layout/header.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/layout/nav.css">
