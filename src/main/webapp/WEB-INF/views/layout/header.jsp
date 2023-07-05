@@ -3,6 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 	<link rel="icon" type="image/png" href="/resources/img/favicon.png">
 	<link rel="stylesheet" type="text/css" href="/resources/css/layout/header.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/layout/nav.css">
@@ -40,6 +43,7 @@
 				<!-- 로그인 후 -->
 				<!-- 
 				<a href="/member/detail">내 상점</a>
+				<a href="/chat/test">채팅방</a>
 				<a href="/member/signout">로그아웃</a>
 				 -->
 			</div>
