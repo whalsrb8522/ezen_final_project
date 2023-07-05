@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/product/register.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=28524d982cffea013a5f7c234898c8df&libraries=services"></script>
+<script type="text/javascript" src="//dapi.akakao.com/v2/maps/sdk.js?appkey=28524d982cffea013a5f7c234898c8df&libraries=services"></script>
 </head>
 <body>
 <jsp:include page="../layout/header.jsp"></jsp:include>

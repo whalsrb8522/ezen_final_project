@@ -7,189 +7,9 @@
 <title>양파마켓 | 1:1문의하기</title>
 <link rel="icon" type="image/png" href="/resources/images/favicon.png">
 <link rel="stylesheet" type="text/css" href="/resources/css/all.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/board_qna/detail.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <style>
-	#container {
-	  margin-top: 20px;
-	  margin-bottom :50px;
-	}
-	
-	#inner-box {
-	  width: 1024px;
-	  margin: 0 auto;
-	}
-	
-	.qna-select, .qna-content {
-	    margin-bottom: 8px;
-	 }
-	
-	#container .border-gray {
-	  width: 100%;
-	  box-sizing: border-box;
-	  border: 1px solid #ccc;
-	  border-radius: 4px;
-	  padding: 6px 12px;
-	  font-size: 14px;
-	  margin-bottom: 15px; /* 여백 추가 */
-	}
-	
-	select.border-gray:focus {
-	  outline: none;
-	  /*border-color: #c97fe8;*/	  
-	}
-	
-	select.border-gray optgroup {
-	  padding-top: 10px;
-	  padding-bottom: 10px;
-	}
-	
-	select.border-gray option {
-	  padding-top: 10px;
-	  padding-bottom: 10px;
-	}
-	
-	#inner-box h3 {
-	  font-size : 26px;
-	  margin-top: 30px;
-	  margin-bottom: 20px;
-	}
-	
-	#inner-box:not(:first-child) {
-	  margin-top: 5px;
-	}
-	  	
-	.background-purple {
-    background-color: #C97FE8;
-    color: white;
-  	}
-  	
-  	.attachment-text {
-    color: #666666;
-    font-size: 12px;
- 	}
- 	
- 	.attachment-text:first-child {
-    color: #C97FE8;
-    font-size: 12px;
-    font-weight:700;
- 	}
- 	
-    .attachment-text:nth-child(2) {
-      font-size: 12px;
-      font-weight: 700;
-    }
-    
-    hr{
-    	width:1024px;
-    	margin: 0 auto;
-    }
-    
-    /* 문의 내용*/
-    	
-	#writer-box {
-	  display: flex;
-	  align-items: center;
-	  margin-bottom: 20px;
-	  margin-top: 20px;
-	}
-	
-	#writer-profile {
-	  width: 40px;
-	  height: 40px;
-	  border-radius: 50%;
-	  overflow: hidden;
-	  box-shadow: 0 0 2px #333333;
-	}
-	
-	#writer-profile img {
-	  width: 100%;
-	  height: 100%;
-	  object-fit: cover;
-	}
-	
-	#writer-info {
-	  display: flex;
-	  flex-direction: column;
-	  margin-left: 10px;
-	  font-size: 12px;
-	}
-	
-	.nickname {
-	  margin-bottom: 5px;
-	  font-weight:700;
-	}
-
-	.reg_time {
-	  color:#777;
-	}
-    
-    #content-box{
-      font-size:14px;
-	  font-weight:700;  	
-	  color:#333;
-	  margin-bottom:30px;
-    }
-    
-    /* 추가문의 */
-    	
-	#comment_box {
-	  display: flex;
-	  flex-wrap: wrap;
-	  align-items: flex-start;
-	  margin-top: 30px;
-	  
-	}
-	
-	#comment-info {
-	  display: flex;
-	  align-items: flex-start;
-	  flex-grow: 1;
-	  flex-basis: 0;
-	}
-	
-	#writer-profile {
-	  flex: 0 0 40px;
-	  height: 40px;
-	  border-radius: 50%;
-	  overflow: hidden;
-	  box-shadow: 0 0 2px #333333;
-	}
-	
-	#writer-comment {
-	  flex-grow: 1;
-	  margin-left: 10px;
-	}
-	
-	#comment-btn {
-	  width: 100%;
-	  display: flex;
-	  justify-content: center;
-	  margin-bottom: 10px;
-	}
-	
-	.submit-button {
-	  width: 100px;
-	  height: 40px;
-	  font-size: 16px;
-	  border: 1px solid;
-	  border-radius: 5px;
-	}
-	
-	#comment{
-		font-size: 14px;
-		margin-bottom: 3px;
-	}
-    
-    /*버튼*/
-    .submit-button {
-	  width: 100px; /* 버튼 가로 크기를 100px로 설정 */
-	  height: 40px;
-	  font-size: 16px;
-	  border-radius: 5px;
-	  border: none; 
-	}
-
-
 
 </style>	
 </head>
@@ -208,7 +28,10 @@
 			<h3>제목가져오기</h3>			
 		</div>
 		
+		
+		<div id="inner-box">
 		<hr>
+		</div>
 		
 		<div id="inner-box">
 			<div id="writer-box">
@@ -229,7 +52,9 @@
 			</div>
 		</div>
 		
+		<div id="inner-box">
 		<hr>
+		</div>
 		
 		<form>
 		<div id="inner-box">
@@ -249,6 +74,62 @@
 			</div>
 		</div>
 		</form>
+		
+		<!-- 관리자 로그인 시 보이는 답변 화면 -->
+		<form>
+		<div id="inner-box">
+			<div id="comment_box" >
+				<div id="comment-info">
+					<div id="writer-profile">
+						<img src="/resources/images/basicprofile.jpeg" alt="Image">
+					</div>
+					<div id="writer-comment">
+		 				<textarea class="border-gray" id="loc-content" name="loc-content" 
+		 				rows="7" maxlength="200" placeholder="문의 내용에 추가"></textarea>
+					</div>
+				</div>
+				<div id="comment-btn">
+					<a><button class="background-purple submit-button">답변하기</button></a>
+				</div>
+			</div>
+		</div>
+		</form>
+		
+		<!-- 답변완료 후 보이는 화면 -->
+		
+		<div id="inner-box">
+			<div id="writer-box">
+				<div id="writer-profile">
+					<img src="/resources/images/basicprofile.jpeg" alt="Image">
+				</div>
+				<div id="writer-info">
+					<div id="nick-info">
+						<span class="nickname">Admin</span>
+					</div>
+					<div id="reg-info">
+						<span class="reg_time">15:26</span>
+					</div>
+				</div>
+			</div>
+			<div id="content-box">
+				<span>안녕하세요, 양파마켓입니다.<br>
+				양파마켓은 지역을 기반으로 상호 간에 거래할 수 있는 플랫폼입니다.<br>
+				<br>
+				① 이메일/ SNS 계정 연동을 통한 회원 가입 및 로그인<br>
+				② 원하는 카테고리 선택하여 전문가 탐색 혹은 사이트 상단에 '검색'을 통한 판매 서비스 검색<br>
+				③ 전문가 판매 서비스 선택하여 '문의 남기기' 혹은 '연락처 보기'를 통해 문의<br>
+				④ 전문가와 서비스에 대한 사전 견적 협의 및 결제<br>
+				<br>
+				추가로, 서비스 이용에 대한 자세한 내용은 FAQ를 통해 확인하실 수 있습니다.<br>
+				이용하시는데 참고 부탁드리며, 문의하신 내용에 도움이 되었으면 합니다.<br>
+				<br>
+				다른 문의사항이 있으실 경우 언제든지 크몽 고객센터로 연락 부탁드립니다.<br>
+				<br>
+				감사합니다.
+				</span>
+			</div>
+		</div>
+		
 		
 		
 	</div>
