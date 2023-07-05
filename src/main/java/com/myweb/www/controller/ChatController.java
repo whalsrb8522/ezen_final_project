@@ -6,11 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/chat/*")
-//@Slf4j
 public class ChatController {
-	
-	@GetMapping("main")
-	public void main() {}
 
 	@GetMapping("test")
 	public void test() {}
