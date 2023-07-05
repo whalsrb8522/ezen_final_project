@@ -58,16 +58,17 @@
     align-items: center;
     text-decoration: none;
     margin-bottom: 20px;
+    margin-left:-5px;
 }
 
 #logoImage {
-    width: 60;
-    height: 60px;
-    margin-bottom: 15px;
+    width: 42;
+    height: 42px;
+    margin-bottom: 8px;
 }
 
 #logoText {
-    padding-left: 8px;
+    /*padding-left: 8px;*/
     font-weight: bold;
     font-size: 28px;
     color: #C97FE8;
