@@ -137,3 +137,8 @@ blf_dir varchar(256) not null,
 primary key(blf_uuid),
 foreign key(bl_number) references board_location(bl_number));
 ```
+
+# [DB - 추가내용]
+```
+alter table product add p_read_count int not null default 0;
+```
