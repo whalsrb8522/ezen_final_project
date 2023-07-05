@@ -10,17 +10,17 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
 	<script type="text/javascript" src="/resources/js/chat/test.js"></script>
 	<script type="text/javascript">
-		$(window).on('load', function () {
+        $(window).on('load', function () {
 			webSocket.init({ url: '<c:url value="/echo" />' });	
 		});
 	</script>
 </head>
 <body>
-<!-- 
+	<!-- 
 	<input type="text" id="message">
 	<input type="button" id="sendBtn" value="submit">
 	<div id="messageArea"></div>
--->
+	-->
 	 
 	<div style="width: 800px; height: 700px; padding: 10px; border: solid 1px #e1e3e9;">
 		<div id="divChatData"></div>
