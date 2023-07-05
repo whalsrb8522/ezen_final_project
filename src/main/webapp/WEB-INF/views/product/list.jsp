@@ -71,10 +71,10 @@
 			</div>
 			<div class="product-wrapper">
 				<div class="product-photo">
-					<img alt="없음" src="/resources/image/completed.png" class="product-photo">
+					<img alt="없음" src="/resources/image/44.jpg" class="product-photo">
 					<!-- 구매가능, 예약중, 거래완료 -->
 					<div class="product-status">
-						<img alt="" src="/resources/image/purchase.png">
+						<img alt="" src="/resources/image/completed.png">
 					</div>
 				</div>
 				<div class="product-title">짱구놈 팔아요하나둘셋야빰빰빰빰빰빠빰빠마ㅃㅁ빰빰빰!</div>
