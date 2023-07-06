@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/product/detail.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=28524d982cffea013a5f7c234898c8df"></script>
 
 </head>
 <body>
@@ -42,6 +43,17 @@
 		<div id="top-wrap">
 			<hr>
 			<br>
+			<!-- 거래 상태 표시 -->
+			<div>
+				<select name="product-status" class="product-status">
+	 	 			<option disabled selected>판매상태</option>
+	  				<option value="purcharse">구매가능</option>
+	  				<option value="reservation">예약중</option>
+	  				<option value="completed">거래완료</option>
+				</select>
+			</div>
+			
+			
 			<div id="detail-left">
 				<div>
 					<img alt="없음" src="/resources/image/44.jpg" width="300px" height="300px">
@@ -79,13 +91,21 @@
 						2023-06-29
 					</div>
 				</div>
-				<div id="btn-wrap">
+				<!-- 구매자용 버튼 -->
+				<!-- <div class="btn-wrap">
 					<button type="button" class="background-gray detail-btn">다른 상품 찾기</button>
 					<button type="button" class="background-gray detail-btn">찜</button>
 					<button type="button" class="background-purple detail-btn">채팅하기</button>
+				</div> -->
+				<!-- 판매자용 버튼 -->
+				<div class="btn-wrap">
+					<button type="button" class="background-gray detail-btn">다른 상품 찾기</button>
+					<button type="button" class="background-gray detail-btn">수정하기</button>
+					<button type="button" class="background-purple detail-btn">내 채팅방</button>
 				</div>
 			</div>
 		</div>
+		<br>
 		<br>
 		<hr>
 		<div id="bottom-wrap">
@@ -184,7 +204,7 @@
 					<div id="detail-loca"><b>거래 희망 장소</b></div>
 					<div id="detail-detail-loca">&gt; 장소</div>
 				</div>
-					<div id="detail-map">지도</div>
+					<div id="detail-map"></div>
 			</div>
 		</div>
 	</div>

@@ -48,7 +48,7 @@ public class MemberController {
 	//로그인
 	@GetMapping("/signin")
 	public String signin() {
-		log.info("로그인 페이지로 이동");
+//		log.info("로그인 페이지로 이동");
 		return "/member/signin";
 	}
 	
