@@ -11,8 +11,7 @@
 </head>
 <body>
 	<jsp:include page="../layout/header.jsp"></jsp:include>
-		
-	
+
 	<div id="container">
 		
 		<div id="inner-box">

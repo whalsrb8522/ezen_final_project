@@ -120,7 +120,8 @@
 			</div>
 		</div>
 		<div id="btn-wrap">
-			<button class="background-purple regi-btn">등록하기</button>
+			<button class="background-purple regi-btn">수정하기</button>
+			<button class="background-gray regi-btn">삭제하기</button>
 			<button type="button" class="background-gray regi-btn">취소</button>
 		</div>
 	</div>
