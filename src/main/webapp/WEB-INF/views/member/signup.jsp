@@ -17,7 +17,7 @@
 </head>
 <body>
 	<div id="container">
-		<form action="/member/signup" method="POST" id="innerContainer">
+		<form action="/member/signup" method="POST" accept-charset="utf-8" id="innerContainer">
 			<a href="/" id="logoContainer">	
 				<img alt="로고" src="/resources/img/logo.png" id="logoImage">
 				<span id="logoText">양파마켓</span>
@@ -47,8 +47,8 @@
 					</select>
 					
 				</div>
-				
-				<button type="button" id="emailBtn" class="background-gray">이메일 인증하기</button>
+				<input type="hidden" id="m_mail" name="m_mail">
+				<button type="submit" id="emailBtn" class="background-gray">이메일 인증하기</button>
 			</div>
 			
 			<div id="passwordContainer">
@@ -59,7 +59,7 @@
 			
 			<div id="passwordCheckContainer">
 				<h2>비밀번호 확인</h2>
-				<input type="password" name="m_pw" class="border-gray input-box" placeholder="비밀번호 확인">
+				<input type="password" name="m_pw_check" class="border-gray input-box" placeholder="비밀번호 확인">
 			</div>
 			
 			<div id="nickNameContainer">
@@ -77,6 +77,7 @@
 				<h2>주소 선택</h2>
 				<div style="display: flex;">
 					<input type="text" id="mapAddress" class="border-gray input-box" placeholder="주소" disabled="disabled" name="m_address">
+					<input type="hidden" id="m_address" name="m_address">
 					<input type="button" onclick="execDaumPostcode()" id="mapBtn" class="background-purple" value="주소 검색"><br>
 				</div>
 				<div id="kakaoMap"></div>
