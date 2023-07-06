@@ -20,7 +20,7 @@
 </head>
 <body>
 	<div id="container">
-		<form action="/member/signup" method="POST" accept-charset="utf-8" id="innerContainer">
+		<form action="/member/signup" method="POST" id="innerContainer">
 			<a href="/" id="logoContainer">	
 				<img alt="로고" src="/resources/img/logo.png" id="logoImage">
 				<span id="logoText">양파마켓</span>

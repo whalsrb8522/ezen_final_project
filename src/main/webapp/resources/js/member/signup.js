@@ -41,7 +41,7 @@ document.getElementById('imageChoose').addEventListener('change', function(e) {
     var reader = new FileReader();
     
     reader.onloadend = function() {
-        // Display the selected image.
+        // 이미지 선택
         document.getElementById('imagePrint').src = reader.result;
         
         // TODO: Upload the file to the server.
