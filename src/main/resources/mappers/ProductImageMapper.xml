@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myweb.www.repository.ProductImageDAO">
+
+	<insert id="insertProductImage">
+		insert into product_image(pi_uuid, p_number, pi_name, pi_dir)
+		values (#{pi_uuid}, #{p_number}, #{pi_name}, #{pi_dir})
+	</insert>
+
+</mapper>
+
+
+
+
