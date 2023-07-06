@@ -43,3 +43,42 @@ function search_loca() {
         }
     }).open();
 }
+
+
+// file upload
+const regExp = new RegExp("\.(exe|sh|bat|msi|dll|js)$");
+const regExpImg = new RegExp("\.(jpg|jpeg|png|gif|bmp)$");
+const maxSize = 1024 * 1024 * 20;
+
+function fileSizeValidation(fileName, fileSize) {
+    if (regExp.test(fileName)) {
+        return 0;
+    } else if (fileSize > maxSize) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
+
+document.addEventListener('change', (e) => {
+    if (e.target.id == 'file') {
+        document.getElementById('productRegiBtn').disabled = false;
+        const fileObject = document.getElementById('file').files;
+
+        let div = document.getElementById('productImage');
+        div.innerHTML = '';
+        let li = `<li class="regi-file">`;
+        let isOk = 1;
+        for (let file of fileObject) {
+            let vaildResult = fileSizeValidation(file.name, file.size);
+            isOk *= vaildResult;
+            li += `<button type="button" class="file-del"></button>`;
+            li += `${file.name}`;
+        }
+        li += `</li>`;
+        div.innerHTML = li;
+        if (isOk == 0) {
+            document.getElementById('productRegiBtn').disabled = true;
+        }
+    }
+})
