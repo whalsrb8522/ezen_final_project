@@ -20,8 +20,13 @@
 				<a href="#"><img alt="메인 이미지" src="" width="1024px" height="300px"></a>
 			</div>
 			
+			
 			<div id="todayProduct">
 				<h1>오늘의 상품</h1>
+				<div id="showAllContainer">
+					<a class="showAllBox" href="#">> 보러가기</a>
+				</div>
+			</div>
 				
 				<div id="productContainer">
 					<div onclick="location.href='#'" class="product">
