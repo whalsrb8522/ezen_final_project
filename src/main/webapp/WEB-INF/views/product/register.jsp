@@ -12,7 +12,7 @@
 </head>
 <body>
 <jsp:include page="../layout/header.jsp"></jsp:include>
-<form action="/" method="post">
+<form action="/product/register" method="post" enctype="multipart/form-data">
 	<div id="register-wrap">
 		
 		<div id="image-wrap">
@@ -21,16 +21,16 @@
 				<ul class="file-ul">
 					<li class="file-li">
 						이미지 등록
-						<input type="file" multiple class="file-input">
+						<input type="file" id="file" name="files" multiple class="file-input">
 					</li>
+					<div id="productImage">
 					<li class="regi-file">
 						<img alt="상품이미지" src="/resources/image/44.jpg">
 						<button type="button" class="file-del"></button>
+						<!-- https://iamiet.tistory.com/68 -->
 					</li>
-					<li class="regi-file">
-						<img alt="상품이미지" src="/resources/image/44.jpg">
-						<button type="button" class="file-del"></button>
-					</li>
+					</div>
+					
 				</ul>
 				
 			</div>
@@ -39,7 +39,7 @@
 		<div id="title-wrap">
 			<div class="register-title">제목</div>
 			<div>
-				<input class="border-gray title-input" placeholder="상품 제목을 입력해 주세요.">
+				<input class="border-gray title-input" name="p_name" placeholder="상품 제목을 입력해 주세요.">
 				<a href="/" class="input-a">거래금지품목</a>
 			</div>
 			<div>0/20</div>
@@ -91,7 +91,7 @@
 		<div id="price-wrap">
 			<div class="register-title">가격</div>
 			<div>
-				<input class="border-gray title-input" placeholder="숫자만 입력해 주세요.">
+				<input class="border-gray title-input" name="p_price" placeholder="숫자만 입력해 주세요.">
 				<span>원</span>
 			</div>
 		</div>
@@ -99,7 +99,7 @@
 		<div id="info-wrap">
 			<div class="register-title">설명</div>
 			<div id="regi-info">
-				<textarea rows="8" class="info-text border-gray" 
+				<textarea rows="8" class="info-text border-gray" name="p_info"
 				placeholder="여러 장의 상품 사진과 구입 연도, 브랜드, 사용감, 하자 유무 등 구매자에게 필요한 정보를 꼭 포함해 주세요."></textarea>
 			</div>
 			<div>0/2000</div>
@@ -119,8 +119,8 @@
 			</div>
 		</div>
 		<div id="btn-wrap">
-			<button class="background-purple regi-btn">수정하기</button>
-			<button type="button" class="background-gray regi-btn">취소</button>
+			<button id="productRegiBtn" class="background-purple regi-btn">등록하기</button>
+			<a href="/product/list"><button type="button" class="background-gray regi-btn">취소</button></a>
 		</div>
 	</div>
 </form>	
