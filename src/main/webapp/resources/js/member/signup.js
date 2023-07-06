@@ -1,4 +1,107 @@
 
+// 이메일 - 아이디 , @ , 도메인 주소 합치기
+
+window.onload = function () {
+    document.getElementById("innerContainer").onsubmit = function () {
+        var user_email = document.getElementById("user_email").value;
+        var email_address = document.getElementById("email_address").value;
+
+        if(user_email && email_address && email_address !== "선택해주세요") {
+            document.getElementById("m_mail").value = user_email + "@" + email_address;
+            return true; 
+        }
+        else {
+            
+            alert('올바른 이메일 주소를 입력해주세요');
+            return false; 
+        }
+    }
+}
+
+// ----------------------------------------------------------
+
+// 자기소개 필수 입력 조항 삽입
+
+document.getElementById('innerContainer').addEventListener('submit', function(e) {
+    var introductField = document.getElementById('m_introduct');
+    
+    if(introductField.value === '') {
+        alert('자기소개를 입력해주세요.');
+        e.preventDefault();
+    }
+});
+
+
+// --------------------------------------------------------
+
+// 프로필 사진 파일 업로드 
+
+document.getElementById('imageChoose').addEventListener('change', function(e) {
+    var file = e.target.files[0];
+    var reader = new FileReader();
+    
+    reader.onloadend = function() {
+        // Display the selected image.
+        document.getElementById('imagePrint').src = reader.result;
+        
+        // TODO: Upload the file to the server.
+    }
+    
+    reader.readAsDataURL(file);
+});
+
+// -------------------------------------------------------
+
+// 비밀번호 조건 (영문, 숫자 8글자 이상)
+
+document.getElementById('innerContainer').addEventListener('submit', function(e) {
+    var passwordField = document.getElementById('m_pw');
+    
+    var password = passwordField.value;
+    
+    var passwordReg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    
+    if (!passwordReg.test(password)) {
+        alert('비밀번호는 영문, 숫자를 포함한 8자 이상이어야 합니다.');
+        e.preventDefault();
+    }
+});
+
+// -------------------------------------------------------
+
+// 비밀번호 일치 확인
+
+var passwordField = document.getElementsByName('m_pw')[0];
+var passwordCheckField = document.getElementsByName('m_pw_check')[0];
+
+passwordCheckField.addEventListener('blur', function() {
+    if(passwordField.value !== passwordCheckField.value) {
+        alert('비밀번호가 일치하지 않습니다.');
+    }
+});
+
+
+// ----------------------------------------------------
+
+// 이메일 유효성 검사 
+
+document.getElementById('emailBtn').addEventListener('click', function(e) {
+    var emailField = document.getElementById('user_email');
+    
+    if (!emailField.checkValidity()) {
+        alert('올바른 이메일 주소를 입력해주세요.');
+        e.preventDefault();
+    }
+});
+
+
+
+
+
+
+
+// -----------------------------------------------------------
+
 // 약관 전체 선택
 function selectAll(selectAll)  {
     const checkboxes = document.getElementsByName('terms');
@@ -48,6 +151,8 @@ function execDaumPostcode() {
             } else {
                 // 주소 정보를 해당 필드에 넣는다.
                 document.getElementById("mapAddress").value = addr;
+                // 'm_address'에 주소 설정
+            	document.getElementById("m_address").value = addr;
                 // 주소로 상세 정보를 검색
                 geocoder.addressSearch(data.address, function(results, status) {
                     // 정상적으로 검색이 완료됐으면

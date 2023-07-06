@@ -30,6 +30,8 @@ public class MemberController {
 		return "/member/signup";
 	
 	}
+	
+	
 	@PostMapping("/signup")
 	public String signupPost(Model m, MemberVO member) {
 		log.info("signUp 접근");
