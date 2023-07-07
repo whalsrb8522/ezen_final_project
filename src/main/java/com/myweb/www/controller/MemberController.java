@@ -16,8 +16,8 @@ import com.myweb.www.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Controller
 @RequestMapping("/member/*")
+@Controller
 public class MemberController {
 	
 	@Inject
@@ -47,14 +47,14 @@ public class MemberController {
 	
 	//로그인
 	@GetMapping("/signin")
-	public String signin() {
-//		log.info("로그인 페이지로 이동");
+	public String signinGet() {
+		
 		return "/member/signin";
 	}
 	
 	@PostMapping("/signin")
 	public String signinPost(Model m, String m_mail, String m_pw, HttpServletRequest request) {
-		log.info("m_mail : "+m_mail, "m_pw : "+m_pw);
+		log.info("-=-=> id : "+m_mail+", "+"pw : "+m_pw);
 		MemberVO isMember = memberService.isMember(m_mail, m_pw);
 		
 		if(isMember != null) {
@@ -69,7 +69,8 @@ public class MemberController {
 	}
 	
 	//로그아웃
-	public String logout(Model m, HttpServletRequest request) {
+	@GetMapping("/signout")
+	public String signout(Model m, HttpServletRequest request) {
 		request.getSession().removeAttribute("ses");
 		request.getSession().invalidate();
 		m.addAttribute("msg_logout", 1);
