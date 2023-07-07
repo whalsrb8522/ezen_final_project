@@ -13,4 +13,8 @@ public interface ProductDAO {
 
 	int getTotalCount(ProductPagingVO ppvo);
 
+	int insertProductRegister(ProductVO pvo);
+
+	int selectPnumber();
+
 }

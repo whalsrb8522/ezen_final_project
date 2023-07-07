@@ -31,6 +31,7 @@ public class ChatHandler extends TextWebSocketHandler {
 		// JSON --> Map으로 변환
 		ObjectMapper objectMapper = new ObjectMapper();
 		Map<String, String> mapReceive = objectMapper.readValue(message.getPayload(), Map.class);
+		log.info("message  : " + message.toString());
 		log.info("mapReceive : " + mapReceive.toString());
 
 		switch (mapReceive.get("cmd")) {
