@@ -141,4 +141,7 @@ foreign key(bl_number) references board_location(bl_number));
 # [DB - 추가내용]
 ```
 alter table product add p_read_count int not null default 0;
+
+[07.06 | 시큐리티 사용으로 인한 m_pw 컬럼 크기 변경 (비밀번호 조건에 따라 추후 더 증가할 수도 있음..)]
+alter table member modify m_pw varchar(100) not null;
 ```
