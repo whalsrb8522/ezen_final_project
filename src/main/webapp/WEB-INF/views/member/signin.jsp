@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,10 +22,10 @@
 				<span id="logoText">양파마켓</span>
 			</a>
 			
-			<form action="">
+			<form action="/member/signin" method="post">
 				<div>
-					<input type="text" id="idInput" class="border-gray" placeholder="아이디">
-					<input type="password" id="pwInput" class="border-gray" placeholder="비밀번호">
+					<input type="text" id="idInput" name="m_mail" class="border-gray" placeholder="아이디@example.com">
+					<input type="password" id="pwInput" name="m_pw" class="border-gray" placeholder="비밀번호">
 				</div>
 				
 				<button type="submit" id="subBtn" class="background-purple">로그인</button>
