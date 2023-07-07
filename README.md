@@ -142,6 +142,29 @@ foreign key(bl_number) references board_location(bl_number));
 ```
 alter table product add p_read_count int not null default 0;
 
-[07.06 | 시큐리티 사용으로 인한 m_pw 컬럼 크기 변경]
+-- [07.06 | 시큐리티 사용으로 인한 m_pw 컬럼 크기 변경 (비밀번호 조건에 따라 추후 더 증가할 수도 있음..)]
 alter table member modify m_pw varchar(100) not null;
+
+-- [07.07 | 채팅관련 테이블 추가]
+-- 채팅방
+-- 채팅방 번호 = 상품 번호???
+create table chat_room(
+cr_number int not null auto_increment,
+cr_member int not null,
+primary key(cr_number),
+foreign key(cr_member) references member(m_number)
+);
+
+-- 채팅 메시지
+create table chat_message(
+cm_number int not null auto_increment,
+cr_number int not null,
+cm_send_m_number int not null,
+cm_context text not null,
+cm_send_date datetime default now(),
+primary key(cm_number),
+foreign key(cr_number) references chat_room(cr_number),
+foreign key(cm_send_m_number) references member(m_number)
+);
+
 ```
