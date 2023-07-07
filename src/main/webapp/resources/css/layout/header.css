@@ -66,15 +66,24 @@ header #memberContainer {
     display: flex;
     height: 100%;
     align-items: flex-start;
-    width: 160px;
+    width: 130px;
     justify-content: space-between;
     font-size: 15px;
 }
 
-header #memberContainer a {
+header #memberContainer1 {
+    display: flex;
+    height: 100%;
+    align-items: flex-start;
+    width: 195px;
+    justify-content: space-between;
+    font-size: 15px;
+}
+
+header #memberContainer a, #memberContainer1 a {
 	color: #666;
 	text-decoration: none;
-} header #memberContainer a:hover {
+} header #memberContainer a:hover, #memberContainer1 a:hover {
 	color: #C97FE8;
 	font-weight: 550;
 }
