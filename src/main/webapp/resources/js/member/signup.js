@@ -18,17 +18,34 @@ window.onload = function () {
     }
 }
 
-// 이메일 중복 확인 및 인증
+// -----------------------------------------------------
 
 // 닉네임 중복 확인
 
-// 주소 필수 입력 
+//function checkNickName(){
+//    var nickName = $('[name="m_nick_name"]').val();
+//    $.ajax({
+//        url:'./nickCheck', 
+//        type:'post', 
+//        data:{nickName:nickName},
+//        success:function(cnt){ 
+//            if(cnt == 0){ 
+//                $('.nick_ok').css("display","inline-block"); 
+//                $('.nick_already').css("display", "none");
+//            } else {
+//                $('.nick_already').css("display","inline-block");
+//                $('.nick_ok').css("display", "none");
+//                alert("닉네임을 다시 입력해주세요");
+//                $('[name="m_nick_name"]').val('');
+//            }
+//        },
+//        error:function(){
+//            alert("에러입니다");
+//        }
+//    });
+//};
 
-// 보안 인증 (reCAPTCHA) 
 
-// 프로필 사진
-
-// 필수 약관 
 
 
 
@@ -73,11 +90,10 @@ document.getElementById('innerContainer').addEventListener('submit', function(e)
     
     var password = passwordField.value;
     
-    // 최소 8자 + 최소 한 개의 영문자 + 최소 한 개의 숫자
     var passwordReg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     
     if (!passwordReg.test(password)) {
-        alert('비밀번호는 영문, 숫자를 포함한 8자 이상이어야 합니다.');
+        alert('비밀번호는 영문, 숫자를 모두 포함한 8자 이상이어야 합니다.');
         e.preventDefault();
     }
 });
@@ -109,7 +125,17 @@ document.getElementById('emailBtn').addEventListener('click', function(e) {
     }
 });
 
+// 이메일 중복 확인 및 인증
 
+// 닉네임 중복 확인
+
+// 주소 필수 입력 
+
+// 보안 인증 (reCAPTCHA) 
+
+// 프로필 사진
+
+// 필수 약관 
 
 
 

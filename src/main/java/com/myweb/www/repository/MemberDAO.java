@@ -8,4 +8,11 @@ public interface MemberDAO {
 
 	int insertMember(MemberVO member);
 
+	/*
+	 * int nickCheck(String nickName);
+	 */
+
+
+
+
 }
