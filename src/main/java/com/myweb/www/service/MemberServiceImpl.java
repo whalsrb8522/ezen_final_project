@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import com.myweb.www.domain.MemberVO;
 import com.myweb.www.repository.MemberDAO;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class MemberServiceImpl implements MemberService {
 	
@@ -19,6 +21,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int signUp(MemberVO member) {
+		log.info("---> 회원가입(signup) Service 진입");
 		MemberVO tempMember = mdao.getMember(member.getM_mail());
 		
 		if(tempMember != null) {
@@ -48,7 +51,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public MemberVO isMember(String m_mail, String m_pw) {
-		
+		log.info("---> 로그인(signin) Service 진입");
 		MemberVO member = mdao.getMember(m_mail);
 		
 		//m_mail이 일치하는 객체가 없을 경우
@@ -61,6 +64,8 @@ public class MemberServiceImpl implements MemberService {
 			return null;
 			
 		}
+		
 	}
+
 
 }

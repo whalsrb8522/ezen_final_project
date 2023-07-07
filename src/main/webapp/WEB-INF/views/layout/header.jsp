@@ -38,17 +38,18 @@
 			
 			<div id="memberContainer">
 				<!-- 로그인 전 -->
-				<c:if test="${ses.m_mail eq null }"></c:if>
+				<c:if test="${ses.m_mail eq null}">
 					<a href="/member/signup">회원가입</a>
 					<a href="/member/signin">로그인</a>
-				
+				</c:if>
 				<!-- 로그인 후 -->
-				<%-- <c:if test="${ses.m_mail ne null} }"></c:if>
+				<c:if test="${ses.m_mail ne null}">
 					<a href="/member/detail">내 상점</a>
 					<a href="/chat/test">채팅방</a>
-					<a href="/member/signout">로그아웃</a> --%>
-				
+					<a href="/member/signout">로그아웃</a>
+				</c:if>
 			</div>
+
 		</div>
 	</header>
 	<nav>
