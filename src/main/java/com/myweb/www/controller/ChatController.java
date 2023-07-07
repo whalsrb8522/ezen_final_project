@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/chat/*")
 public class ChatController {
 
+	@GetMapping("main")
+	public void main() {}
+	
 	@GetMapping("test")
 	public void test() {}
 	

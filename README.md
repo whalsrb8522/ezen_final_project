@@ -147,6 +147,7 @@ alter table member modify m_pw varchar(100) not null;
 
 -- [07.07 | 채팅관련 테이블 추가]
 -- 채팅방
+-- 채팅방 번호 = 상품 번호???
 create table chat_room(
 cr_number int not null auto_increment,
 cr_member int not null,
