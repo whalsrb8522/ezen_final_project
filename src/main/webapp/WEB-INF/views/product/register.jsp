@@ -21,18 +21,9 @@
 				<ul class="file-ul">
 					<li class="file-li">
 						이미지 등록
-						<input type="file" id="file" name="files" multiple class="file-input">
+						<input type="file" id="file" name="files" onchange="setDetailImage(event);" multiple class="file-input" accept="image/*">
 					</li>
-					<div id="productImage">
-					<li class="regi-file">
-						<img alt="상품이미지" src="/resources/image/44.jpg">
-						<button type="button" class="file-del"></button>
-						<!-- https://iamiet.tistory.com/68 -->
-					</li>
-					</div>
-					
 				</ul>
-				
 			</div>
 		</div>
 		
