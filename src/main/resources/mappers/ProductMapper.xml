@@ -8,11 +8,20 @@
 		(select p_number from product 
 		where p_isDel=0
 		order by p_number desc
-		limit #{pageStrart}, #{qty}) a left join product b
+		limit #{pageStart}, #{qty}) a left join product b
 		on a.p_number = b.p_number
 	</select>
 	
 	<select id="getTotalCount" resultType="int">
 		select count(p_number) from product where p_isDel=0
+	</select>
+	
+	<insert id="insertProductRegister">
+		insert into product (p_name, p_price, p_category, p_info, p_location)
+		values (#{p_name}, #{p_price}, #{p_category}, #{p_info}, #{p_location})
+	</insert>
+	
+	<select id="selectPnumber" resultType="int">
+		select max(p_number) from product
 	</select>
 </mapper>
