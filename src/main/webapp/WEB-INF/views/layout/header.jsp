@@ -29,7 +29,7 @@
 				<span id="logoText">양파마켓</span>
 			</a>
 			
-			<div id="searchContainer" class="border-gray">
+			<div id="searchContainer" class="border-purple">
 				<span id="searchIcon" class="material-symbols-outlined">
 					search
 				</span>
@@ -58,6 +58,7 @@
 			</span>
 			<div id="menuContainer">
 				<a href="/board_location/list">양파타운</a>
+				<img src="/resources/img/new.png" width="72" height="26" alt="양파타운">
 				<a href="/board_qna/register">1:1문의</a>
 				<a href="/board_notice/list">공지사항</a>
 			</div>
