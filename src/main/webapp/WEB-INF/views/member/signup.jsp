@@ -31,9 +31,21 @@
 			<p id="signSnsText">SNS 계정으로 간편 로그인/회원가입</p>
 			
 			<div id="signSnsBtn">
-				<p>F</p>
-				<p>F</p>
-				<p>F</p>
+			  <a href="#">
+			    <div class="snsCircle snsCircle-yellow">
+			      <img src="/resources/img/kakao-logo.png" alt="소셜 로고">
+			    </div>
+			  </a>
+			  <a href="#">
+			    <div class="snsCircle snsCircle-green">
+			      <img src="/resources/img/naver-logo.png" alt="소셜 로고">
+			    </div>
+			  </a>
+			  <a href="#">
+			    <div class="snsCircle snsCircle-blue">
+			      <img src="/resources/img/facebook-logo.png" alt="소셜 로고">
+			    </div>
+			  </a>
 			</div>
 			
 			<div id="emailContainer">
