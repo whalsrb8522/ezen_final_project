@@ -46,39 +46,27 @@ function search_loca() {
 
 
 // file upload
-const regExp = new RegExp("\.(exe|sh|bat|msi|dll|js)$");
-const regExpImg = new RegExp("\.(jpg|jpeg|png|gif|bmp)$");
-const maxSize = 1024 * 1024 * 20;
+function setDetailImage(event) {
+    for (let image of event.target.files) {
+        let reader = new FileReader();
 
-function fileSizeValidation(fileName, fileSize) {
-    if (regExp.test(fileName)) {
-        return 0;
-    } else if (fileSize > maxSize) {
-        return 0;
-    } else {
-        return 1;
+        let li = document.createElement("li");
+        let tmp = `<li class="regi-file">
+						<img alt="상품이미지" src="">
+						<button type="button" class="file-del"></button>
+					</li>`;
+
+        li.innerHTML = tmp;
+
+        reader.onload = function (event) {
+            document.querySelector('.file-ul').appendChild(li);
+            li.querySelector("img").setAttribute('src', event.target.result);
+
+
+            document.querySelector('.file-del').addEventListener('click', () => {
+                document.querySelector('.file-ul').removeChild(li);
+            })
+        };
+        reader.readAsDataURL(image);
     }
 }
-
-document.addEventListener('change', (e) => {
-    if (e.target.id == 'file') {
-        document.getElementById('productRegiBtn').disabled = false;
-        const fileObject = document.getElementById('file').files;
-
-        let div = document.getElementById('productImage');
-        div.innerHTML = '';
-        let li = `<li class="regi-file">`;
-        let isOk = 1;
-        for (let file of fileObject) {
-            let vaildResult = fileSizeValidation(file.name, file.size);
-            isOk *= vaildResult;
-            li += `<button type="button" class="file-del"></button>`;
-            li += `${file.name}`;
-        }
-        li += `</li>`;
-        div.innerHTML = li;
-        if (isOk == 0) {
-            document.getElementById('productRegiBtn').disabled = true;
-        }
-    }
-})
