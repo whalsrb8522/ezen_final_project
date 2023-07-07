@@ -16,7 +16,7 @@ public class MemberVO {
 	private String m_mail;
 	private String m_pw;
 	private String m_nick_name;
-	private String text;
+	private String m_introduct;
 	private String m_address;
 	private int m_isAdmin;
 	private int m_isDel;

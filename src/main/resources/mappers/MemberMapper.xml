@@ -8,9 +8,10 @@
   </select>
   
   <insert id="insertMember">
-  	insert into user(m_mail, m_pw, m_nick_name, m_introduct, m_address)
+  	insert into member(m_mail, m_pw, m_nick_name, m_introduct, m_address)
   	values(#{m_mail}, #{m_pw}, #{m_nick_name}, #{m_introduct}, #{m_address})
   </insert>
+
   
   
   
