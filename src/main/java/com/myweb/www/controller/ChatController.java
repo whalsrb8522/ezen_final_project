@@ -11,4 +11,7 @@ public class ChatController {
 	@GetMapping("test")
 	public void test() {}
 	
+	@GetMapping("main")
+	public void main() {}
+	
 }
