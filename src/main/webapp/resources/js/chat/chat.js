@@ -1,9 +1,9 @@
 var webSocket = {
-    _url: null,
-    _socket: null,
+    url: null,
+    socket: null,
 
     init: function(param) {
-        this._url = param.url;
+        this.url = param.url;
         this._initSocket();
     },
 
@@ -39,22 +39,22 @@ var webSocket = {
     },
 
     disconnect: function() {
-        this._socket.close();
+        this.socket.close();
     },
 
     _initSocket: function() {
-        this._socket = new SockJS(this._url);
+        this.socket = new SockJS(this.url);
 
         var self = this;
-        this._socket.onopen = function(evt) {
+        this.socket.onopen = function(evt) {
             self.sendEnter();
         };
 
-        this._socket.onmessage = function(evt) {
+        this.socket.onmessage = function(evt) {
             self.receiveMessage(JSON.parse(evt.data));
         };
 
-        this._socket.onclose = function(evt) {
+        this.socket.onclose = function(evt) {
             self.closeMessage(evt.data);
         };
     },
@@ -67,6 +67,6 @@ var webSocket = {
         };
         console.log(msgData);
         var jsonData = JSON.stringify(msgData);
-        this._socket.send(jsonData);
+        this.socket.send(jsonData);
     }
 };
