@@ -60,7 +60,7 @@ public class MemberController {
 		if(isMember != null) {
 			HttpSession ses = request.getSession();
 			ses.setAttribute("ses", isMember); //세션에 객체 담기
-			ses.setMaxInactiveInterval(60*10); //로그인 유지 시간
+			ses.setMaxInactiveInterval(60*180); //로그인 유지 시간 : 현재 3시간
 			m.addAttribute("member", isMember);
 		}else {
 			m.addAttribute("msg_signin", 0);
