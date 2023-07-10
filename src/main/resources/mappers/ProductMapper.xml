@@ -17,8 +17,8 @@
 	</select>
 	
 	<insert id="insertProductRegister">
-		insert into product (p_name, p_price, p_category, p_info, p_location)
-		values (#{p_name}, #{p_price}, #{p_category}, #{p_info}, #{p_location})
+		insert into product (m_number, p_name, p_price, p_category, p_info, p_location, p_pay)
+		values (#{m_number}, #{p_name}, #{p_price}, #{p_category}, #{p_info}, #{p_location}, #{p_pay})
 	</insert>
 	
 	<select id="selectPnumber" resultType="int">

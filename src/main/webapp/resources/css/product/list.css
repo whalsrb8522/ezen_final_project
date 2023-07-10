@@ -57,6 +57,10 @@
 	font-size: 15px;
 }
 
+.product-list-alink{
+	color: black;
+}
+
 .product-price{
 	padding: 0 5px 10px 5px;
 	
