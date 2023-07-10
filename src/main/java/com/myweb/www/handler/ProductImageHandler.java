@@ -19,7 +19,7 @@ import net.coobird.thumbnailator.Thumbnails;
 @AllArgsConstructor
 @Component
 public class ProductImageHandler {
-	private final String UP_DIR = "D:\\_myweb\\_java\\productImageUpload";
+	private final String UP_DIR = "/resources/fileUpload";
 	
 	public List<ProductImageVO> uploadFiles(MultipartFile[] files){
 		LocalDate date = LocalDate.now();

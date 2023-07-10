@@ -55,7 +55,9 @@ public class ProductController {
 	}
 	
 	@GetMapping("/detail")
-	public void detail() {}
+	public void detail(@RequestParam("p_number")int p_number) {
+		
+	}
 	
 	@GetMapping("/modify")
 	public void modify() {}

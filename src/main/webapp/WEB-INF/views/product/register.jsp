@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/product/register.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script type="text/javascript" src="//dapi.akakao.com/v2/maps/sdk.js?appkey=28524d982cffea013a5f7c234898c8df&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=28524d982cffea013a5f7c234898c8df&libraries=services"></script>
 </head>
 <body>
 <jsp:include page="../layout/header.jsp"></jsp:include>
@@ -30,6 +30,7 @@
 		<div id="title-wrap">
 			<div class="register-title">제목</div>
 			<div>
+				<input type="hidden" name="m_number" value="1">
 				<input class="border-gray title-input" name="p_name" placeholder="상품 제목을 입력해 주세요.">
 				<a href="/" class="input-a">거래금지품목</a>
 			</div>
@@ -38,42 +39,47 @@
 		
 		<div id="cate-wrap">
 			<div class="register-title">카테고리</div>
+			<div class="two-cate">
 			<div class="cate-wrapper border-gray">
 				<div class="cate-box">
 					<ul class="cate-ul">
 						<li class="cate-li">
-							<button type="button" class="cate-btn">전자기기</button>
+							<button type="button" class="cate-btn" value="전자기기">전자기기</button>
 						</li>
 						<li class="cate-li">
-							<button type="button" class="cate-btn">아웃도어, 스포츠</button>
+							<button type="button" class="cate-btn" value="아웃도어, 스포츠">아웃도어, 스포츠</button>
 						</li>
 						<li class="cate-li">
-							<button type="button" class="cate-btn">자동차용품, 공구</button>
+							<button type="button" class="cate-btn" value="자동차용품, 공구">자동차용품, 공구</button>
 						</li>
 						<li class="cate-li">
-							<button type="button" class="cate-btn">가구, 조명</button>
+							<button type="button" class="cate-btn" value="가구, 조명">가구, 조명</button>
 						</li>
 						<li class="cate-li">
-							<button type="button" class="cate-btn">유아, 완구</button>
+							<button type="button" class="cate-btn" value="유아, 완구">유아, 완구</button>
 						</li>
 						<li class="cate-li">
-							<button type="button" class="cate-btn">생활, 주방, 건강</button>
+							<button type="button" class="cate-btn" value="생활, 주방, 건강">생활, 주방, 건강</button>
 						</li>
 						<li class="cate-li">
-							<button type="button" class="cate-btn">패션, 잡화</button>
+							<button type="button" class="cate-btn" value="패션, 잡화">패션, 잡화</button>
 						</li>
 						<li class="cate-li">
-							<button type="button" class="cate-btn">사무, 취미</button>
+							<button type="button" class="cate-btn" value="사무, 취미">사무, 취미</button>
 						</li>
 					</ul>
 				</div>
+			</div>
+			<div id="select-cate">	
+				<span> 선택한 카테고리 > </span> <input type="text" name="p_category" id="p_category" value="" />
+			</div>
 			</div>
 		</div>
 		
 		<div id="loca-wrap">
 			<div class="register-title regi-location">거래 희망 장소</div>
 			<div id="search-loca">
-				<input type="text" id="search-address" class="border-gray search-input" placeholder="주소">
+				<input type="text" id="search-address" class="border-gray search-input" name="p_location" placeholder="주소">
 				<input type="button" class="background-gray search-loca-btn" onclick="search_loca()" value="주소 검색"><br>
 				<div id="regi-map" style="width:800px;height:300px;margin-top:10px;display:none">지도</div>
 			</div>
@@ -100,11 +106,11 @@
 			<div class="register-title">결제</div>
 			<div>
 				<label class="pay-label">
-					<input type="radio" name="pay" value="onionPay" checked="checked">
+					<input type="radio" name="p_pay" value="onionPay" checked="checked">
 					<span>양파페이</span>
   				</label>
   				<label>
-					<input type="radio" name="pay" value="money">
+					<input type="radio" name="p_pay" value="money">
 					<span>만나서 현금 결제</span>
 				</label>
 			</div>
