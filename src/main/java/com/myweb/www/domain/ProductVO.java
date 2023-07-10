@@ -25,4 +25,5 @@ public class ProductVO {
 	private String p_location;
 	private int p_status;
 	private boolean p_isDel;
+	private String p_pay;
 }
