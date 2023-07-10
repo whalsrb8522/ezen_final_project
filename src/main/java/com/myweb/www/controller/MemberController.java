@@ -88,10 +88,6 @@ public class MemberController {
 	    return "home";
 	}
 	
-	
-
-	
-
 	//로그아웃
 	@GetMapping("/signout")
 	public String signout(Model m, HttpServletRequest request) {
