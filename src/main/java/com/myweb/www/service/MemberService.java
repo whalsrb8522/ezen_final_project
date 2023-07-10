@@ -8,7 +8,7 @@ public interface MemberService {
 
 	MemberVO isMember(String m_mail, String m_pw);
 
-	/* int nickCheck(String nickName); */
+	int nicknameCheck(String m_nick_name);
 
 
 

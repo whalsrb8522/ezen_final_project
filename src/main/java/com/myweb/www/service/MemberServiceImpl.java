@@ -2,6 +2,8 @@ package com.myweb.www.service;
 
 import javax.inject.Inject;
 
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -67,10 +69,18 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 	}
-	/*
-	 * @Override public int nickCheck(String nickName) { int cnt =
-	 * mdao.nickCheck(nickName); return cnt; }
-	 */
+	@Override
+	public int nicknameCheck(String m_nick_name) {
+		// TODO Auto-generated method stub
+		int count =  mdao.nicknameCheck(m_nick_name);
+		return (count == 0) ? 0 : 1;
+	}
+	
+
+	
+	
+	
+	 
 
 
 }
