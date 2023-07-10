@@ -16,8 +16,8 @@ import com.myweb.www.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Controller
 @RequestMapping("/member/*")
+@Controller
 public class MemberController {
 	
 	@Inject
@@ -47,20 +47,20 @@ public class MemberController {
 	
 	//로그인
 	@GetMapping("/signin")
-	public String signin() {
-//		log.info("로그인 페이지로 이동");
+	public String signinGet() {
+		
 		return "/member/signin";
 	}
 	
 	@PostMapping("/signin")
 	public String signinPost(Model m, String m_mail, String m_pw, HttpServletRequest request) {
-		log.info("m_mail : "+m_mail, "m_pw : "+m_pw);
+		log.info("-=-=> id : "+m_mail+", "+"pw : "+m_pw);
 		MemberVO isMember = memberService.isMember(m_mail, m_pw);
 		
 		if(isMember != null) {
 			HttpSession ses = request.getSession();
 			ses.setAttribute("ses", isMember); //세션에 객체 담기
-			ses.setMaxInactiveInterval(60*10); //로그인 유지 시간
+			ses.setMaxInactiveInterval(60*180); //로그인 유지 시간 : 현재 3시간
 			m.addAttribute("member", isMember);
 		}else {
 			m.addAttribute("msg_signin", 0);
@@ -69,7 +69,8 @@ public class MemberController {
 	}
 	
 	//로그아웃
-	public String logout(Model m, HttpServletRequest request) {
+	@GetMapping("/signout")
+	public String signout(Model m, HttpServletRequest request) {
 		request.getSession().removeAttribute("ses");
 		request.getSession().invalidate();
 		m.addAttribute("msg_logout", 1);

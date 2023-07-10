@@ -18,6 +18,20 @@ window.onload = function () {
     }
 }
 
+// 이메일 중복 확인 및 인증
+
+// 닉네임 중복 확인
+
+// 주소 필수 입력 
+
+// 보안 인증 (reCAPTCHA) 
+
+// 프로필 사진
+
+// 필수 약관 
+
+
+
 // ----------------------------------------------------------
 
 // 자기소개 필수 입력 조항 삽입
@@ -59,6 +73,7 @@ document.getElementById('innerContainer').addEventListener('submit', function(e)
     
     var password = passwordField.value;
     
+    // 최소 8자 + 최소 한 개의 영문자 + 최소 한 개의 숫자
     var passwordReg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     
     if (!passwordReg.test(password)) {

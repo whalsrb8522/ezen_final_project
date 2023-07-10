@@ -110,6 +110,66 @@
 									<span class="yourChat">대화대화대화대화대화</span>
 									<span class="yourChatTime">대화 시간</span>
 								</div>
+								<div class="roomMidBoxChat5">
+									<img alt="" src="">
+									<span class="yourChat">대화대화대화대화대화</span>
+									<span class="yourChatTime">대화 시간</span>
+								</div>
+								<div class="roomMidBoxChat5">
+									<img alt="" src="">
+									<span class="yourChat">대화대화대화대화대화</span>
+									<span class="yourChatTime">대화 시간</span>
+								</div>
+								<div class="roomMidBoxChat5">
+									<img alt="" src="">
+									<span class="yourChat">대화대화대화대화대화</span>
+									<span class="yourChatTime">대화 시간</span>
+								</div>
+								<div class="roomMidBoxChat5">
+									<img alt="" src="">
+									<span class="yourChat">대화대화대화대화대화</span>
+									<span class="yourChatTime">대화 시간</span>
+								</div>
+								<div class="roomMidBoxChat5">
+									<img alt="" src="">
+									<span class="yourChat">대화대화대화대화대화</span>
+									<span class="yourChatTime">대화 시간</span>
+								</div>
+								<div class="roomMidBoxChat5">
+									<img alt="" src="">
+									<span class="yourChat">대화대화대화대화대화</span>
+									<span class="yourChatTime">대화 시간</span>
+								</div>
+								<div class="roomMidBoxChat5">
+									<img alt="" src="">
+									<span class="yourChat">대화대화대화대화대화</span>
+									<span class="yourChatTime">대화 시간</span>
+								</div>
+								<div class="roomMidBoxChat5">
+									<img alt="" src="">
+									<span class="yourChat">대화대화대화대화대화</span>
+									<span class="yourChatTime">대화 시간</span>
+								</div>
+								<div class="roomMidBoxChat5">
+									<img alt="" src="">
+									<span class="yourChat">대화대화대화대화대화</span>
+									<span class="yourChatTime">대화 시간</span>
+								</div>
+								<div class="roomMidBoxChat5">
+									<img alt="" src="">
+									<span class="yourChat">대화대화대화대화대화</span>
+									<span class="yourChatTime">대화 시간</span>
+								</div>
+								<div class="roomMidBoxChat5">
+									<img alt="" src="">
+									<span class="yourChat">대화대화대화대화대화</span>
+									<span class="yourChatTime">대화 시간</span>
+								</div>
+								<div class="roomMidBoxChat5">
+									<img alt="" src="">
+									<span class="yourChat">대화대화대화대화대화</span>
+									<span class="yourChatTime">대화 시간</span>
+								</div>
 							</div>
 						</div>
 						<div class="roomBotBox">

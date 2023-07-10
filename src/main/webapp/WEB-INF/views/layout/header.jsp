@@ -36,20 +36,26 @@
 				<input type="text" id="searchInput">
 			</div>
 			
-			<div id="memberContainer">
+			<c:if test="${ses.m_mail eq null}">
 				<!-- 로그인 전 -->
-				<c:if test="${ses.m_mail eq null }"></c:if>
-					<a href="/member/signup">회원가입</a>
-					<a href="/member/signin">로그인</a>
-				
+				<div id="memberContainer">
+						<a href="/member/signup">회원가입</a>
+						<a href="/member/signin">로그인</a>
+				</div>
+			</c:if>
+			
+			<c:if test="${ses.m_mail ne null}">
 				<!-- 로그인 후 -->
-				<%-- <c:if test="${ses.m_mail ne null} }"></c:if>
-					<a href="/member/detail">내 상점</a>
-					<a href="/chat/test">채팅방</a>
-					<a href="/member/signout">로그아웃</a> --%>
-				
-			</div>
+				<div id="memberContainer1">
+						<a href="/member/detail">내 상점</a>
+						<a href="/chat/test">채팅방</a>
+						<a href="/member/signout">로그아웃</a>
+				</div>
+			</c:if>
 		</div>
+			
+
+		
 	</header>
 	<nav>
 		<div id="navContainer">

@@ -273,6 +273,7 @@ hr {
   line-height: 1.4;
   font-weight: 300;
   margin: 0px 16px auto;
+  overflow: auto;
 }
 
 .roomMidBoxChat {
