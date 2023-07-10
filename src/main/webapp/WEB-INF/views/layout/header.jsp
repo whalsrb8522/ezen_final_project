@@ -59,9 +59,25 @@
 	</header>
 	<nav>
 		<div id="navContainer">
-			<span class="material-symbols-outlined">
+			<ul class="menu">
+			<li>
+			<a href="#" class="material-symbols-outlined">
 				menu
-			</span>
+			</a>
+			<ul class="depth_1">
+		      <li><a href="#">강화군</a></li>
+		      <li><a href="#">옹진군</a></li>
+		      <li><a href="#">중구</a></li>
+		      <li><a href="#">동구</a></li>
+		      <li><a href="#">미추홀구</a></li>
+		      <li><a href="#">연수구</a></li>
+		      <li><a href="#">남동구</a></li>
+		      <li><a href="#">부평구</a></li>
+		      <li><a href="#">계양구</a></li>
+		      <li><a href="#">서구</a></li>
+		    </ul>
+		    </li>
+			</ul>
 			<div id="menuContainer">
 				<a href="/board_location/list">양파타운</a>
 				<img src="/resources/img/new.png" width="72" height="26" alt="양파타운">
