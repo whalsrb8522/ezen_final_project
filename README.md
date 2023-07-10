@@ -149,10 +149,13 @@ alter table member modify m_pw varchar(100) not null;
 -- 채팅방
 -- 채팅방 번호 = 상품 번호???
 create table chat_room(
-cr_number int not null auto_increment,
-cr_member int not null,
+cr_number int not null,
+cr_seller int not null,
+cr_buyer int not null,
 primary key(cr_number),
-foreign key(cr_member) references member(m_number)
+foreign key(cr_number) references product(p_number),
+foreign key(cr_seller) references member(m_number),
+foreign key(cr_buyer) references member(m_number)
 );
 
 -- 채팅 메시지
