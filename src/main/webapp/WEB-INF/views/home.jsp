@@ -17,21 +17,21 @@
 	<div id="container">
 		<div id="mainContainer">
 			<div>
-				<a href="#"><img alt="메인 이미지" src="" width="1024px" height="300px"></a>
+				<a href="#"><img alt="메인 이미지" src="/resources/img/메인.png" width="1024px" height="300px"></a>
 			</div>
 			
 			
 			<div id="todayProduct">
 				<h1>오늘의 상품</h1>
 				<div id="showAllContainer">
-					<a class="showAllBox" href="#">> 보러가기</a>
+					<a href="#"><button class="showAllBox background-purple submit-button">보러가기</button></a>
 				</div>
 			</div>
 				
 				<div id="productContainer">
 					<div onclick="location.href='#'" class="product">
 						<div class="product-image">
-							<img alt="상품 이미지" src="">
+							<img alt="상품 이미지" src="/resources/img/secondhanditem_1.jpg">
 						</div>
 						
 						<div class="product-text">
@@ -51,7 +51,7 @@
 					
 					<div onclick="location.href='#'" class="product">
 						<div class="product-image">
-							<img alt="상품 이미지" src="">
+							<img alt="상품 이미지" src="/resources/img/secondhanditem_2.jpg">
 						</div>
 						
 						<div class="product-text">
@@ -71,7 +71,7 @@
 					
 					<div onclick="location.href='#'" class="product">
 						<div class="product-image">
-							<img alt="상품 이미지" src="">
+							<img alt="상품 이미지" src="/resources/img/secondhanditem_3.jpg">
 						</div>
 						
 						<div class="product-text">
@@ -91,7 +91,7 @@
 					
 					<div onclick="location.href='#'" class="product">
 						<div class="product-image">
-							<img alt="상품 이미지" src="">
+							<img alt="상품 이미지" src="/resources/img/secondhanditem_4.jpg">
 						</div>
 						
 						<div class="product-text">

@@ -2,8 +2,8 @@
 
 header {
     position: relative;
-    height: 120px;
-    border-bottom: 1px solid gray;
+    height: 100px;
+    /*border-bottom: 1px solid gray;*/
     display: flex;
     justify-content: center;
 }
@@ -46,14 +46,30 @@ header #searchContainer {
 }
 
 header #searchContainer #searchIcon {
-    width: 33px;
-    height: 33px;
+    width: 35px;
+    height: 35px;
     color: white;
     background-color: #C97FE8;
     text-align: center;
     line-height: 33px;
 }
-	
+
+
+/* border */ 
+.border-purple {
+	border: 2px solid #C97FE8;
+	border-radius: 5px;
+	cursor: pointer;
+} input.border-gray:focus {
+	outline: none;
+	border-color: #c97fe8;
+	box-shadow: 0 0 5px #c97fe8;
+} textarea.border-gray:focus {
+	outline: none;
+	border-color: #c97fe8;
+	box-shadow: 0 0 5px #c97fe8;
+}
+
 header #searchContainer #searchInput {
     border: none;
     width: 90%;
@@ -65,7 +81,8 @@ header #searchContainer #searchInput {
 header #memberContainer {
     display: flex;
     height: 100%;
-    align-items: flex-start;
+    align-items: center;
+    /*align-items: flex-start;*/
     width: 130px;
     justify-content: space-between;
     font-size: 15px;
