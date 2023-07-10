@@ -17,6 +17,21 @@
 	<!-- 카카오 지도 -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=28524d982cffea013a5f7c234898c8df&libraries=services"></script>
+	
+<!-- 	<style type="text/css">
+	
+	.nick_ok{
+	color:#008000;
+	display: none;
+	}
+	
+	.nick_already{
+	color:#6A82FB; 
+	display: none;
+	}
+
+	
+	</style> -->
 </head>
 <body>
 	<div id="container">
@@ -80,7 +95,11 @@
 			<div id="nickNameContainer">
 				<h2>닉네임</h2>
 				<h6>다른 유저와 겹치지 않도록 입력해주세요. (2~15자)</h6>
-				<input type="text" class="border-gray input-box" placeholder="닉네임" name="m_nick_name">
+				<input type="text" id="m_nick_name" class="border-gray input-box" placeholder="닉네임" name="m_nick_name" oninput="checkNickName()">
+				
+				<!-- id ajax 중복체크 -->
+				<!-- <span class="nick_ok">사용 가능한 닉네임입니다.</span> -->
+				<!-- <span class="nick_already">누군가 이 닉네임을 사용하고 있어요.</span> -->
 			</div>
 			
 			<div id="introduceContainer">

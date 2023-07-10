@@ -9,6 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myweb.www.domain.MemberVO;
 import com.myweb.www.service.MemberService;
@@ -45,6 +48,22 @@ public class MemberController {
 		return "home"; 
 	}
 	
+	/*
+	 * //아이디 중복체크
+	 * 
+	 * @PostMapping("/nickCheck")
+	 * 
+	 * @ResponseBody public int nickCheck(@RequestParam("nickName") String nickName)
+	 * {
+	 * 
+	 */
+	
+	
+	
+	
+	
+	
+	
 	//로그인
 	@GetMapping("/signin")
 	public String signinGet() {
@@ -53,19 +72,20 @@ public class MemberController {
 	}
 	
 	@PostMapping("/signin")
-	public String signinPost(Model m, String m_mail, String m_pw, HttpServletRequest request) {
-		log.info("-=-=> id : "+m_mail+", "+"pw : "+m_pw);
-		MemberVO isMember = memberService.isMember(m_mail, m_pw);
-		
-		if(isMember != null) {
-			HttpSession ses = request.getSession();
-			ses.setAttribute("ses", isMember); //세션에 객체 담기
-			ses.setMaxInactiveInterval(60*180); //로그인 유지 시간 : 현재 3시간
-			m.addAttribute("member", isMember);
-		}else {
-			m.addAttribute("msg_signin", 0);
-		}
-		return "home";
+	public String signinPost(Model m, String m_mail, String m_pw, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+	    log.info("-=-=> id : "+m_mail+", "+"pw : "+m_pw);
+	    MemberVO isMember = memberService.isMember(m_mail, m_pw);
+	    
+	    if(isMember != null) {
+	        HttpSession ses = request.getSession();
+	        ses.setAttribute("ses", isMember); //세션에 객체 담기
+	        ses.setMaxInactiveInterval(60*180); //로그인 유지 시간 : 현재 3시간
+	        m.addAttribute("member", isMember);
+	    } else {
+	        redirectAttributes.addFlashAttribute("errorMessage", "아이디 혹은 비밀번호를 잘못입력하셨습니다.");
+	        return "redirect:/member/signin";
+	    }
+	    return "home";
 	}
 	
 	//로그아웃

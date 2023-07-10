@@ -126,6 +126,13 @@
 			closePopUp();
 			}, 1000);	
 	}
+	
+	
+	
+	//아이디, 비밀번호 오류메세지 출력
+	<c:if test="${not empty errorMessage}">
+   		alert('${errorMessage}');
+	</c:if>
 	</script>
 	
 	<!-- 페이스북 로그인... 이것도 something went wrong 뜸..ㅎ -->
