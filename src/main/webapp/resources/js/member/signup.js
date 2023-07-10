@@ -24,7 +24,15 @@ window.onload = function () {
 
 function checkNickname() {
     var nick = $('#nick').val();
+
+    if(nick.length < 2){
+        $(".successNameChk").text('닉네임은 최소 2글자 이상이어야 합니다.');
+        $(".successNameChk").css("color", "red");
+
+        return;
+    }
     console.log("nick: " + nick);  // nick 값 로그 출력
+
     $.ajax({
         url: '/member/nicknameCheck',  
         type: 'POST',  
@@ -44,11 +52,11 @@ function checkNickname() {
             if (intValue == 0) {
                 $(".successNameChk").text("사용가능한 닉네임입니다.");
 				$(".successNameChk").css("color", "green");
-				$("#nameDoubleChk").val("true");
+			
             } else {
                 $(".successNameChk").text("사용중인 닉네임입니다");
 				$(".successNameChk").css("color", "red");
-				$("#nameDoubleChk").val("false");
+			
             }
         },
         error: function(err) {
