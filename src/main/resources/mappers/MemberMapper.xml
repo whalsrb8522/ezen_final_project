@@ -12,9 +12,9 @@
   	values(#{m_mail}, #{m_pw}, #{m_nick_name}, #{m_introduct}, #{m_address})
   </insert>
 
-<!--   <select id="idCheck" parameterType="String" resultType="int">
-	select count(m_nick_name) from member WHERE m_nick_name = #{nickName}
-  </select> -->
+  <select id="nicknameCheck" resultType="int">
+    select count(*) from member where m_nick_name = #{m_nick_name}
+  </select>
   
   
   
