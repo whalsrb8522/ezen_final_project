@@ -10,20 +10,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body>
-	<footer>
-		<div id="foot_nav">
-			<div id="navContainer">
-				<div id="menuContainer">
-					<a href="#">회사소개</a>
-					<a href="#">이용약관</a>
-					<a href="#">운영정책</a>
-					<a href="#">개인정보처리방침</a>
-					<a href="#">청소년보호정책</a>
-					<a href="#">광고제휴</a>
-				</div>
-			</div>
-		</div>
-		
+	<footer>		
 		<div id="footerContainer">
 			<div id="leftContainer">
 				<div id="topContainer">

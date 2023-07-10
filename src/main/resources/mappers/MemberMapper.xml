@@ -16,7 +16,10 @@
 	select count(m_nick_name) from member WHERE m_nick_name = #{nickName}
   </select> -->
   
-  
+  <!-- 채팅  -->
+  <select id="selectMemberWithNumber" resultType="com.myweb.www.domain.MemberVO">
+  	select * from member where m_number = #{cr_buyer}
+  </select>
   
   </mapper>
   
