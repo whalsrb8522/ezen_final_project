@@ -18,7 +18,8 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDAO mdao;
 	@Inject
 	BCryptPasswordEncoder passwordencoder;
-
+	
+	//회원가입
 	@Override
 	public int signUp(MemberVO member) {
 		log.info("---> 회원가입(signup) Service 진입");
@@ -48,7 +49,7 @@ public class MemberServiceImpl implements MemberService {
 		
 		return isOk;
 	}
-
+	//로그인
 	@Override
 	public MemberVO isMember(String m_mail, String m_pw) {
 		log.info("---> 로그인(signin) Service 진입");
@@ -66,6 +67,10 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 	}
+	/*
+	 * @Override public int nickCheck(String nickName) { int cnt =
+	 * mdao.nickCheck(nickName); return cnt; }
+	 */
 
 
 }
