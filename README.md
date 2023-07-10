@@ -167,4 +167,7 @@ foreign key(cr_number) references chat_room(cr_number),
 foreign key(cm_send_m_number) references member(m_number)
 );
 
+-- [07.10 | product 상품등록 관련 pay 방법 컬럼 추가]
+alter table product add p_pay varchar(10) not null;
+
 ```
