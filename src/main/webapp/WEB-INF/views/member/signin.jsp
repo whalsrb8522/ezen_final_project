@@ -6,6 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>양파마켓 | 로그인</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
@@ -46,7 +47,7 @@
 			      <img src="/resources/img/naver-logo.png" alt="소셜 로고">
 			    </div>
 			  </a>
-			  <a href="#">
+			  <a href="javascript:;" class="facebook">
 			    <div class="snsCircle snsCircle-blue">
 			      <img src="/resources/img/facebook-logo.png" alt="소셜 로고">
 			    </div>
@@ -56,7 +57,7 @@
 	</div>
 	
 	<!-- 카카오 로그인 -->
-	<script src="http://developers.kakao.com/sdk/js/kakao.js"></script>
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	<script>
 	//28524d982cffea013a5f7c234898c8df
 	window.Kakao.init("28524d982cffea013a5f7c234898c8df");
@@ -133,5 +134,69 @@
    		alert('${errorMessage}');
 	</c:if>
 	</script>
+	
+	<!-- 페이스북 로그인... 이것도 something went wrong 뜸..ㅎ -->
+	<script>
+	$(document).ready(function() {
+		$('.facebook').click(function() {
+			let facebook_client_id = "1442104653028465";
+			let facebook_redirect_uri = "http://localhost:8088/";
+			let facebook_state = Math.floor(Math.random() * 10000);
+			location.href = 'https://www.facebook.com/v15.0/dialog/oauth?client_id=' + facebook_client_id + '&scope=public_profile,email&redirect_uri=' + facebook_redirect_uri + '&state=' + facebook_state;
+		});
+	});
+	</script>
+	
+	<script>
+	window.fbAsyncInit = function() {
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId      : '1442104653028465',
+				cookie     : true,
+				xfbml      : true,
+				version    : 'v17.0'
+			});
+			
+			FB.AppEvents.logPageView();   
+		};
+
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = "https://connect.facebook.net/en_US/sdk.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+
+		FB.getLoginStatus(function(response) {
+			statusChangeCallback(response);
+		});
+
+		{
+			status: 'connected',
+			authResponse: {
+				accessToken: '...',
+				expiresIn: '...',
+				signedRequest: '...',
+				userID: '...'
+			}
+		}
+
+		<fb:login-button 
+			scope="public_profile,email"
+			onlogin="checkLoginState();">
+		</fb:login-button>
+
+		function checkLoginState() {
+			FB.getLoginStatus(function(response) {
+				statusChangeCallback(response);
+			});
+		}
+		</script>
+	
+	
+	
+	
+	
 </body>
 </html>

@@ -18,10 +18,9 @@ window.onload = function () {
     }
 }
 
-// -----------------------------------------------------
+// 이메일 중복 확인 및 인증
 
 // 닉네임 중복 확인
-
 //function checkNickName(){
 //    var nickName = $('[name="m_nick_name"]').val();
 //    $.ajax({
@@ -45,7 +44,13 @@ window.onload = function () {
 //    });
 //};
 
+// 주소 필수 입력 
 
+// 보안 인증 (reCAPTCHA) 
+
+// 프로필 사진
+
+// 필수 약관 
 
 
 
