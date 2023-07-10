@@ -152,6 +152,31 @@
 	background: rgb(244, 244, 250);
 }
 
+.cate-btn-click{
+	width: 100%;
+    height: 100%;
+    padding: 0px 1.5rem;
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    font-size: 15px;
+	color: #c97fe8;
+}
+
+#select-cate{
+	margin-top: 15px;
+}
+
+#select-cate input{
+	border: none;
+	cursor: default;
+}
+
+.two-cate{
+	display: flex;
+	flex-direction: column;
+}
+
 
 #regi-info{
 	flex: 1 1 0%;
