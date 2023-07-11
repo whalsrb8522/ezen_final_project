@@ -9,6 +9,13 @@
 		values (#{pi_uuid}, #{p_number}, #{pi_name}, #{pi_dir})
 	</insert>
 
+	<select id="getlistFile" resultType="com.myweb.www.domain.ProductImageVO">
+		select * from product_image where p_number=#{p_number}
+	</select>
+	
+	<select id="selectFileList" resultType="com.myweb.www.domain.ProductImageVO">
+		select * from product_image where p_number=#{p_number}
+	</select>
 </mapper>
 
 

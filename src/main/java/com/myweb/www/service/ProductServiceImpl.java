@@ -1,9 +1,11 @@
 package com.myweb.www.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.tika.utils.ProcessUtils;
 import org.springframework.stereotype.Service;
 
 import com.myweb.www.domain.ProductDTO;
@@ -13,6 +15,9 @@ import com.myweb.www.domain.ProductVO;
 import com.myweb.www.repository.ProductDAO;
 import com.myweb.www.repository.ProductImageDAO;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class ProductServiceImpl implements ProductService {
 	@Inject
@@ -20,11 +25,6 @@ public class ProductServiceImpl implements ProductService {
 	@Inject
 	private ProductImageDAO pidao;
 
-	@Override
-	public List<ProductVO> productList(ProductPagingVO ppvo) {
-		// TODO Auto-generated method stub
-		return pdao.productList(ppvo);
-	}
 
 	@Override
 	public int getTotalCount(ProductPagingVO ppvo) {
@@ -35,9 +35,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int productRegister(ProductDTO pdto) {
 		int isOk = pdao.insertProductRegister(pdto.getPvo());
-		if(pdto.getPiList()==null) {
-			isOk*=1;
-		}else {
+		if(pdto.getPiList()!=null) {
 			if(isOk>0 && pdto.getPiList().size()>0) {
 				int p_number = pdao.selectPnumber();
 				for(ProductImageVO pivo : pdto.getPiList()) {
@@ -48,5 +46,20 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return isOk;
 	}
+
+	@Override
+	public List<ProductDTO> listFile(ProductPagingVO ppvo) {
+		List<ProductDTO> listPdto = new ArrayList<ProductDTO>();
+		List<ProductVO> listPvo = pdao.selectProduct(ppvo);
+		for(ProductVO pvo : listPvo) {
+			List<ProductImageVO> piList = pidao.selectFileList(pvo);
+			
+			listPdto.add(new ProductDTO(pvo, piList));
+		}
+		
+		return listPdto;
+	}
+
+
 	
 }
