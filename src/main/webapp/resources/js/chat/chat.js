@@ -1,3 +1,4 @@
+// 실시간 채팅 전달 기능
 var webSocket = {
     url: null,
     socket: null,
@@ -70,3 +71,51 @@ var webSocket = {
         this.socket.send(jsonData);
     }
 };
+
+// 채팅방 출력 관련
+async function getChat(cr_number, m_number) {
+    console.log(">>> cr_number : " + cr_number);
+    console.log(">>> m_number : " + m_number);
+
+    const chatDisplyNone = document.getElementById('chatDisplyNone');
+    const roomMidBox = document.getElementById('roomMidBox');
+    
+    roomMidBox.innerHTML = '';
+    chatDisplyNone.classList.add('dp_none');
+
+    try {
+        const resp = await fetch('/chat/view/' + cr_number);
+        const result = await resp.json();
+
+        console.log(result);
+        
+        for(let cmvo of result) {
+            let div = document.createElement('div');
+
+            if(cmvo.cm_send_m_number == m_number) {
+                div.classList.add('sendMessage');
+            } else {
+                div.classList.add('receiveMessage');
+            }
+
+            div.innerHTML += `
+                <div class="chatMessage"> ` + 
+                    cmvo.cm_context + `
+                </div>
+                <div class="chatTime">
+                    00:00
+                </div>
+            `
+            roomMidBox.appendChild(div);
+        }
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// 채팅방 닫기
+document.getElementById('backBtn').addEventListener('click', () => {
+    const chatDisplyNone = document.getElementById('chatDisplyNone');
+    chatDisplyNone.classList.remove('dp_none');
+});
