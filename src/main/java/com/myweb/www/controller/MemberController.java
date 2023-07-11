@@ -59,6 +59,10 @@ public class MemberController {
 	    return memberService.nicknameCheck(m_nick_name);
 	}
 	
+	//이메일 인증
+
+	
+	
 	//로그인
 	@GetMapping("/signin")
 	public String signinGet() {
