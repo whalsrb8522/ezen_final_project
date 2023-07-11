@@ -60,27 +60,57 @@ footer #menuContainer a {
     max-width: 1024px;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
+    /*flex-wrap: wrap;*/
     font-size: 12px;
     padding: 30px 40px;
     color: rgb(127, 127, 127);
     line-height: 2;
+    /*flex-direction: row;
+    align-items: flex-start;*/
 }
 
 #leftContainer {
-    width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
+    margin-right:10px;
+}
+
+#rightContainer {
+	display: flex; /* 컨테이너 안의 요소들을 수평으로 정렬하기 위해 flex 속성 사용 */
+ 	flex-direction: column; /* 내부 요소들을 수직으로 정렬하기 위해 flex-direction을 column으로 설정 */
+	justify-content: flex-start;
+	margin-left: 20px;
+	padding: 10px 0;
+}
+
+#topContainer {
+  margin-bottom: 40px; /* 위와 아래 컨테이너 간의 공간을 만들기 위해 마진 추가 */
+  flex-direction: column;
+}
+
+#bottomContainer {
+  flex-direction: column;
 }
 
 #infoTitle{
 	font-size:14px;
 	color: rgb(102, 102, 102);
 	font-weight:700;
+	
 }
 
-
-#rightContainer {
-    width: 1024px;
-    /* 우측 컨테이너에 대한 스타일 지정 */
+#rightContainer #info span:first-child{
+  font-size: 15px;
+  font-weight:700;
+  display: block;
+  color:rgb(102, 102, 102);
 }
+#rightContainer #info span {
+  font-size: 25px;
+  font-weight:700;
+  display: inline-block;
+  margin-top: -10px;
+  color:rgb(102, 102, 102);
+}
+

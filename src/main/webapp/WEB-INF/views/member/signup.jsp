@@ -46,7 +46,7 @@
 			<p id="signSnsText">SNS 계정으로 간편 로그인/회원가입</p>
 			
 			<div id="signSnsBtn">
-			  <a href="#">
+			  <a href="javascript:kakaoLogin();">
 			    <div class="snsCircle snsCircle-yellow">
 			      <img src="/resources/img/kakao-logo.png" alt="소셜 로고">
 			    </div>
@@ -163,6 +163,29 @@
 			<p align="center">이미 아이디가 있으신가요? <a href="/member/signin">로그인</a>
 		</form>
 	</div>
+	
+	<!-- 카카오 로그인 -->
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+	<script>
+	//28524d982cffea013a5f7c234898c8df
+	window.Kakao.init("28524d982cffea013a5f7c234898c8df");
+		
+	function kakaoLogin(){
+		window.Kakao.Auth.login({
+			scope:'profile_nickname, account_email, gender',
+			success: function(authObj){
+				console.log(authObj);
+				window.Kakao.API.request({
+					url:'/v2/user/me',
+					success: res => {
+						const kakao_account = res.kakao_account;
+						console.log(kakao_account);
+					}
+				});
+			}
+		});
+	}
+	</script>
 	
 	<script type="text/javascript" src="/resources/js/member/signup.js"></script>
 </body>
