@@ -1,5 +1,6 @@
 package com.myweb.www.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -21,6 +22,9 @@ import com.myweb.www.handler.ProductImageHandler;
 import com.myweb.www.handler.ProductPagingHandler;
 import com.myweb.www.service.ProductService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("/product/*")
 public class ProductController {
@@ -30,10 +34,11 @@ public class ProductController {
 	private ProductImageHandler pihd;
 	
 	
+	
 	@GetMapping("/list")
 	public void list(ProductPagingVO ppvo, Model m) {
-		List<ProductVO> productList = psv.productList(ppvo);
-		m.addAttribute("productList", productList);
+		List<ProductDTO> pdto = psv.listFile(ppvo);
+		m.addAttribute("productList", pdto);
 		int totalCount = psv.getTotalCount(ppvo);
 		ProductPagingHandler pph = new ProductPagingHandler(ppvo, totalCount);
 		m.addAttribute("pph", pph);
