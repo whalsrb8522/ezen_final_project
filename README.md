@@ -149,10 +149,13 @@ alter table member modify m_pw varchar(100) not null;
 -- 채팅방
 -- 채팅방 번호 = 상품 번호???
 create table chat_room(
-cr_number int not null auto_increment,
-cr_member int not null,
+cr_number int not null,
+cr_seller int not null,
+cr_buyer int not null,
 primary key(cr_number),
-foreign key(cr_member) references member(m_number)
+foreign key(cr_number) references product(p_number),
+foreign key(cr_seller) references member(m_number),
+foreign key(cr_buyer) references member(m_number)
 );
 
 -- 채팅 메시지
@@ -166,5 +169,8 @@ primary key(cm_number),
 foreign key(cr_number) references chat_room(cr_number),
 foreign key(cm_send_m_number) references member(m_number)
 );
+
+-- [07.10 | product 상품등록 관련 pay 방법 컬럼 추가]
+alter table product add p_pay varchar(10) not null;
 
 ```
