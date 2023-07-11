@@ -35,6 +35,7 @@
 		<!-- 상품 리스트 -->
 		<div>
 		<c:forEach items="${productList }" var="productList">
+			<a href="/product/detail?p_number=${productList.p_number }" class="product-list-alink">
 			<div class="product-wrapper">
 				<div class="product-photo">
 					<img alt="없음" src="/resources/image/44.jpg" class="product-photo">
@@ -52,6 +53,7 @@
 					${productList.p_location }
 				</div>
 			</div>
+			</a>
 		</c:forEach>
 		</div> <br>
 		

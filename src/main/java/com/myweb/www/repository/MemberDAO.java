@@ -1,7 +1,10 @@
 package com.myweb.www.repository;
 
+
 import org.springframework.stereotype.Repository;
 
+
+import com.myweb.www.domain.ChatRoomVO;
 import com.myweb.www.domain.MemberVO;
 
 @Repository
@@ -15,13 +18,12 @@ public interface MemberDAO {
 
 	int nicknameCheck(String m_nick_name);
 
-	
+	MemberVO selectMemberWithNumber(int m_number);
 
+	MemberVO selectMemberWithNumber(ChatRoomVO crvo);
 
-	
-	 
-
-
-
+	/*
+	 * int nickCheck(String nickName);
+	 */
 
 }
