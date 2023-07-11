@@ -18,6 +18,7 @@
 		  'opsz' 48
 		}
 	</style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
 </head>
 <body>
 	<jsp:include page="../layout/header.jsp"></jsp:include>
@@ -35,36 +36,36 @@
 						<!-- 채팅방 목록 -->
 						<div class="chatListContainer">
 							<c:forEach items="${listCdto }" var="cdto">
-								<div class="chatList">
-									<div class="chatListImg">
-										<img alt="프로필" src="">
-									</div>
-									<div class="chatListText">
-										<div class="chatListTextUp">${cdto.mvo.m_nick_name }</div>
-										<div class="chatListTextDown">
-											<c:choose>
-												<c:when test="${cdto.lastCmvo eq null }">
-													대화 내용이 없습니다.
-												</c:when>
-												<c:otherwise>
-													${cdto.lastCmvo.cm_context }
-												</c:otherwise>
-											</c:choose>
+									<div class="chatList" onclick="getChat(${cdto.crvo.cr_number }, ${ses.m_number })">
+										<div class="chatListImg">
+											<img alt="프로필" src="">
 										</div>
-									</div>								
-								</div>
+										<div class="chatListText">
+											<div class="chatListTextUp">${cdto.mvo.m_nick_name }</div>
+											<div class="chatListTextDown">
+												<c:choose>
+													<c:when test="${cdto.lastCmvo eq null }">
+														대화 내용이 없습니다.
+													</c:when>
+													<c:otherwise>
+														${cdto.lastCmvo.cm_context }
+													</c:otherwise>
+												</c:choose>
+											</div>
+										</div>								
+									</div>
 							</c:forEach>
 						</div>
 					</div>
 				</div>
 				<div class="roomContainer">
-					<div class="roomSelect">
+					<div id="chatDisplyNone">
 						<p>대화를 선택해주세요.</p>
 					</div>
 					
 					<div class="roomContainer1">
 						<div class="roomTopBox">
-							<span class="material-symbols-outlined" id="TopBoxIcon">keyboard_backspace</span>
+							<span class="material-symbols-outlined" id="backBtn">keyboard_backspace</span>
 							<div class="roomTopBox3">
 								<div class="roomTopBox-nick">닉네임</div>
 								<div class="roomTopBox-time">평균 응답 시간</div>
@@ -80,10 +81,10 @@
 								<span class="trade-title">이케아 스탠드 판매합니다.</span>
 						</div>
 						
-						<div class="roomMidBox">
+						<div id="roomMidBox">
 							<div class="sendMessage">
 								<div class="chatMessage">
-									대화대화대화대화대화대화대화대화대화대화대화대화대화대화대화대화대화대화대화대화대화대화대화대화대화대화대화대화대화대화대화대화대화
+									대화내용
 								</div>
 								<div class="chatTime">
 									00:00
@@ -91,7 +92,7 @@
 							</div>
 							<div class="receiveMessage">
 								<div class="chatMessage">
-									대화대화대화대화대화
+									대화내용
 								</div>
 								<div class="chatTime">
 									00:00
@@ -122,5 +123,7 @@
 	
 	<jsp:include page="../layout/footer.jsp"></jsp:include>
 	<jsp:include page="../chat/modal.jsp"></jsp:include>
+	
+	<script type="text/javascript" src="/resources/js/chat/chat.js"></script>
 </body>
 </html>

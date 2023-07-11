@@ -56,6 +56,7 @@ hr {
     font-size: 30px;
     line-height: 80px;
     padding: 0 30px;
+    border-bottom: 1px solid rgb(238, 238, 238);
 }
 
 .chatList {
@@ -64,7 +65,8 @@ hr {
     display: flex;
     align-items: center;
     padding: 0px 20px;
-    /* background-color: rgb(246, 246, 246); */
+} .chatList:hover {
+	background-color: rgb(246, 246, 246);	
 }
 
 .chatListImg {
@@ -167,7 +169,7 @@ hr {
 	background-color: rgb(246, 246, 246);
 }
 
-.roomSelect {
+#chatDisplyNone {
     width: 100%;
     height: 100%;
     display: flex;
@@ -192,7 +194,7 @@ hr {
 	border-bottom: 1px solid gray;
 }
 
-#TopBoxIcon {
+#backBtn {
 	cursor: pointer;
 }
 
@@ -241,7 +243,7 @@ hr {
 	font-size: 0.8em;
 }
 /* MidBox (대화 내용) */
-.roomMidBox {
+#roomMidBox {
     display: flex;
     flex-direction: column-reverse;
     height: 100%;
@@ -261,7 +263,7 @@ hr {
     padding: 5px 10px;
     border-radius: 10px;
     font-size: 18px;
-    width: 400px;
+    max-width: 400px;
 }
 .receiveMessage {
     display: flex;
@@ -273,7 +275,7 @@ hr {
     padding: 5px 10px;
     border-radius: 10px;
     font-size: 18px;
-    flex: 1;
+    max-width: 400px;
 }
 
 .chatTime {
@@ -343,4 +345,8 @@ textarea {
 	align-items: flex-end;
 	margin: 12px 20px;
 	cursor: pointer;
+}
+
+.dp_none {
+	display: none !important;
 }

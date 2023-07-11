@@ -34,11 +34,15 @@ public class ChatServiceImpl implements ChatService {
 		for(ChatRoomVO crvo : listCrvo) {
 			ChatMessageVO lastCmvo = cdao.selecLastMessage(crvo);
 			MemberVO mvo = mdao.selectMemberWithNumber(crvo);
-			
-			listCdto.add(new ChatDTO(crvo, lastCmvo, null, mvo));
+			listCdto.add(new ChatDTO(crvo, lastCmvo, mvo));
 		}
 		
 		return listCdto;
+	}
+
+	@Override
+	public List<ChatMessageVO> getMessage(int cr_number) {
+		return cdao.selectMessage(cr_number);
 	}
 
 }
