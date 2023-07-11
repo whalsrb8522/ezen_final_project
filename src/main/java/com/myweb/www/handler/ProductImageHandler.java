@@ -19,7 +19,9 @@ import net.coobird.thumbnailator.Thumbnails;
 @AllArgsConstructor
 @Component
 public class ProductImageHandler {
-	private final String UP_DIR = "/resources/fileUpload";
+	
+	private final String UP_DIR = "D:\\_final_project\\ezen_final_project\\src\\main\\webapp\\resources\\fileUpload";
+			
 	
 	public List<ProductImageVO> uploadFiles(MultipartFile[] files){
 		LocalDate date = LocalDate.now();
@@ -29,7 +31,7 @@ public class ProductImageHandler {
 		File folders = new File(UP_DIR, today);
 		
 		if(!folders.exists()) {
-			folders.mkdir();
+			folders.mkdirs();
 		}
 		
 		List<ProductImageVO> piList = new ArrayList<ProductImageVO>();
@@ -51,7 +53,7 @@ public class ProductImageHandler {
 				file.transferTo(storeFile);
 				if(isImageFile(storeFile)) {
 					File thumbNail = new File(folders, uuid.toString()+"_th_"+onlyFileName);
-					Thumbnails.of(storeFile).size(75, 75).toFile(thumbNail);
+					Thumbnails.of(storeFile).size(190, 200).toFile(thumbNail);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
