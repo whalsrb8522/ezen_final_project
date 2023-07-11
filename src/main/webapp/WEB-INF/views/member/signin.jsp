@@ -78,10 +78,9 @@
 		});
 	}
 	</script>
-	
-<!-- 네이버 로그인 누르면 오류난다고 뜸 ! 조장님 해결부탁... -->
-<!-- https://tyrannocoding.tistory.com/60 -->
-
+		
+	<!-- 네이버 로그인 누르면 오류난다고 뜸 ! 조장님 해결부탁... -->
+	<!-- https://tyrannocoding.tistory.com/60 -->
 	<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 	<script>	
 	var naverLogin = new naver.LoginWithNaverId(
@@ -127,13 +126,12 @@
 			}, 1000);	
 	}
 	
-	
-	
 	//아이디, 비밀번호 오류메세지 출력
 	<c:if test="${not empty errorMessage}">
    		alert('${errorMessage}');
 	</c:if>
 	</script>
+	
 	
 	<!-- 페이스북 로그인... 이것도 something went wrong 뜸..ㅎ -->
 	<script>
@@ -194,9 +192,6 @@
 		}
 		</script>
 	
-	
-	
-	
-	
+
 </body>
 </html>
