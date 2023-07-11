@@ -21,28 +21,49 @@ window.onload = function () {
 // 이메일 중복 확인 및 인증
 
 // 닉네임 중복 확인
-//function checkNickName(){
-//    var nickName = $('[name="m_nick_name"]').val();
-//    $.ajax({
-//        url:'./nickCheck', 
-//        type:'post', 
-//        data:{nickName:nickName},
-//        success:function(cnt){ 
-//            if(cnt == 0){ 
-//                $('.nick_ok').css("display","inline-block"); 
-//                $('.nick_already').css("display", "none");
-//            } else {
-//                $('.nick_already').css("display","inline-block");
-//                $('.nick_ok').css("display", "none");
-//                alert("닉네임을 다시 입력해주세요");
-//                $('[name="m_nick_name"]').val('');
-//            }
-//        },
-//        error:function(){
-//            alert("에러입니다");
-//        }
-//    });
-//};
+
+function checkNickname() {
+    var nick = $('#nick').val();
+
+    if(nick.length < 2){
+        $(".successNameChk").text('닉네임은 최소 2글자 이상이어야 합니다.');
+        $(".successNameChk").css("color", "red");
+
+        return;
+    }
+    console.log("nick: " + nick);  // nick 값 로그 출력
+
+    $.ajax({
+        url: '/member/nicknameCheck',  
+        type: 'POST',  
+        data: {m_nick_name: nick},  
+        success: function(data) {
+            console.log("Server response: ", data);
+            var xmlString = new XMLSerializer().serializeToString(data);
+            console.log("XML string: ", xmlString);
+
+            // XML 응답 파싱
+            var parser = new DOMParser();
+            var xmlDoc = parser.parseFromString(xmlString, "text/xml");
+
+            // 'Integer' 태그의 값 얻기
+            var intValue = parseInt(xmlDoc.getElementsByTagName("Integer")[0].childNodes[0].nodeValue);
+            
+            if (intValue == 0) {
+                $(".successNameChk").text("사용가능한 닉네임입니다.");
+				$(".successNameChk").css("color", "green");
+			
+            } else {
+                $(".successNameChk").text("사용중인 닉네임입니다");
+				$(".successNameChk").css("color", "red");
+			
+            }
+        },
+        error: function(err) {
+            console.log(err);
+        }
+    });
+}
 
 // 주소 필수 입력 
 
@@ -107,14 +128,19 @@ document.getElementById('innerContainer').addEventListener('submit', function(e)
 
 // 비밀번호 일치 확인
 
-var passwordField = document.getElementsByName('m_pw')[0];
-var passwordCheckField = document.getElementsByName('m_pw_check')[0];
-
-passwordCheckField.addEventListener('blur', function() {
-    if(passwordField.value !== passwordCheckField.value) {
-        alert('비밀번호가 일치하지 않습니다.');
+$("#userpwchk").blur(function(){
+    if($("#userpwchk").val() == $("#userpw").val()){
+        $(".successPwChk").text("비밀번호가 일치합니다.");
+        $(".successPwChk").css("color", "green");
+        $("#pwDoubleChk").val("true");
+    }else{
+        $(".successPwChk").text("비밀번호가 일치하지 않습니다.");
+        $(".successPwChk").css("color", "red");
+        $("#pwDoubleChk").val("false");
     }
 });
+
+
 
 
 // ----------------------------------------------------

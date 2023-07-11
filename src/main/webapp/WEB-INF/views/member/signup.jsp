@@ -11,6 +11,9 @@
 	<link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/member/signup.css">
 	
+	<!-- 닉네임 / 비밀번호 중복 확인을 위해 jquery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
 	<!-- 구글 폰트 -->
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 	
@@ -18,20 +21,7 @@
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=28524d982cffea013a5f7c234898c8df&libraries=services"></script>
 	
-<!-- 	<style type="text/css">
-	
-	.nick_ok{
-	color:#008000;
-	display: none;
-	}
-	
-	.nick_already{
-	color:#6A82FB; 
-	display: none;
-	}
 
-	
-	</style> -->
 </head>
 <body>
 	<div id="container">
@@ -84,22 +74,23 @@
 			<div id="passwordContainer">
 				<h2>비밀번호</h2>
 				<h6>영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</h6>
-				<input type="password" name="m_pw" class="border-gray input-box" placeholder="비밀번호">
+				<input type="password" id="userpw" name="m_pw" class="border-gray input-box" placeholder="비밀번호">
 			</div>			
 			
 			<div id="passwordCheckContainer">
 				<h2>비밀번호 확인</h2>
-				<input type="password" name="m_pw_check" class="border-gray input-box" placeholder="비밀번호 확인">
+				<input type="password" id="userpwchk" name="m_pw_check" class="border-gray input-box" placeholder="비밀번호 확인">
+				<span class="point successPwChk"></span>
+				<input type="hidden" id="pwDoubleChk"/>
 			</div>
 			
 			<div id="nickNameContainer">
 				<h2>닉네임</h2>
 				<h6>다른 유저와 겹치지 않도록 입력해주세요. (2~15자)</h6>
-				<input type="text" id="m_nick_name" class="border-gray input-box" placeholder="닉네임" name="m_nick_name" oninput="checkNickName()">
+				<input type="text" id="nick" class="border-gray input-box" placeholder="닉네임" name="m_nick_name" maxlength="15" onblur="checkNickname();">
+				<span class="point successNameChk"></span>
+    			
 				
-				<!-- id ajax 중복체크 -->
-				<!-- <span class="nick_ok">사용 가능한 닉네임입니다.</span> -->
-				<!-- <span class="nick_already">누군가 이 닉네임을 사용하고 있어요.</span> -->
 			</div>
 			
 			<div id="introduceContainer">

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -48,21 +49,15 @@ public class MemberController {
 		return "home"; 
 	}
 	
-	/*
-	 * //아이디 중복체크
-	 * 
-	 * @PostMapping("/nickCheck")
-	 * 
-	 * @ResponseBody public int nickCheck(@RequestParam("nickName") String nickName)
-	 * {
-	 * 
-	 */
 	
-	
-	
-	
-	
-	
+	 //닉네임 중복체크
+	 
+	@PostMapping("/nicknameCheck")
+	@ResponseBody
+	public int nicknameCheck(@RequestParam("m_nick_name") String m_nick_name) {
+		log.info("Checking nickname: " + m_nick_name);
+	    return memberService.nicknameCheck(m_nick_name);
+	}
 	
 	//로그인
 	@GetMapping("/signin")
