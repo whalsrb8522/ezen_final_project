@@ -14,4 +14,6 @@ public interface ChatDAO {
 
 	public ChatMessageVO selecLastMessage(ChatRoomVO crvo);
 
+	public List<ChatMessageVO> selectMessage(int cr_number);
+
 }

@@ -1,7 +1,5 @@
 package com.myweb.www.domain;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +14,5 @@ import lombok.ToString;
 public class ChatDTO {
 	private ChatRoomVO crvo;
 	private ChatMessageVO lastCmvo;
-	private List<ChatMessageVO> listCmvo;
 	private MemberVO mvo;
 }
