@@ -69,6 +69,7 @@
 				</div>
 				<input type="hidden" id="m_mail" name="m_mail">
 				<button type="submit" id="emailBtn" class="background-gray">이메일 인증하기</button>
+				
 			</div>
 			
 			<div id="passwordContainer">
