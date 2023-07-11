@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.myweb.www.repository.ProductDAO">
-	<select id="productList" resultType="com.myweb.www.domain.ProductVO">
+	<select id="selectProduct" resultType="com.myweb.www.domain.ProductVO">
 		select a.p_number, p_name, p_price, p_location from 
 		(select p_number from product 
 		where p_isDel=0
@@ -24,4 +24,5 @@
 	<select id="selectPnumber" resultType="int">
 		select max(p_number) from product
 	</select>
+	
 </mapper>
