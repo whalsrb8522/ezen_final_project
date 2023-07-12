@@ -12,7 +12,7 @@
 </head>
 <body>
 <jsp:include page="../layout/header.jsp"></jsp:include>
-<form action="/product/register" method="post" enctype="multipart/form-data">
+<form id="registerForm" action="/product/register" method="post" enctype="multipart/form-data" onSubmit="validateForm(event);">
 	<div id="register-wrap">
 		
 		<div id="image-wrap">
@@ -29,12 +29,15 @@
 		
 		<div id="title-wrap">
 			<div class="register-title">제목</div>
-			<div>
+			<div id="errorFlex">
+			<div id="all-title">
 				<input type="hidden" name="m_number" value="1">
-				<input class="border-gray title-input" name="p_name" placeholder="상품 제목을 입력해 주세요.">
+				<input class="border-gray title-input" id="nameInput" name="p_name" placeholder="상품 제목을 입력해 주세요." onkeyup="counter()">
 				<a href="/" class="input-a">거래금지품목</a>
+				<div><span id="counting">0/20</span></div>
 			</div>
-			<div>0/20</div>
+			<span id="nameError" class="error-message"></span>
+			</div>
 		</div>
 		
 		<div id="cate-wrap">
@@ -71,7 +74,7 @@
 				</div>
 			</div>
 			<div id="select-cate">	
-				<span> 선택한 카테고리 > </span> <input type="text" name="p_category" id="p_category" value="" />
+				<span> 선택한 카테고리 > </span> <input type="text" name="p_category" id="p_category" value="">
 			</div>
 			</div>
 		</div>
@@ -81,7 +84,7 @@
 			<div id="search-loca">
 				<input type="text" id="search-address" class="border-gray search-input" name="p_location" placeholder="주소">
 				<input type="button" class="background-gray search-loca-btn" onclick="search_loca()" value="주소 검색"><br>
-				<div id="regi-map" style="width:800px;height:300px;margin-top:10px;display:none">지도</div>
+				<div id="regi-map" style="width:800px;height:300px;margin-top:10px;display:none"></div>
 			</div>
 		</div>
 		
