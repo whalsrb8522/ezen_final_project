@@ -13,6 +13,7 @@ import lombok.ToString;
 @ToString
 public class ChatDTO {
 	private ChatRoomVO crvo;
-	private ChatMessageVO lastCmvo;
-	private MemberVO mvo;
+	private String lastMessage;
+	private MemberVO senderMvo;
+	private MemberVO receiverMvo;
 }

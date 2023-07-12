@@ -31,8 +31,9 @@ public class ChatHandler extends TextWebSocketHandler {
 		// JSON --> Map으로 변환
 		ObjectMapper objectMapper = new ObjectMapper();
 		Map<String, String> mapReceive = objectMapper.readValue(message.getPayload(), Map.class);
-		log.info("message  : " + message.toString());
-		log.info("mapReceive : " + mapReceive.toString());
+		log.info(">>> message  : " + message.toString());
+		log.info(">>> mapReceive : " + mapReceive.toString());
+		log.info(">>> cmd : " + mapReceive.get("cmd"));
 
 		switch (mapReceive.get("cmd")) {
 		
@@ -45,24 +46,24 @@ public class ChatHandler extends TextWebSocketHandler {
 			sessionList.add(map);
 			
 			// 같은 채팅방에 입장 메세지 전송
-			for (int i = 0; i < sessionList.size(); i++) {
-				Map<String, Object> mapSessionList = sessionList.get(i);
-				String bang_id = (String) mapSessionList.get("bang_id");
-				WebSocketSession sess = (WebSocketSession) mapSessionList.get("session");
-				
-				log.info("bang_id :" + bang_id);
-				log.info("mapReceive.get(\"bang_id\") : " + mapReceive.get("bang_id"));
-				
-				if(bang_id.equals(mapReceive.get("bang_id"))) {
-					Map<String, String> mapToSend = new HashMap<String, String>();
-					mapToSend.put("bang_id", bang_id);
-					mapToSend.put("cmd", "CMD_ENTER");
-					mapToSend.put("msg", session.getId() +  "님이 입장 했습니다.");
-					
-					String jsonStr = objectMapper.writeValueAsString(mapToSend);
-					sess.sendMessage(new TextMessage(jsonStr));
-				}
-			}
+//			for (int i = 0; i < sessionList.size(); i++) {
+//				Map<String, Object> mapSessionList = sessionList.get(i);
+//				String bang_id = (String) mapSessionList.get("bang_id");
+//				WebSocketSession sess = (WebSocketSession) mapSessionList.get("session");
+//				
+//				log.info("bang_id :" + bang_id);
+//				log.info("mapReceive.get(\"bang_id\") : " + mapReceive.get("bang_id"));
+//				
+//				if(bang_id.equals(mapReceive.get("bang_id"))) {
+//					Map<String, String> mapToSend = new HashMap<String, String>();
+//					mapToSend.put("bang_id", bang_id);
+//					mapToSend.put("cmd", "CMD_ENTER");
+//					mapToSend.put("msg", session.getId() +  "님이 입장 했습니다.");
+//					
+//					String jsonStr = objectMapper.writeValueAsString(mapToSend);
+//					sess.sendMessage(new TextMessage(jsonStr));
+//				}
+//			}
 			break;
 			
 		// CLIENT 메세지

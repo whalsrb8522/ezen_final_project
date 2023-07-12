@@ -41,14 +41,23 @@
 											<img alt="프로필" src="">
 										</div>
 										<div class="chatListText">
-											<div class="chatListTextUp">${cdto.mvo.m_nick_name }</div>
+											<div class="chatListTextUp">
+												<c:choose>
+													<c:when test="${cdto.senderMvo.m_number eq ses.m_number }">
+														${cdto.receiverMvo.m_nick_name }
+													</c:when>
+													<c:otherwise>
+														${cdto.senderMvo.m_nick_name }
+													</c:otherwise>
+												</c:choose>
+											</div>
 											<div class="chatListTextDown">
 												<c:choose>
-													<c:when test="${cdto.lastCmvo eq null }">
+													<c:when test="${cdto.lastMessage eq null }">
 														대화 내용이 없습니다.
 													</c:when>
 													<c:otherwise>
-														${cdto.lastCmvo.cm_context }
+														${cdto.lastMessage }
 													</c:otherwise>
 												</c:choose>
 											</div>
@@ -100,18 +109,27 @@
 							</div>
 						</div>
 						
-						<div class="roomBotBox">
+						<div id="roomBotBox">
+							<!-- 
 							<div class="roomBotBox1">
 								<div class="roomBotBox2">
 									<span class="material-symbols-outlined">add</span>
 								</div>
 								<div class="roomBotBox3">
 									<div class="roomBotBox4">
-										<textarea rows="" cols="" placeholder="메세지를 입력하세요" class="roomBotBoxText"></textarea>
+										<textarea rows="" cols="" placeholder="메세지를 입력하세요" class="roomBotBoxText" onkeypress="if(event.keyCode==13){webSocket.sendChat();}"></textarea>
 									</div>
 									<div class="roomBotBoxBtn">
 										<span class="material-symbols-outlined">send</span>
 									</div>
+								</div>
+							</div>
+							 -->
+							<div id="roomInputBox">
+								<span id="modalBtn" class="material-symbols-outlined">add</span>
+								<div id="roomInputRight">
+									<input type="text" id="chatInput" placeholder="메시지를 입력해주세요." onkeypress="if(event.keyCode==13){webSocket.sendChat();}">
+									<span id="chatSendBtn" class="material-symbols-outlined" onclick="webSocket.sendChat()">send</span>
 								</div>
 							</div>
 						</div>
@@ -119,6 +137,10 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	
+	<div id="test">
+	
 	</div>
 	
 	<jsp:include page="../layout/footer.jsp"></jsp:include>

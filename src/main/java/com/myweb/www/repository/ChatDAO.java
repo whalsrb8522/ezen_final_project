@@ -12,7 +12,7 @@ public interface ChatDAO {
 
 	public List<ChatRoomVO> selectChatRoom();
 
-	public ChatMessageVO selecLastMessage(ChatRoomVO crvo);
+	public String selectLastMessage(ChatRoomVO crvo);
 
 	public List<ChatMessageVO> selectMessage(int cr_number);
 

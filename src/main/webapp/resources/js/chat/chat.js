@@ -3,27 +3,33 @@ var webSocket = {
     url: null,
     socket: null,
 
-    init: function(param) {
-        this.url = param.url;
-        this._initSocket();
+    init: function(url) {
+        this.url = url;
+        this.initSocket();
     },
 
     sendChat: function() {
-        this._sendMessage(bang_id, 'CMD_MSG_SEND', document.getElementById('message').value);
-        document.getElementById('message').value = '';
+        this.sendMessage(bang_id, 'CMD_MSG_SEND', document.getElementById('chatInput').value);
+        document.getElementById('chatInput').value = '';
     },
 
     sendEnter: function() {
-        this._sendMessage(bang_id, 'CMD_ENTER', document.getElementById('message').value);
-        document.getElementById('message').value = '';
+        this.sendMessage(bang_id, 'CMD_ENTER', document.getElementById('chatInput').value);
+        document.getElementById('chatInput').value = '';
     },
 
     receiveMessage: function(msgData) {
+        console.log(">>> receiveMessage : " + msgData);
+
         if (msgData.cmd == 'CMD_MSG_SEND') {
-            var divChatData = document.getElementById('divChatData');
+            // var divChatData = document.getElementById('divChatData');
             var div = document.createElement('div');
             div.textContent = msgData.msg;
-            divChatData.appendChild(div);
+            // divChatData.appendChild(div);
+
+            const roomMidBox = document.getElementById('roomMidBox');
+            roomMidBox.append(div)
+
         } else if (msgData.cmd == 'CMD_ENTER' || msgData.cmd == 'CMD_EXIT') {
             var divChatData = document.getElementById('divChatData');
             var div = document.createElement('div');
@@ -33,17 +39,17 @@ var webSocket = {
     },
 
     closeMessage: function(str) {
-        var divChatData = document.getElementById('divChatData');
-        var div = document.createElement('div');
-        div.textContent = '연결 끊김: ' + str;
-        divChatData.appendChild(div);
+        // var divChatData = document.getElementById('divChatData');
+        // var div = document.createElement('div');
+        // div.textContent = '연결 끊김: ' + str;
+        // divChatData.appendChild(div);
     },
 
     disconnect: function() {
         this.socket.close();
     },
 
-    _initSocket: function() {
+    initSocket: function() {
         this.socket = new SockJS(this.url);
 
         var self = this;
@@ -52,6 +58,7 @@ var webSocket = {
         };
 
         this.socket.onmessage = function(evt) {
+            console.log("메시지 받음")
             self.receiveMessage(JSON.parse(evt.data));
         };
 
@@ -60,7 +67,7 @@ var webSocket = {
         };
     },
 
-    _sendMessage: function(bang_id, cmd, msg) {
+    sendMessage: function(bang_id, cmd, msg) {
         var msgData = {
             bang_id: bang_id,
             cmd: cmd,
@@ -90,28 +97,34 @@ async function getChat(cr_number, m_number) {
         console.log(result);
         
         for(let cmvo of result) {
-            let div = document.createElement('div');
+            console.log(">>> cm_sender :" + cmvo.cm_sender);
+            console.log(">>> m_number : " + m_number);
 
-            if(cmvo.cm_send_m_number == m_number) {
-                div.classList.add('sendMessage');
-            } else {
-                div.classList.add('receiveMessage');
-            }
+            // if(cmvo.cm_sender == m_number) {
+            //     div.classList.add('sendMessage');
+            // } else {
+            //     div.classList.add('receiveMessage');
+            // }
 
-            div.innerHTML += `
-                <div class="chatMessage"> ` + 
-                    cmvo.cm_context + `
-                </div>
-                <div class="chatTime">
-                    00:00
-                </div>
-            `
-            roomMidBox.appendChild(div);
+            // div.innerHTML += `
+            //     <div class="chatMessage"> ` + 
+            //         cmvo.cm_content + `
+            //     </div>
+            //     <div class="chatTime">
+            //         00:00
+            //     </div>
+            // `
+            // roomMidBox.appendChild(div);
+
+            printMessage(cmvo.cm_sender, m_number, cmvo.cm_content);
         }
-        
+
+        bang_id = cr_number;
+        webSocket.init("/echo");
     } catch (error) {
         console.log(error);
     }
+
 }
 
 // 채팅방 닫기
@@ -119,3 +132,24 @@ document.getElementById('backBtn').addEventListener('click', () => {
     const chatDisplyNone = document.getElementById('chatDisplyNone');
     chatDisplyNone.classList.remove('dp_none');
 });
+
+function printMessage(serder, loginUser, content) {
+    let roomMidBox = document.getElementById('roomMidBox');
+    let div = document.createElement('div');
+
+    if(serder == loginUser) {
+        div.classList.add('sendMessage');
+    } else {
+        div.classList.add('receiveMessage');
+    }
+
+    div.innerHTML += `
+        <div class="chatMessage"> ` + 
+            content + `
+        </div>
+        <div class="chatTime">
+            00:00
+        </div>
+    `
+    roomMidBox.appendChild(div);
+}

@@ -128,7 +128,7 @@ function showRemittanceWindow() {
 }
 
 // 모달 여는 버튼 설정
-const openModalBtn = document.querySelector('.roomBotBox2');
+const openModalBtn = document.getElementById('modalBtn');
 openModalBtn.addEventListener('click', function() {
   modal.style.display = 'block';
 });
