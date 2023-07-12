@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.myweb.www.domain.ChatDTO;
 import com.myweb.www.domain.ChatMessageVO;
-import com.myweb.www.domain.MemberVO;
 import com.myweb.www.service.ChatService;
 
 import lombok.extern.slf4j.Slf4j;
