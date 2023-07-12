@@ -97,6 +97,16 @@
 	
 }
 
+#errorFlex{
+	display: flex;
+	flex-direction: column;
+}
+
+#all-title{
+	display: flex;
+	align-items: center;
+}
+
 .title-input{
 	width: 700px;
 	height: 40px;
@@ -222,4 +232,11 @@ input[type="radio"] {
 	height: 50px;
 	margin-right: 10px;
 	font-size: 15px;
+}
+
+.error-message{
+	color: red;
+	margin-top: 5px;
+	width: 200px;
+	height: 100px;
 }
