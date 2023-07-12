@@ -12,7 +12,6 @@
 </head>
 <body>
 	<jsp:include page="../layout/header.jsp"></jsp:include>
-
 	<!-- 전체 감싸는 div -->
 	<div id="list-wrapper">
 		<div id="cate-wrap">
@@ -35,25 +34,26 @@
 		<!-- 상품 리스트 -->
 		<div>
 		<c:forEach items="${productList }" var="productList">
-			<a href="/product/detail?p_number=${productList.p_number }" class="product-list-alink">
-			<div class="product-wrapper">
+			<c:set value="${productList.piList }" var="piList"></c:set>
+			<%-- <a href="/product/detail?p_number=${productList.pvo.p_number }" class="product-list-alink"> --%>
+			<div class="product-wrapper" onclick="location.href='/product/detail?p_number=${productList.pvo.p_number }'">
 				<div class="product-photo">
-					<img alt="없음" src="/resources/image/44.jpg" class="product-photo">
+					<img alt="없음" src="/resources/fileUpload/${productList.piList[0].pi_dir }/${productList.piList[0].pi_uuid }_th_${productList.piList[0].pi_name }" class="product-photo">
 					<!-- 구매가능, 예약중, 거래완료 -->
 					<div class="product-status">
 						<img alt="" src="/resources/image/purchase.png">
 					</div>
 				</div>
-				<div style="display: none">${productList.p_number }</div>
-				<div class="product-title">${productList.p_name }</div>
-				<div class="product-price"><b>${productList.p_price } <span style="font-size:12px">원</span></b></div>
-				<hr>
+				<div style="display: none">${productList.pvo.p_number }</div>
+				<div class="product-title">${productList.pvo.p_name }</div>
+				<div class="product-price"><b>${productList.pvo.p_price } <span style="font-size:12px">원</span></b></div>
+				
 				<div class="product-location">
 					<span class="material-symbols-outlined">location_on</span>
-					${productList.p_location }
+					${productList.pvo.p_location }
 				</div>
 			</div>
-			</a>
+			<!-- </a> -->
 		</c:forEach>
 		</div> <br>
 		
