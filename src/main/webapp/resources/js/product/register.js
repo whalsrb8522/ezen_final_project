@@ -20,30 +20,35 @@ function search_loca() {
         oncomplete: function (data) {
             let addr = data.address; // 최종 주소 변수
 
-            // 주소 정보를 해당 필드에 넣는다.
-            document.getElementById("search-address").value = addr;
-            // 주소로 상세 정보를 검색
-            geocoder.addressSearch(data.address, function (results, status) {
-                // 정상적으로 검색이 완료됐으면
-                if (status === daum.maps.services.Status.OK) {
+            if (addr.substring(0, addr.indexOf(" ")) != "인천") {
+                alert("인천 외 지역 미지원");
+                document.getElementById("search-address").value = "";
+                mapContainer.style.display = "none";
+            } else {
+                // 주소 정보를 해당 필드에 넣는다.
+                document.getElementById("search-address").value = addr;
+                // 주소로 상세 정보를 검색
+                geocoder.addressSearch(data.address, function (results, status) {
+                    // 정상적으로 검색이 완료됐으면
+                    if (status === daum.maps.services.Status.OK) {
 
-                    let result = results[0]; //첫번째 결과의 값을 활용
+                        let result = results[0]; //첫번째 결과의 값을 활용
 
-                    // 해당 주소에 대한 좌표를 받아서
-                    let coords = new daum.maps.LatLng(result.y, result.x);
-                    // 지도를 보여준다.
-                    mapContainer.style.display = "block";
-                    map.relayout();
-                    // 지도 중심을 변경한다.
-                    map.setCenter(coords);
-                    // 마커를 결과값으로 받은 위치로 옮긴다.
-                    marker.setPosition(coords)
-                }
-            });
+                        // 해당 주소에 대한 좌표를 받아서
+                        let coords = new daum.maps.LatLng(result.y, result.x);
+                        // 지도를 보여준다.
+                        mapContainer.style.display = "block";
+                        map.relayout();
+                        // 지도 중심을 변경한다.
+                        map.setCenter(coords);
+                        // 마커를 결과값으로 받은 위치로 옮긴다.
+                        marker.setPosition(coords)
+                    }
+                });
+            }
         }
     }).open();
 }
-
 
 // file upload
 function setDetailImage(event) {
