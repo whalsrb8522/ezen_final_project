@@ -262,7 +262,6 @@ hr {
     color: white;
     padding: 5px 10px;
     border-radius: 10px;
-    font-size: 18px;
     max-width: 400px;
 }
 .receiveMessage {
@@ -274,7 +273,6 @@ hr {
 	background-color: lightgrey;
     padding: 5px 10px;
     border-radius: 10px;
-    font-size: 18px;
     max-width: 400px;
 }
 
@@ -324,7 +322,7 @@ hr {
 }
 
 #chatSendBtn {
-	
+    cursor: pointer;
 }
 
 .roomBotBox1 {

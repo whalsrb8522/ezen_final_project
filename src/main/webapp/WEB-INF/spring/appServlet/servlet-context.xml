@@ -27,11 +27,4 @@
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
 	
 	<context:component-scan base-package="com.myweb.www" />
-	
-	<websocket:handlers> 
-	    <websocket:mapping handler="chatHandler" path="/echo" />
-	    <websocket:sockjs />
-	</websocket:handlers>
- 
- 	<beans:bean id="chatHandler" class="com.myweb.www.handler.ChatHandler" />
 </beans:beans>
