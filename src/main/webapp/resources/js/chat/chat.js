@@ -116,11 +116,11 @@ document.getElementById('backBtn').addEventListener('click', () => {
 });
 
 // 메시지 내용 출력
-function printMessage(serder, loginUser, content) {
+function printMessage(sender, loginUser, content) {
     let roomMidBox = document.getElementById('roomMidBox');
     let div = document.createElement('div');
 
-    if(serder == loginUser) {
+    if(sender == loginUser) {
         div.classList.add('sendMessage');
     } else {
         div.classList.add('receiveMessage');
