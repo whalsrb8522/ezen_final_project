@@ -18,7 +18,8 @@
 		  'opsz' 48
 		}
 	</style>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 </head>
 <body>
 	<jsp:include page="../layout/header.jsp"></jsp:include>
@@ -41,14 +42,23 @@
 											<img alt="프로필" src="">
 										</div>
 										<div class="chatListText">
-											<div class="chatListTextUp">${cdto.mvo.m_nick_name }</div>
+											<div class="chatListTextUp">
+												<c:choose>
+													<c:when test="${cdto.senderMvo.m_number eq ses.m_number }">
+														${cdto.receiverMvo.m_nick_name }
+													</c:when>
+													<c:otherwise>
+														${cdto.senderMvo.m_nick_name }
+													</c:otherwise>
+												</c:choose>
+											</div>
 											<div class="chatListTextDown">
 												<c:choose>
-													<c:when test="${cdto.lastCmvo eq null }">
+													<c:when test="${cdto.lastMessage eq null }">
 														대화 내용이 없습니다.
 													</c:when>
 													<c:otherwise>
-														${cdto.lastCmvo.cm_context }
+														${cdto.lastMessage }
 													</c:otherwise>
 												</c:choose>
 											</div>
@@ -100,18 +110,12 @@
 							</div>
 						</div>
 						
-						<div class="roomBotBox">
-							<div class="roomBotBox1">
-								<div class="roomBotBox2">
-									<span class="material-symbols-outlined">add</span>
-								</div>
-								<div class="roomBotBox3">
-									<div class="roomBotBox4">
-										<textarea rows="" cols="" placeholder="메세지를 입력하세요" class="roomBotBoxText"></textarea>
-									</div>
-									<div class="roomBotBoxBtn">
-										<span class="material-symbols-outlined">send</span>
-									</div>
+						<div id="roomBotBox">
+							<div id="roomInputBox">
+								<span id="modalBtn" class="material-symbols-outlined">add</span>
+								<div id="roomInputRight">
+									<input type="text" id="chatInput" placeholder="메시지를 입력해주세요." onkeypress="if(event.keyCode==13){sendMessage();}">
+									<span id="chatSendBtn" class="material-symbols-outlined" onclick="sendMessage()">send</span>
 								</div>
 							</div>
 						</div>
@@ -123,7 +127,9 @@
 	
 	<jsp:include page="../layout/footer.jsp"></jsp:include>
 	<jsp:include page="../chat/modal.jsp"></jsp:include>
-	
-	<script type="text/javascript" src="/resources/js/chat/chat.js"></script>
 </body>
+<script type="text/javascript">
+	var sessionMemberNumber = '<c:out value="${ses.m_number }"></c:out>';
+</script>
+<script type="text/javascript" src="/resources/js/chat/chat.js"></script>
 </html>
