@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>양파마켓 | 글등록</title>
+<title>양파마켓 | 글보기</title>
 <link rel="stylesheet" type="text/css" href="/resources/css/product/detail.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
@@ -14,6 +14,8 @@
 </head>
 <body>
 	<jsp:include page="../layout/header.jsp"></jsp:include>
+	<c:set var="pvo" value="${pdto.pvo }"></c:set>
+	<c:set var="flist" value="${pdto.piList }"></c:set>
 	<!-- 전체 틀 -->
 	<div id="detail-wrap">
 		<div id="detail-category">
@@ -68,9 +70,9 @@
 			</div>
 			<div id="detail-right">
 				<div id="title-wrap">
-					<div id="detail-title">필스너우르켈 500맥주잔 2개 팝니다(새상품)</div>
+					<div id="detail-title">${pvo.p_name }</div>
 					<div id="price-wrap">
-						<div id="detail-price">11,000 <span style="font-size:24px">원</span></div>
+						<div id="detail-price">${pvo.p_price } <span style="font-size:24px">원</span></div>
 						<div id="detail-pay">양파페이</div>
 					</div>
 				</div>
@@ -113,21 +115,7 @@
 				<div id="info-wrap">
 					<div class="detail-pro-info"><b>상품 정보</b></div>
 					<div id="detail-info">
-						이 컵으로 말할 것 같으면 1859년 영국에서 시작되어 현재까지 전설로 내려오는 이야기 입니다..
-					Contrary to popular belief, Lorem Ipsum is not simply random text. 
-					It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. 
-					Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more 
-					obscure Latin words, 
-					consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, 
-					"de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. 
-					This book is a treatise on the theory of ethics, very popular during the Renaissance. 
-					The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-					t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. 
-					The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, 
-					content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their 
-					default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions
-					 have evolved over the years, sometimes by accident, 
-					sometimes on purpose (injected humour and the like).
+						${pvo.p_info }
 					</div>
 				</div>
 				<div id="product-member-wrap">
@@ -202,7 +190,7 @@
 			<div id="location-wrap">
 				<div id="location-detail-wrap">
 					<div id="detail-loca"><b>거래 희망 장소</b></div>
-					<div id="detail-detail-loca">&gt; 장소</div>
+					<div id="detail-detail-loca">&gt; ${pvo.p_location }</div>
 				</div>
 					<div id="detail-map"></div>
 			</div>

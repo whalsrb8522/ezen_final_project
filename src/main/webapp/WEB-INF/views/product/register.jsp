@@ -18,7 +18,7 @@
 		<div id="image-wrap">
 			<div class="register-title">상품이미지</div>
 			<div id="file-wrap">
-				<ul class="file-ul">
+				<ul id="file-list" class="file-ul">
 					<li class="file-li">
 						이미지 등록
 						<input type="file" id="file" name="files" onchange="setDetailImage(event);" multiple class="file-input" accept="image/*">

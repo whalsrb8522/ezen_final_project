@@ -15,5 +15,7 @@ public interface ProductService {
 
 	List<ProductDTO> listFile(ProductPagingVO ppvo);
 
+	ProductDTO detail(int p_number);
+
 	
 }
