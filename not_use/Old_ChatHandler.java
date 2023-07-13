@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
-public class ChatHandler extends TextWebSocketHandler {
+public class Old_ChatHandler extends TextWebSocketHandler {
 
 	// (<"bang_id", 방ID>, <"session", 세션>) - (<"bang_id", 방ID>, <"session", 세션>) - (<"bang_id", 방ID>, <"session", 세션>) 형태 
 	private List<Map<String, Object>> sessionList = new ArrayList<Map<String, Object>>();
@@ -68,6 +68,8 @@ public class ChatHandler extends TextWebSocketHandler {
 			
 		// CLIENT 메세지
 		case "CMD_MSG_SEND":
+			log.info(">>> sessionList : " + sessionList.toString());
+			
 			// 같은 채팅방에 메세지 전송
 			for (int i = 0; i < sessionList.size(); i++) {
 				Map<String, Object> mapSessionList = sessionList.get(i);

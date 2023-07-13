@@ -6,8 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
-	<script type="text/javascript" src="/resources/js/chat/chat.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.js"></script>
+	<script type="text/javascript" src="/resources/js/chat/test.js"></script>
 	<script type="text/javascript">
 		var bang_id = "${param.bang_id}";
 		
