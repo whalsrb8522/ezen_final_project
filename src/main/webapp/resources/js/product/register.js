@@ -50,7 +50,7 @@ function search_loca() {
     }).open();
 }
 
-// file upload
+// file upload 시 썸네일 생성
 function setDetailImage(event) {
     for (let image of event.target.files) {
         let reader = new FileReader();
@@ -136,35 +136,96 @@ cate_btn.forEach((item) => {
     })
 })
 
-// null값 있을 시에 폼 제출 막음
+// null값 있을 시에 폼 제출 막음, 에러메시지 출력
 function validateForm(event) {
-    console.log(event);
     event.preventDefault();  // 폼 제출 이벤트 기본 동작 방지
 
+    // 제목
     let nameInput = document.getElementById('nameInput');
     let nameError = document.getElementById('nameError');
     if (nameInput.value.trim() == "") {
         nameError.innerHTML = "제목을 입력하세요.";
-        return;
+        return nameInput.focus();
     } else {
         nameError.innerHTML = "";
+    }
+
+    // 카테고리
+    let p_category = document.getElementById('p_category');
+    let cateError = document.getElementById('cateError');
+    if (p_category.value.trim() == "") {
+        cateError.innerHTML = "카테고리를 선택하세요.";
+        return p_category.focus();;
+    } else {
+        cateError.innerHTML = "";
+    }
+    // 주소
+    let search_address = document.getElementById('search-address');
+    let locationError = document.getElementById('locationError');
+    if (search_address.value.trim() == "") {
+        locationError.innerHTML = "거래 장소를 입력하세요.";
+        return search_address.focus();
+    } else {
+        locationError.innerHTML = "";
+    }
+    // 가격
+    let priceInput = document.getElementById('priceInput');
+    let priceError = document.getElementById('priceError');
+    if (priceInput.value.trim() == "") {
+        priceError.innerHTML = "가격을 입력하세요.";
+        return priceInput.focus();
+    } else {
+        priceError.innerHTML = "";
+    }
+    // 설명
+    let infoInput = document.getElementById('infoInput');
+    let infoError = document.getElementById('infoError');
+    if (infoInput.value.trim() == "") {
+        infoError.innerHTML = "설명을 입력하세요.";
+        return infoInput.focus();
+    } else {
+        infoError.innerHTML = "";
     }
 
     // 폼 제출
     document.getElementById('registerForm').submit();
 }
+// 값 입력 시 에러메시지 즉각 사라짐
+function deleteErrorMsg() {
+    document.getElementById('nameError').innerHTML = "";
+    document.getElementById('cateError').innerHTML = "";
+    document.getElementById('locationError').innerHTML = "";
+    document.getElementById('priceError').innerHTML = "";
+    document.getElementById('infoError').innerHTML = "";
+}
 
 // 글자수 체크 & 제한
-let counting = document.getElementById('counting');
-let nameInput = document.getElementById('nameInput');
-let maxLength = 20;
-function counter() {
-    let tmp = nameInput.value.length;
-    tmp += `/20`;
-    counting.innerHTML = tmp;
 
-    if (nameInput.value.length > maxLength) {
-        nameInput.value = nameInput.value.substr(0, maxLength);
+//제목
+let countingTitle = document.getElementById('countingTitle');
+let nameInput = document.getElementById('nameInput');
+let maxLengthTitle = 20;
+function counterTitle() {
+    let tmp = nameInput.value.length >= 21 ? 20 : nameInput.value.length;
+    tmp += `/20`;
+    countingTitle.innerHTML = tmp;
+
+    if (nameInput.value.length >= maxLengthTitle) {
+        nameInput.value = nameInput.value.slice(0, maxLengthTitle);
     }
-    return nameInput.value;
 }
+
+// 설명
+let countingInfo = document.getElementById('countingInfo');
+let infoInput = document.getElementById('infoInput');
+let maxLengthInfo = 2000;
+function counterInfo() {
+    let tmp = infoInput.value.length >= 2001 ? 2000 : infoInput.value.length;
+    tmp += `/2000`;
+    countingInfo.innerHTML = tmp;
+
+    if (infoInput.value.length >= maxLengthInfo) {
+        infoInput.value = infoInput.value.slice(0, maxLengthInfo);
+    }
+}
+
