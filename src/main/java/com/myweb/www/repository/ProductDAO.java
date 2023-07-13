@@ -16,4 +16,6 @@ public interface ProductDAO {
 
 	List<ProductVO> selectProduct(ProductPagingVO ppvo);
 
+	ProductVO selectPno(int p_number);
+
 }
