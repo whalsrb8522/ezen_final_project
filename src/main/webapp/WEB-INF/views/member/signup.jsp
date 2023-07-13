@@ -14,6 +14,9 @@
 	<!-- 닉네임 / 비밀번호 중복 확인을 위해 jquery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
+	<!-- 프로필 사진 미리보기 X심볼 -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@30,400,1,200" />
+	
 	<!-- 구글 폰트 -->
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 	
@@ -69,6 +72,7 @@
 				</div>
 				<input type="hidden" id="m_mail" name="m_mail">
 				<button type="submit" id="emailBtn" class="background-gray">이메일 인증하기</button>
+				
 			</div>
 			
 			<div id="passwordContainer">
@@ -108,14 +112,24 @@
 				<div id="kakaoMap"></div>
 			</div>
 			
+			
 			<div id="imageContainer">
-				<h2>프로필 사진</h2>
-				<div style="display: flex;">
-					<input type="text" id="imagePath" class="border-gray">
-					<input type="button" id="imageChoose" class="background-purple" value="파일 선택">
+			    <h2>프로필 사진</h2>
+			    <div style="display: flex;">
+			        <input type="file" id="imagePath" style="display: none;" accept="image/*"/>
+			        <input type="text" id="displayImagePath" class="border-gray" readonly="readonly">
+			        <input type="button" id="imageChoose" class="background-purple" value="파일 선택" onclick="document.getElementById('imagePath').click()">
+			    </div>
+			    <div id="imageWrapper" style="position: relative; display: none; margin-top: 10px;">
+			        <img id="imagePreview" src="" alt="selected image"/>
+			        <div id="removeImage" style="  cursor: pointer; z-index: 100">
+			        	<span class="material-symbols-outlined">cancel</span>
+				   	</div>
 				</div>
-				<div id="imagePrint	"></div>
 			</div>
+
+
+				
 			
 			<div id="termsContainer">
 				<h2>약관동의</h2>

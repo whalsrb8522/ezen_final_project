@@ -93,19 +93,114 @@ document.getElementById('innerContainer').addEventListener('submit', function(e)
 
 // 프로필 사진 파일 업로드 
 
-document.getElementById('imageChoose').addEventListener('change', function(e) {
-    var file = e.target.files[0];
-    var reader = new FileReader();
-    
-    reader.onloadend = function() {
-        // 이미지 선택
-        document.getElementById('imagePrint').src = reader.result;
-        
-        // TODO: Upload the file to the server.
+// document.getElementById('imageChoose').addEventListener('click',()=>{
+//     document.getElementById('imagePath').click();
+// })
+
+// const regExp = new RegExp("\.(exe|sh|bat|msi|dll|js)$");
+// const regExpImg = new RegExp("\.(jpg|jpeg|png|gif|bmp)$");
+// const maxSize = 1024*1024*20;
+
+// function fileSizeValidation(fileName, fileSize){
+//     if(regExp.test(fileName)){
+//         return 0;
+//     }else if(fileSize > maxSize){
+//         return 0;
+//     }else if(!regExpImg.test(fileName)){ //이미지 파일이 아니면 첨부 X
+//         return 0;
+//     }else {
+//         return 1;
+//     }
+// }
+
+// document.getElementById('imagePath').addEventListener('change', (e)=>{
+//     document.getElementById('submitBtn').disabled = false;
+//     const fileObject = e.target.files;
+//     let div = document.getElementById('imagePrint');
+//     div.innerHTML='';
+//     let ul = `<ul>`;
+//     let isOk = 1;
+
+//     let file = fileObject[0];
+//     let vaildResult = fileSizeValidation(file.name, file.size);
+//     isOk *= vaildResult;
+
+//     ul+=`</ul>`;
+//     div.innerHTML =ul;
+
+//     // display the selected file name in the text input
+//     if(isOk != 0) { 
+//         document.getElementById('displayImagePath').value = file.name;
+//     }
+
+//     if(isOk == 0){ 
+//         document.getElementById('submitBtn').disabled = true;
+//     }
+
+//     // Create file reader and set the image source to the selected file
+//     if (file && file.type.startsWith("image")) {
+//         const reader = new FileReader();
+
+//         reader.onload = function(e) {
+//             document.getElementById('imagePreview').src = e.target.result;
+//         }
+
+//         reader.readAsDataURL(file);
+//     }
+// })
+
+// -------------------------------------------
+
+// 프로필 사진 이미지 미리보기 
+// 'DOMContentLoaded' 이벤트 리스너 내에서 'loadImagePreview' 함수와 이벤트 리스너를 등록
+document.addEventListener('DOMContentLoaded', function() {
+    // 함수를 'DOMContentLoaded' 이벤트 리스너 내부에서 정의
+    function loadImagePreview(e) {
+        var input = e.target;
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function(e) {
+                // Preview Image
+                var previewImage = document.getElementById('imagePreview');
+                previewImage.src = e.target.result;
+                
+                // Update the path
+                var displayImagePath = document.getElementById('displayImagePath');
+                displayImagePath.value = input.value;
+
+                // Display image wrapper
+                var imageWrapper = document.getElementById('imageWrapper');
+                imageWrapper.style.display = 'block';
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
     }
-    
-    reader.readAsDataURL(file);
+
+    // 'change' 이벤트 리스너를 추가하여 'loadImagePreview' 함수가 호출되도록 설정
+    document.getElementById('imagePath').addEventListener('change', loadImagePreview);
+
+    // Add event listener for the remove button
+    document.getElementById('removeImage').addEventListener('click', function() {
+        // Clear the preview image
+        var previewImage = document.getElementById('imagePreview');
+        previewImage.src = '';
+
+        // Clear the file input
+        var imagePath = document.getElementById('imagePath');
+        imagePath.value = '';
+
+        // Clear the display path
+        var displayImagePath = document.getElementById('displayImagePath');
+        displayImagePath.value = '';
+
+        // Hide image wrapper
+        var imageWrapper = document.getElementById('imageWrapper');
+        imageWrapper.style.display = 'none';
+    });
 });
+
 
 // -------------------------------------------------------
 
