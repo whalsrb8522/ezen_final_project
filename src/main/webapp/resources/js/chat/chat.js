@@ -1,130 +1,112 @@
-// 실시간 채팅 전달 기능
-var webSocket = {
-    url: null,
-    socket: null,
+// // 실시간 채팅 전달 기능
+// var webSocket = {
+//     url: null,
+//     bang_id: null,
+//     socket: null,
 
-    init: function(url) {
-        this.url = url;
-        this.initSocket();
-    },
+//     init: function(url, bang_id) {
+//         this.url = url;
+//         this.bang_id = bang_id;
+//         this.initSocket();
+//     },
 
-    sendChat: function() {
-        this.sendMessage(bang_id, 'CMD_MSG_SEND', document.getElementById('chatInput').value);
-        document.getElementById('chatInput').value = '';
-    },
+//     sendChat: function() {
+//         console.log(">>> chatInput : " + document.getElementById('chatInput').value);
 
-    sendEnter: function() {
-        this.sendMessage(bang_id, 'CMD_ENTER', document.getElementById('chatInput').value);
-        document.getElementById('chatInput').value = '';
-    },
+//         this.sendMessage(this.bang_id, 'CMD_MSG_SEND', document.getElementById('chatInput').value);
+//         document.getElementById('chatInput').value = '';
+//     },
 
-    receiveMessage: function(msgData) {
-        console.log(">>> receiveMessage : " + msgData);
+//     sendEnter: function() {
+//         // this.sendMessage(this.bang_id, 'CMD_ENTER', document.getElementById('chatInput').value);
+//         // document.getElementById('chatInput').value = '';
 
-        if (msgData.cmd == 'CMD_MSG_SEND') {
-            // var divChatData = document.getElementById('divChatData');
-            var div = document.createElement('div');
-            div.textContent = msgData.msg;
-            // divChatData.appendChild(div);
+//         console.log("세션 열림");
+//     },
 
-            const roomMidBox = document.getElementById('roomMidBox');
-            roomMidBox.append(div)
+//     receiveMessage: function(msgData) {
+//         if (msgData.cmd == 'CMD_MSG_SEND') {
+//             // var divChatData = document.getElementById('divChatData');
+//             var div = document.createElement('div');
+//             div.textContent = msgData.msg;
+//             // divChatData.appendChild(div);
 
-        } else if (msgData.cmd == 'CMD_ENTER' || msgData.cmd == 'CMD_EXIT') {
-            var divChatData = document.getElementById('divChatData');
-            var div = document.createElement('div');
-            div.textContent = msgData.msg;
-            divChatData.appendChild(div);
-        }
-    },
+//             const roomMidBox = document.getElementById('roomMidBox');
+//             roomMidBox.append(div)
+//         } else if (msgData.cmd == 'CMD_ENTER' || msgData.cmd == 'CMD_EXIT') {
+//             var divChatData = document.getElementById('divChatData');
+//             var div = document.createElement('div');
+//             div.textContent = msgData.msg;
+//             divChatData.appendChild(div);
+//         }
+//     },
 
-    closeMessage: function(str) {
-        // var divChatData = document.getElementById('divChatData');
-        // var div = document.createElement('div');
-        // div.textContent = '연결 끊김: ' + str;
-        // divChatData.appendChild(div);
-    },
+//     closeMessage: function(str) {
+//         // var divChatData = document.getElementById('divChatData');
+//         // var div = document.createElement('div');
+//         // div.textContent = '연결 끊김: ' + str;
+//         // divChatData.appendChild(div);
 
-    disconnect: function() {
-        this.socket.close();
-    },
+//         console.log("세션 닫힘");
+//     },
 
-    initSocket: function() {
-        this.socket = new SockJS(this.url);
+//     disconnect: function() {
+//         this.socket.close();
+//     },
 
-        var self = this;
-        this.socket.onopen = function(evt) {
-            self.sendEnter();
-        };
+//     initSocket: function() {
+//         this.socket = new SockJS(this.url);
 
-        this.socket.onmessage = function(evt) {
-            console.log("메시지 받음")
-            self.receiveMessage(JSON.parse(evt.data));
-        };
+//         this.socket.onopen = function(evt) {
+//             webSocket.sendEnter();
+//         };
 
-        this.socket.onclose = function(evt) {
-            self.closeMessage(evt.data);
-        };
-    },
+//         this.socket.onmessage = function(evt) {
+//             webSocket.receiveMessage(JSON.parse(evt.data));
+//         };
 
-    sendMessage: function(bang_id, cmd, msg) {
-        var msgData = {
-            bang_id: bang_id,
-            cmd: cmd,
-            msg: msg
-        };
-        console.log(msgData);
-        var jsonData = JSON.stringify(msgData);
-        this.socket.send(jsonData);
-    }
-};
+//         this.socket.onclose = function(evt) {
+//             webSocket.closeMessage(JSON.parse(evt.data));
+//         }
+//     },
 
-// 채팅방 출력 관련
-async function getChat(cr_number, m_number) {
-    console.log(">>> cr_number : " + cr_number);
-    console.log(">>> m_number : " + m_number);
+//     sendMessage: function(bang_id, cmd, msg) {
+//         var msgData = {
+//             bang_id: bang_id,
+//             cmd: cmd,
+//             msg: msg
+//         };
+//         var jsonData = JSON.stringify(msgData);
+//         this.socket.send(jsonData);
+//     }
+// };
 
+var chatRoomNumber = null;
+var sessionMemberNumber = sessionMemberNumber;
+
+console.log(">>> sessionMemberNumber : " + sessionMemberNumber);
+
+// 채팅방 목록 불러오기
+async function getChat(cr_number, ses_m_number) {
     const chatDisplyNone = document.getElementById('chatDisplyNone');
     const roomMidBox = document.getElementById('roomMidBox');
     
     roomMidBox.innerHTML = '';
     chatDisplyNone.classList.add('dp_none');
 
+    chatRoomNumber = cr_number;
+    console.log(">>> getCat() > chatRommNumber = " + chatRoomNumber);
+
     try {
         const resp = await fetch('/chat/view/' + cr_number);
         const result = await resp.json();
-
-        console.log(result);
         
         for(let cmvo of result) {
-            console.log(">>> cm_sender :" + cmvo.cm_sender);
-            console.log(">>> m_number : " + m_number);
-
-            // if(cmvo.cm_sender == m_number) {
-            //     div.classList.add('sendMessage');
-            // } else {
-            //     div.classList.add('receiveMessage');
-            // }
-
-            // div.innerHTML += `
-            //     <div class="chatMessage"> ` + 
-            //         cmvo.cm_content + `
-            //     </div>
-            //     <div class="chatTime">
-            //         00:00
-            //     </div>
-            // `
-            // roomMidBox.appendChild(div);
-
-            printMessage(cmvo.cm_sender, m_number, cmvo.cm_content);
+            printMessage(cmvo.cm_sender, ses_m_number, cmvo.cm_content);
         }
-
-        bang_id = cr_number;
-        webSocket.init("/echo");
     } catch (error) {
         console.log(error);
     }
-
 }
 
 // 채팅방 닫기
@@ -133,6 +115,7 @@ document.getElementById('backBtn').addEventListener('click', () => {
     chatDisplyNone.classList.remove('dp_none');
 });
 
+// 메시지 내용 출력
 function printMessage(serder, loginUser, content) {
     let roomMidBox = document.getElementById('roomMidBox');
     let div = document.createElement('div');
@@ -153,3 +136,28 @@ function printMessage(serder, loginUser, content) {
     `
     roomMidBox.appendChild(div);
 }
+
+// 웹소켓 연결
+var sockJs = new SockJS("/echo");
+var stomp = Stomp.over(sockJs);
+
+stomp.connect({}, () => {
+    stomp.subscribe("/sub/chat/room/" + chatRoomNumber, function (chat) {
+        var content = JSON.parse(chat.body);
+
+        var message = content.message;
+        var writer = content.writer;
+        
+        printMessage(1, 1, message)
+    });
+});
+
+function sendMessage() {
+    var chatInput = document.getElementById('chatInput');
+
+    console.log(">>> chatInput : " + chatInput.value);
+
+    stomp.send('/pub/chat/message', {}, JSON.stringify({cr_number: chatRoomNumber, message: chatInput.value, writer: 1}));
+
+    chatInput.value = '';
+};
