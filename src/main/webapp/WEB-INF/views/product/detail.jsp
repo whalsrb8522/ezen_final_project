@@ -80,12 +80,12 @@
 					<!-- 찜 개수 -->
 					<div id="detail-like">
 						<span class="material-symbols-outlined md-15">favorite</span>
-						539
+						${pvo.p_like }
 					</div>
 					<!-- 조회수 -->
 					<div id="detail-cnt">
 						<span class="material-symbols-outlined md-15">visibility</span>
-						784
+						${pvo.p_read_count }
 					</div>
 					<!-- 등록일 -->
 					<div id="detail-date">
