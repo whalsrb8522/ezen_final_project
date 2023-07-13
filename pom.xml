@@ -219,6 +219,22 @@
 			<version>2.3.2</version>
 		</dependency>
 		
+
+		<!-- STMP 메일 전송 관련 라이브러리 -->
+	
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>mail</artifactId>
+		    <version>1.4.7</version>
+		</dependency>
+		
+		<dependency> 
+			<groupId>org.springframework</groupId> 
+			<artifactId>spring-context-support</artifactId> 
+			<version>${org.springframework-version}</version> 
+		</dependency>
+	
+
 		<!-- WebSocket -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -230,6 +246,7 @@
 		    <artifactId>spring-messaging</artifactId>
 		    <version>${org.springframework-version}</version>
 		</dependency>
+
 		
 		<!-- Stomp -->
 		<dependency>
