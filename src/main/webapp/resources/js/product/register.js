@@ -136,3 +136,35 @@ cate_btn.forEach((item) => {
     })
 })
 
+// null값 있을 시에 폼 제출 막음
+function validateForm(event) {
+    console.log(event);
+    event.preventDefault();  // 폼 제출 이벤트 기본 동작 방지
+
+    let nameInput = document.getElementById('nameInput');
+    let nameError = document.getElementById('nameError');
+    if (nameInput.value.trim() == "") {
+        nameError.innerHTML = "제목을 입력하세요.";
+        return;
+    } else {
+        nameError.innerHTML = "";
+    }
+
+    // 폼 제출
+    document.getElementById('registerForm').submit();
+}
+
+// 글자수 체크 & 제한
+let counting = document.getElementById('counting');
+let nameInput = document.getElementById('nameInput');
+let maxLength = 20;
+function counter() {
+    let tmp = nameInput.value.length;
+    tmp += `/20`;
+    counting.innerHTML = tmp;
+
+    if (nameInput.value.length > maxLength) {
+        nameInput.value = nameInput.value.substr(0, maxLength);
+    }
+    return nameInput.value;
+}
