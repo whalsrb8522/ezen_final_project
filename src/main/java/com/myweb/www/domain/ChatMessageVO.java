@@ -14,7 +14,9 @@ import lombok.ToString;
 public class ChatMessageVO {
 	private int cm_number;
 	private int cr_number;
-	private int cm_send_m_number;
-	private String cm_context;
+	private int cm_sender;
+	private int cm_receiver;
+	private String cm_content;
 	private String cm_send_date;
+	private String cm_read_date;
 }

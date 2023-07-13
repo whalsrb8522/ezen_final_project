@@ -14,33 +14,42 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.myweb.www.domain.ChatDTO;
 import com.myweb.www.domain.ChatMessageVO;
 import com.myweb.www.domain.MemberVO;
 import com.myweb.www.service.ChatService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/chat/*")
 @Slf4j
+@RequiredArgsConstructor
+@RequestMapping("/chat/*")
 public class ChatController {
 	
 	@Inject
 	private ChatService csvc;
-
-	@GetMapping("main")
-	public void main(Model m, HttpSession ses) {
-		List<ChatDTO> listCdto = csvc.getChatList();
-		
-		m.addAttribute("listCdto", listCdto);
-	}
 	
-	@GetMapping(value = "view/{cr_number}", produces = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<List<ChatMessageVO>>  view(@PathVariable("cr_number")int cr_number) {
+	//채팅방 목록 조회
+    @GetMapping(value = "/main")
+    public void main(Model m, HttpSession ses) {
+    	MemberVO sesMvo = (MemberVO) ses.getAttribute("ses");
+    	m.addAttribute("listCdto", csvc.getChatList(sesMvo));
+    }
+    
+	/*
+	 * //채팅방 개설
+	 * 
+	 * @PostMapping(value = "/room") public String create(@RequestParam String name,
+	 * RedirectAttributes rttr){		// 매개변수로는 상품번호를 넣을것
+	 * rttr.addFlashAttribute("roomName", csvc.createChatRoom(""); return
+	 * "redirect:/chat/rooms"; }
+	 */
+    
+    //채팅방 조회
+	@GetMapping(value = "/view/{cr_number}", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<List<ChatMessageVO>> view(@PathVariable("cr_number") int cr_number) {
 		List<ChatMessageVO> listCmvo = csvc.getMessage(cr_number);
-		
-		log.info(">>> listCmvo : " + listCmvo.toString());
 		
 		return new ResponseEntity<List<ChatMessageVO>>(listCmvo, HttpStatus.OK);
 	}

@@ -11,4 +11,6 @@ public interface ProductImageDAO {
 
 	List<ProductImageVO> selectFileList(ProductVO pvo);
 
+	List<ProductImageVO> selectFile(int p_number);
+
 }

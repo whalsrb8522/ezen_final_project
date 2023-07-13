@@ -16,6 +16,10 @@
 	<select id="selectFileList" resultType="com.myweb.www.domain.ProductImageVO">
 		select * from product_image where p_number=#{p_number}
 	</select>
+	
+	<select id="selectFile" resultType="com.myweb.www.domain.ProductImageVO">
+		select * from product_image where p_number=#{p_number}
+	</select>
 </mapper>
 
 

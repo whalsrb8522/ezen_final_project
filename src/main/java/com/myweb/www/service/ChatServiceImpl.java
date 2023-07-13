@@ -24,22 +24,24 @@ public class ChatServiceImpl implements ChatService {
 	private ChatDAO cdao;
 	@Inject
 	private MemberDAO mdao;
-	
+
 	@Override
-	public List<ChatDTO> getChatList() {
+	public List<ChatDTO> getChatList(MemberVO sesMvo) {
 		List<ChatDTO> listCdto = new ArrayList<ChatDTO>();
 		
-		List<ChatRoomVO> listCrvo = cdao.selectChatRoom();
+		List<ChatRoomVO> listCrvo = cdao.selectChatRoom(sesMvo);
 		
 		for(ChatRoomVO crvo : listCrvo) {
-			ChatMessageVO lastCmvo = cdao.selecLastMessage(crvo);
-			MemberVO mvo = mdao.selectMemberWithNumber(crvo);
-			listCdto.add(new ChatDTO(crvo, lastCmvo, mvo));
+			String lastMessage = cdao.selectLastMessage(crvo);
+			MemberVO sender_mvo = mdao.selectMemberWithNumber(crvo.getCr_seller());
+			MemberVO receiver_mvo = mdao.selectMemberWithNumber(crvo.getCr_buyer());
+			
+			listCdto.add(new ChatDTO(crvo, lastMessage, sender_mvo, receiver_mvo));
 		}
 		
 		return listCdto;
 	}
-
+	
 	@Override
 	public List<ChatMessageVO> getMessage(int cr_number) {
 		return cdao.selectMessage(cr_number);
