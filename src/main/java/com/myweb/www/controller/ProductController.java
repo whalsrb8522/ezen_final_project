@@ -48,7 +48,7 @@ public class ProductController {
 	public void register() {}
 	
 	@PostMapping("/register")
-	public String postRegister(RedirectAttributes rAttr, ProductVO pvo, @RequestParam(name="files", required=false)MultipartFile[] files) {
+	public String postRegister(RedirectAttributes rAttr, ProductVO pvo, @RequestParam(name="files")MultipartFile[] files) {
 		List<ProductImageVO> piList = null;
 		if(files[0].getSize()>0) {
 			piList = pihd.uploadFiles(files);
@@ -60,7 +60,10 @@ public class ProductController {
 	}
 	
 	@GetMapping("/detail")
-	public void detail(@RequestParam("p_number")int p_number) {
+	public void detail(@RequestParam("p_number")int p_number, Model m) {
+		// readCount 추가
+		ProductDTO pdto = psv.detail(p_number);
+		m.addAttribute("pdto", pdto);
 		
 	}
 	

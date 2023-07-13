@@ -50,7 +50,7 @@
 				
 				<div class="product-location">
 					<span class="material-symbols-outlined">location_on</span>
-					${productList.pvo.p_location }
+					<span class="location-sub">${productList.pvo.p_location }</span>
 				</div>
 			</div>
 			<!-- </a> -->
@@ -60,14 +60,21 @@
 		<!-- 페이지네이션 -->
 		<div id="page-wrap">
 			<!-- 이전페이지 -->
-			<div class="background-gray page-btn">&lt;</div>
+			<c:if test="${pph.prev }">
+				<div class="background-gray page-btn" onclick="location.href='/product/list?pageNo=${pph.startPage-1}&qty=${pph.ppvo.qty }'">&lt;</div>
+			</c:if>
 			<!-- 컨트롤러에서 page 정보를 싣고 와야 함 -->
 			<!-- 숫자 페이지 -->
-			<div class="background-gray page-btn">i</div>
+			<c:forEach begin="${pph.startPage }" end="${pph.endPage }" var="i">
+				<div class="background-gray page-btn" onclick="/product/list?pageNo=${i}&qty=${pph.ppvo.qty}">${i }</div>
+			</c:forEach>
 			<!-- 다음페이지 -->
-			<div class="background-gray page-btn">&gt;</div>
+			<c:if test="${pph.next }">
+				<div class="background-gray page-btn" onclick="/product/list?pageNo=${pph.endPage+1}&qty=${pph.ppvo.qty}">&gt;</div>
+			</c:if>
 		</div>
 	</div>
-	<jsp:include page="../layout/footer.jsp"></jsp:include>
+<jsp:include page="../layout/footer.jsp"></jsp:include>
+<script type="text/javascript" src="/resources/js/product/list.js"></script>
 </body>
 </html>
