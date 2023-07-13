@@ -173,4 +173,13 @@ foreign key(cm_send_m_number) references member(m_number)
 -- [07.10 | product 상품등록 관련 pay 방법 컬럼 추가]
 alter table product add p_pay varchar(10) not null;
 
+-- [07.13 |프로필 사진 업로드 관련 테이블 추가]
+create table member_image(
+mi_uuid varchar(256) not null,
+mi_dir varchar(256) not null,
+m_number int not null,
+mi_name varchar(20) not null,
+primary key(mi_uuid),
+foreign key(m_number) references member(m_number));
+
 ```
