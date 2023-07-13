@@ -60,7 +60,10 @@ public class ProductController {
 	}
 	
 	@GetMapping("/detail")
-	public void detail(@RequestParam("p_number")int p_number) {
+	public void detail(@RequestParam("p_number")int p_number, Model m) {
+		// readCount 추가
+		ProductDTO pdto = psv.detail(p_number);
+		m.addAttribute("pdto", pdto);
 		
 	}
 	

@@ -25,4 +25,8 @@
 		select max(p_number) from product
 	</select>
 	
+	<select id="selectPno" resultType="com.myweb.www.domain.ProductVO">
+		select * from product where p_number = #{p_number}
+	</select>
+	
 </mapper>
