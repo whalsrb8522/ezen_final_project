@@ -12,9 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.myweb.www.domain.MemberDTO;
+import com.myweb.www.domain.MemberImageVO;
 import com.myweb.www.domain.MemberVO;
+import com.myweb.www.handler.MemberImageHandler;
 import com.myweb.www.service.MemberService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +30,8 @@ public class MemberController {
 	
 	@Inject
 	private MemberService memberService;
+	
+	private MemberImageHandler mihd;
 
 	//회원가입
 	@GetMapping("/signup")
@@ -35,8 +41,39 @@ public class MemberController {
 	
 	}
 	
-	
 	@PostMapping("/signup")
+	public String signupPost(Model m, MemberVO member, 
+	                         RedirectAttributes rAttr,
+	                         @RequestParam(name="file", required = false) MultipartFile file) {
+	    log.info("signUp 접근");
+	    log.info(member.toString());
+
+	    MemberImageVO mivo = null;
+	    if(file != null && file.getSize() > 0) { 
+	        mivo = mihd.uploadFile(file); 
+	    } else {
+	        log.info("file null");
+	    }
+
+	    MemberDTO mdto = new MemberDTO(member, mivo);
+	    int isOk = memberService.signUp(mdto);
+	    log.info("-=-=> Member image register >>"+ (isOk >0 ? "OK" : "FAIL"));
+	    
+	    if(isOk > 0) {
+	        m.addAttribute("msg_signup", 1);
+	        rAttr.addFlashAttribute("isOk", isOk);
+	    } else {
+	        m.addAttribute("msg_signup", 0);
+	    }
+
+	    return "home"; 
+	}
+	
+	
+
+
+	
+/*	@PostMapping("/signup")
 	public String signupPost(Model m, MemberVO member) {
 		log.info("signUp 접근");
 		log.info(member.toString());
@@ -49,7 +86,7 @@ public class MemberController {
 		return "home"; 
 	}
 	
-	
+*/	
 	 //닉네임 중복체크
 	 
 	@PostMapping("/nicknameCheck")
@@ -60,8 +97,31 @@ public class MemberController {
 	}
 	
 	//이메일 인증
-
 	
+	//프로필 사진 업로드
+/*	
+	 @PostMapping("/signup")
+	    public String profilePost(MemberVO mvo ,RedirectAttributes rAttr,
+	            @RequestParam(name="file", required = false)MultipartFile file) {
+	        log.info(">>> mvo "+mvo);
+	        log.info(">>> file "+file);
+
+	        MemberImageVO mivo = null;
+	        if(file.getSize() > 0) { 
+	        	mivo = mihd.uploadFile(file); 
+	        } else {
+	            log.info("file null");
+	        }
+	    
+	        MemberDTO mdto = new MemberDTO(mvo, mivo);
+	        int isOk = memberService.register(mdto);
+	        
+	        log.info("-=-=> board register >>"+ (isOk >0 ? "OK" : "FAIL"));
+	        rAttr.addFlashAttribute("isOk", isOk);
+	        return "redirect:/member/signup";
+	    }
+
+*/	
 	
 	//로그인
 	@GetMapping("/signin")
