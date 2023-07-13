@@ -163,7 +163,7 @@ create table chat_message(
 cm_number int not null auto_increment,
 cr_number int not null,
 cm_send_m_number int not null,
-cm_context text not null,
+cm_content text not null,
 cm_send_date datetime default now(),
 primary key(cm_number),
 foreign key(cr_number) references chat_room(cr_number),
