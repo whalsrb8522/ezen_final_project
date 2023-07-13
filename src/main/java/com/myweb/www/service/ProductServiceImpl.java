@@ -60,6 +60,14 @@ public class ProductServiceImpl implements ProductService {
 		return listPdto;
 	}
 
+	@Override
+	public ProductDTO detail(int p_number) {
+		ProductDTO pdto = new ProductDTO();
+		pdto.setPvo(pdao.selectPno(p_number));
+		pdto.setPiList(pidao.selectFile(p_number));
+		return pdto;
+	}
+
 
 	
 }
