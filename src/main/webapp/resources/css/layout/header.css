@@ -91,18 +91,12 @@ header #memberContainer {
 header #memberContainer1 {
     display: flex;
     height: 100%;
-    align-items: flex-start;
-    width: 130px;
-}
-
-header #memberContainer1 {
-    display: flex;
-    height: 100%;
-    align-items: flex-start;
+    align-items: center;
     width: 195px;
     justify-content: space-between;
     font-size: 15px;
 }
+
 header #memberContainer a, #memberContainer1 a {
 	color: #666;
 	text-decoration: none;

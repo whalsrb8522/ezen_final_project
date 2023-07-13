@@ -20,8 +20,6 @@ public interface MemberDAO {
 
 	MemberVO selectMemberWithNumber(int m_number);
 
-	MemberVO selectMemberWithNumber(ChatRoomVO crvo);
-
 	/*
 	 * int nickCheck(String nickName);
 	 */

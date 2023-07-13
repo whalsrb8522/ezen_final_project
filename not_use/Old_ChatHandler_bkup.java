@@ -11,7 +11,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 @Component
 //@Slf4j
-public class ChatHandler_bkup extends TextWebSocketHandler {
+public class Old_ChatHandler_bkup extends TextWebSocketHandler {
 
 	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
 

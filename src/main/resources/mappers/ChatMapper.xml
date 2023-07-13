@@ -4,11 +4,12 @@
 	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.myweb.www.repository.ChatDAO">
 	<select id="selectChatRoom" resultType="com.myweb.www.domain.ChatRoomVO">
-		select * from chat_room;
+		select * from chat_room 
+			where cr_seller = #{m_number} or cr_buyer = #{m_number};
 	</select> 
 	
-	<select id="selecLastMessage" resultType="com.myweb.www.domain.ChatMessageVO">
-		select * from chat_message where cr_number = #{cr_number} 
+	<select id="selectLastMessage" resultType="String">
+		select cm_content from chat_message where cr_number = #{cr_number} 
 			order by cm_number desc limit 1;
 	</select>
 	
