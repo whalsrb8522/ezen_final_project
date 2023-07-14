@@ -182,6 +182,6 @@ mi_name varchar(20) not null,
 primary key(mi_uuid),
 foreign key(m_number) references member(m_number));
 
--- [07.14 |프로필 사진 업로드 관련 mi_uuid 컬럼 크기 변경]
+-- [07.14 |프로필 사진 업로드 관련 mi_name 컬럼 크기 변경]
 alter table member_image modify mi_name varchar(256) not null;
 ```
