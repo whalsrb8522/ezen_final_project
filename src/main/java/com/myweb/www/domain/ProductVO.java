@@ -26,4 +26,6 @@ public class ProductVO {
 	private int p_status;
 	private boolean p_isDel;
 	private String p_pay;
+	private int p_read_count;
+	
 }

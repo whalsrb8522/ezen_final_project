@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="com.myweb.www.domain.ProductVO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,11 +49,11 @@
 			<br>
 			<!-- 거래 상태 표시 -->
 			<div>
-				<select name="product-status" class="product-status">
-	 	 			<option disabled selected>판매상태</option>
-	  				<option value="purcharse">구매가능</option>
-	  				<option value="reservation">예약중</option>
-	  				<option value="completed">거래완료</option>
+				<select name="p_status" class="product-status">
+	 	 			<option disabled>판매상태</option>
+	  				<option value="0" selected>구매가능</option>
+	  				<option value="1">예약중</option>
+	  				<option value="2">거래완료</option>
 				</select>
 			</div>
 			
@@ -70,6 +72,7 @@
 			</div>
 			<div id="detail-right">
 				<div id="title-wrap">
+					<input type="hidden" value="${pvo.p_number }"> 
 					<div id="detail-title">${pvo.p_name }</div>
 					<div id="price-wrap">
 						<div id="detail-price">${pvo.p_price } <span style="font-size:24px">원</span></div>
@@ -90,7 +93,8 @@
 					<!-- 등록일 -->
 					<div id="detail-date">
 						<span class="material-symbols-outlined md-15">schedule</span>
-						2023-06-29
+						<fmt:parseDate value="${pvo.p_reg_date }" var="regDate" pattern="yyyy-MM-dd HH:mm:ss" />
+						<fmt:formatDate value="${regDate }" pattern="yyyy-MM-dd" />
 					</div>
 				</div>
 				<!-- 구매자용 버튼 -->
@@ -198,5 +202,8 @@
 	</div>
 <jsp:include page="../layout/footer.jsp"></jsp:include>
 <script type="text/javascript" src="/resources/js/product/detail.js"></script>
+<script type="text/javascript">
+	const p_status = `<c:out value="${pvo.p_status}"/>`;
+</script>
 </body>
 </html>
