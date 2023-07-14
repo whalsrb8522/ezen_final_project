@@ -20,7 +20,9 @@ import net.coobird.thumbnailator.Thumbnails;
 @Component
 public class MemberImageHandler {
 	
-	private final String UP_DIR = "D:\\_myweb\\_java\\fileUpload";
+	
+	//주소 주의 (D드라이브 / E드라이브)
+	private final String UP_DIR = "E:\\Workspace\\ezen_final_project\\src\\main\\webapp\\resources\\fileUpload";
 
 	public MemberImageVO uploadFile(MultipartFile file) {
 			LocalDate date = LocalDate.now();
