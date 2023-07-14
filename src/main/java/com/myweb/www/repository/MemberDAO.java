@@ -23,10 +23,9 @@ public interface MemberDAO {
 
 	MemberVO selectMemberWithNumber(ChatRoomVO crvo);
 
-	int selectM_number();
+	MemberVO getNewMember(String m_mail);
 
-	/*
-	 * int nickCheck(String nickName);
-	 */
+	
+
 
 }

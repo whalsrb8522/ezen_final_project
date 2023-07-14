@@ -30,7 +30,7 @@ public class MemberController {
 	
 	@Inject
 	private MemberService memberService;
-	
+	@Inject
 	private MemberImageHandler mihd;
 
 	//회원가입

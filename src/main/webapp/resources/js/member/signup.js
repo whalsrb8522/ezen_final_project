@@ -153,53 +153,132 @@ document.getElementById('innerContainer').addEventListener('submit', function(e)
 
 // 프로필 사진 이미지 미리보기 
 // 'DOMContentLoaded' 이벤트 리스너 내에서 'loadImagePreview' 함수와 이벤트 리스너를 등록
-document.addEventListener('DOMContentLoaded', function() {
-    // 함수를 'DOMContentLoaded' 이벤트 리스너 내부에서 정의
-    function loadImagePreview(e) {
-        var input = e.target;
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
+// document.addEventListener('DOMContentLoaded', function() {
+//     // 함수를 'DOMContentLoaded' 이벤트 리스너 내부에서 정의
+//     function loadImagePreview(e) {
+//         var input = e.target;
+//         if (input.files && input.files[0]) {
+//             var reader = new FileReader();
             
-            reader.onload = function(e) {
-                // Preview Image
-                var previewImage = document.getElementById('imagePreview');
-                previewImage.src = e.target.result;
+//             reader.onload = function(e) {
+//                 // Preview Image
+//                 var previewImage = document.getElementById('imagePreview');
+//                 previewImage.src = e.target.result;
                 
-                // Update the path
-                var displayImagePath = document.getElementById('displayImagePath');
-                displayImagePath.value = input.value;
+//                 // Update the path
+//                 var displayImagePath = document.getElementById('displayImagePath');
+//                 displayImagePath.value = input.value;
 
-                // Display image wrapper
+//                 // Display image wrapper
+//                 var imageWrapper = document.getElementById('imageWrapper');
+//                 imageWrapper.style.display = 'block';
+//             }
+            
+//             reader.readAsDataURL(input.files[0]);
+//         }
+//     }
+
+//     // 'change' 이벤트 리스너를 추가하여 'loadImagePreview' 함수가 호출되도록 설정
+//     document.getElementById('imagePath').addEventListener('change', loadImagePreview);
+
+//     // Add event listener for the remove button
+//     document.getElementById('removeImage').addEventListener('click', function() {
+//         // Clear the preview image
+//         var previewImage = document.getElementById('imagePreview');
+//         previewImage.src = '';
+
+//         // Clear the file input
+//         var imagePath = document.getElementById('imagePath');
+//         imagePath.value = '';
+
+//         // Clear the display path
+//         var displayImagePath = document.getElementById('displayImagePath');
+//         displayImagePath.value = '';
+
+//         // Hide image wrapper
+//         var imageWrapper = document.getElementById('imageWrapper');
+//         imageWrapper.style.display = 'none';
+//     });
+// });
+
+// ------------------------------------------------
+
+// 업로드 + 미리보기
+
+// document.getElementById('imageChoose').addEventListener('click',()=>{
+//    document.getElementById('imagePath').click();
+// })
+
+const regExp = new RegExp("\.(exe|sh|bat|msi|dll|js)$");
+const regExpImg = new RegExp("\.(jpg|jpeg|png|gif|bmp)$");
+const maxSize = 1024*1024*20;
+
+function fileSizeValidation(fileName, fileSize){
+    if(regExp.test(fileName)){
+        return 0;
+    }else if(fileSize > maxSize){
+        return 0;
+    }else if(!regExpImg.test(fileName)){ //이미지 파일이 아니면 첨부 X
+        return 0;
+    }else {
+        return 1;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    var imagePathElement = document.getElementById('imagePath');
+
+    var handleImageChange = function(e){
+        document.getElementById('submitBtn').disabled = false;
+        const fileObject = e.target.files;
+
+        let isOk = 1;
+        let file = fileObject[0];
+        let vaildResult = fileSizeValidation(file.name, file.size);
+        isOk *= vaildResult;
+
+        if(isOk != 0) { 
+            document.getElementById('displayImagePath').value = file.name;
+        }
+
+        if(isOk == 0){ 
+            document.getElementById('submitBtn').disabled = true;
+        }
+
+        if (file && file.type.startsWith("image")) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                document.getElementById('imagePreview').src = e.target.result;
+
                 var imageWrapper = document.getElementById('imageWrapper');
                 imageWrapper.style.display = 'block';
             }
-            
-            reader.readAsDataURL(input.files[0]);
+
+            reader.readAsDataURL(file);
         }
     }
 
-    // 'change' 이벤트 리스너를 추가하여 'loadImagePreview' 함수가 호출되도록 설정
-    document.getElementById('imagePath').addEventListener('change', loadImagePreview);
+    imagePathElement.removeEventListener('change', handleImageChange);
+    imagePathElement.addEventListener('change', handleImageChange);
 
-    // Add event listener for the remove button
     document.getElementById('removeImage').addEventListener('click', function() {
-        // Clear the preview image
         var previewImage = document.getElementById('imagePreview');
         previewImage.src = '';
 
-        // Clear the file input
         var imagePath = document.getElementById('imagePath');
         imagePath.value = '';
 
-        // Clear the display path
         var displayImagePath = document.getElementById('displayImagePath');
         displayImagePath.value = '';
 
-        // Hide image wrapper
         var imageWrapper = document.getElementById('imageWrapper');
         imageWrapper.style.display = 'none';
     });
 });
+
+
+
 
 
 // -------------------------------------------------------
