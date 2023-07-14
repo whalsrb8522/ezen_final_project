@@ -67,6 +67,14 @@ public class ProductController {
 		
 	}
 	
+	@PostMapping("/detail")
+	public void updateStatus(ProductVO pvo, Model m) {
+		int isOk = psv.updateStatus(pvo);
+		m.addAttribute("status" , isOk);
+		log.info(">> 상태 변경 > "+(isOk>0?"성공":"실패"));
+		
+	}
+	
 	@GetMapping("/modify")
 	public void modify() {}
 	
