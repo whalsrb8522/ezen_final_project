@@ -29,4 +29,8 @@
 		select * from product where p_number = #{p_number}
 	</select>
 	
+	<update id="updateStatus">
+		update product set p_status=#{p_status} where p_number=#{p_number}
+	</update>
+	
 </mapper>

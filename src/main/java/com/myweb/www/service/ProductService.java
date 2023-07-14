@@ -17,5 +17,7 @@ public interface ProductService {
 
 	ProductDTO detail(int p_number);
 
+	int updateStatus(ProductVO pvo);
+
 	
 }
