@@ -28,7 +28,7 @@
 </head>
 <body>
 	<div id="container">
-		<form action="/member/signup" method="POST" id="innerContainer">
+		<form action="/member/signup" method="POST" id="innerContainer" enctype="multipart/form-data">
 			<a href="/" id="logoContainer">	
 				<img alt="로고" src="/resources/img/logo.png" id="logoImage">
 				<span id="logoText">양파마켓</span>
@@ -116,7 +116,7 @@
 			<div id="imageContainer">
 			    <h2>프로필 사진</h2>
 			    <div style="display: flex;">
-			        <input type="file" id="imagePath" style="display: none;" accept="image/*"/>
+			        <input type="file" id="imagePath" name="file" style="display: none;" accept="image/*"/>
 			        <input type="text" id="displayImagePath" class="border-gray" readonly="readonly">
 			        <input type="button" id="imageChoose" class="background-purple" value="파일 선택" onclick="document.getElementById('imagePath').click()">
 			    </div>
