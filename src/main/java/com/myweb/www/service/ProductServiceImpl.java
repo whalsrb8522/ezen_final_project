@@ -68,6 +68,13 @@ public class ProductServiceImpl implements ProductService {
 		return pdto;
 	}
 
+	@Override
+	public int updateStatus(ProductVO pvo) {
+		int isOk = pdao.updateStatus(pvo);
+		log.info(">> serviceImpl > "+(isOk>0?"성공":"실패"));
+		return isOk;
+	}
+
 
 	
 }

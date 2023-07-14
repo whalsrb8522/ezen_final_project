@@ -18,4 +18,6 @@ public interface ProductDAO {
 
 	ProductVO selectPno(int p_number);
 
+	int updateStatus(ProductVO pvo);
+
 }
