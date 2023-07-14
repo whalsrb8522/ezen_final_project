@@ -29,46 +29,59 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	public int signUp(MemberDTO mdto) {
 	    log.info("---> 회원가입(signup) Service 진입");
-	    
+
 	    MemberVO member = mdto.getMvo();
 	    MemberVO tempMember = mdao.getMember(member.getM_mail());
-	    
+
 	    if(tempMember != null) {
 	        return 0;
 	    }
-	    
+
 	    if(member.getM_mail() == null || member.getM_mail().length() == 0) {
 	        return 0;
 	    }
-	    
+
 	    if(member.getM_pw() == null || member.getM_pw().length() == 0) {
 	        return 0;
 	    }
-	    
+
 	    //회원가입 진행
 	    String m_pw = member.getM_pw();
-	    
+
 	    //encode(암호화) / matches(원래 비번, 암호화된 비번)
 	    String encodeM_pw = passwordencoder.encode(m_pw); // 기존 패스워드 암호화
 	    member.setM_pw(encodeM_pw);
-	    
+
 	    int isOk = mdao.insertMember(member);
-	    
+	    if (isOk <= 0) {
+	        log.error("Failed to insert member");
+	        return 0;
+	    }
+
+	    // 회원 정보 가져오기
+	    MemberVO insertedMember = mdao.getNewMember(member.getM_mail());
+	    if (insertedMember == null) {
+	        log.error("Unable to get new member");
+	        return 0;
+	    }
+	    int m_number = insertedMember.getM_number();
+
 	    // 회원 이미지 등록
 	    if(mdto.getMivo() != null && isOk > 0) {
-            MemberImageVO mivo = mdto.getMivo();
-            if(mivo == null) { // uploadFile에서 문제가 발생하여 null이 반환된 경우
-                log.warn("Image upload 실패");
-            } else {
-                int m_number = mdao.selectM_number();
-                mivo.setM_number(m_number);
-                log.info("Inserting file: " + mivo);
-                isOk *= midao.insertMemberImage(mivo);
-            }
-        }
+	        MemberImageVO mivo = mdto.getMivo();
+	        if(mivo == null) { // uploadFile에서 문제가 발생하여 null이 반환된 경우
+	            log.warn("Image upload 실패");
+	        } else {
+	            mivo.setM_number(m_number);
+	            log.info("Inserting file: " + mivo);
+	            isOk *= midao.insertMemberImage(mivo);
+	        }
+	    }
 
 	    return isOk;
 	}
+
+
 
 
 
