@@ -21,8 +21,8 @@ import com.myweb.www.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Controller
 @Slf4j
+@Controller
 @RequiredArgsConstructor
 @RequestMapping("/chat/*")
 public class ChatController {
@@ -48,7 +48,7 @@ public class ChatController {
     
     //채팅방 조회
 	@GetMapping(value = "/view/{cr_number}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<List<ChatMessageVO>> view(@PathVariable("cr_number") int cr_number) {
+	public ResponseEntity<List<ChatMessageVO>> view(@PathVariable("cr_number")int cr_number) {
 		List<ChatMessageVO> listCmvo = csvc.getMessage(cr_number);
 		
 		return new ResponseEntity<List<ChatMessageVO>>(listCmvo, HttpStatus.OK);
