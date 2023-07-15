@@ -1,87 +1,7 @@
-// // 실시간 채팅 전달 기능
-// var webSocket = {
-//     url: null,
-//     bang_id: null,
-//     socket: null,
-
-//     init: function(url, bang_id) {
-//         this.url = url;
-//         this.bang_id = bang_id;
-//         this.initSocket();
-//     },
-
-//     sendChat: function() {
-//         console.log(">>> chatInput : " + document.getElementById('chatInput').value);
-
-//         this.sendMessage(this.bang_id, 'CMD_MSG_SEND', document.getElementById('chatInput').value);
-//         document.getElementById('chatInput').value = '';
-//     },
-
-//     sendEnter: function() {
-//         // this.sendMessage(this.bang_id, 'CMD_ENTER', document.getElementById('chatInput').value);
-//         // document.getElementById('chatInput').value = '';
-
-//         console.log("세션 열림");
-//     },
-
-//     receiveMessage: function(msgData) {
-//         if (msgData.cmd == 'CMD_MSG_SEND') {
-//             // var divChatData = document.getElementById('divChatData');
-//             var div = document.createElement('div');
-//             div.textContent = msgData.msg;
-//             // divChatData.appendChild(div);
-
-//             const roomMidBox = document.getElementById('roomMidBox');
-//             roomMidBox.append(div)
-//         } else if (msgData.cmd == 'CMD_ENTER' || msgData.cmd == 'CMD_EXIT') {
-//             var divChatData = document.getElementById('divChatData');
-//             var div = document.createElement('div');
-//             div.textContent = msgData.msg;
-//             divChatData.appendChild(div);
-//         }
-//     },
-
-//     closeMessage: function(str) {
-//         // var divChatData = document.getElementById('divChatData');
-//         // var div = document.createElement('div');
-//         // div.textContent = '연결 끊김: ' + str;
-//         // divChatData.appendChild(div);
-
-//         console.log("세션 닫힘");
-//     },
-
-//     disconnect: function() {
-//         this.socket.close();
-//     },
-
-//     initSocket: function() {
-//         this.socket = new SockJS(this.url);
-
-//         this.socket.onopen = function(evt) {
-//             webSocket.sendEnter();
-//         };
-
-//         this.socket.onmessage = function(evt) {
-//             webSocket.receiveMessage(JSON.parse(evt.data));
-//         };
-
-//         this.socket.onclose = function(evt) {
-//             webSocket.closeMessage(JSON.parse(evt.data));
-//         }
-//     },
-
-//     sendMessage: function(bang_id, cmd, msg) {
-//         var msgData = {
-//             bang_id: bang_id,
-//             cmd: cmd,
-//             msg: msg
-//         };
-//         var jsonData = JSON.stringify(msgData);
-//         this.socket.send(jsonData);
-//     }
-// };
-
-var chatRoomNumber = null;
+// 웹소켓 연결
+var sockJs = new SockJS("/echo");
+var stomp = Stomp.over(sockJs);
+var cr_number;
 var sessionMemberNumber = sessionMemberNumber;
 
 console.log(">>> sessionMemberNumber : " + sessionMemberNumber);
@@ -90,20 +10,25 @@ console.log(">>> sessionMemberNumber : " + sessionMemberNumber);
 async function getChat(cr_number, ses_m_number) {
     const chatDisplyNone = document.getElementById('chatDisplyNone');
     const roomMidBox = document.getElementById('roomMidBox');
-    
+
     roomMidBox.innerHTML = '';
     chatDisplyNone.classList.add('dp_none');
 
-    chatRoomNumber = cr_number;
-    console.log(">>> getCat() > chatRommNumber = " + chatRoomNumber);
+    this.cr_number = cr_number;
+    // console.log(">>> getCat() > chatRommNumber = " + chatRoomNumber);
 
     try {
-        const resp = await fetch('/chat/view/' + cr_number);
+        const resp = await fetch('/chat/view/' + this.cr_number);
         const result = await resp.json();
-        
-        for(let cmvo of result) {
+
+        for (let cmvo of result) {
             printMessage(cmvo.cm_sender, ses_m_number, cmvo.cm_content);
         }
+
+        stomp.subscribe("/sub/chat/main/1", (chat) => {
+            console.log(">>> stomp.subscribe");
+            receiveMessage(chat);
+        });
     } catch (error) {
         console.log(error);
     }
@@ -120,15 +45,17 @@ function printMessage(sender, loginUser, content) {
     let roomMidBox = document.getElementById('roomMidBox');
     let div = document.createElement('div');
 
-    if(sender == loginUser) {
+    // console.log(">>> printMessage() > sender = " + sender);
+    // console.log(">>> printMessage() > loginUser = " + loginUser);
+    if (sender == loginUser) {
         div.classList.add('sendMessage');
     } else {
         div.classList.add('receiveMessage');
     }
 
     div.innerHTML += `
-        <div class="chatMessage"> ` + 
-            content + `
+        <div class="chatMessage"> ` +
+        content + `
         </div>
         <div class="chatTime">
             00:00
@@ -137,27 +64,29 @@ function printMessage(sender, loginUser, content) {
     roomMidBox.appendChild(div);
 }
 
-// 웹소켓 연결
-var sockJs = new SockJS("/echo");
-var stomp = Stomp.over(sockJs);
-
-stomp.connect({}, () => {
-    stomp.subscribe("/sub/chat/room/" + chatRoomNumber, function (chat) {
-        var content = JSON.parse(chat.body);
-
-        var message = content.message;
-        var writer = content.writer;
-        
-        printMessage(1, 1, message)
-    });
-});
-
+// 메시지 발신
 function sendMessage() {
     var chatInput = document.getElementById('chatInput');
-
     console.log(">>> chatInput : " + chatInput.value);
 
-    stomp.send('/pub/chat/message', {}, JSON.stringify({cr_number: chatRoomNumber, message: chatInput.value, writer: 1}));
+    stomp.send('/pub/chat/message', {}, JSON.stringify({ cr_number: this.cr_number, cm_content: chatInput.value, writer: 1 }));
 
     chatInput.value = '';
 };
+
+// 메시지 수신
+function receiveMessage(chat) {
+    console.log(">>> receiveMessage()");
+    console.log(">>> receiveMessage() > chat = " + chat);
+
+    var content = JSON.parse(chat.body);
+    var message = content.message;
+    var writer = content.writer;
+
+    printMessage(1, 1, message);
+}
+
+
+
+// STOMP 연결
+stomp.connect({}, () => { });

@@ -10,6 +10,7 @@
 	max-width: 1024px;
 	min-height: 710px;
 }
+
 /* 전체 컨테이너 */
 .entireContainer {
 	width: 100%;
@@ -30,6 +31,7 @@
 hr {
 	width: 100%;
 }
+
 /* 채팅 리스트 컨테이너 */
 .listContainer {
 	width: 50%;
@@ -45,28 +47,30 @@ hr {
 }
 
 .chatListContainer {
-    height: 630px;
-    overflow-y: scroll;
+	height: 630px;
+	overflow-y: scroll;
 }
 
 /* 채팅 리스트 상단 */
 .listBox {
-    background-color: white;
-    height: 80px;
-    font-size: 30px;
-    line-height: 80px;
-    padding: 0 30px;
-    border-bottom: 1px solid rgb(238, 238, 238);
+	background-color: white;
+	height: 80px;
+	font-size: 30px;
+	line-height: 80px;
+	padding: 0 30px;
+	border-bottom: 1px solid rgb(238, 238, 238);
 }
 
 .chatList {
-    cursor: pointer;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    padding: 0px 20px;
-} .chatList:hover {
-	background-color: rgb(246, 246, 246);	
+	cursor: pointer;
+	height: 80px;
+	display: flex;
+	align-items: center;
+	padding: 0px 20px;
+}
+
+.chatList:hover {
+	background-color: rgb(246, 246, 246);
 }
 
 .chatListImg {
@@ -74,23 +78,23 @@ hr {
 	height: 50px;
 	border-radius: 50%;
 	overflow: hidden;
-	border:1px solid gray;
+	border: 1px solid gray;
 }
 
 .chatListText {
-    padding: 0 20px;
+	padding: 0 20px;
 }
 
 .chatListTextUp {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-weight: bold;
-    height: 25px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-weight: bold;
+	height: 25px;
 }
 
 .chatListTextDown {
-    font-size: 13px;
-    color: #bbb;
+	font-size: 13px;
+	color: #bbb;
 }
 
 /*  */
@@ -170,20 +174,20 @@ hr {
 }
 
 #chatDisplyNone {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .roomContainer1 {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
 }
 
 /* roomTopBox */
@@ -215,6 +219,7 @@ hr {
 	font-size: 12px;
 	color: rgb(153, 153, 153);
 }
+
 /* MidBoxEx (판매글 정보) */
 .roomMidBoxEx {
 	display: flex;
@@ -238,91 +243,98 @@ hr {
 	margin-right: 10px;
 }
 
-.trade-status, .price {
+.trade-status,
+.price {
 	font-weight: bold;
 	font-size: 0.8em;
 }
+
 /* MidBox (대화 내용) */
 #roomMidBox {
-    display: flex;
-    flex-direction: column-reverse;
-    height: 100%;
-    perspective: 1px;
-    padding: 20px;
-    overflow-y: scroll;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	perspective: 1px;
+	padding: 20px;
+	overflow-y: scroll;
 }
 
 .sendMessage {
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: flex-end;
-    margin: 8px 0;
-} .sendMessage .chatMessage {
-    background-color: #C97FE8;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 10px;
-    max-width: 400px;
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: flex-end;
+	margin: 8px 0;
 }
+
+.sendMessage .chatMessage {
+	background-color: #C97FE8;
+	color: white;
+	padding: 5px 10px;
+	border-radius: 10px;
+	max-width: 400px;
+}
+
 .receiveMessage {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    margin: 8px 0;
-} .receiveMessage .chatMessage {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+	margin: 8px 0;
+}
+
+.receiveMessage .chatMessage {
 	background-color: lightgrey;
-    padding: 5px 10px;
-    border-radius: 10px;
-    max-width: 400px;
+	padding: 5px 10px;
+	border-radius: 10px;
+	max-width: 400px;
 }
 
 .chatTime {
-    font-size: 13px;
-    color: #bbb;
-    width: 50px;
-    text-align: center;
+	font-size: 13px;
+	color: #bbb;
+	width: 50px;
+	text-align: center;
 }
 
 /* 하단 메세지 입력 및 전송 / modal 기능 */
 #roomBotBox {
-    border-top: 1px solid rgb(246, 246, 246);
-    background-color: lightgrey;
-    display: flex;
-    justify-content: center;
-    padding: 15px 0;
+	border-top: 1px solid rgb(246, 246, 246);
+	background-color: lightgrey;
+	display: flex;
+	justify-content: center;
+	padding: 15px 0;
 }
 
 #roomInputBox {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 }
 
 #roomInputRight {
-    background: white;
-    border-radius: 25px;
-    height: 50px;
-    width: 420px;
-    display: flex;
-    align-items: center;
-    padding: 0 15px;
+	background: white;
+	border-radius: 25px;
+	height: 50px;
+	width: 420px;
+	display: flex;
+	align-items: center;
+	padding: 0 15px;
 }
 
 #modalBtn {
-    margin-right: 10px;
+	margin-right: 10px;
 }
 
 #chatInput {
-    border: none;
-    flex: 1 1 auto;
-    height: 100%;
-    font-size: 17px;
-    background: none;
-    outline: none;
+	border: none;
+	flex: 1 1 auto;
+	height: 100%;
+	font-size: 17px;
+	background: none;
+	outline: none;
 }
 
 #chatSendBtn {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .roomBotBox1 {
@@ -379,7 +391,7 @@ textarea {
 	margin: 12px 20px;
 	cursor: pointer;
 }
- 
+
 .dp_none {
 	display: none !important;
 }
