@@ -15,6 +15,6 @@
 	
 	<select id="selectMessage" resultType="com.myweb.www.domain.ChatMessageVO">
 		select * from chat_message where cr_number = #{cr_number}
-			order by cm_number desc;
+			order by cm_number asc;
 	</select>
 </mapper>
