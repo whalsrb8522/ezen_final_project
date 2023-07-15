@@ -184,4 +184,7 @@ foreign key(m_number) references member(m_number));
 
 -- [07.14 |프로필 사진 업로드 관련 mi_name 컬럼 크기 변경]
 alter table member_image modify mi_name varchar(256) not null;
+
+-- [07.15 | chat_message 컬럼명 변경]
+alter table chat_message rename cloumn cm_send_m_number to cm_sender;
 ```
