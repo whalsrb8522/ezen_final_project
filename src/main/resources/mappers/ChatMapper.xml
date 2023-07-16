@@ -17,4 +17,9 @@
 		select * from chat_message where cr_number = #{cr_number}
 			order by cm_number asc;
 	</select>
+	
+	<insert id="insertMessage">
+		insert into chat_message(cr_number, cm_sender, cm_content)
+			value(#{cr_number}, #{cm_sender}, #{cm_content});
+	</insert>
 </mapper>

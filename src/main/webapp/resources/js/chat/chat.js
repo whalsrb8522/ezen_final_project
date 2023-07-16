@@ -1,8 +1,10 @@
 // 웹소켓 연결
 var sockJs = new SockJS("/echo");
 var stomp = Stomp.over(sockJs);
+
 var cr_number;
 var sessionMemberNumber = sessionMemberNumber;
+var roomMidBox = document.getElementById('roomMidBox');
 
 console.log(">>> sessionMemberNumber : " + sessionMemberNumber);
 
@@ -23,11 +25,12 @@ async function getChat(cr_number, ses_m_number) {
 
         for (let cmvo of result) {
             printMessage(cmvo.cm_sender, ses_m_number, cmvo.cm_content);
+            roomMidBox.scrollTop = roomMidBox.scrollHeight;
         }
 
         stomp.subscribe("/sub/chat/main/1", (chat) => {
-            console.log(">>> stomp.subscribe");
             receiveMessage(chat);
+            roomMidBox.scrollTop = roomMidBox.scrollHeight;
         });
     } catch (error) {
         console.log(error);
@@ -54,22 +57,21 @@ function printMessage(sender, loginUser, content) {
     }
 
     div.innerHTML += `
-        <div class="chatMessage"> ` +
-        content + `
+        <div class="chatMessage">
+            ${content}
         </div>
         <div class="chatTime">
             00:00
-        </div>
-    `
+        </div>`
+
     roomMidBox.appendChild(div);
 }
 
 // 메시지 발신
 function sendMessage() {
     var chatInput = document.getElementById('chatInput');
-    console.log(">>> chatInput : " + chatInput.value);
 
-    stomp.send('/pub/chat/message', {}, JSON.stringify({ cr_number: this.cr_number, cm_content: chatInput.value, writer: 1 }));
+    stomp.send('/pub/chat/message', {}, JSON.stringify({ cr_number: this.cr_number, cm_content: chatInput.value, cm_sender: this.sessionMemberNumber }));
 
     chatInput.value = '';
 };
@@ -80,13 +82,11 @@ function receiveMessage(chat) {
     console.log(">>> receiveMessage() > chat = " + chat);
 
     var content = JSON.parse(chat.body);
-    var message = content.message;
-    var writer = content.writer;
+    var cm_content = content.cm_content;
+    var cm_sender = content.cm_sender;
 
-    printMessage(1, 1, message);
+    printMessage(cm_sender, sessionMemberNumber, cm_content);
 }
-
-
 
 // STOMP 연결
 stomp.connect({}, () => { });
