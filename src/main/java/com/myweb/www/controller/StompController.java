@@ -7,14 +7,17 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
 import com.myweb.www.domain.ChatMessageVO;
+import com.myweb.www.service.ChatService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 public class StompController {
+	
 	@Inject
     private final SimpMessagingTemplate messagingTemplate = null;
+	@Inject ChatService csvc;
     	
     @MessageMapping(value = "/chat/enter")
     public void enter(ChatMessageVO cmvo) {
@@ -27,6 +30,9 @@ public class StompController {
     public void message(ChatMessageVO cmvo) {
     	log.info(">>> message() > cmvo.cr_number = " + cmvo.getCr_number());
     	log.info(">>> message() > cmvo = " + cmvo.toString());
+    	
+    	csvc.insertMessage(cmvo);
         messagingTemplate.convertAndSend("/sub/chat/main/"+ cmvo.getCr_number(), cmvo);
     }
+
 }
