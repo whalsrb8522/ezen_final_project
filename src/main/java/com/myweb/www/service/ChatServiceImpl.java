@@ -47,4 +47,9 @@ public class ChatServiceImpl implements ChatService {
 		return cdao.selectMessage(cr_number);
 	}
 
+	@Override
+	public void insertMessage(ChatMessageVO cmvo) {
+		cdao.insertMessage(cmvo);
+	}
+
 }

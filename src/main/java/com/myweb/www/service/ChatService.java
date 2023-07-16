@@ -12,4 +12,6 @@ public interface ChatService {
 
 	List<ChatMessageVO> getMessage(int cr_number);
 
+	void insertMessage(ChatMessageVO cmvo);
+
 }

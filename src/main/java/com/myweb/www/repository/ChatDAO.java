@@ -19,4 +19,6 @@ public interface ChatDAO {
 
 	public List<ChatRoomVO> selectChatRoom(MemberVO sesMvo);
 
+	public void insertMessage(ChatMessageVO cmvo);
+
 }

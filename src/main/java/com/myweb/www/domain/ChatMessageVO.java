@@ -12,11 +12,9 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ChatMessageVO {
-	private int cm_number;
-	private int cr_number;
-	private int cm_sender;
-	private int cm_receiver;
+	private Integer cm_number;
+	private Integer cr_number;
+	private Integer cm_sender;
 	private String cm_content;
 	private String cm_send_date;
-	private String cm_read_date;
 }
