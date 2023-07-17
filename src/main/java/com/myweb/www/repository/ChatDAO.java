@@ -21,4 +21,6 @@ public interface ChatDAO {
 
 	public void insertMessage(ChatMessageVO cmvo);
 
+	public void updateSendDate(ChatMessageVO cmvo);
+
 }

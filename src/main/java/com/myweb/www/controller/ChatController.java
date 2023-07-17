@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.myweb.www.domain.ChatDTO;
 import com.myweb.www.domain.ChatMessageVO;
 import com.myweb.www.domain.MemberVO;
 import com.myweb.www.service.ChatService;
@@ -35,6 +36,15 @@ public class ChatController {
     public void main(Model m, HttpSession ses) {
     	MemberVO sesMvo = (MemberVO) ses.getAttribute("ses");
     	m.addAttribute("listCdto", csvc.getChatList(sesMvo));
+    }
+    
+    @GetMapping(value = "/list", produces = { MediaType.APPLICATION_JSON_VALUE })
+    public ResponseEntity<List<ChatDTO>> list(HttpSession ses) {
+    	MemberVO sesMvo = (MemberVO) ses.getAttribute("ses");
+    	List<ChatDTO> listCdto = csvc.getChatList(sesMvo);
+    	log.info(">>> list() > listCdto = " + listCdto.toString());
+    	
+		return new ResponseEntity<List<ChatDTO>>(listCdto, HttpStatus.OK);
     }
     
 	/*
