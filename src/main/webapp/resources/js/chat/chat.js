@@ -57,48 +57,33 @@ function receiveMessage(chat) {
 }
 
 async function listChat() {
-    const chatListContainer = document.getElementById('chatListContainer');
+    const chatListContainer = document.querySelector('.chatListContainer');
+    console.log(chatListContainer);
 
     try {
         const resp = await fetch('/chat/list');
         const result = await resp.json();
 
-        for (const cdto of result) {
-            let div = document.createElement('div');
+        chatListContainer.innerHTML = '';
 
-            div.innerHTML = `
-                <div class="chatListText">
-                    <div class="chatListTextUp">
-                        ${cdto.senderMvo.m_number == sessionMemberNumber ? cdto.receiverMvo.m_nick_name : cdto.senderMvo.m_nick_name}
+        for (const cdto of result) {
+            var div = `
+                <div class="chatList" onclick="getChat(${cdto.crvo.cr_number}, ${sessionMemberNumber})">
+                    <div class="chatListImg">
+                        <img alt="프로필" src="">
                     </div>
-                    <div class="chatListTextDown">
-                        ${cdto.lastMessage == null ? "대화 내용이 없습니다." : cdto.lastMessage}
+                    <div class="chatListText">
+                        <div class="chatListTextUp">
+                            ${cdto.senderMvo.m_number == sessionMemberNumber ? cdto.receiverMvo.m_nick_name : cdto.senderMvo.m_nick_name}
+                        </div>
+                        <div class="chatListTextDown">
+                            ${cdto.lastMessage == null ? "대화 내용이 없습니다." : cdto.lastMessage}
+                        </div>
                     </div>
                 </div>`;
-            chatListContainer.innerHTML = div;
 
-            // <div class="chatListText">
-            //     <div class="chatListTextUp">
-            //         <c:choose>
-            //             <c:when test="${cdto.senderMvo.m_number eq ses.m_number }">
-            //                 ${cdto.receiverMvo.m_nick_name }
-            //             </c:when>
-            //             <c:otherwise>
-            //                 ${cdto.senderMvo.m_nick_name }
-            //             </c:otherwise>
-            //         </c:choose>
-            //     </div>
-            //     <div class="chatListTextDown">
-            //         <c:choose>
-            //             <c:when test="${cdto.lastMessage eq null }">
-            //                 대화 내용이 없습니다.
-            //             </c:when>
-            //             <c:otherwise>
-            //                 ${cdto.lastMessage }
-            //             </c:otherwise>
-            //         </c:choose>
-            //     </div>
-            // </div>
+            console.log(div);
+            chatListContainer.innerHTML += div;
         }
     } catch (error) {
         console.log(error);
@@ -135,7 +120,7 @@ function sendMessage() {
 
     stomp.send('/pub/chat/message', {}, JSON.stringify({ cr_number: this.cr_number, cm_content: chatInput.value, cm_sender: this.sessionMemberNumber }));
 
-    chatInput.value = '';  
+    chatInput.value = '';
 };
 
 // STOMP 연결
