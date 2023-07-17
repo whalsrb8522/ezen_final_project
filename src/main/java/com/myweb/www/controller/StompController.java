@@ -17,7 +17,8 @@ public class StompController {
 	
 	@Inject
     private final SimpMessagingTemplate messagingTemplate = null;
-	@Inject ChatService csvc;
+	@Inject 
+	ChatService csvc;
     	
     @MessageMapping(value = "/chat/enter")
     public void enter(ChatMessageVO cmvo) {

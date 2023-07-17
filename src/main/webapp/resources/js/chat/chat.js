@@ -8,7 +8,7 @@ var roomMidBox = document.getElementById('roomMidBox');
 
 console.log(">>> sessionMemberNumber : " + sessionMemberNumber);
 
-// 채팅방 목록 불러오기
+// 메시지 내용 불러오기
 async function getChat(cr_number, ses_m_number) {
     const chatDisplyNone = document.getElementById('chatDisplyNone');
     const roomMidBox = document.getElementById('roomMidBox');
@@ -28,7 +28,7 @@ async function getChat(cr_number, ses_m_number) {
             roomMidBox.scrollTop = roomMidBox.scrollHeight;
         }
 
-        stomp.subscribe("/sub/chat/main/1", (chat) => {
+        stomp.subscribe("/sub/chat/main/" + cr_number, (chat) => {
             receiveMessage(chat);
             roomMidBox.scrollTop = roomMidBox.scrollHeight;
         });
@@ -43,7 +43,69 @@ document.getElementById('backBtn').addEventListener('click', () => {
     chatDisplyNone.classList.remove('dp_none');
 });
 
-// 메시지 내용 출력
+// 메시지 수신 함수
+function receiveMessage(chat) {
+    console.log(">>> receiveMessage()");
+    console.log(">>> receiveMessage() > chat = " + chat);
+
+    var content = JSON.parse(chat.body);
+    var cm_content = content.cm_content;
+    var cm_sender = content.cm_sender;
+
+    printMessage(cm_sender, sessionMemberNumber, cm_content);
+    listChat();
+}
+
+async function listChat() {
+    const chatListContainer = document.getElementById('chatListContainer');
+
+    try {
+        const resp = await fetch('/chat/list');
+        const result = await resp.json();
+
+        for (const cdto of result) {
+            let div = document.createElement('div');
+
+            div.innerHTML = `
+                <div class="chatListText">
+                    <div class="chatListTextUp">
+                        ${cdto.senderMvo.m_number == sessionMemberNumber ? cdto.receiverMvo.m_nick_name : cdto.senderMvo.m_nick_name}
+                    </div>
+                    <div class="chatListTextDown">
+                        ${cdto.lastMessage == null ? "대화 내용이 없습니다." : cdto.lastMessage}
+                    </div>
+                </div>`;
+            chatListContainer.innerHTML = div;
+
+            // <div class="chatListText">
+            //     <div class="chatListTextUp">
+            //         <c:choose>
+            //             <c:when test="${cdto.senderMvo.m_number eq ses.m_number }">
+            //                 ${cdto.receiverMvo.m_nick_name }
+            //             </c:when>
+            //             <c:otherwise>
+            //                 ${cdto.senderMvo.m_nick_name }
+            //             </c:otherwise>
+            //         </c:choose>
+            //     </div>
+            //     <div class="chatListTextDown">
+            //         <c:choose>
+            //             <c:when test="${cdto.lastMessage eq null }">
+            //                 대화 내용이 없습니다.
+            //             </c:when>
+            //             <c:otherwise>
+            //                 ${cdto.lastMessage }
+            //             </c:otherwise>
+            //         </c:choose>
+            //     </div>
+            // </div>
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// 메시지 내용 출력 함수
 function printMessage(sender, loginUser, content) {
     let roomMidBox = document.getElementById('roomMidBox');
     let div = document.createElement('div');
@@ -67,26 +129,14 @@ function printMessage(sender, loginUser, content) {
     roomMidBox.appendChild(div);
 }
 
-// 메시지 발신
+// 메시지 발신 함수
 function sendMessage() {
     var chatInput = document.getElementById('chatInput');
 
     stomp.send('/pub/chat/message', {}, JSON.stringify({ cr_number: this.cr_number, cm_content: chatInput.value, cm_sender: this.sessionMemberNumber }));
 
-    chatInput.value = '';
+    chatInput.value = '';  
 };
-
-// 메시지 수신
-function receiveMessage(chat) {
-    console.log(">>> receiveMessage()");
-    console.log(">>> receiveMessage() > chat = " + chat);
-
-    var content = JSON.parse(chat.body);
-    var cm_content = content.cm_content;
-    var cm_sender = content.cm_sender;
-
-    printMessage(cm_sender, sessionMemberNumber, cm_content);
-}
 
 // STOMP 연결
 stomp.connect({}, () => { });

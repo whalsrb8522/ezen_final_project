@@ -50,6 +50,7 @@ public class ChatServiceImpl implements ChatService {
 	@Override
 	public void insertMessage(ChatMessageVO cmvo) {
 		cdao.insertMessage(cmvo);
+		cdao.updateSendDate(cmvo);
 	}
 
 }
