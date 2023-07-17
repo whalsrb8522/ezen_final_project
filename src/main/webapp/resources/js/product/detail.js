@@ -57,53 +57,126 @@ detailCate.addEventListener('mouseout', () => {
 // });
 
 
-async function updateStatus() {
-    try {
-        const selectElement = document.querySelector('select[name="p_status"]');
-        const status = selectElement.value;
-        console.log(status);
+// async function updateStatus() {
+//     try {
+//         const selectElement = document.querySelector('select[name="p_status"]');
+//         const status = selectElement.value;
+//         console.log(status);
 
-        const url = "/product/detail";
-        const config = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: `status=${status}`
-        };
+//         const url = "/product/detail";
+//         const config = {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/x-www-form-urlencoded'
+//             },
+//             body: `status=${status}`
+//         };
 
-        const response = await fetch(url, config);
-        const result = await response.text();
+//         const response = await fetch(url, config);
+//         const result = await response.text();
 
-        console.log(result);
-        return result;
-    } catch (error) {
-        console.log(error);
-    }
-}
+//         console.log(result);
+//         return result;
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }
 
-document.querySelector('select[name="p_status"]').addEventListener('change', updateStatus);
+// document.querySelector('select[name="p_status"]').addEventListener('change', updateStatus);
+
+// async function updateStatus(value) {
+//     console.log(">>> updateStatus() > value = " + value); 
+//     try {
+//         const url = "/product/detail";
+//         const config = {
+//             method: 'PUT',
+//             headers: {
+//                 'content-type': 'application/json; charset=utf-8'
+//             },
+//             body: value
+//         };
+//         const response = await fetch(url, config);
+//         const result = await response.text();
+//         console.log(result);
+//         return result;
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }
+
+// document.addEventListener('change', (e)=>{
+//     if(e.target.classList.contains("product-status")){
+//         console.log(e.target);
+//         const status = parseInt(e.target.value);
+//         console.log(status);
+
+//         let value = status;
+//         console.log("value의 값은"+value);
+//         // 서버 연결
+//         updateStatus(value).then(result=>{})
+//     }
+// })
+// let selectElement = document.querySelector('select[name="p_status"]');
+// selectElement.addEventListener('change', async ()=>{
+//     try {
+//         let status = selectElement.value;
+//         const url = "/product/detail";
+//         const config = {
+//             method: 'PUT',
+//             headers: {
+//               'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify({ p_status: parseInt(status) })
+//           };
+//         const response = await fetch(url, config);
+//         const data = await response.json();
+//         console.log(data);
+//     } catch (error) {
+//         console.log(error);
+//     }
+
+// } )
 
 
-// 이미지 지도에서 마커가 표시될 위치입니다 
-let markerPosition = new kakao.maps.LatLng(33.450701, 126.570667);
+// register에서 등록한 주소 불러와서 지도 생성
+let mapContainer = document.getElementById('detail-map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 2 // 지도의 확대 레벨
+    };  
 
-// 이미지 지도에 표시할 마커입니다
-// 이미지 지도에 표시할 마커는 Object 형태입니다
-let marker = {
-    position: markerPosition
-};
+// 지도를 생성합니다    
+let map = new kakao.maps.Map(mapContainer, mapOption); 
 
-let staticMapContainer = document.getElementById('detail-map'), // 이미지 지도를 표시할 div  
-    staticMapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 이미지 지도의 중심좌표
-        level: 2, // 이미지 지도의 확대 레벨
-        marker: marker // 이미지 지도에 표시할 마커 
-    };
+// 주소-좌표 변환 객체를 생성합니다
+let geocoder = new kakao.maps.services.Geocoder();
 
-// 이미지 지도를 생성합니다
-let staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
+// 주소를 담아옵니다
+let getLoca = document.getElementById('getLoca').value;
 
+// 주소로 좌표를 검색합니다
+geocoder.addressSearch(getLoca, function(result, status) {
 
+    // 정상적으로 검색이 완료됐으면 
+     if (status === kakao.maps.services.Status.OK) {
+
+        let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        let marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        // var infowindow = new kakao.maps.InfoWindow({
+        //     content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+        // });
+        // infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    } 
+});
 
 

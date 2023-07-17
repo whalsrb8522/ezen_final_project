@@ -20,4 +20,5 @@ public interface ProductDAO {
 
 	int updateStatus(ProductVO pvo);
 
+
 }

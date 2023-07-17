@@ -5,10 +5,16 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -67,13 +73,60 @@ public class ProductController {
 		
 	}
 	
-	@PostMapping("/detail")
-	public void updateStatus(ProductVO pvo, Model m) {
-		int isOk = psv.updateStatus(pvo);
-		m.addAttribute("status" , isOk);
-		log.info(">> 상태 변경 > "+(isOk>0?"성공":"실패"));
-		
-	}
+//	@PostMapping("/detail")
+//	public void updateStatus(ProductVO pvo, Model m) {
+//		int isOk = psv.updateStatus(pvo);
+//		m.addAttribute("status" , isOk);
+//		log.info(">> 상태 변경 > "+(isOk>0?"성공":"실패"));
+//		
+//	}
+//	@PostMapping(value = "/detail", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
+//	public ResponseEntity<String> updateStatus(@RequestParam(name = "value")int value, ProductVO pvo) {
+//	    log.info(">>> updateStatus() > pvo = " + pvo.toString()); 
+//	    int isOk = psv.updateStatus(pvo);
+//	    log.info(">> 상태 변경 > "+(isOk>0?"성공":"실패"));
+//	    return isOk > 0 ?
+//	        new ResponseEntity<String>("1", HttpStatus.OK) :
+//	        new ResponseEntity<String>("0", HttpStatus.INTERNAL_SERVER_ERROR);
+//	}
+//	@PostMapping(value = "/detail", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
+//	public ResponseEntity<String> updateStatus(ProductVO pvo, Model m) {
+//		log.info(">>> updateStatus() > pvo = " + pvo.toString()); 
+//		int isOk = psv.updateStatus(pvo);
+//		log.info(">> 상태 변경 > "+(isOk>0?"성공":"실패"));
+//		return isOk > 0 ?
+//				new ResponseEntity<String>("1", HttpStatus.OK) :
+//					new ResponseEntity<String>("0", HttpStatus.INTERNAL_SERVER_ERROR);
+//	}
+	
+//	@PutMapping(value="/detail", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
+//	public ResponseEntity<String> modify(@RequestBody ProductVO pvo){
+//		log.info(">>> updateStatus() > pvo = " + pvo.toString()); 
+//	    int isOk = psv.updateStatus(pvo);
+//	    log.info(">> 상태 변경 > "+(isOk>0?"성공":"실패"));
+//	    return isOk > 0 ?
+//	        new ResponseEntity<String>("1", HttpStatus.OK) :
+//	        new ResponseEntity<String>("0", HttpStatus.INTERNAL_SERVER_ERROR);
+//	}
+//	@PutMapping(value="/detail", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
+//	public ResponseEntity<String> modify(@PathVariable("p_status")int p_status, ProductVO pvo){
+//		log.info(">>> updateStatus() > pvo = " + pvo.toString()); 
+//		int isOk = psv.updateStatus(pvo);
+//		log.info(">> 상태 변경 > "+(isOk>0?"성공":"실패"));
+//		return isOk > 0 ?
+//				new ResponseEntity<String>("1", HttpStatus.OK) :
+//					new ResponseEntity<String>("0", HttpStatus.INTERNAL_SERVER_ERROR);
+//	}
+//	@PutMapping(value="/detail", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
+//	public ResponseEntity<String> updateStatus(@RequestParam(value = "value")int p_status, ProductVO pvo){
+//		log.info(">>> updateStatus() > pvo = " + pvo.toString()); 
+//		int isOk = psv.updateStatus(pvo);
+//		log.info(">> 상태 변경 > "+(isOk>0?"성공":"실패"));
+//		return isOk > 0 ?
+//				new ResponseEntity<String>("1", HttpStatus.OK) :
+//					new ResponseEntity<String>("0", HttpStatus.INTERNAL_SERVER_ERROR);
+//	}
+
 	
 	@GetMapping("/modify")
 	public void modify() {}

@@ -55,6 +55,8 @@ function setDetailImage(event) {
     const fileInput = document.getElementById('file');
     const fileUl = document.querySelector('.file-ul');
 
+    
+
     for (let image of event.target.files) {
         let reader = new FileReader();
 

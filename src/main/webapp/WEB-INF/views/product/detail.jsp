@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/product/detail.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=28524d982cffea013a5f7c234898c8df"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=28524d982cffea013a5f7c234898c8df&libraries=services"></script>
 
 </head>
 <body>
@@ -194,7 +194,7 @@
 			<div id="location-wrap">
 				<div id="location-detail-wrap">
 					<div id="detail-loca"><b>거래 희망 장소</b></div>
-					<div id="detail-detail-loca">&gt; ${pvo.p_location }</div>
+					<div id="detail-detail-loca">&gt; <input type="text" id="getLoca" readonly="readonly" value="${pvo.p_location }" style="border:none;"></div>
 				</div>
 					<div id="detail-map"></div>
 			</div>
