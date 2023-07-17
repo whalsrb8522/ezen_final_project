@@ -66,7 +66,7 @@ public class MemberController {
 	        m.addAttribute("msg_signup", 0);
 	    }
 
-	    return "home"; 
+	    return "redirect:/";
 	}
 	
 /*	@PostMapping("/signup")
