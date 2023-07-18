@@ -99,14 +99,14 @@
 				</div>
 				<!-- 구매자용 버튼 -->
 				<!-- <div class="btn-wrap">
-					<button type="button" class="background-gray detail-btn">다른 상품 찾기</button>
+					<a href="javascript:window.history.back();""><button type="button" class="background-gray detail-btn">다른 상품 찾기</button></a>
 					<button type="button" class="background-gray detail-btn">찜</button>
 					<button type="button" class="background-purple detail-btn">채팅하기</button>
 				</div> -->
 				<!-- 판매자용 버튼 -->
 				<div class="btn-wrap">
-					<button type="button" class="background-gray detail-btn">다른 상품 찾기</button>
-					<button type="button" class="background-gray detail-btn">수정하기</button>
+					<a href="javascript:window.history.back();"><button type="button" class="background-gray detail-btn">다른 상품 찾기</button></a>
+					<a href="/product/modify"><button type="button" class="background-gray detail-btn">수정하기</button></a>
 					<button type="button" class="background-purple detail-btn">내 채팅방</button>
 				</div>
 			</div>
