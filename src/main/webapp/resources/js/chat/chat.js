@@ -4,26 +4,43 @@ var stomp = Stomp.over(sockJs);
 
 var cr_number;
 var sessionMemberNumber = sessionMemberNumber;
-var roomMidBox = document.getElementById('roomMidBox');
 
-console.log(">>> sessionMemberNumber : " + sessionMemberNumber);
+var roomTopBoxNick = document.querySelector('.roomTopBox-nick');  // 닉네임 표시
+var roomMidBoxEx = document.querySelector('.roomMidBoxEx');       // 상품 정보 표시
+var roomMidBox = document.getElementById('roomMidBox');           // 채팅 내용 표시
 
 // 메시지 내용 불러오기
 async function getChat(cr_number, ses_m_number) {
     const chatDisplyNone = document.getElementById('chatDisplyNone');
-    const roomMidBox = document.getElementById('roomMidBox');
 
     roomMidBox.innerHTML = '';
     chatDisplyNone.classList.add('dp_none');
 
     this.cr_number = cr_number;
-    // console.log(">>> getCat() > chatRommNumber = " + chatRoomNumber);
 
     try {
         const resp = await fetch('/chat/view/' + this.cr_number);
         const result = await resp.json();
 
-        for (let cmvo of result) {
+        let mvo = result.mvo;
+        let pvo = result.pvo;
+        let listCmvo = result.listCmvo;
+
+        console.log(">>> pvo.p_name = " + pvo.p_name);
+
+        roomTopBoxNick.innerHTML = mvo.m_nick_name;
+
+        let div = `
+            <img alt="" src="" class="item-image">
+            <div class="item-info">
+                <span class="trade-status">거래중</span>
+                <span class="price">${pvo.p_price}원</span>
+            </div >
+            <span class="trade-title">${pvo.p_name}</span>`;
+
+        roomMidBoxEx.innerHTML = div;
+
+        for (let cmvo of listCmvo) {
             printMessage(cmvo.cm_sender, ses_m_number, cmvo.cm_content);
             roomMidBox.scrollTop = roomMidBox.scrollHeight;
         }
@@ -48,9 +65,9 @@ function receiveMessage(chat) {
     console.log(">>> receiveMessage()");
     console.log(">>> receiveMessage() > chat = " + chat);
 
-    var content = JSON.parse(chat.body);
-    var cm_content = content.cm_content;
-    var cm_sender = content.cm_sender;
+    let content = JSON.parse(chat.body);
+    let cm_content = content.cm_content;
+    let cm_sender = content.cm_sender;
 
     printMessage(cm_sender, sessionMemberNumber, cm_content);
     listChat();
@@ -67,7 +84,7 @@ async function listChat() {
         chatListContainer.innerHTML = '';
 
         for (const cdto of result) {
-            var div = `
+            let div = `
                 <div class="chatList" onclick="getChat(${cdto.crvo.cr_number}, ${sessionMemberNumber})">
                     <div class="chatListImg">
                         <img alt="프로필" src="">
@@ -95,8 +112,6 @@ function printMessage(sender, loginUser, content) {
     let roomMidBox = document.getElementById('roomMidBox');
     let div = document.createElement('div');
 
-    // console.log(">>> printMessage() > sender = " + sender);
-    // console.log(">>> printMessage() > loginUser = " + loginUser);
     if (sender == loginUser) {
         div.classList.add('sendMessage');
     } else {
@@ -116,9 +131,11 @@ function printMessage(sender, loginUser, content) {
 
 // 메시지 발신 함수
 function sendMessage() {
-    var chatInput = document.getElementById('chatInput');
+    let chatInput = document.getElementById('chatInput');
 
-    stomp.send('/pub/chat/message', {}, JSON.stringify({ cr_number: this.cr_number, cm_content: chatInput.value, cm_sender: this.sessionMemberNumber }));
+    if (chatInput.value != null) {
+        stomp.send('/pub/chat/message', {}, JSON.stringify({ cr_number: this.cr_number, cm_content: chatInput.value, cm_sender: this.sessionMemberNumber }));
+    }
 
     chatInput.value = '';
 };
