@@ -6,4 +6,6 @@ public interface MemberImageDAO {
 
 	int insertMemberImage(MemberImageVO mivo);
 
+	MemberImageVO selectMemberImage(int m_number);
+
 }

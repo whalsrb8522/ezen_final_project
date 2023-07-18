@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,18 +20,29 @@
 			<div id="memberProfile" class="border-gray">
 				<div id="memberProfileLeft" class="background-gray">
 					<div id="memberImage">
-						<img alt="프로필 사진" src="">
+						<!-- 회원이 프로필 사진을 등록 안했을 경우 -->
+						<c:if test="${empty member.mivo.mi_name}">
+							<img alt="프로필 사진" src="/resources/img/profile.png">
+						</c:if>
+						<!-- 회원이 프로필 사진을 등록 했을 경우 -->
+						<!-- DB에 사진이 추가되고, 사진을 불러오기까지 오래걸림.. 왜지 -->
+						<c:if test="${not empty member.mivo.mi_name}">
+							<img alt="프로필 사진" src="/resources/fileUpload/${member.mivo.mi_dir}/${member.mivo.mi_uuid}_th_${member.mivo.mi_name}">
+							
+						</c:if>
 					</div>
 					<button type="button" onclick="location.href='/member/modify'" id="profileModifyBtn" class="background-purple">프로필 수정</button>
 				</div>
 				<div id="memberProfileRight">
-					<h3>상점 002호(닉네임 오는 자리?)</h3>
+					<!-- m_number / m_nick_name 출력 -->
+					<h3>상점 ${member.mvo.m_number}호(${member.mvo.m_nick_name})</h3>
 					<div id="memberStoreInfo">
 						<p>
 							<span class="material-symbols-outlined store-icon">
 								storefront
 							</span>
-							상점 오픈일 2023.06.26
+							<!-- 계정 생성일 -->
+							상점 오픈일 ${fn:replace(member.mvo.m_reg_date, '-', '.')}
 						</p>
 						<p>
 							<span class="material-symbols-outlined store-icon">
@@ -40,7 +54,14 @@
 					<div id="memberMain">
 						<div id="memberMainLeft">
 							<div id="memberMainIntroduce">
-								소개글입니다.
+								<c:choose>
+							        <c:when test="${empty member.mvo.m_introduct}">
+							            소개글을 입력해보세요.
+							        </c:when>
+							        <c:otherwise>
+							            ${member.mvo.m_introduct}
+							        </c:otherwise>
+							    </c:choose>
 							</div>
 						</div>
 						<div id="memberMainRight" class="background-purple">

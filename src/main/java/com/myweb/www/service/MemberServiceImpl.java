@@ -144,6 +144,19 @@ public class MemberServiceImpl implements MemberService {
 		return (count == 0) ? 0 : 1;
 	}
 
+
+
+
+
+	//detail페이지
+	@Override
+	public MemberDTO getMemberDetails(int m_number) {
+		MemberDTO memberDetails = new MemberDTO();
+		memberDetails.setMvo(mdao.selectMemberWithNumber(m_number));
+		memberDetails.setMivo(midao.selectMemberImage(m_number));
+		return memberDetails;
+	}
+
 	/*
 	@Override
 	public int register(MemberDTO mdto) {

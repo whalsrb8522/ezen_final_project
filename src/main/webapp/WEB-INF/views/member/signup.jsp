@@ -28,7 +28,7 @@
 </head>
 <body>
 	<div id="container">
-		<form action="/member/signup" method="POST" id="innerContainer" enctype="multipart/form-data">
+		<form action="/member/signup" method="POST" id="innerContainer" enctype="multipart/form-data" onsubmit="return validateForm();">
 			<a href="/" id="logoContainer">	
 				<img alt="로고" src="/resources/img/logo.png" id="logoImage">
 				<span id="logoText">양파마켓</span>
@@ -57,23 +57,31 @@
 			</div>
 			
 			<div id="emailContainer">
-				<h2>이메일</h2>
-				<div id="emailInput">
-					<input type="text" id="user_email" name="user_email" class="border-gray input-box" placeholder="이메일">
-					@
-					<select id="email_address" name="email_address" class="border-gray input-box">
-						<option>선택해주세요</option>
-						<option value="naver.com">naver.com</option>
-						<option value="daum.net">daum.net</option>
-						<option value="kakao.com">kakao.com</option>
-						<option value="gmail.com">gmail.com</option>
-					</select>
-					
-				</div>
-				<input type="hidden" id="m_mail" name="m_mail">
-				<button type="submit" id="emailBtn" class="background-gray">이메일 인증하기</button>
-				
+			    <h2>이메일</h2>
+			    <div id="emailInput">
+			        <input type="text" id="user_email" name="user_email" class="border-gray input-box" placeholder="이메일">
+			        @
+			        <select id="email_address" name="email_address" class="border-gray input-box">
+			            <option>선택해주세요</option>
+			            <option value="naver.com">naver.com</option>
+			            <option value="daum.net">daum.net</option>
+			            <option value="kakao.com">kakao.com</option>
+			            <option value="gmail.com">gmail.com</option>
+			        </select>
+			    </div>
+			    <input type="hidden" id="m_mail" name="m_mail">
+			    <button type="button" id="emailBtn" class="background-gray">이메일 인증하기</button>
+			
+			    <!-- 이메일 인증 코드 입력 및 확인 부분 추가 -->
+			    <div id="mailCheckContainer" style="display:none;">
+			        
+			        <div id="mailCheckInput">
+			            <input type="text" id="mailCode" name="mailCode" class="border-gray input-box" placeholder="인증 코드를 입력하세요" maxlength="6">
+			            <button type="button" id="mailBtn" class="background-gray">인증하기</button>
+			        </div>
+			    </div>
 			</div>
+
 			
 			<div id="passwordContainer">
 				<h2>비밀번호</h2>
@@ -93,7 +101,7 @@
 				<h6>다른 유저와 겹치지 않도록 입력해주세요. (2~15자)</h6>
 				<input type="text" id="nick" class="border-gray input-box" placeholder="닉네임" name="m_nick_name" maxlength="15" onblur="checkNickname();">
 				<span class="point successNameChk"></span>
-    			
+    			<input type="hidden" id="nickValid" value="false">
 				
 			</div>
 			
