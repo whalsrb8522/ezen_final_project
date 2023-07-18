@@ -189,4 +189,7 @@ alter table member_image modify mi_name varchar(256) not null;
 alter table chat_message rename cloumn cm_send_m_number to cm_sender;
 alter table chat_room add column cr_send_date datetime default now();
 alter table chat_message drop cm_receiver;
+
+-- [07.18 | detail 페이지를 위한 m_reg_date 컬럼 추가]
+alter table member add m_reg_date date not null default (current_date);
 ```
