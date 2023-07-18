@@ -120,6 +120,7 @@ header #memberContainer a, #memberContainer1 a {
 .menu > li > a{
 	display:block; 
 	text-decoration: none;
+	color: black;
 }
 .menu .depth_1 {
   position: absolute;
@@ -145,11 +146,6 @@ header #memberContainer a, #memberContainer1 a {
   align-items: center;
 }
 
-.menu .depth_1 li:hover a {
-  background-color: #c97fe8;
-  color: white;
-}
-
 .menu .depth_1 li a {
   display: flex;
   align-items: center;
@@ -162,7 +158,12 @@ header #memberContainer a, #memberContainer1 a {
   text-decoration: none;
   font-size:14px;
   padding-left: 15px;
+  color: black;
+} .menu .depth_1 li:hover a {
+  background-color: #c97fe8;
+  color: white;
 }
+
 
 .menu .depth_1 li:not(:first-child) a {
   border-top: none;

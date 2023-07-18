@@ -24,7 +24,7 @@
 			<div id="todayProduct">
 				<h1>오늘의 상품</h1>
 				<div id="showAllContainer">
-					<a href="/product/list"><button class="showAllBox background-purple submit-button">보러가기</button></a>
+					<button class="showAllBox background-purple submit-button" onclick="location.href='/product/list'">보러가기</button>
 				</div>
 			</div>
 				

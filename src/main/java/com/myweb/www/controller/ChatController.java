@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.myweb.www.domain.ChatMessageDTO;
 import com.myweb.www.domain.ChatMessageVO;
+import com.myweb.www.domain.ChatRoomDTO;
 import com.myweb.www.domain.MemberVO;
 import com.myweb.www.service.ChatService;
 
@@ -37,6 +39,15 @@ public class ChatController {
     	m.addAttribute("listCdto", csvc.getChatList(sesMvo));
     }
     
+    @GetMapping(value = "/list", produces = { MediaType.APPLICATION_JSON_VALUE })
+    public ResponseEntity<List<ChatRoomDTO>> list(HttpSession ses) {
+    	MemberVO sesMvo = (MemberVO) ses.getAttribute("ses");
+    	List<ChatRoomDTO> listCdto = csvc.getChatList(sesMvo);
+    	log.info(">>> list() > listCdto = " + listCdto.toString());
+    	
+		return new ResponseEntity<List<ChatRoomDTO>>(listCdto, HttpStatus.OK);
+    }
+    
 	/*
 	 * //채팅방 개설
 	 * 
@@ -48,10 +59,11 @@ public class ChatController {
     
     //채팅방 조회
 	@GetMapping(value = "/view/{cr_number}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<List<ChatMessageVO>> view(@PathVariable("cr_number")int cr_number) {
-		List<ChatMessageVO> listCmvo = csvc.getMessage(cr_number);
+	public ResponseEntity<ChatMessageDTO> view(@PathVariable("cr_number")int cr_number) {
 		
-		return new ResponseEntity<List<ChatMessageVO>>(listCmvo, HttpStatus.OK);
+		ChatMessageDTO cmdto = csvc.getMessage(cr_number);
+		
+		return new ResponseEntity<ChatMessageDTO>(cmdto, HttpStatus.OK);
 	}
 	
 }

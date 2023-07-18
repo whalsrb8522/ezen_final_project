@@ -5,7 +5,8 @@
 <mapper namespace="com.myweb.www.repository.ChatDAO">
 	<select id="selectChatRoom" resultType="com.myweb.www.domain.ChatRoomVO">
 		select * from chat_room 
-			where cr_seller = #{m_number} or cr_buyer = #{m_number};
+			where cr_seller = #{m_number} or cr_buyer = #{m_number}
+			order by cr_send_date desc;
 	</select> 
 	
 	<select id="selectLastMessage" resultType="String">
@@ -18,8 +19,16 @@
 			order by cm_number asc;
 	</select>
 	
+	<select id="selectBuyer" resultType="int">
+		select cr_buyer from chat_room where cr_number = #{cr_number};
+	</select>
+	
 	<insert id="insertMessage">
 		insert into chat_message(cr_number, cm_sender, cm_content)
 			value(#{cr_number}, #{cm_sender}, #{cm_content});
 	</insert>
+	
+	<update id="updateSendDate">
+		update chat_room set cr_send_date = now() where cr_number = #{cr_number};
+	</update>
 </mapper>
