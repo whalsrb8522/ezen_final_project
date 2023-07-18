@@ -58,8 +58,7 @@
 		</div>
 			
 		<div id="temp">
-			<button type="button" onclick="location.href='/chat/test?bang_id=a'">a</button>
-			<button type="button" onclick="location.href='/chat/test?bang_id=b'">b</button>
+			
 		</div>
 	</footer>
 </body>

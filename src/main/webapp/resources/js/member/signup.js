@@ -28,6 +28,7 @@ function checkNickname() {
     if(nick.length < 2){
         $(".successNameChk").text('닉네임은 최소 2글자 이상이어야 합니다.');
         $(".successNameChk").css("color", "red");
+        $("#nickValid").val("false");
 
         return;
     }
@@ -52,27 +53,21 @@ function checkNickname() {
             if (intValue == 0) {
                 $(".successNameChk").text("사용가능한 닉네임입니다.");
 				$(".successNameChk").css("color", "green");
+                $("#nickValid").val("true");
 			
             } else {
                 $(".successNameChk").text("사용중인 닉네임입니다");
 				$(".successNameChk").css("color", "red");
+                $("#nickValid").val("false");
 			
             }
         },
         error: function(err) {
             console.log(err);
+            $("#nickValid").val("false");
         }
     });
 }
-
-// 주소 필수 입력 
-
-// 보안 인증 (reCAPTCHA) 
-
-// 프로필 사진
-
-// 필수 약관 
-
 
 
 // ----------------------------------------------------------
@@ -93,121 +88,7 @@ document.getElementById('innerContainer').addEventListener('submit', function(e)
 
 // 프로필 사진 파일 업로드 
 
-// document.getElementById('imageChoose').addEventListener('click',()=>{
-//     document.getElementById('imagePath').click();
-// })
 
-// const regExp = new RegExp("\.(exe|sh|bat|msi|dll|js)$");
-// const regExpImg = new RegExp("\.(jpg|jpeg|png|gif|bmp)$");
-// const maxSize = 1024*1024*20;
-
-// function fileSizeValidation(fileName, fileSize){
-//     if(regExp.test(fileName)){
-//         return 0;
-//     }else if(fileSize > maxSize){
-//         return 0;
-//     }else if(!regExpImg.test(fileName)){ //이미지 파일이 아니면 첨부 X
-//         return 0;
-//     }else {
-//         return 1;
-//     }
-// }
-
-// document.getElementById('imagePath').addEventListener('change', (e)=>{
-//     document.getElementById('submitBtn').disabled = false;
-//     const fileObject = e.target.files;
-//     let div = document.getElementById('imagePrint');
-//     div.innerHTML='';
-//     let ul = `<ul>`;
-//     let isOk = 1;
-
-//     let file = fileObject[0];
-//     let vaildResult = fileSizeValidation(file.name, file.size);
-//     isOk *= vaildResult;
-
-//     ul+=`</ul>`;
-//     div.innerHTML =ul;
-
-//     // display the selected file name in the text input
-//     if(isOk != 0) { 
-//         document.getElementById('displayImagePath').value = file.name;
-//     }
-
-//     if(isOk == 0){ 
-//         document.getElementById('submitBtn').disabled = true;
-//     }
-
-//     // Create file reader and set the image source to the selected file
-//     if (file && file.type.startsWith("image")) {
-//         const reader = new FileReader();
-
-//         reader.onload = function(e) {
-//             document.getElementById('imagePreview').src = e.target.result;
-//         }
-
-//         reader.readAsDataURL(file);
-//     }
-// })
-
-// -------------------------------------------
-
-// 프로필 사진 이미지 미리보기 
-// 'DOMContentLoaded' 이벤트 리스너 내에서 'loadImagePreview' 함수와 이벤트 리스너를 등록
-// document.addEventListener('DOMContentLoaded', function() {
-//     // 함수를 'DOMContentLoaded' 이벤트 리스너 내부에서 정의
-//     function loadImagePreview(e) {
-//         var input = e.target;
-//         if (input.files && input.files[0]) {
-//             var reader = new FileReader();
-            
-//             reader.onload = function(e) {
-//                 // Preview Image
-//                 var previewImage = document.getElementById('imagePreview');
-//                 previewImage.src = e.target.result;
-                
-//                 // Update the path
-//                 var displayImagePath = document.getElementById('displayImagePath');
-//                 displayImagePath.value = input.value;
-
-//                 // Display image wrapper
-//                 var imageWrapper = document.getElementById('imageWrapper');
-//                 imageWrapper.style.display = 'block';
-//             }
-            
-//             reader.readAsDataURL(input.files[0]);
-//         }
-//     }
-
-//     // 'change' 이벤트 리스너를 추가하여 'loadImagePreview' 함수가 호출되도록 설정
-//     document.getElementById('imagePath').addEventListener('change', loadImagePreview);
-
-//     // Add event listener for the remove button
-//     document.getElementById('removeImage').addEventListener('click', function() {
-//         // Clear the preview image
-//         var previewImage = document.getElementById('imagePreview');
-//         previewImage.src = '';
-
-//         // Clear the file input
-//         var imagePath = document.getElementById('imagePath');
-//         imagePath.value = '';
-
-//         // Clear the display path
-//         var displayImagePath = document.getElementById('displayImagePath');
-//         displayImagePath.value = '';
-
-//         // Hide image wrapper
-//         var imageWrapper = document.getElementById('imageWrapper');
-//         imageWrapper.style.display = 'none';
-//     });
-// });
-
-// ------------------------------------------------
-
-// 업로드 + 미리보기
-
-// document.getElementById('imageChoose').addEventListener('click',()=>{
-//    document.getElementById('imagePath').click();
-// })
 
 const regExp = new RegExp("\.(exe|sh|bat|msi|dll|js)$");
 const regExpImg = new RegExp("\.(jpg|jpeg|png|gif|bmp)$");
@@ -431,4 +312,42 @@ function removeMember() {
     } else {
         alert("취소되었습니다.");
     }
+}
+
+// -------------------------------------------------------------
+
+// 회원가입 필수요소 확인
+function validateForm() {
+    var validationErrors = [];
+
+    // 닉네임 중복확인
+    if ($("#nickValid").val() !== "true") {
+        validationErrors.push("닉네임이 이미 사용중입니다");
+    }
+
+    // 비밀번호 일치 확인
+    if ($("#pwDoubleChk").val() !== "true") {
+        validationErrors.push("비밀번호가 일치하지 않습니다");
+    }
+
+    // 카카오맵 주소 확인
+    if (!document.getElementById("m_address").value) {
+        validationErrors.push("주소를 입력해주세요");
+    }
+
+    // 이용약관 확인
+    var terms1 = document.getElementById("terms1").checked;
+    var terms2 = document.getElementById("terms2").checked;
+    var terms3 = document.getElementById("terms3").checked;
+
+    if (!(terms1 && terms2 && terms3)) {
+        validationErrors.push("필수약관을 선택해주세요");
+    }
+    // 검사 후 오류가 있으면(validationErrors 배열 길이가 0보다 큰 경우) 오류 메세지 표시
+    if (validationErrors.length > 0) {
+        alert(validationErrors.join('\n'));
+        // 유효성 검사 오류가 있을 시 양식 제출 중지
+        return false;
+    }
+    return true;
 }
