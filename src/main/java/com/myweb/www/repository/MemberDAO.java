@@ -20,9 +20,6 @@ public interface MemberDAO {
 	
 	MemberVO selectMemberWithNumber(int m_number);
 
-
-	MemberVO selectMemberWithNumber(ChatRoomVO crvo);
-
 	MemberVO getNewMember(String m_mail);
 
 	

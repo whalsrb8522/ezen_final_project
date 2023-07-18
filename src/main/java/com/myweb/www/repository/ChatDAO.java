@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.myweb.www.domain.ChatMessageDTO;
 import com.myweb.www.domain.ChatMessageVO;
 import com.myweb.www.domain.ChatRoomVO;
 import com.myweb.www.domain.MemberVO;
@@ -22,5 +23,7 @@ public interface ChatDAO {
 	public void insertMessage(ChatMessageVO cmvo);
 
 	public void updateSendDate(ChatMessageVO cmvo);
+
+	public int selectBuyer(int cr_number);
 
 }
