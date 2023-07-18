@@ -107,7 +107,7 @@
 				<div class="btn-wrap">
 					<button type="button" class="background-gray detail-btn">다른 상품 찾기</button>
 					<button type="button" class="background-gray detail-btn">수정하기</button>
-					<button type="button" class="background-purple detail-btn" onclick="location.href='/chat/register'">내 채팅방</button>
+					<button type="button" class="background-purple detail-btn" onclick="location.href='/chat/register/${param.p_number}'">내 채팅방</button>
 				</div>
 			</div>
 		</div>
