@@ -43,6 +43,7 @@ public class ProductController {
 	
 	@GetMapping("/list")
 	public void list(ProductPagingVO ppvo, Model m) {
+		
 		List<ProductDTO> pdto = psv.listFile(ppvo);
 		m.addAttribute("productList", pdto);
 		int totalCount = psv.getTotalCount(ppvo);
@@ -127,6 +128,7 @@ public class ProductController {
 //					new ResponseEntity<String>("0", HttpStatus.INTERNAL_SERVER_ERROR);
 //	}
 
+	
 	
 	@GetMapping("/modify")
 	public void modify() {}

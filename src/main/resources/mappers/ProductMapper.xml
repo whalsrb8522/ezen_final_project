@@ -7,6 +7,7 @@
 		select a.p_number, p_name, p_price, p_location from 
 		(select p_number from product 
 		where p_isDel=0
+		<include refid="category"></include>
 		order by p_number desc
 		limit #{pageStart}, #{qty}) a left join product b
 		on a.p_number = b.p_number
@@ -32,5 +33,14 @@
 	<update id="updateStatus">
 		update product set p_status=#{p_status} where p_number=#{p_number}
 	</update>
+	
+	
+	<sql id="category">
+		<if test="p_category != null">
+			<trim prefix="and (" suffix=")">
+				p_category = #{p_category}				
+			</trim>
+		</if>
+	</sql>
 	
 </mapper>
