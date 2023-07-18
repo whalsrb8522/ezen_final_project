@@ -11,7 +11,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ChatDTO {
+public class ChatRoomDTO {
 	private ChatRoomVO crvo;
 	private String lastMessage;
 	private MemberVO senderMvo;
