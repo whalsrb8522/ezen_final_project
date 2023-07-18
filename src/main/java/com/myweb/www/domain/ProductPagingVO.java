@@ -7,10 +7,12 @@ import lombok.ToString;
 @ToString
 @Setter
 @Getter
-public class ProductPagingVO {
+public class ProductPagingVO extends ProductVO {
 	private int pageNo;
 	private int qty;
 	private int pageCnt;  // 페이지네이션 개수
+	
+	private String p_category;
 	
 	public ProductPagingVO() {
 		this(1,15,10);
