@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,12 +18,19 @@
 			<div id="memberProfile" class="border-gray">
 				<div id="memberProfileLeft" class="background-gray">
 					<div id="memberImage">
-						<img alt="프로필 사진" src="">
+						<!-- 회원이 프로필 사진을 등록 안했을 경우 -->
+						<c:if test="${empty member.mivo.mi_name}">
+							<img alt="프로필 사진" src="/resources/img/profile.png">
+						</c:if>
+						<!-- 회원이 프로필 사진을 등록 했을 경우 -->
+						<c:if test="${not empty member.mivo.mi_name}">
+							<img alt="프로필 사진" src="/resources/fileUpload/${member.mivo.mi_dir}/${member.mivo.mi_uuid}_th_${member.mivo.mi_name}">
+						</c:if>
 					</div>
 					<button type="button" onclick="location.href='/member/modify'" id="profileModifyBtn" class="background-purple">프로필 수정</button>
 				</div>
 				<div id="memberProfileRight">
-					<h3>상점 002호(닉네임 오는 자리?)</h3>
+					<h3>상점 ${member.mivo.m_number}호(${member.mvo.m_nick_name})</h3>
 					<div id="memberStoreInfo">
 						<p>
 							<span class="material-symbols-outlined store-icon">
@@ -40,7 +48,7 @@
 					<div id="memberMain">
 						<div id="memberMainLeft">
 							<div id="memberMainIntroduce">
-								소개글입니다.
+								${m_introduct }
 							</div>
 						</div>
 						<div id="memberMainRight" class="background-purple">

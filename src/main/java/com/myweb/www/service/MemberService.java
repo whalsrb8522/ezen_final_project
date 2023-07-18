@@ -14,5 +14,8 @@ public interface MemberService {
 	//int register(MemberDTO mdto);
 
 	int signUp(MemberDTO mdto);
+	
+	//detail페이지
+	MemberDTO getMemberDetails(int m_number);
 
 }
