@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myweb.www.domain.ChatMessageDTO;
 import com.myweb.www.domain.ChatMessageVO;
@@ -56,6 +57,13 @@ public class ChatController {
 	 * rttr.addFlashAttribute("roomName", csvc.createChatRoom(""); return
 	 * "redirect:/chat/rooms"; }
 	 */
+    
+    // 채팅방 개설
+    @GetMapping(value = "/register/${pnumber}")
+    public String register(@PathVariable("p_number")int p_number) {
+    	
+    	return null;
+    }
     
     //채팅방 조회
 	@GetMapping(value = "/view/{cr_number}", produces = { MediaType.APPLICATION_JSON_VALUE })
