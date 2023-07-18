@@ -20,4 +20,5 @@ public class MemberVO {
 	private String m_address;
 	private int m_isAdmin;
 	private int m_isDel;
+	private String m_reg_date;
 }
