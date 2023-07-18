@@ -19,5 +19,4 @@ public interface ProductService {
 
 	int updateStatus(ProductVO pvo);
 
-	
 }

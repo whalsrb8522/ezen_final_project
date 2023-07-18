@@ -17,14 +17,14 @@
 		<div id="cate-wrap">
 			<span><b>카테고리</b></span><br>
 		</div>
-		<div class="border-gray category">전자기기</div>
-		<div class="border-gray category">아웃도어, 스포츠</div>
-		<div class="border-gray category">자동차용품, 공구</div>
-		<div class="border-gray category">가구, 조명</div> <br>
-		<div class="border-gray category">유아, 완구</div>
-		<div class="border-gray category">생활, 주방, 건강</div>
-		<div class="border-gray category">패션, 잡화</div>
-		<div class="border-gray category">사무, 취미</div>
+			<div class="border-gray category" onclick="location.href='/product/list?p_category=전자기기'">전자기기</div>
+			<div class="border-gray category" onclick="location.href='/product/list?p_category=아웃도어, 스포츠'">아웃도어, 스포츠</div>
+			<div class="border-gray category" onclick="location.href='/product/list?p_category=자동차용품, 공구'">자동차용품, 공구</div>
+			<div class="border-gray category" onclick="location.href='/product/list?p_category=가구, 조명'">가구, 조명</div> <br>
+			<div class="border-gray category" onclick="location.href='/product/list?p_category=유아, 완구'">유아, 완구</div>
+			<div class="border-gray category" onclick="location.href='/product/list?p_category=생활, 주방, 건강'">생활, 주방, 건강</div>
+			<div class="border-gray category" onclick="location.href='/product/list?p_category=패션, 잡화'">패션, 잡화</div>
+			<div class="border-gray category" onclick="location.href='/product/list?p_category=사무, 취미'">사무, 취미</div>
 		<br>
 
 		<!-- c:if 감싸기 -->
