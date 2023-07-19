@@ -87,6 +87,9 @@
 				<h2>비밀번호</h2>
 				<h6>영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</h6>
 				<input type="password" id="userpw" name="m_pw" class="border-gray input-box" placeholder="비밀번호">
+				<div class="passwordAlert"></div>
+				<input type="hidden" id="userpwValid" value="false">
+				
 			</div>			
 			
 			<div id="passwordCheckContainer">
@@ -94,6 +97,8 @@
 				<input type="password" id="userpwchk" name="m_pw_check" class="border-gray input-box" placeholder="비밀번호 확인">
 				<span class="point successPwChk"></span>
 				<input type="hidden" id="pwDoubleChk"/>
+				<input type="hidden" id="userpwMatch" value="false">
+				
 			</div>
 			
 			<div id="nickNameContainer">
@@ -101,7 +106,8 @@
 				<h6>다른 유저와 겹치지 않도록 입력해주세요. (2~15자)</h6>
 				<input type="text" id="nick" class="border-gray input-box" placeholder="닉네임" name="m_nick_name" maxlength="15" onblur="checkNickname();">
 				<span class="point successNameChk"></span>
-    			<input type="hidden" id="nickValid" value="false">
+				<input type="hidden" id="nickValid" value="false">
+    			<input type="hidden" id="nickValid1" value="false">
 				
 			</div>
 			
