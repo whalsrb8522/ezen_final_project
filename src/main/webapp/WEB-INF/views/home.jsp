@@ -27,17 +27,18 @@
 					<button class="showAllBox background-purple submit-button" onclick="location.href='/product/list'">보러가기</button>
 				</div>
 			</div>
-				
 				<div id="productContainer">
-					<div onclick="location.href='#'" class="product">
+				<c:forEach items="${productList }" var="productList">
+				<c:set value="${productList.piList }" var="piList"></c:set>
+					<div onclick="location.href='/product/detail?p_number=${productList.pvo.p_number }'" class="product">
 						<div class="product-image">
-							<img alt="상품 이미지" src="/resources/img/secondhanditem_1.jpg">
+							<img alt="상품 이미지" src="/resources/fileUpload/${productList.piList[0].pi_dir }/${productList.piList[0].pi_uuid }_th_${productList.piList[0].pi_name }">
 						</div>
 						
 						<div class="product-text">
 							<ul>
-								<li class="product-title">상품명</li>
-								<li class="product-price">1,000,000 <span style="font-size: 12px;">원</span></li>
+								<li class="product-title">${productList.pvo.p_name }</li>
+								<li class="product-price">${productList.pvo.p_price } <span style="font-size: 12px;">원</span></li>
 							</ul>
 						</div>
 						
@@ -45,73 +46,15 @@
 							<span class="material-symbols-outlined">
 								location_on
 							</span>
-							인천광역시 계양구
+							${productList.pvo.p_location }
 						</div>
 					</div>
 					
-					<div onclick="location.href='#'" class="product">
-						<div class="product-image">
-							<img alt="상품 이미지" src="/resources/img/secondhanditem_2.jpg">
-						</div>
-						
-						<div class="product-text">
-							<ul>
-								<li class="product-title">상품명</li>
-								<li class="product-price">1,000,000 <span style="font-size: 12px;">원</span></li>
-							</ul>
-						</div>
-						
-						<div class="product-location">
-							<span class="material-symbols-outlined">
-								location_on
-							</span>
-							인천광역시 계양구
-						</div>
-					</div>
-					
-					<div onclick="location.href='#'" class="product">
-						<div class="product-image">
-							<img alt="상품 이미지" src="/resources/img/secondhanditem_3.jpg">
-						</div>
-						
-						<div class="product-text">
-							<ul>
-								<li class="product-title">상품명</li>
-								<li class="product-price">1,000,000 <span style="font-size: 12px;">원</span></li>
-							</ul>
-						</div>
-						
-						<div class="product-location">
-							<span class="material-symbols-outlined">
-								location_on
-							</span>
-							인천광역시 계양구
-						</div>
-					</div>
-					
-					<div onclick="location.href='#'" class="product">
-						<div class="product-image">
-							<img alt="상품 이미지" src="/resources/img/secondhanditem_4.jpg">
-						</div>
-						
-						<div class="product-text">
-							<ul>
-								<li class="product-title">상품명</li>
-								<li class="product-price">1,000,000 <span style="font-size: 12px;">원</span></li>
-							</ul>
-						</div>
-						
-						<div class="product-location">
-							<span class="material-symbols-outlined">
-								location_on
-							</span>
-							인천광역시 계양구
-						</div>
-					</div>
+				</c:forEach>
 				</div>
 			</div>
 		</div>
-	</div>
+	
 	
 	<jsp:include page="./layout/footer.jsp"></jsp:include>
 </body>

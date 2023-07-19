@@ -19,4 +19,6 @@ public interface ProductService {
 
 	int updateStatus(ProductVO pvo);
 
+	int readCount(int p_number);
+
 }

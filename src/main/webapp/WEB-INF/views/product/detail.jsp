@@ -27,18 +27,18 @@
 				<div id="detail-cate-wrap">
 					<div id="detatil-cate-wrapper">
 						<div id="detail-cate">
-							선택한 카테고리
+							${pvo.p_category }
 							<span class="material-symbols-outlined arrow-down">expand_more</span>
 						</div>
 						<div class="detail-cate-scroll">
-							<a class="scroll-detail">전자기기</a>
-							<a class="scroll-detail">아웃도어, 스포츠</a>
-							<a class="scroll-detail">자동차용품, 공구</a>
-							<a class="scroll-detail">가구, 조명</a>
-							<a class="scroll-detail">유아, 완구</a>
-							<a class="scroll-detail">생활, 주방, 건강</a>
-							<a class="scroll-detail">패션, 잡화</a>
-							<a class="scroll-detail">사무, 취미</a>
+							<a class="scroll-detail" onclick="location.href='/product/list?p_category=전자기기'" data-value="전자기기">전자기기</a>
+							<a class="scroll-detail" onclick="location.href='/product/list?p_category=아웃도어, 스포츠'">아웃도어, 스포츠</a>
+							<a class="scroll-detail" onclick="location.href='/product/list?p_category=자동차용품, 공구'">자동차용품, 공구</a>
+							<a class="scroll-detail" onclick="location.href='/product/list?p_category=가구, 조명'">가구, 조명</a>
+							<a class="scroll-detail" onclick="location.href='/product/list?p_category=유아, 완구'">유아, 완구</a>
+							<a class="scroll-detail" onclick="location.href='/product/list?p_category=생활, 주방, 건강'">생활, 주방, 건강</a>
+							<a class="scroll-detail" onclick="location.href='/product/list?p_category=패션, 잡화'">패션, 잡화</a>
+							<a class="scroll-detail" onclick="location.href='/product/list?p_category=사무, 취미'">사무, 취미</a>
 						</div>
 					</div>
 				</div>
@@ -59,9 +59,15 @@
 			</div>
 					
 			<div id="detail-left">
-				<div>
-					<img alt="없음" src="/resources/image/44.jpg" width="300px" height="300px">
+			<div class="slider_img">
+			<div class="slider_inner">
+			<c:forEach items="${flist }" varStatus="status" var="flist">
+				<div class="detail-img">
+					<img alt="없음" src="/resources/fileUpload/${flist.pi_dir }/${flist.pi_uuid }_${flist.pi_name }" width="300px" height="300px">
 				</div>
+			</c:forEach>
+			</div>
+			</div>
 				<div class="slider-dot">
                 	<a href="#" class="dot active">이미지1</a>
                 	<a href="#" class="dot">이미지2</a>

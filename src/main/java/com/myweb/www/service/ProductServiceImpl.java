@@ -75,6 +75,13 @@ public class ProductServiceImpl implements ProductService {
 		return isOk;
 	}
 
+	@Override
+	public int readCount(int p_number) {
+		int isOk = pdao.updateReadCount(p_number);
+		log.info(">> readcount > "+(isOk>0?"성공":"실패"));
+		return isOk;
+	}
+
 
 
 

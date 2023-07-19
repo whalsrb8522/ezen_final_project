@@ -23,4 +23,6 @@ public interface ProductDAO {
 	// 채팅 기능 구현 (작성자 : 조민규)	
 	ProductVO selectProductWithNumber(int cr_number);
 
+	int updateReadCount(int p_number);
+
 }
