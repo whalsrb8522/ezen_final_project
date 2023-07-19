@@ -59,10 +59,14 @@ public class ChatController {
 	 */
     
     // 채팅방 개설
-    @GetMapping(value = "/register/${pnumber}")
-    public String register(@PathVariable("p_number")int p_number) {
+    @GetMapping(value = "/register/{p_number}")
+    public String register(@PathVariable("p_number")int p_number, HttpSession ses) {
+    	MemberVO sesMvo = (MemberVO) ses.getAttribute("ses");
     	
-    	return null;
+    	log.info(">>> register() > p_number = " + p_number);
+    	log.info(">>> register() > sesMvo = " + sesMvo.toString());
+    	
+    	return "/chat/main";
     }
     
     //채팅방 조회
