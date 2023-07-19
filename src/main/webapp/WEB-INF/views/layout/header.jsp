@@ -28,14 +28,14 @@
 				<img alt="로고" src="/resources/img/logo.png" id="logoImage">
 				<span id="logoText">양파마켓</span>
 			</a>
-			
-			<div id="searchContainer" class="border-purple">
-				<span id="searchIcon" class="material-symbols-outlined">
-					search
-				</span>
-				<input type="text" id="searchInput">
-			</div>
-			
+			<form action="/product/list">
+				<div id="searchContainer" class="border-purple">
+					<span id="searchIcon" class="material-symbols-outlined">
+						search
+					</span>
+					<input type="text" name="keyword" id="searchInput">
+				</div>
+			</form>
 			<c:if test="${ses.m_mail eq null}">
 				<!-- 로그인 전 -->
 				<div id="memberContainer">

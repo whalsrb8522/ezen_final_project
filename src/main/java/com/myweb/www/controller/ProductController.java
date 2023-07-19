@@ -43,7 +43,7 @@ public class ProductController {
 	
 	@GetMapping("/list")
 	public void list(ProductPagingVO ppvo, Model m) {
-		
+		m.addAttribute("ppvo",ppvo);
 		List<ProductDTO> pdto = psv.listFile(ppvo);
 		m.addAttribute("productList", pdto);
 		int totalCount = psv.getTotalCount(ppvo);

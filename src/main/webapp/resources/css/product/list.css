@@ -22,7 +22,7 @@
 	color: gray;
 }
 
-.category>a:active{
+.categoryBold{
 	font-weight: 700;
 }
 
