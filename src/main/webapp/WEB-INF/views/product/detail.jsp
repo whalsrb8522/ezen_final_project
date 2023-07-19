@@ -105,15 +105,9 @@
 				</div> -->
 				<!-- 판매자용 버튼 -->
 				<div class="btn-wrap">
-<<<<<<< HEAD
 					<a href="javascript:window.history.back();"><button type="button" class="background-gray detail-btn">다른 상품 찾기</button></a>
 					<a href="/product/modify"><button type="button" class="background-gray detail-btn">수정하기</button></a>
-					<button type="button" class="background-purple detail-btn">내 채팅방</button>
-=======
-					<button type="button" class="background-gray detail-btn">다른 상품 찾기</button>
-					<button type="button" class="background-gray detail-btn">수정하기</button>
 					<button type="button" class="background-purple detail-btn" onclick="location.href='/chat/register/${param.p_number}'">내 채팅방</button>
->>>>>>> 5f4a46bf4f26ae2e3cf850a9dbe21af09379e34f
 				</div>
 			</div>
 		</div>

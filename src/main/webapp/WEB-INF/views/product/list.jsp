@@ -27,15 +27,16 @@
 			<div class="border-gray category" onclick="location.href='/product/list?p_category=사무, 취미'">사무, 취미</div>
 		<br>
 
-		<!-- c:if 감싸기 -->
 		<div id="result-wrap">
-			<span><span style="color: #C97FE8"><b>수정</b></span>의 검색결과 <span style="color: gray">수정몇 개</span></span>
+		<!-- 검색했을 경우에만 나타남 -->
+		<c:if test="${ppvo.keyword != null }">
+			<span><span style="color: #C97FE8"><b>${ppvo.keyword }</b></span>의 검색결과 <span style="color: gray">${pph.totalCount } 개</span></span>
+		</c:if>
 		</div><br>
 		<!-- 상품 리스트 -->
 		<div>
 		<c:forEach items="${productList }" var="productList">
 			<c:set value="${productList.piList }" var="piList"></c:set>
-			<%-- <a href="/product/detail?p_number=${productList.pvo.p_number }" class="product-list-alink"> --%>
 			<div class="product-wrapper" onclick="location.href='/product/detail?p_number=${productList.pvo.p_number }'">
 				<div class="product-photo">
 					<img alt="없음" src="/resources/fileUpload/${productList.piList[0].pi_dir }/${productList.piList[0].pi_uuid }_th_${productList.piList[0].pi_name }" class="product-photo">
