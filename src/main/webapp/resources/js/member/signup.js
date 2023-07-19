@@ -2,21 +2,62 @@
 // 이메일 - 아이디 , @ , 도메인 주소 합치기
 
 window.onload = function () {
-    document.getElementById("innerContainer").onsubmit = function () {
+    let code = ""; // 이메일 인증 저장을 위한 코드
+
+    var emailBtn = document.getElementById("emailBtn");
+    emailBtn.onclick = function () {
         var user_email = document.getElementById("user_email").value;
         var email_address = document.getElementById("email_address").value;
 
-        if(user_email && email_address && email_address !== "선택해주세요") {
+        // 이메일 형식 검증 정규식
+        var email_regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+        // 이메일이 선택되었고, 형식에 맞는지 검사
+        if(user_email && email_address && email_address !== "선택해주세요" && email_regex.test(user_email + "@" + email_address)) {
             document.getElementById("m_mail").value = user_email + "@" + email_address;
-            return true; 
-        }
-        else {
+            document.getElementById("mailCheckContainer").style.display = "block"; // mailCheckContainer 보이게 만들기
+            emailBtn.className = "background-gray";
             
-            alert('올바른 이메일 주소를 입력해주세용');
+            // 이메일 유효성이 검증되면, 인증 메일을 보냄
+            sendEmail();
+            return true; 
+        } else {
+            alert('올바른 이메일 주소를 입력해주세요');
             return false; 
         }
     }
+
+    function sendEmail() {
+        $.ajax({
+            url: "mailSender.do",
+            type: "get",
+            data: {'m_email': $("#m_mail").val()},
+            success: function(rnum) {
+                alert("기입하신 이메일로 인증번호를 전송했습니다.");
+                $("#mailCode").attr("disabled", false); //입력칸 활성화
+                code = rnum;
+            },
+            error: function () {
+                alert("f");
+            }
+        });
+    }
+    
+    $("#mailBtn").blur(function() {
+        if(code == $("#mailCode").val()) { //인증번호 같다면
+            $("#mailChk").css("color", "blue");
+            $("#mailChk").text("인증되었습니다.");
+        } else {
+            $("#mailChk").css("color", "red");
+            $("#mailChk").text("인증번호를 다시 입력해주세요.");
+        }
+    });
 }
+
+
+
+
+
 
 
 // 닉네임 중복 확인
