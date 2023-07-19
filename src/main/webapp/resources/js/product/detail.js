@@ -137,7 +137,6 @@ detailCate.addEventListener('mouseout', () => {
 
 // } )
 
-
 // register에서 등록한 주소 불러와서 지도 생성
 let mapContainer = document.getElementById('detail-map'), // 지도를 표시할 div 
     mapOption = {
@@ -179,4 +178,24 @@ geocoder.addressSearch(getLoca, function(result, status) {
     } 
 });
 
+async function changeStatus(target) {
+    var p_status = target.value;
+    
+    try {
+        const url = '/product/detail';
+        const config = {
+            method: 'post',
+            headers: {
+                'content-type': 'application/json;'
+            },
+            body: JSON.stringify({
+                p_number: p_number,
+                p_status: p_status
+            })
+        }
 
+        const response = await fetch(url, config);
+    } catch (error) {
+        console.error(error);   
+    }
+} 
