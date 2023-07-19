@@ -106,7 +106,7 @@
 				<h6>다른 유저와 겹치지 않도록 입력해주세요. (2~15자)</h6>
 				<input type="text" id="nick" class="border-gray input-box" placeholder="닉네임" name="m_nick_name" maxlength="15" onblur="checkNickname();">
 				<span class="point successNameChk"></span>
-				<input type="hidden" id="nickValid" value="false">
+				<input type="hidden" id="nickValid" value="true">
     			<input type="hidden" id="nickValid1" value="false">
 				
 			</div>
