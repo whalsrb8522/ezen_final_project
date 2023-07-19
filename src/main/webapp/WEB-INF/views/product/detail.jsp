@@ -49,15 +49,15 @@
 			<br>
 			<!-- 거래 상태 표시 -->
 			<div>
-				<select name="p_status" class="product-status">
+				<select name="p_status" class="product-status" onchange="changeStatus(this)">
 	 	 			<option disabled>판매상태</option>
-	  				<option value="0" selected>구매가능</option>
-	  				<option value="1">예약중</option>
-	  				<option value="2">거래완료</option>
+	  				<option value="0" <c:if test="${pvo.p_status eq 0 }">selected="selected"</c:if>>구매가능</option>
+	  				<option value="1" <c:if test="${pvo.p_status eq 1 }">selected="selected"</c:if>>예약중</option>
+	  				<option value="2" <c:if test="${pvo.p_status eq 2 }">selected="selected"</c:if>>거래완료</option>
+	  				
 				</select>
 			</div>
-			
-			
+					
 			<div id="detail-left">
 				<div>
 					<img alt="없음" src="/resources/image/44.jpg" width="300px" height="300px">
@@ -203,7 +203,8 @@
 <jsp:include page="../layout/footer.jsp"></jsp:include>
 <script type="text/javascript" src="/resources/js/product/detail.js"></script>
 <script type="text/javascript">
-	const p_status = `<c:out value="${pvo.p_status}"/>`;
+	var p_number = ${param.p_number};
+	console.log(">>> p_number = " + p_number);
 </script>
 </body>
 </html>

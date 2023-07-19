@@ -1,7 +1,9 @@
 package com.myweb.www.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -71,7 +73,11 @@ public class ProductController {
 		// readCount 추가
 		ProductDTO pdto = psv.detail(p_number);
 		m.addAttribute("pdto", pdto);
-		
+	}
+	
+	@PostMapping(value = "/detail", consumes = "application/json")
+	public void postDetail(@RequestBody ProductVO pvo) {
+		psv.updateStatus(pvo);
 	}
 	
 //	@PostMapping("/detail")
