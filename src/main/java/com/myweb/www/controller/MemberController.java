@@ -69,7 +69,7 @@ public class MemberController {
 	        m.addAttribute("msg_signup", 0);
 	    }
 
-	    return "redirect:/";
+	    return "redirect:/";	  
 	}
 	
 
