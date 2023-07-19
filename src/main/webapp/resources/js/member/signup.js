@@ -30,6 +30,8 @@ function checkNickname() {
         $("#nickValid").val("false");
 
         return;
+    }else {
+        $("#nickValid").val("true");
     }
     console.log("nick: " + nick);  // nick 값 로그 출력
 
