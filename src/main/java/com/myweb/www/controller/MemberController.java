@@ -105,7 +105,8 @@ public class MemberController {
 	        redirectAttributes.addFlashAttribute("errorMessage", "아이디 혹은 비밀번호를 잘못입력하셨습니다.");
 	        return "redirect:/member/signin";
 	    }
-	    return "home";
+	    
+	    return "redirect:/";
 	}
 
 	
