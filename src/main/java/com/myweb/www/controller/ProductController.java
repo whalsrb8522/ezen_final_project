@@ -1,7 +1,9 @@
 package com.myweb.www.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -43,7 +45,7 @@ public class ProductController {
 	
 	@GetMapping("/list")
 	public void list(ProductPagingVO ppvo, Model m) {
-		
+		m.addAttribute("ppvo",ppvo);
 		List<ProductDTO> pdto = psv.listFile(ppvo);
 		m.addAttribute("productList", pdto);
 		int totalCount = psv.getTotalCount(ppvo);
@@ -69,9 +71,14 @@ public class ProductController {
 	@GetMapping("/detail")
 	public void detail(@RequestParam("p_number")int p_number, Model m) {
 		// readCount 추가
+		int isOk = psv.readCount(p_number);
 		ProductDTO pdto = psv.detail(p_number);
 		m.addAttribute("pdto", pdto);
-		
+	}
+	
+	@PostMapping(value = "/detail", consumes = "application/json")
+	public void postDetail(@RequestBody ProductVO pvo) {
+		psv.updateStatus(pvo);
 	}
 	
 //	@PostMapping("/detail")

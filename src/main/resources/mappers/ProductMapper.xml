@@ -4,10 +4,10 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.myweb.www.repository.ProductDAO">
 	<select id="selectProduct" resultType="com.myweb.www.domain.ProductVO">
-		select a.p_number, p_name, p_price, p_location from 
+		select * from 
 		(select p_number from product 
 		where p_isDel=0
-		<include refid="category"></include>
+		<include refid="categorySearch"></include>
 		order by p_number desc
 		limit #{pageStart}, #{qty}) a left join product b
 		on a.p_number = b.p_number
@@ -15,6 +15,7 @@
 	
 	<select id="getTotalCount" resultType="int">
 		select count(p_number) from product where p_isDel=0
+		<include refid="categorySearch"></include>
 	</select>
 	
 	<insert id="insertProductRegister">
@@ -34,17 +35,21 @@
 		update product set p_status=#{p_status} where p_number=#{p_number}
 	</update>
 	
-
+	<update id="updateReadCount">
+		update product set p_read_count = p_read_count+1 where p_number=#{p_number}
+	</update>
 	
-	<sql id="category">
+
+ 	<sql id="categorySearch">
 		<if test="p_category != null">
-			<trim prefix="and (" suffix=")">
-				p_category = #{p_category}				
-			</trim>
+			AND p_category = #{p_category}				
 		</if>
-	</sql>
+		<if test="keyword != null">
+			AND (p_name like concat('%', #{keyword}, '%')
+			OR p_info like concat('%', #{keyword}, '%'))
+		</if>
+	</sql> 
 	
-
 	<!-- 채팅 기능 구현 (작성자: 조민규) -->
 	<select id="selectProductWithNumber" resultType="com.myweb.www.domain.ProductVO">
 		select * from product where p_number = #{c_number}

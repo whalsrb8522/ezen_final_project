@@ -27,18 +27,18 @@
 				<div id="detail-cate-wrap">
 					<div id="detatil-cate-wrapper">
 						<div id="detail-cate">
-							선택한 카테고리
+							${pvo.p_category }
 							<span class="material-symbols-outlined arrow-down">expand_more</span>
 						</div>
 						<div class="detail-cate-scroll">
-							<a class="scroll-detail">전자기기</a>
-							<a class="scroll-detail">아웃도어, 스포츠</a>
-							<a class="scroll-detail">자동차용품, 공구</a>
-							<a class="scroll-detail">가구, 조명</a>
-							<a class="scroll-detail">유아, 완구</a>
-							<a class="scroll-detail">생활, 주방, 건강</a>
-							<a class="scroll-detail">패션, 잡화</a>
-							<a class="scroll-detail">사무, 취미</a>
+							<a class="scroll-detail" onclick="location.href='/product/list?p_category=전자기기'" data-value="전자기기">전자기기</a>
+							<a class="scroll-detail" onclick="location.href='/product/list?p_category=아웃도어, 스포츠'">아웃도어, 스포츠</a>
+							<a class="scroll-detail" onclick="location.href='/product/list?p_category=자동차용품, 공구'">자동차용품, 공구</a>
+							<a class="scroll-detail" onclick="location.href='/product/list?p_category=가구, 조명'">가구, 조명</a>
+							<a class="scroll-detail" onclick="location.href='/product/list?p_category=유아, 완구'">유아, 완구</a>
+							<a class="scroll-detail" onclick="location.href='/product/list?p_category=생활, 주방, 건강'">생활, 주방, 건강</a>
+							<a class="scroll-detail" onclick="location.href='/product/list?p_category=패션, 잡화'">패션, 잡화</a>
+							<a class="scroll-detail" onclick="location.href='/product/list?p_category=사무, 취미'">사무, 취미</a>
 						</div>
 					</div>
 				</div>
@@ -49,19 +49,25 @@
 			<br>
 			<!-- 거래 상태 표시 -->
 			<div>
-				<select name="p_status" class="product-status">
+				<select name="p_status" class="product-status" onchange="changeStatus(this)">
 	 	 			<option disabled>판매상태</option>
-	  				<option value="0" selected>구매가능</option>
-	  				<option value="1">예약중</option>
-	  				<option value="2">거래완료</option>
+	  				<option value="0" <c:if test="${pvo.p_status eq 0 }">selected="selected"</c:if>>구매가능</option>
+	  				<option value="1" <c:if test="${pvo.p_status eq 1 }">selected="selected"</c:if>>예약중</option>
+	  				<option value="2" <c:if test="${pvo.p_status eq 2 }">selected="selected"</c:if>>거래완료</option>
+	  				
 				</select>
 			</div>
-			
-			
+					
 			<div id="detail-left">
-				<div>
-					<img alt="없음" src="/resources/image/44.jpg" width="300px" height="300px">
+			<div class="slider_img">
+			<div class="slider_inner">
+			<c:forEach items="${flist }" varStatus="status" var="flist">
+				<div class="detail-img">
+					<img alt="없음" src="/resources/fileUpload/${flist.pi_dir }/${flist.pi_uuid }_${flist.pi_name }" width="300px" height="300px">
 				</div>
+			</c:forEach>
+			</div>
+			</div>
 				<div class="slider-dot">
                 	<a href="#" class="dot active">이미지1</a>
                 	<a href="#" class="dot">이미지2</a>
@@ -105,15 +111,9 @@
 				</div> -->
 				<!-- 판매자용 버튼 -->
 				<div class="btn-wrap">
-<<<<<<< HEAD
 					<a href="javascript:window.history.back();"><button type="button" class="background-gray detail-btn">다른 상품 찾기</button></a>
 					<a href="/product/modify"><button type="button" class="background-gray detail-btn">수정하기</button></a>
-					<button type="button" class="background-purple detail-btn">내 채팅방</button>
-=======
-					<button type="button" class="background-gray detail-btn">다른 상품 찾기</button>
-					<button type="button" class="background-gray detail-btn">수정하기</button>
 					<button type="button" class="background-purple detail-btn" onclick="location.href='/chat/register/${param.p_number}'">내 채팅방</button>
->>>>>>> 5f4a46bf4f26ae2e3cf850a9dbe21af09379e34f
 				</div>
 			</div>
 		</div>
@@ -209,7 +209,8 @@
 <jsp:include page="../layout/footer.jsp"></jsp:include>
 <script type="text/javascript" src="/resources/js/product/detail.js"></script>
 <script type="text/javascript">
-	const p_status = `<c:out value="${pvo.p_status}"/>`;
+	var p_number = ${param.p_number};
+	console.log(">>> p_number = " + p_number);
 </script>
 </body>
 </html>

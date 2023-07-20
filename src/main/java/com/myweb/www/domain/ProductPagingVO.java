@@ -14,6 +14,13 @@ public class ProductPagingVO extends ProductVO {
 	
 	private String p_category;
 	
+	private String type;
+	private String keyword;
+	
+	public String[] getTypeToArray() {
+		return this.type == null ? new String[] {} : this.type.split("");
+	}
+	
 	public ProductPagingVO() {
 		this(1,15,10);
 	}
