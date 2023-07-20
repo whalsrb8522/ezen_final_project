@@ -69,11 +69,11 @@
 			</div>
 			</div>
 				<div class="slider-dot">
-                	<a href="#" class="dot active">이미지1</a>
+                	<!-- <a href="#" class="dot active">이미지1</a>
                 	<a href="#" class="dot">이미지2</a>
                 	<a href="#" class="dot">이미지3</a>
                		<a href="#" class="dot">이미지4</a>
-               	 	<a href="#" class="dot">이미지5</a>
+               	 	<a href="#" class="dot">이미지5</a> -->
             	</div>
 			</div>
 			<div id="detail-right">
