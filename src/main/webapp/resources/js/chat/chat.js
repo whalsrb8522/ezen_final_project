@@ -60,6 +60,17 @@ document.getElementById('backBtn').addEventListener('click', () => {
     chatDisplyNone.classList.remove('dp_none');
 });
 
+// 메시지 발신 함수
+function sendMessage() {
+    let chatInput = document.getElementById('chatInput');
+
+    if (chatInput.value != null) {
+        stomp.send('/pub/chat/message', {}, JSON.stringify({ cr_number: this.cr_number, cm_content: chatInput.value, cm_sender: this.sessionMemberNumber }));
+    }
+
+    chatInput.value = '';
+};
+
 // 메시지 수신 함수
 function receiveMessage(chat) {
     console.log(">>> receiveMessage()");
@@ -118,27 +129,34 @@ function printMessage(sender, loginUser, content) {
         div.classList.add('receiveMessage');
     }
 
+    let today = new Date();
+
     div.innerHTML += `
         <div class="chatMessage">
             ${content}
         </div>
         <div class="chatTime">
-            00:00
+            ${today.getHours()}:${today.getMinutes}
         </div>`
 
     roomMidBox.appendChild(div);
 }
 
-// 메시지 발신 함수
-function sendMessage() {
-    let chatInput = document.getElementById('chatInput');
-
-    if (chatInput.value != null) {
-        stomp.send('/pub/chat/message', {}, JSON.stringify({ cr_number: this.cr_number, cm_content: chatInput.value, cm_sender: this.sessionMemberNumber }));
-    }
-
-    chatInput.value = '';
-};
-
 // STOMP 연결
 stomp.connect({}, () => { });
+
+// 채팅방 개설 관련
+async function createChatRoom(p_number) {
+    console.log(">>> createChatRoom()");
+    
+    try {
+        
+    } catch (error) {
+        console.error(error);    
+    }
+}
+
+function goToChatRoom(p_number) {
+    console.log(">>> goToChatRoom()");
+    console.log(">>> goToChatRoom() > chatListContainer.innerHTML = " + document.getElementsByClassName('chatListContainer').innerHTML);
+}

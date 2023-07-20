@@ -109,3 +109,30 @@ document.querySelectorAll(".slider_dot").forEach((dot, index) => {
         gotoSlider(index);
     });
 })
+
+// 채팅방 개설 관련 (작성자: 조민규)
+async function createChatRoom(p_number) {
+    console.log(">>> createChatRoom()");
+    
+    try {
+        const url = '/chat/register';
+        const config = {
+            method: 'post',
+            headers: {
+                'content-type': 'application/json;'
+            },
+            body: JSON.stringify({
+                p_number: p_number,
+                sessionMemberNumber: sessionMemberNumber
+            })
+        }
+        const response = await fetch(url, config);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+function goToChatRoom(p_number) {
+    console.log(">>> goToChatRoom()");
+    console.log(">>> goToChatRoom() > chatListContainer.innerHTML = " + document.getElementsByClassName('chatListContainer').innerHTML);
+}

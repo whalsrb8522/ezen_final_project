@@ -5,18 +5,18 @@
 <mapper namespace="com.myweb.www.repository.ChatDAO">
 	<select id="selectChatRoom" resultType="com.myweb.www.domain.ChatRoomVO">
 		select * from chat_room 
-			where cr_seller = #{m_number} or cr_buyer = #{m_number}
-			order by cr_send_date desc;
+		where cr_seller = #{m_number} or cr_buyer = #{m_number}
+		order by cr_send_date desc;
 	</select> 
 	
 	<select id="selectLastMessage" resultType="String">
 		select cm_content from chat_message where cr_number = #{cr_number} 
-			order by cm_number desc limit 1;
+		order by cm_number desc limit 1;
 	</select>
 	
 	<select id="selectMessage" resultType="com.myweb.www.domain.ChatMessageVO">
 		select * from chat_message where cr_number = #{cr_number}
-			order by cm_number asc;
+		order by cm_number asc;
 	</select>
 	
 	<select id="selectBuyer" resultType="int">
@@ -25,10 +25,19 @@
 	
 	<insert id="insertMessage">
 		insert into chat_message(cr_number, cm_sender, cm_content)
-			value(#{cr_number}, #{cm_sender}, #{cm_content});
+		value(#{cr_number}, #{cm_sender}, #{cm_content});
 	</insert>
 	
 	<update id="updateSendDate">
 		update chat_room set cr_send_date = now() where cr_number = #{cr_number};
 	</update>
+	
+	<insert id="insertChatRoom">
+		insert into chat_room(cr_number, cr_seller, cr_buyer)
+		select #{cr_number}, #{cr_seller}, #{cr_buyer} from dual
+		where not exists(
+			select cr_number, cr_seller, cr_buyer from chat_room 
+			where cr_number = #{cr_number} and cr_seller = #{cr_seller} and cr_buyer = #{cr_buyer}
+		);
+	</insert>
 </mapper>
