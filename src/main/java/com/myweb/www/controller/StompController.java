@@ -20,12 +20,12 @@ public class StompController {
 	@Inject 
 	ChatService csvc;
     	
-    @MessageMapping(value = "/chat/enter")
-    public void enter(ChatMessageVO cmvo) {
-        System.out.println("연결성공");
-        cmvo.setCm_content(cmvo.getCm_sender() + "님이 채팅방에 참여하셨습니다.");
-        messagingTemplate.convertAndSend("/sub/chat/main/" + cmvo.getCr_number(), cmvo);
-    }
+//    @MessageMapping(value = "/chat/enter")
+//    public void enter(ChatMessageVO cmvo) {
+//        System.out.println("연결성공");
+//        cmvo.setCm_content(cmvo.getCm_sender() + "님이 채팅방에 참여하셨습니다.");
+//        messagingTemplate.convertAndSend("/sub/chat/main/" + cmvo.getCr_number(), cmvo);
+//    }
 
     @MessageMapping(value = "/chat/message")
     public void message(ChatMessageVO cmvo) {

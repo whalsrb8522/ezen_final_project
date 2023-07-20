@@ -65,10 +65,11 @@ public class ChatController {
 	 */
     
     // 채팅방 개설
-    @PostMapping(value = "/register", produces = { MediaType.APPLICATION_JSON_VALUE })
-    public String register(@RequestBody Map<String, Integer> data, HttpSession ses) {
+    @PostMapping(value = "/register")
+    public ResponseEntity<Integer> register(@RequestBody Map<String, Integer> data, HttpSession ses) {
     	ProductVO pvo = null;
     	int sessionMemberNumber = 0;
+    	int isOk = 0;
     	
     	for(String key : data.keySet()) {
     		if(key.equals("p_number"))
@@ -81,18 +82,16 @@ public class ChatController {
     	log.info(">>> register() > sessionMemberNumber = " + sessionMemberNumber);
     	
     	if (pvo.getM_number() != sessionMemberNumber) {
-    		log.info("채팅방 생성");
     		ChatRoomVO crvo = new ChatRoomVO(pvo.getP_number(), pvo.getM_number(), sessionMemberNumber);
-    		csvc.registerChatRoom(crvo);
+    		isOk = csvc.registerChatRoom(crvo);
     	}
     	
-    	return null;
-    }
+    	return new ResponseEntity<Integer>(isOk, HttpStatus.OK);	
+    } 
     
     //채팅방 조회
-	@GetMapping(value = "/view/{cr_number}"/* , produces = { MediaType.APPLICATION_JSON_VALUE } */)
+	@GetMapping(value = "/view/{cr_number}")
 	public ResponseEntity<ChatMessageDTO> view(@PathVariable("cr_number")int cr_number) {
-		
 		ChatMessageDTO cmdto = csvc.getMessage(cr_number);
 		
 		return new ResponseEntity<ChatMessageDTO>(cmdto, HttpStatus.OK);

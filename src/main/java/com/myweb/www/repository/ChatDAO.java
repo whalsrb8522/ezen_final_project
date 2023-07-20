@@ -26,6 +26,6 @@ public interface ChatDAO {
 
 	public int selectBuyer(int cr_number);
 
-	public void insertChatRoom(ChatRoomVO crvo);
+	public int insertChatRoom(ChatRoomVO crvo);
 
 }
