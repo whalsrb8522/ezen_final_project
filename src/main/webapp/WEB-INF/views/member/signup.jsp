@@ -78,8 +78,9 @@
 
 			            <input type="text" id="mailCode" name="mailCode" class="border-gray input-box" placeholder="인증 코드를 입력하세요" maxlength="6">
 			            <input type="button" id="mailBtn" class="background-purple" value="인증하기">
-			       		<input type="hidden" id="mailChk"/>
+			            <input type="hidden" id="mailValid" value="false"/>
 			        </div>
+			            <div class="successMail"></div>
 			    </div>
 			</div>
 

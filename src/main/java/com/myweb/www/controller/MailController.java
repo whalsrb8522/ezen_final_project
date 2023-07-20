@@ -19,7 +19,7 @@ public class MailController {
 	private JavaMailSender mailSender;
 	
 	// mailSending 코드
-	@RequestMapping(value = "mailSender.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/mailSender", method = RequestMethod.GET)
 	@ResponseBody
 	public String mailSending(String m_email) {
 
