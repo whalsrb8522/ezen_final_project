@@ -1,7 +1,7 @@
 
 // 이메일 - 아이디 , @ , 도메인 주소 합치기
 
-window.onload = function () {
+
     let code = ""; // 이메일 인증 저장을 위한 코드
 
     var emailBtn = document.getElementById("emailBtn");
@@ -49,6 +49,7 @@ window.onload = function () {
     
     $("#mailBtn").click(function() {
         console.log($("#mailBtn"));
+        console.log('이메일 validation 트리거');
         console.log(code, $("#mailCode").val())
         if(code == $("#mailCode").val()) { //인증번호 같다면
             alert("이메일 인증 완료");
@@ -62,12 +63,6 @@ window.onload = function () {
         }
     });
     
-}
-
-
-
-
-
 
 
 // 닉네임 중복 확인
@@ -198,7 +193,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-
 // -------------------------------------------------------
 
 // 비밀번호 조건 (영문, 숫자 8글자 이상) - 현재는 특수문자 제외했음
@@ -239,7 +233,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
 });
-
 
 // -----------------------------------------------------------
 
@@ -331,14 +324,16 @@ function removeMember() {
 // -------------------------------------------------------------
 
 // 회원가입 유효성 검사
-
+window.onload = function() {
 document.getElementById('innerContainer').addEventListener('submit', function(event) {
+    console.log('Submit event 트리거');
     if (!validateForm()) {
         event.preventDefault();
     }
 });
 
 function validateForm() {
+    console.log('validateForm 기능 called');
     var validationErrors = [];
 
     if (document.getElementById("mailValid").value !== "true") {
@@ -385,5 +380,6 @@ function validateForm() {
     }
     console.log("유효성 검사 통과");
     return true;
+}
 }
 

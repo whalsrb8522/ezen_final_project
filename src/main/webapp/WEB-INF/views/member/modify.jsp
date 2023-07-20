@@ -31,7 +31,7 @@
 			<div id="emailContainer">
 				<h2>이메일</h2>
 				<div id="emailInput">
-					<input type="text" name="" class="border-gray input-box" placeholder="이메일" disabled="disabled">
+					<input type="text" name="" class="border-gray input-box" placeholder="${member.mvo.m_mail} " disabled="disabled">
 				</div>
 			</div>
 			

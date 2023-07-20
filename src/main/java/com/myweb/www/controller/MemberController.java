@@ -139,7 +139,7 @@ public class MemberController {
 	
 	
 	
-	@GetMapping("modify")
+	@GetMapping("/modify")
 	public void modify() {
 		
 	}
