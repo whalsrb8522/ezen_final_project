@@ -15,11 +15,10 @@
 	<jsp:include page="./layout/header.jsp"></jsp:include>
 	
 	<div id="container">
-		<div id="mainContainer">
+		
 			<div>
 				<a href="#"><img alt="메인 이미지" src="/resources/img/메인.png" width="1024px" height="300px"></a>
 			</div>
-			
 			
 			<div id="todayProduct">
 				<h1>오늘의 상품</h1>
@@ -28,7 +27,7 @@
 				</div>
 			</div>
 				<div id="productContainer">
-				<c:forEach items="${productList }" var="productList">
+				<c:forEach items="${productList }" var="productList" begin="0" end="9">
 				<c:set value="${productList.piList }" var="piList"></c:set>
 					<div onclick="location.href='/product/detail?p_number=${productList.pvo.p_number }'" class="product">
 						<div class="product-image">
@@ -52,7 +51,7 @@
 					
 				</c:forEach>
 				</div>
-			</div>
+			
 		</div>
 	
 	
