@@ -79,6 +79,31 @@ async function changeStatus(target) {
     }
 }
 
+// 찜 기능 구현
+async function updateLike(event) {
+    let p_like = event.target.value;
+    console.log(p_like);
+    try {
+        const url = '/product/detail';
+        const config = {
+            method: 'post',
+            headers: {
+                'content-type': 'application/json;'
+            },
+            body: JSON.stringify({
+                p_number: p_number,
+                sessionMemberNumber: sessionMemberNumber
+            })
+        }
+        const response = await fetch(url, config);
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+
 // register에서 등록한 주소 불러와서 지도 생성
 let mapContainer = document.getElementById('detail-map'), // 지도를 표시할 div 
     mapOption = {
@@ -120,47 +145,11 @@ geocoder.addressSearch(getLoca, function (result, status) {
     }
 });
 
-// 이미지 슬라이더
-let sliderImg = document.querySelector('.slider_img');
-let sliderInner = document.querySelector('.slider_inner');
-let detail_img = document.querySelectorAll('.detail-img');
-let slider_dot = document.querySelector('.slider-dot');
-
-let currentIndex = 0;
-let sliderCount = detail_img.clientHeight;
-let sliderWidth = sliderImg.offsetWidth;
-
-sliderInner.style.width = (sliderWidth * sliderCount) + "px";
-
-let dotIndex = "";
-function init() {
-    sliderCount.forEach((el, index) => dotIndex += `<a href="#" class="dot">이미지${index + 1}</a>`);
-    slider_dot.innerHTML = dotIndex;
-
-    slider_dot.firstElementChild.classList.add('active');
-}
-init();
-
-function gotoSlider(num) {
-    sliderInner.style.transition = "all 400ms";
-    sliderInner.style.transform = "translateX(" + -sliderWidth * num + "px)";
-    currentIndex = num;
-}
-
-const sliderDotAs = slider_dot.querySelectorAll('a');
-sliderDotAs.forEach((a) => a.classList.remove('active'));
-sliderDotAs[num].classList.add('active');
-
-document.querySelectorAll(".slider_dot").forEach((dot, index) => {
-    dot.addEventListener("click", () => {
-        gotoSlider(index);
-    });
-})
 
 // 채팅방 개설 관련 (작성자: 조민규)
 async function createChatRoom(p_number) {
     console.log(">>> createChatRoom()");
-    
+
     try {
         const url = '/chat/register';
         const config = {
