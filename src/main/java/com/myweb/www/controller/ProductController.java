@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myweb.www.domain.ProductDTO;
 import com.myweb.www.domain.ProductImageVO;
+import com.myweb.www.domain.ProductLikeVO;
 import com.myweb.www.domain.ProductPagingVO;
 import com.myweb.www.domain.ProductVO;
 import com.myweb.www.handler.ProductImageHandler;
@@ -77,8 +78,21 @@ public class ProductController {
 	}
 	
 	@PostMapping(value = "/detail", consumes = "application/json")
-	public void postDetail(@RequestBody ProductVO pvo) {
-		psv.updateStatus(pvo);
+	public void postDetail(@RequestBody Map<String, Integer> data) {
+		ProductLikeVO plvo = new ProductLikeVO();
+			
+		for (String key : data.keySet()) {
+			if(key.equals("p_number")) {
+				plvo.setP_number(data.get(key));
+			} else if(key.equals("sessionMemberNumber")) {
+				plvo.setM_number(data.get(key));
+			}
+		}
+		
+		psv.insertLikeMember(plvo);
+		
+//		psv.updateStatus(pvo);
+//		psv.updateLike(pvo);
 	}
 	
 	@GetMapping("/modify")
