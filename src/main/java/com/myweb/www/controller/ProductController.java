@@ -1,21 +1,16 @@
 package com.myweb.www.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -78,7 +73,7 @@ public class ProductController {
 	}
 	
 	@PostMapping(value = "/detail", consumes = "application/json")
-	public void postDetail(@RequestBody Map<String, Integer> data) {
+	public ResponseEntity<String> postDetail(@RequestBody Map<String, Integer> data) {
 		ProductLikeVO plvo = new ProductLikeVO();
 			
 		for (String key : data.keySet()) {
@@ -89,10 +84,12 @@ public class ProductController {
 			}
 		}
 		
-		psv.insertLikeMember(plvo);
-		
-//		psv.updateStatus(pvo);
-//		psv.updateLike(pvo);
+		boolean isLiked = psv.insertLikeMember(plvo);
+		if (isLiked) {
+	        return ResponseEntity.ok("liked"); // 찜되었다는 응답
+	    } else {
+	        return ResponseEntity.ok("unliked"); // 찜 해제되었다는 응답
+	    }
 	}
 	
 	@GetMapping("/modify")

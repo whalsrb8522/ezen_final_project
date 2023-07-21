@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
-
-import org.apache.tika.utils.ProcessUtils;
 import org.springframework.stereotype.Service;
 
 import com.myweb.www.domain.ProductDTO;
@@ -84,12 +82,22 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public void insertLikeMember(ProductLikeVO plvo) {
-		int isOk = pdao.insertLikeMember(plvo);
-		log.info(">> 찜 > "+(isOk>0?"성공":"실패"));
-		if (isOk > 0) {
-			pdao.updateLike(plvo.getP_number());
+	public boolean insertLikeMember(ProductLikeVO plvo) {
+		ProductLikeVO existingLikes = pdao.getLikeRecord(plvo);
+		log.info("existingLikes 결과값"+existingLikes);
+		if(existingLikes == null) {
+			int isOk = pdao.insertLikeMember(plvo);
+			if (isOk > 0) {
+				pdao.updateLike(plvo.getP_number());
+				log.info(">> 찜 > "+(isOk>0?"성공":"실패"));
+				return true;
+			}
+		} else {
+			pdao.deleteLikeMember(plvo);
+			pdao.updateUnlike(plvo.getP_number());
+			return false;
 		}
+		return false;
 	}
 	
 }
