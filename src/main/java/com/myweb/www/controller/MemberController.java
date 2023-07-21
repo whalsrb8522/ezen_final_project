@@ -134,7 +134,11 @@ public class MemberController {
 	        return "not-found"; // 회원을 찾지 못한 경우에 대한 예외 처리
 	    }
 	}
-
+	
+//	@GetMapping("/modify")	
+//	public void modify() {	
+//
+//	}
 
 	// 회원정보 수정 페이지
 	@GetMapping("/modify")
@@ -150,6 +154,9 @@ public class MemberController {
 	        return "not-found"; // 회원을 찾지 못한 경우에 대한 예외 처리
 	    }
 	}
+	
+	
+	
 
 	// 회원정보 수정 처리
 	@PostMapping("/modify")
@@ -178,7 +185,7 @@ public class MemberController {
 	    if(file != null && file.getSize() > 0) { 
 	        mivo = mihd.uploadFile(file); 
 	    } else {
-	        log.info("modify file null");
+	        log.info("수정 이미지 file null");
 	    }
 
 	    member.setM_pw(newPassword);

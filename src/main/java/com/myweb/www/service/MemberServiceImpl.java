@@ -165,7 +165,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int modifyMember(MemberDTO mdto) {
 		// TODO Auto-generated method stub
-		return 0;
+		return mdao.updateMember(mdto);
 	}
 
 
