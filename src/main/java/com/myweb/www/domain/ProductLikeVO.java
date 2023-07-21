@@ -11,4 +11,6 @@ public class ProductLikeVO {
 	private int p_number;
 	private int m_number;
 	private String pl_date;
+	
+	private boolean liked;
 }
