@@ -18,4 +18,10 @@ public interface MemberService {
 	//detail페이지
 	MemberDTO getMemberDetails(int m_number);
 
+	int modifyMember(MemberDTO mdto);
+
+
+
+
+
 }

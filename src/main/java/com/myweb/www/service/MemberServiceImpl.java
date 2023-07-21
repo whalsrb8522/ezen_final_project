@@ -157,6 +157,21 @@ public class MemberServiceImpl implements MemberService {
 		return memberDetails;
 	}
 
+
+
+
+
+
+	@Override
+	public int modifyMember(MemberDTO mdto) {
+		// TODO Auto-generated method stub
+		return mdao.updateMember(mdto);
+	}
+
+
+
+
+
 	/*
 	@Override
 	public int register(MemberDTO mdto) {

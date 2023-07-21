@@ -26,6 +26,17 @@
 		ORDER BY m_number DESC
 		LIMIT 1
 	</select>
+	
+	<update id="updateMember">
+	    update member set
+	    m_pw=#{mvo.m_pw},
+	    m_nick_name=#{mvo.m_nick_name},
+	    m_introduct=#{mvo.m_introduct},
+	    m_address=#{mvo.m_address}
+	    WHERE m_number=#{mvo.m_number}
+	</update>
+
+	
 
 	<!-- 채팅 -->
 	<select id="selectMemberWithNumber"

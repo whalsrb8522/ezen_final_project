@@ -31,55 +31,61 @@
 			<div id="emailContainer">
 				<h2>이메일</h2>
 				<div id="emailInput">
-					<input type="text" name="" class="border-gray input-box" placeholder="이메일" disabled="disabled">
+					<input type="text" name="" class="border-gray input-box" placeholder="${member.mvo.m_mail} " disabled="disabled">
 				</div>
 			</div>
 			
 			<div id="oldPasswordContainer">
 				<h2>기존 비밀번호</h2>
 				<h6>영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</h6>
-				<input type="password" name="" class="border-gray input-box" placeholder="비밀번호">
+				<input type="password" id="" value="" name="" class="border-gray input-box" placeholder="비밀번호">
 			</div>			
 			
 			<div id="newPasswordContainer">
 				<h2>변경 비밀번호</h2>
 				<h6>영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</h6>
-				<input type="password" name="" class="border-gray input-box" placeholder="비밀번호">
+				<input type="password" id="" name="" class="border-gray input-box" placeholder="비밀번호">
 			</div>			
 			
 			<div id="newPasswordCheckContainer">
 				<h2>변경 비밀번호 확인</h2>
-				<input type="password" name="" class="border-gray input-box" placeholder="비밀번호 확인">
+				<input type="password" id="" class="border-gray input-box" placeholder="비밀번호 확인">
 			</div>
 			
 			<div id="nickNameContainer">
 				<h2>닉네임</h2>
 				<h6>다른 유저와 겹치지 않도록 입력해주세요. (2~15자)</h6>
-				<input type="text" class="border-gray input-box" placeholder="닉네임">
+				<input type="text" id="modNick" value="${member.mvo.m_nick_name}" class="border-gray input-box" placeholder="닉네임">
 			</div>
 			
 			<div id="introduceContainer">
 				<h2>자기 소개</h2>
-				<textarea name="" class="border-gray textarea-box" placeholder="자기 소개를 입력해주세요."></textarea>
+				<textarea name="m_introduct" class="border-gray textarea-box" placeholder="자기 소개를 입력해주세요.">${member.mvo.m_introduct}</textarea>
 			</div>
 			
 			<div id="mapContainer">
 				<h2>주소 선택</h2>
 				<div style="display: flex;">
-					<input type="text" id="mapAddress" class="border-gray input-box" placeholder="주소" disabled="disabled">
+					<input type="text" id="mapAddress" value="${member.mvo.m_address}" class="border-gray input-box" placeholder="주소" disabled="disabled" name="m_address">
+					<input type="hidden" id="m_address" name="m_address">
 					<input type="button" onclick="execDaumPostcode()" id="mapBtn" class="background-purple" value="주소 검색"><br>
 				</div>
-				<div id="kakaoMap">
-				</div>
+				<div id="kakaoMap"></div>
 			</div>
 			
 			<div id="imageContainer">
-				<h2>프로필 사진</h2>
-				<div style="display: flex;">
-					<input type="text" id="imagePath" class="border-gray">
-					<input type="button" id="imageChoose" class="background-purple" value="파일 선택">
+			    <h2>프로필 사진</h2>
+			    <div style="display: flex;">
+			        <input type="file" id="imagePath" name="file" style="display: none;" accept="image/*"/>
+			        <input type="text" id="displayImagePath" value="${member.mivo.mi_name}" class="border-gray" readonly="readonly">
+			        <input type="button" id="imageChoose" class="background-purple" value="파일 선택" onclick="document.getElementById('imagePath').click()">
+			    </div>
+			    <div id="imageWrapper" style="position: relative; display: none; margin-top: 10px;">
+			        <img id="imagePreview" src="/resources/fileUpload/${member.mivo.mi_dir}/${member.mivo.mi_uuid}_th_${member.mivo.mi_name}" alt="selected image"/>
+			        <div id="removeImage" style="  cursor: pointer; z-index: 100">
+			        	<span class="material-symbols-outlined">cancel</span>
+				   	</div>
 				</div>
-				<div id="imagePrint	"></div>
 			</div>
 			
 			<div id="termsContainer">

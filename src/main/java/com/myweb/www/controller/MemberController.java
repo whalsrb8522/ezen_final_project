@@ -134,16 +134,85 @@ public class MemberController {
 	        return "not-found"; // 회원을 찾지 못한 경우에 대한 예외 처리
 	    }
 	}
+	
+//	@GetMapping("/modify")	
+//	public void modify() {	
+//
+//	}
 
+	// 회원정보 수정 페이지
+	@GetMapping("/modify")
+	public String modifyGet(HttpServletRequest request, Model model) {
+	    HttpSession session = request.getSession();
+	    Integer m_number = (Integer) session.getAttribute("m_number");
 
-	
-	
-	
-	
-	@GetMapping("modify")
-	public void modify() {
-		
+	    MemberDTO member = memberService.getMemberDetails(m_number);
+	    if (member != null) {
+	        model.addAttribute("member", member);
+	        return "/member/modify";
+	    } else {
+	        return "not-found"; // 회원을 찾지 못한 경우에 대한 예외 처리
+	    }
 	}
+	
+	
+	
+
+	// 회원정보 수정 처리
+	@PostMapping("/modify")
+	public String modifyPost(HttpServletRequest request,
+	                         @RequestParam("old_password") String oldPassword,
+	                         @RequestParam("new_password") String newPassword,
+	                         @RequestParam("nickname") String nickname,
+	                         @RequestParam("introduce") String introduce,
+	                         @RequestParam(name="file", required = false) MultipartFile file,
+	                         Model m, RedirectAttributes rAttr) {
+	    HttpSession session = request.getSession();
+	    Integer m_number = (Integer) session.getAttribute("m_number");
+	    MemberDTO memberDTO = memberService.getMemberDetails(m_number); // 변경된 부분
+
+	    if (memberDTO == null) {
+	        return "not-found"; // 회원을 찾지 못한 경우에 대한 예외 처리
+	    }
+
+	    MemberVO member = memberDTO.getMvo(); // 기존 회원 정보 얻기
+	    if (!member.getM_pw().equals(oldPassword)) {
+	        rAttr.addFlashAttribute("errorMessage", "기존 비밀번호가 일치하지 않습니다.");
+	        return "redirect:/member/modify";
+	    }
+
+	    MemberImageVO mivo = null;
+	    if(file != null && file.getSize() > 0) { 
+	        mivo = mihd.uploadFile(file); 
+	    } else {
+	        log.info("수정 이미지 file null");
+	    }
+
+	    member.setM_pw(newPassword);
+	    member.setM_nick_name(nickname);
+	    member.setM_introduct(introduce);
+
+	    MemberDTO mdto = new MemberDTO(member, mivo);
+	    int isOk = memberService.modifyMember(mdto);
+
+	    if(isOk > 0) {
+	        m.addAttribute("msg_modify", 1);
+	        rAttr.addFlashAttribute("isOk", isOk);
+	    } else {
+	        m.addAttribute("msg_modify", 0);
+	    }
+
+	    return "redirect:/member/detail";
+	}
+
+
+
+
+	
+	
+	
+	
+
 
 	
 	/*	@PostMapping("/signup")

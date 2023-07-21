@@ -70,15 +70,17 @@
 			        </select>
 			    </div>
 			    <input type="hidden" id="m_mail" name="m_mail">
-			    <button type="button" id="emailBtn" class="background-gray">이메일 인증하기</button>
+			    <button type="button" id="emailBtn" class="background-purple">이메일 인증하기</button>
 			
 			    <!-- 이메일 인증 코드 입력 및 확인 부분 추가 -->
 			    <div id="mailCheckContainer" style="display:none;">
-			        
-			        <div id="mailCheckInput">
+			        <div id="mailCheckInput" style="display: flex;">
+
 			            <input type="text" id="mailCode" name="mailCode" class="border-gray input-box" placeholder="인증 코드를 입력하세요" maxlength="6">
-			            <button type="button" id="mailBtn" class="background-gray">인증하기</button>
+			            <input type="button" id="mailBtn" class="background-purple" value="인증하기">
+			            <input type="hidden" id="mailValid" value="false"/>
 			        </div>
+			            <div class="successMail"></div>
 			    </div>
 			</div>
 

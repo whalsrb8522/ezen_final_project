@@ -141,6 +141,18 @@
     font-size: 15px;
 }
 
+#mailCode {
+	width: 70%;
+	margin-top: 10px;
+}
+
+#mailBtn {
+	height: 40px;
+	flex: 1 1 auto;
+	margin-top: 10px;
+}
+
+
 /* 주소 선택 */
 #mapAddress {
 	width: 70%;
