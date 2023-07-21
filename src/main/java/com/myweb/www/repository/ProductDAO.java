@@ -3,6 +3,7 @@ package com.myweb.www.repository;
 import java.util.List;
 
 import com.myweb.www.domain.ProductDTO;
+import com.myweb.www.domain.ProductLikeVO;
 import com.myweb.www.domain.ProductPagingVO;
 import com.myweb.www.domain.ProductVO;
 
@@ -24,5 +25,9 @@ public interface ProductDAO {
 	ProductVO selectProductWithNumber(int cr_number);
 
 	int updateReadCount(int p_number);
+
+	int insertLikeMember(ProductLikeVO plvo);
+
+	void updateLike(int p_number);
 
 }

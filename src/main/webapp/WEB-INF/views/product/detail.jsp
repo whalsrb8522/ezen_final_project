@@ -108,7 +108,7 @@
 					<a href="javascript:window.history.back();"><button type="button" class="background-gray detail-btn">다른 상품 찾기</button></a>
 					<c:choose>
 						<c:when test="${ses.m_number ne pvo.m_number }">
-							<button type="button" class="background-gray detail-btn">찜</button>
+							<button type="button" id="p_like" class="background-gray detail-btn" onclick="updateLike(event)">찜</button>
 							<button type="button" class="background-purple detail-btn" onclick="createChatRoom(${param.p_number})">채팅하기</button>
 						</c:when>
 						
@@ -212,8 +212,8 @@
 <jsp:include page="../layout/footer.jsp"></jsp:include>
 <script type="text/javascript" src="/resources/js/product/detail.js"></script>
 <script type="text/javascript">
-	var p_number = ${param.p_number};
-	var sessionMemberNumber = ${ses.m_number };
+		var p_number = ${param.p_number};
+		var sessionMemberNumber = ${ses.m_number };
 </script>
 </body>
 </html>
