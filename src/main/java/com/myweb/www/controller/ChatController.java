@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.myweb.www.domain.ChatMessageDTO;
 import com.myweb.www.domain.ChatRoomDTO;
@@ -41,9 +43,13 @@ public class ChatController {
 	
 	//채팅방 목록 조회
     @GetMapping(value = "/main")
-    public void main(Model m, HttpSession ses) {
+    public void main(Model m, HttpSession ses, 
+    		@RequestParam(value = "p_number" , required = false)Integer p_number) {
+    	log.info(">>> main() > p_number = " + p_number);
+    	
     	MemberVO sesMvo = (MemberVO) ses.getAttribute("ses");
     	m.addAttribute("listCdto", csvc.getChatList(sesMvo));
+    	m.addAttribute("selectRoomNumber", p_number);
     }
     
     @GetMapping(value = "/list", produces = { MediaType.APPLICATION_JSON_VALUE })
@@ -66,34 +72,27 @@ public class ChatController {
     
     // 채팅방 개설
     @PostMapping(value = "/register")
-    public ResponseEntity<Integer> register(@RequestBody Map<String, Integer> data, HttpSession ses) {
+    public ResponseEntity<Integer> register(@RequestBody Map<String, Integer> chatRegisterData, HttpSession ses) {
     	ProductVO pvo = null;
     	int sessionMemberNumber = 0;
-    	int isOk = 0;
     	
-    	for(String key : data.keySet()) {
+    	for(String key : chatRegisterData.keySet()) {
     		if(key.equals("p_number"))
-    			pvo = pdao.selectPno(data.get(key));
+    			pvo = pdao.selectPno(chatRegisterData.get(key));
     		if(key.equals("sessionMemberNumber" ))
-    			sessionMemberNumber = data.get(key);
+    			sessionMemberNumber = chatRegisterData.get(key);
     	}
     	
-    	log.info(">>> register() > pvo = " + pvo.toString());
-    	log.info(">>> register() > sessionMemberNumber = " + sessionMemberNumber);
-    	
-    	if (pvo.getM_number() != sessionMemberNumber) {
-    		ChatRoomVO crvo = new ChatRoomVO(pvo.getP_number(), pvo.getM_number(), sessionMemberNumber);
-    		isOk = csvc.registerChatRoom(crvo);
-    	}
-    	
-    	return new ResponseEntity<Integer>(isOk, HttpStatus.OK);	
+		ChatRoomVO crvo = new ChatRoomVO(pvo.getP_number(), pvo.getM_number(), sessionMemberNumber);
+		int isOk = csvc.registerChatRoom(crvo);
+				
+		return new ResponseEntity<Integer>(isOk, HttpStatus.OK);
     } 
     
     //채팅방 조회
-	@GetMapping(value = "/view/{cr_number}")
+	@GetMapping(value = "/view/{cr_number}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<ChatMessageDTO> view(@PathVariable("cr_number")int cr_number) {
 		ChatMessageDTO cmdto = csvc.getMessage(cr_number);
-		
 		return new ResponseEntity<ChatMessageDTO>(cmdto, HttpStatus.OK);
 	}
 	

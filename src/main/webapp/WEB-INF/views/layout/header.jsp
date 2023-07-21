@@ -20,6 +20,8 @@
 	  'opsz' 48
 	}
 	</style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 </head>
 <body>
 	<header>
@@ -53,10 +55,8 @@
 				</div>
 			</c:if>
 		</div>
-			
-
-		
 	</header>
+	
 	<nav>
 		<div id="navContainer">
 			<ul class="menu">
@@ -87,4 +87,5 @@
 		</div>
 	</nav>
 </body>
+
 </html>

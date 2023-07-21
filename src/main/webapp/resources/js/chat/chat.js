@@ -3,14 +3,13 @@ var sockJs = new SockJS("/echo");
 var stomp = Stomp.over(sockJs);
 
 var cr_number;
-var sessionMemberNumber = sessionMemberNumber;
 
 var roomTopBoxNick = document.querySelector('.roomTopBox-nick');  // 닉네임 표시
 var roomMidBoxEx = document.querySelector('.roomMidBoxEx');       // 상품 정보 표시
 var roomMidBox = document.getElementById('roomMidBox');           // 채팅 내용 표시
 
 // 메시지 내용 불러오기
-async function getChat(cr_number, ses_m_number) {
+async function getChat(cr_number) {
     const chatDisplyNone = document.getElementById('chatDisplyNone');
 
     roomMidBox.innerHTML = '';
@@ -26,7 +25,10 @@ async function getChat(cr_number, ses_m_number) {
         let pvo = result.pvo;
         let listCmvo = result.listCmvo;
 
-        console.log(">>> pvo.p_name = " + pvo.p_name);
+        console.log(">>> getChat() <<<");
+        console.log(mvo);
+        console.log(pvo);
+        console.log(listCmvo);
 
         roomTopBoxNick.innerHTML = mvo.m_nick_name;
 
@@ -41,7 +43,7 @@ async function getChat(cr_number, ses_m_number) {
         roomMidBoxEx.innerHTML = div;
 
         for (let cmvo of listCmvo) {
-            printMessage(cmvo.cm_sender, ses_m_number, cmvo.cm_content);
+            printMessage(cmvo.cm_sender, sessionMemberNumber, cmvo.cm_content);
             roomMidBox.scrollTop = roomMidBox.scrollHeight;
         }
 
@@ -59,17 +61,6 @@ document.getElementById('backBtn').addEventListener('click', () => {
     const chatDisplyNone = document.getElementById('chatDisplyNone');
     chatDisplyNone.classList.remove('dp_none');
 });
-
-// 메시지 발신 함수
-function sendMessage() {
-    let chatInput = document.getElementById('chatInput');
-
-    if (chatInput.value != null) {
-        stomp.send('/pub/chat/message', {}, JSON.stringify({ cr_number: this.cr_number, cm_content: chatInput.value, cm_sender: this.sessionMemberNumber }));
-    }
-
-    chatInput.value = '';
-};
 
 // 메시지 수신 함수
 function receiveMessage(chat) {
@@ -129,34 +120,33 @@ function printMessage(sender, loginUser, content) {
         div.classList.add('receiveMessage');
     }
 
-    let today = new Date();
-
     div.innerHTML += `
         <div class="chatMessage">
             ${content}
         </div>
         <div class="chatTime">
-            ${today.getHours()}:${today.getMinutes}
+            00:00
         </div>`
 
     roomMidBox.appendChild(div);
 }
 
+// 메시지 발신 함수
+function sendMessage() {
+    let chatInput = document.getElementById('chatInput');
+
+    if (chatInput.value != null) {
+        stomp.send('/pub/chat/message', {}, JSON.stringify({ cr_number: this.cr_number, cm_content: chatInput.value, cm_sender: this.sessionMemberNumber }));
+    }
+
+    chatInput.value = '';
+};
+
 // STOMP 연결
 stomp.connect({}, () => { });
 
-// 채팅방 개설 관련
-async function createChatRoom(p_number) {
-    console.log(">>> createChatRoom()");
-    
-    try {
-        
-    } catch (error) {
-        console.error(error);    
+window.onload = () => {
+    if (selectRoomNumber != null && selectRoomNumber != '') {
+        getChat(selectRoomNumber);
     }
-}
-
-function goToChatRoom(p_number) {
-    console.log(">>> goToChatRoom()");
-    console.log(">>> goToChatRoom() > chatListContainer.innerHTML = " + document.getElementsByClassName('chatListContainer').innerHTML);
 }

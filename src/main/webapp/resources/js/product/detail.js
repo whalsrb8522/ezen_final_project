@@ -96,7 +96,6 @@ async function updateLike(event) {
             })
         }
         const response = await fetch(url, config);
-
     } catch (error) {
         console.log(error);
     }
@@ -162,15 +161,9 @@ async function createChatRoom(p_number) {
             })
         }
         const response = await fetch(url, config);
-        const result = await response.text();
 
-        console.log(result);
+        window.location.href = '/chat/main?p_number=' + p_number;
     } catch (error) {
         console.error(error);
     }
-}
-
-function goToChatRoom(p_number) {
-    console.log(">>> goToChatRoom()");
-    console.log(">>> goToChatRoom() > chatListContainer.innerHTML = " + document.getElementsByClassName('chatListContainer').innerHTML);
 }

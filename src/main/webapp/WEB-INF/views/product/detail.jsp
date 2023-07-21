@@ -107,14 +107,14 @@
 				<div class="btn-wrap">
 					<a href="javascript:window.history.back();"><button type="button" class="background-gray detail-btn">다른 상품 찾기</button></a>
 					<c:choose>
-						<c:when test="${ses.m_number ne pvo.m_number }">
+						<c:when test="${ses.m_number ne pvo.m_number && ses.m_number ne null }">
 							<button type="button" id="p_like" class="background-gray detail-btn" onclick="updateLike(event)">찜</button>
 							<button type="button" class="background-purple detail-btn" onclick="createChatRoom(${param.p_number})">채팅하기</button>
 						</c:when>
 						
-						<c:when test="${ses.m_number eq pvo.m_number }">
+						<c:when test="${ses.m_number eq pvo.m_number && ses.m_number ne null }">
 							<a href="/product/modify"><button type="button" class="background-gray detail-btn">수정하기</button></a>
-							<button type="button" class="background-purple detail-btn" onclick="goToChatRoom(${param.p_number})">내 채팅방</button>
+							<button type="button" class="background-purple detail-btn" onclick="location.href='/chat/main'">내 채팅방</button>
 						</c:when>
 					</c:choose>
 				</div>
@@ -209,11 +209,15 @@
 			</div>
 		</div>
 	</div>
+	
 <jsp:include page="../layout/footer.jsp"></jsp:include>
 <script type="text/javascript" src="/resources/js/product/detail.js"></script>
 <script type="text/javascript">
 		var p_number = ${param.p_number};
-		var sessionMemberNumber = ${ses.m_number };
+		var sessionMemberNumber = '<c:out value="${ses.m_number }"></c:out>';
+		
+		console.log(">>> p_number = " + p_number);
+		console.log(">>> sessionMemberNumber = " + sessionMemberNumber);
 </script>
 </body>
 </html>
