@@ -96,6 +96,14 @@ async function updateLike(event) {
             })
         }
         const response = await fetch(url, config);
+        const result = await response.text();
+        console.log(result);
+        const likeButton = document.getElementById('p_like');
+        if (result === "liked") {
+            likeButton.innerText = '찜 해제';
+        } else if (result === "unliked") {
+            likeButton.innerText = '찜';
+        }
     } catch (error) {
         console.log(error);
     }
