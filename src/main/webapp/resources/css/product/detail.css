@@ -245,6 +245,21 @@
 .slider-dot .dot.active {
 	background: #C97FE8;
 }
+		
+.slider_img{
+	position: relative;
+	width: 300px;
+	height: 300px;
+	overflow: hidden;
+}
+
+.slider_inner{
+	display: flex;
+	flex-wrap: wrap;
+	height: 300px;
+	position: relative;
+}
+
 
 #both-wrap{
 	display: flex;

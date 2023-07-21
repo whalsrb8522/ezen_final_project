@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.myweb.www.domain.ProductDTO;
 import com.myweb.www.domain.ProductImageVO;
+import com.myweb.www.domain.ProductLikeVO;
 import com.myweb.www.domain.ProductPagingVO;
 import com.myweb.www.domain.ProductVO;
 import com.myweb.www.repository.ProductDAO;
@@ -82,9 +83,13 @@ public class ProductServiceImpl implements ProductService {
 		return isOk;
 	}
 
-
-
-
-
+	@Override
+	public void insertLikeMember(ProductLikeVO plvo) {
+		int isOk = pdao.insertLikeMember(plvo);
+		log.info(">> 찜 > "+(isOk>0?"성공":"실패"));
+		if (isOk > 0) {
+			pdao.updateLike(plvo.getP_number());
+		}
+	}
 	
 }

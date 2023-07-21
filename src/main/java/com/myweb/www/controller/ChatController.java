@@ -1,6 +1,7 @@
 package com.myweb.www.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -12,13 +13,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myweb.www.domain.ChatMessageDTO;
-import com.myweb.www.domain.ChatMessageVO;
 import com.myweb.www.domain.ChatRoomDTO;
+import com.myweb.www.domain.ChatRoomVO;
 import com.myweb.www.domain.MemberVO;
+import com.myweb.www.domain.ProductVO;
+import com.myweb.www.repository.ProductDAO;
 import com.myweb.www.service.ChatService;
 
 import lombok.RequiredArgsConstructor;
@@ -32,6 +36,8 @@ public class ChatController {
 	
 	@Inject
 	private ChatService csvc;
+	@Inject
+	private ProductDAO pdao;
 	
 	//채팅방 목록 조회
     @GetMapping(value = "/main")
@@ -45,7 +51,7 @@ public class ChatController {
     	MemberVO sesMvo = (MemberVO) ses.getAttribute("ses");
     	List<ChatRoomDTO> listCdto = csvc.getChatList(sesMvo);
     	log.info(">>> list() > listCdto = " + listCdto.toString());
-    	
+
 		return new ResponseEntity<List<ChatRoomDTO>>(listCdto, HttpStatus.OK);
     }
     
@@ -59,18 +65,32 @@ public class ChatController {
 	 */
     
     // 채팅방 개설
-    @GetMapping(value = "/register/{p_number}")
-    public String register(@PathVariable("p_number")int p_number, HttpSession ses) {
-    	MemberVO sesMvo = (MemberVO) ses.getAttribute("ses");
+    @PostMapping(value = "/register", produces = { MediaType.APPLICATION_JSON_VALUE })
+    public String register(@RequestBody Map<String, Integer> data, HttpSession ses) {
+    	ProductVO pvo = null;
+    	int sessionMemberNumber = 0;
     	
-    	log.info(">>> register() > p_number = " + p_number);
-    	log.info(">>> register() > sesMvo = " + sesMvo.toString());
+    	for(String key : data.keySet()) {
+    		if(key.equals("p_number"))
+    			pvo = pdao.selectPno(data.get(key));
+    		if(key.equals("sessionMemberNumber" ))
+    			sessionMemberNumber = data.get(key);
+    	}
     	
-    	return "/chat/main";
+    	log.info(">>> register() > pvo = " + pvo.toString());
+    	log.info(">>> register() > sessionMemberNumber = " + sessionMemberNumber);
+    	
+    	if (pvo.getM_number() != sessionMemberNumber) {
+    		log.info("채팅방 생성");
+    		ChatRoomVO crvo = new ChatRoomVO(pvo.getP_number(), pvo.getM_number(), sessionMemberNumber);
+    		csvc.registerChatRoom(crvo);
+    	}
+    	
+    	return null;
     }
     
     //채팅방 조회
-	@GetMapping(value = "/view/{cr_number}", produces = { MediaType.APPLICATION_JSON_VALUE })
+	@GetMapping(value = "/view/{cr_number}"/* , produces = { MediaType.APPLICATION_JSON_VALUE } */)
 	public ResponseEntity<ChatMessageDTO> view(@PathVariable("cr_number")int cr_number) {
 		
 		ChatMessageDTO cmdto = csvc.getMessage(cr_number);

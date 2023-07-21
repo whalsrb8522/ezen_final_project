@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myweb.www.domain.ProductDTO;
 import com.myweb.www.domain.ProductImageVO;
+import com.myweb.www.domain.ProductLikeVO;
 import com.myweb.www.domain.ProductPagingVO;
 import com.myweb.www.domain.ProductVO;
 import com.myweb.www.handler.ProductImageHandler;
@@ -71,74 +72,35 @@ public class ProductController {
 	@GetMapping("/detail")
 	public void detail(@RequestParam("p_number")int p_number, Model m) {
 		// readCount 추가
-		int isOk = psv.readCount(p_number);
+		psv.readCount(p_number);
 		ProductDTO pdto = psv.detail(p_number);
 		m.addAttribute("pdto", pdto);
 	}
 	
 	@PostMapping(value = "/detail", consumes = "application/json")
-	public void postDetail(@RequestBody ProductVO pvo) {
-		psv.updateStatus(pvo);
+	public void postDetail(@RequestBody Map<String, Integer> data) {
+		ProductLikeVO plvo = new ProductLikeVO();
+			
+		for (String key : data.keySet()) {
+			if(key.equals("p_number")) {
+				plvo.setP_number(data.get(key));
+			} else if(key.equals("sessionMemberNumber")) {
+				plvo.setM_number(data.get(key));
+			}
+		}
+		
+		psv.insertLikeMember(plvo);
+		
+//		psv.updateStatus(pvo);
+//		psv.updateLike(pvo);
 	}
 	
-//	@PostMapping("/detail")
-//	public void updateStatus(ProductVO pvo, Model m) {
-//		int isOk = psv.updateStatus(pvo);
-//		m.addAttribute("status" , isOk);
-//		log.info(">> 상태 변경 > "+(isOk>0?"성공":"실패"));
-//		
-//	}
-//	@PostMapping(value = "/detail", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
-//	public ResponseEntity<String> updateStatus(@RequestParam(name = "value")int value, ProductVO pvo) {
-//	    log.info(">>> updateStatus() > pvo = " + pvo.toString()); 
-//	    int isOk = psv.updateStatus(pvo);
-//	    log.info(">> 상태 변경 > "+(isOk>0?"성공":"실패"));
-//	    return isOk > 0 ?
-//	        new ResponseEntity<String>("1", HttpStatus.OK) :
-//	        new ResponseEntity<String>("0", HttpStatus.INTERNAL_SERVER_ERROR);
-//	}
-//	@PostMapping(value = "/detail", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
-//	public ResponseEntity<String> updateStatus(ProductVO pvo, Model m) {
-//		log.info(">>> updateStatus() > pvo = " + pvo.toString()); 
-//		int isOk = psv.updateStatus(pvo);
-//		log.info(">> 상태 변경 > "+(isOk>0?"성공":"실패"));
-//		return isOk > 0 ?
-//				new ResponseEntity<String>("1", HttpStatus.OK) :
-//					new ResponseEntity<String>("0", HttpStatus.INTERNAL_SERVER_ERROR);
-//	}
-	
-//	@PutMapping(value="/detail", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
-//	public ResponseEntity<String> modify(@RequestBody ProductVO pvo){
-//		log.info(">>> updateStatus() > pvo = " + pvo.toString()); 
-//	    int isOk = psv.updateStatus(pvo);
-//	    log.info(">> 상태 변경 > "+(isOk>0?"성공":"실패"));
-//	    return isOk > 0 ?
-//	        new ResponseEntity<String>("1", HttpStatus.OK) :
-//	        new ResponseEntity<String>("0", HttpStatus.INTERNAL_SERVER_ERROR);
-//	}
-//	@PutMapping(value="/detail", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
-//	public ResponseEntity<String> modify(@PathVariable("p_status")int p_status, ProductVO pvo){
-//		log.info(">>> updateStatus() > pvo = " + pvo.toString()); 
-//		int isOk = psv.updateStatus(pvo);
-//		log.info(">> 상태 변경 > "+(isOk>0?"성공":"실패"));
-//		return isOk > 0 ?
-//				new ResponseEntity<String>("1", HttpStatus.OK) :
-//					new ResponseEntity<String>("0", HttpStatus.INTERNAL_SERVER_ERROR);
-//	}
-//	@PutMapping(value="/detail", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
-//	public ResponseEntity<String> updateStatus(@RequestParam(value = "value")int p_status, ProductVO pvo){
-//		log.info(">>> updateStatus() > pvo = " + pvo.toString()); 
-//		int isOk = psv.updateStatus(pvo);
-//		log.info(">> 상태 변경 > "+(isOk>0?"성공":"실패"));
-//		return isOk > 0 ?
-//				new ResponseEntity<String>("1", HttpStatus.OK) :
-//					new ResponseEntity<String>("0", HttpStatus.INTERNAL_SERVER_ERROR);
-//	}
-
-	
-	
 	@GetMapping("/modify")
-	public void modify() {}
+	public void modify(@RequestParam("p_number")int p_number, Model m) {
+		ProductDTO pdto = psv.detail(p_number);
+		m.addAttribute("pdto", pdto);
+	}
+	
 	
 	
 	

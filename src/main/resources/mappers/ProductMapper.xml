@@ -35,9 +35,21 @@
 		update product set p_status=#{p_status} where p_number=#{p_number}
 	</update>
 	
+	<update id="updateLike">
+		update product set p_like=p_like+1 where p_number=#{p_number}
+	</update>
+	
 	<update id="updateReadCount">
 		update product set p_read_count = p_read_count+1 where p_number=#{p_number}
 	</update>
+	
+	<insert id="insertLikeMember">
+		insert into product_like(p_number, m_number)
+		select #{p_number}, #{m_number} from dual
+		where not exists(
+			select p_number, m_number from product_like
+			where p_number = #{p_number} and m_number = #{m_number}
+	</insert>
 	
 
  	<sql id="categorySearch">

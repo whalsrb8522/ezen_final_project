@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,122 +13,131 @@
 </head>
 <body>
 <jsp:include page="../layout/header.jsp"></jsp:include>
-	
-	<form action="/" method="post">
+<c:set var="pvo" value="${pdto.pvo }"></c:set>
+<c:set var="flist" value="${pdto.piList }"></c:set>
+<form id="registerForm" action="/product/modify" method="post" enctype="multipart/form-data" onSubmit="validateForm(event);">
 	<div id="register-wrap">
 		
 		<div id="image-wrap">
 			<div class="register-title">상품이미지</div>
 			<div id="file-wrap">
-				<ul class="file-ul">
+				<ul id="file-list" class="file-ul">
 					<li class="file-li">
 						이미지 등록
-						<input type="file" multiple class="file-input">
-					</li>
-					<li class="regi-file">
-						<img alt="상품이미지" src="/resources/image/44.jpg">
-						<button type="button" class="file-del"></button>
-					</li>
-					<li class="regi-file">
-						<img alt="상품이미지" src="/resources/image/44.jpg">
-						<button type="button" class="file-del"></button>
+						<input type="file" id="file" name="files" onchange="setDetailImage(event);" multiple class="file-input" accept="image/*">
 					</li>
 				</ul>
-				
 			</div>
 		</div>
 		
 		<div id="title-wrap">
 			<div class="register-title">제목</div>
-			<div>
-				<input class="border-gray title-input" placeholder="상품 제목을 입력해 주세요.">
+			<div id="errorFlex">
+			<div id="all-title">
+				<input type="hidden" name="m_number" value="1">
+				<input class="border-gray title-input" id="nameInput" name="p_name" value="${pvo.p_name }" placeholder="상품 제목을 입력해 주세요." onkeyup="counterTitle(); deleteErrorMsg();" maxlength="20">
 				<a href="/" class="input-a">거래금지품목</a>
+				<div><span id="countingTitle">0/20</span></div>
 			</div>
-			<div>0/20</div>
+			<span id="nameError" class="error-message"></span>
+			</div>
 		</div>
 		
 		<div id="cate-wrap">
 			<div class="register-title">카테고리</div>
+			<div class="two-cate">
 			<div class="cate-wrapper border-gray">
 				<div class="cate-box">
 					<ul class="cate-ul">
 						<li class="cate-li">
-							<button type="button" class="cate-btn">전자기기</button>
+							<button type="button" class="cate-btn" value="전자기기">전자기기</button>
 						</li>
 						<li class="cate-li">
-							<button type="button" class="cate-btn">아웃도어, 스포츠</button>
+							<button type="button" class="cate-btn" value="아웃도어, 스포츠">아웃도어, 스포츠</button>
 						</li>
 						<li class="cate-li">
-							<button type="button" class="cate-btn">자동차용품, 공구</button>
+							<button type="button" class="cate-btn" value="자동차용품, 공구">자동차용품, 공구</button>
 						</li>
 						<li class="cate-li">
-							<button type="button" class="cate-btn">가구, 조명</button>
+							<button type="button" class="cate-btn" value="가구, 조명">가구, 조명</button>
 						</li>
 						<li class="cate-li">
-							<button type="button" class="cate-btn">유아, 완구</button>
+							<button type="button" class="cate-btn" value="유아, 완구">유아, 완구</button>
 						</li>
 						<li class="cate-li">
-							<button type="button" class="cate-btn">생활, 주방, 건강</button>
+							<button type="button" class="cate-btn" value="생활, 주방, 건강">생활, 주방, 건강</button>
 						</li>
 						<li class="cate-li">
-							<button type="button" class="cate-btn">패션, 잡화</button>
+							<button type="button" class="cate-btn" value="패션, 잡화">패션, 잡화</button>
 						</li>
 						<li class="cate-li">
-							<button type="button" class="cate-btn">사무, 취미</button>
+							<button type="button" class="cate-btn" value="사무, 취미">사무, 취미</button>
 						</li>
 					</ul>
 				</div>
+			</div>
+			<div id="select-cate">	
+				<span> 선택한 카테고리 > </span> <input type="text" name="p_category" id="p_category" value="${pvo.p_category }" onblur="deleteErrorMsg();">
+				<span id="cateError" class="error-message"></span>
+			</div>
 			</div>
 		</div>
 		
 		<div id="loca-wrap">
 			<div class="register-title regi-location">거래 희망 장소</div>
 			<div id="search-loca">
-				<input type="text" id="search-address" class="border-gray search-input" placeholder="주소">
+				<input type="text" id="search-address" class="border-gray search-input" name="p_location" placeholder="주소 검색을 눌러 입력해 주세요." onblur="deleteErrorMsg();" readonly="readonly">
 				<input type="button" class="background-gray search-loca-btn" onclick="search_loca()" value="주소 검색"><br>
-				<div id="regi-map" style="width:800px;height:300px;margin-top:10px;display:none">지도</div>
+				<span id="locationError" class="error-message"></span>
+				<div id="regi-map" style="width:800px;height:300px;margin-top:10px;display:none"></div>
 			</div>
 		</div>
 		
 		<div id="price-wrap">
 			<div class="register-title">가격</div>
-			<div>
-				<input class="border-gray title-input" placeholder="숫자만 입력해 주세요.">
-				<span>원</span>
+			<div id="price-all">
+				<div>
+					<input class="border-gray title-input" name="p_price" id="priceInput" placeholder="숫자만 입력해 주세요." onkeyup="deleteErrorMsg();" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+					<span>원</span>
+				</div>
+				<span id="priceError" class="error-message"></span>
 			</div>
 		</div>
 		
 		<div id="info-wrap">
 			<div class="register-title">설명</div>
-			<div id="regi-info">
-				<textarea rows="8" class="info-text border-gray" 
-				placeholder="여러 장의 상품 사진과 구입 연도, 브랜드, 사용감, 하자 유무 등 구매자에게 필요한 정보를 꼭 포함해 주세요."></textarea>
+			<div id="info-all">
+				<div id="regi-info">
+					<textarea rows="10" class="info-text border-gray" name="p_info" id="infoInput" onkeyup="counterInfo(); deleteErrorMsg();" 
+					placeholder="여러 장의 상품 사진과 구입 연도, 브랜드, 사용감, 하자 유무 등 구매자에게 필요한 정보를 꼭 포함해 주세요."></textarea>
+					<span id="countingInfo">0/2000</span>
+				</div>
+				<span id="infoError" class="error-message"></span>
 			</div>
-			<div>0/2000</div>
 		</div>
 		
 		<div id="pay-wrap">
 			<div class="register-title">결제</div>
 			<div>
 				<label class="pay-label">
-					<input type="radio" name="pay" value="onionPay" checked="checked">
+					<input type="radio" name="p_pay" value="onionPay" checked="checked">
 					<span>양파페이</span>
   				</label>
   				<label>
-					<input type="radio" name="pay" value="money">
+					<input type="radio" name="p_pay" value="money">
 					<span>만나서 현금 결제</span>
 				</label>
 			</div>
 		</div>
 		<div id="btn-wrap">
-			<button class="background-purple regi-btn">수정하기</button>
-			<button class="background-gray regi-btn">삭제하기</button>
-			<button type="button" class="background-gray regi-btn">취소</button>
+			<button id="productRegiBtn" class="background-purple regi-btn">등록하기</button>
+			<a href="/product/list"><button type="button" class="background-gray regi-btn">취소</button></a>
 		</div>
 	</div>
 </form>	
-	
-	<jsp:include page="../layout/footer.jsp"></jsp:include>
-	<script type="text/javascript" src="/resources/js/product/register.js"></script>
+
+<jsp:include page="../layout/footer.jsp"></jsp:include>
+
+<script type="text/javascript" src="/resources/js/product/register.js"></script>
 </body>
 </html>

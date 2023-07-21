@@ -69,11 +69,11 @@
 			</div>
 			</div>
 				<div class="slider-dot">
-                	<a href="#" class="dot active">이미지1</a>
+                	<!-- <a href="#" class="dot active">이미지1</a>
                 	<a href="#" class="dot">이미지2</a>
                 	<a href="#" class="dot">이미지3</a>
                		<a href="#" class="dot">이미지4</a>
-               	 	<a href="#" class="dot">이미지5</a>
+               	 	<a href="#" class="dot">이미지5</a> -->
             	</div>
 			</div>
 			<div id="detail-right">
@@ -103,17 +103,20 @@
 						<fmt:formatDate value="${regDate }" pattern="yyyy-MM-dd" />
 					</div>
 				</div>
-				<!-- 구매자용 버튼 -->
-				<!-- <div class="btn-wrap">
-					<a href="javascript:window.history.back();""><button type="button" class="background-gray detail-btn">다른 상품 찾기</button></a>
-					<button type="button" class="background-gray detail-btn">찜</button>
-					<button type="button" class="background-purple detail-btn">채팅하기</button>
-				</div> -->
-				<!-- 판매자용 버튼 -->
+				
 				<div class="btn-wrap">
 					<a href="javascript:window.history.back();"><button type="button" class="background-gray detail-btn">다른 상품 찾기</button></a>
-					<a href="/product/modify"><button type="button" class="background-gray detail-btn">수정하기</button></a>
-					<button type="button" class="background-purple detail-btn" onclick="location.href='/chat/register/${param.p_number}'">내 채팅방</button>
+					<c:choose>
+						<c:when test="${ses.m_number ne pvo.m_number }">
+							<button type="button" id="p_like" class="background-gray detail-btn" onclick="updateLike(event)">찜</button>
+							<button type="button" class="background-purple detail-btn" onclick="createChatRoom(${param.p_number})">채팅하기</button>
+						</c:when>
+						
+						<c:when test="${ses.m_number eq pvo.m_number }">
+							<a href="/product/modify"><button type="button" class="background-gray detail-btn">수정하기</button></a>
+							<button type="button" class="background-purple detail-btn" onclick="goToChatRoom(${param.p_number})">내 채팅방</button>
+						</c:when>
+					</c:choose>
 				</div>
 			</div>
 		</div>
@@ -209,8 +212,8 @@
 <jsp:include page="../layout/footer.jsp"></jsp:include>
 <script type="text/javascript" src="/resources/js/product/detail.js"></script>
 <script type="text/javascript">
-	var p_number = ${param.p_number};
-	console.log(">>> p_number = " + p_number);
+		var p_number = ${param.p_number};
+		var sessionMemberNumber = ${ses.m_number };
 </script>
 </body>
 </html>

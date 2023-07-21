@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.myweb.www.domain.ProductDTO;
 import com.myweb.www.domain.ProductImageVO;
+import com.myweb.www.domain.ProductLikeVO;
 import com.myweb.www.domain.ProductPagingVO;
 import com.myweb.www.domain.ProductVO;
 
@@ -20,5 +21,7 @@ public interface ProductService {
 	int updateStatus(ProductVO pvo);
 
 	int readCount(int p_number);
+
+	void insertLikeMember(ProductLikeVO plvo);
 
 }

@@ -11,6 +11,53 @@ detailCate.addEventListener('mouseout', () => {
     // detailscroll.classList.add("detail-cate-scroll");
 })
 
+
+// 이미지 슬라이더
+let sliderImg = document.querySelector('.slider_img');
+let sliderInner = document.querySelector('.slider_inner');
+let detail_img = document.querySelectorAll('.detail-img');
+let slider_dot = document.querySelector('.slider-dot');
+
+let currentIndex = 0;
+let sliderCount = detail_img.length;
+let sliderWidth;  // 이미지 가로 값
+
+let dotIndex = "";
+function init() {
+    for (let index = 0; index < sliderCount; index++) {
+        dotIndex += `<a class="dot">이미지${index + 1}</a>`;
+    }
+    slider_dot.innerHTML = dotIndex;
+    // 첫 번째 dot 버튼 활성화
+    slider_dot.firstElementChild.classList.add('active');
+
+    sliderWidth = sliderImg.offsetWidth;
+    sliderInner.style.width = (sliderWidth * sliderCount) + "px"; // 이미지 총 길이 넣기
+}
+init();
+
+// 이미지 이동
+function gotoSlider(num) {
+    sliderInner.style.transition = "all 400ms";
+    sliderInner.style.transform = "translateX(" + -sliderWidth * num + "px)";
+    currentIndex = num;
+
+    // 두 번째 이미지, 두 번째 닷 추가
+    // 닷 클래스 모두 삭제
+    // 해당 이미지 닷 클래스 추가
+    const sliderDotAs = slider_dot.querySelectorAll('a');
+    sliderDotAs.forEach((a) => a.classList.remove('active'));
+    sliderDotAs[num].classList.add('active');
+}
+
+// 닷 버튼 클릭했을 때
+document.querySelectorAll(".slider-dot .dot").forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+        gotoSlider(index);
+    });
+})
+
+
 // product-status 변경하기
 async function changeStatus(target) {
     var p_status = target.value;
@@ -31,6 +78,31 @@ async function changeStatus(target) {
         console.error(error);
     }
 }
+
+// 찜 기능 구현
+async function updateLike(event) {
+    let p_like = event.target.value;
+    console.log(p_like);
+    try {
+        const url = '/product/detail';
+        const config = {
+            method: 'post',
+            headers: {
+                'content-type': 'application/json;'
+            },
+            body: JSON.stringify({
+                p_number: p_number,
+                sessionMemberNumber: sessionMemberNumber
+            })
+        }
+        const response = await fetch(url, config);
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
 
 // register에서 등록한 주소 불러와서 지도 생성
 let mapContainer = document.getElementById('detail-map'), // 지도를 표시할 div 
@@ -73,39 +145,30 @@ geocoder.addressSearch(getLoca, function (result, status) {
     }
 });
 
-// 이미지 슬라이더
-let sliderImg = document.querySelector('.slider_img');
-let sliderInner = document.querySelector('.slider_inner');
-let detail_img = document.querySelectorAll('.detail-img');
-let slider_dot = document.querySelector('.slider-dot');
 
-let currentIndex = 0;
-let sliderCount = detail_img.clientHeight;
-let sliderWidth = sliderImg.offsetWidth;
+// 채팅방 개설 관련 (작성자: 조민규)
+async function createChatRoom(p_number) {
+    console.log(">>> createChatRoom()");
 
-sliderInner.style.width = (sliderWidth * sliderCount) + "px";
-
-let dotIndex = "";
-function init() {
-    sliderCount.forEach((el, index) => dotIndex += `<a href="#" class="dot">이미지${index + 1}</a>`);
-    slider_dot.innerHTML = dotIndex;
-
-    slider_dot.firstElementChild.classList.add('active');
-}
-init();
-
-function gotoSlider(num) {
-    sliderInner.style.transition = "all 400ms";
-    sliderInner.style.transform = "translateX(" + -sliderWidth * num + "px)";
-    currentIndex = num;
+    try {
+        const url = '/chat/register';
+        const config = {
+            method: 'post',
+            headers: {
+                'content-type': 'application/json;'
+            },
+            body: JSON.stringify({
+                p_number: p_number,
+                sessionMemberNumber: sessionMemberNumber
+            })
+        }
+        const response = await fetch(url, config);
+    } catch (error) {
+        console.error(error);
+    }
 }
 
-const sliderDotAs = slider_dot.querySelectorAll('a');
-sliderDotAs.forEach((a) => a.classList.remove('active'));
-sliderDotAs[num].classList.add('active');
-
-document.querySelectorAll(".slider_dot").forEach((dot, index) => {
-    dot.addEventListener("click", () => {
-        gotoSlider(index);
-    });
-})
+function goToChatRoom(p_number) {
+    console.log(">>> goToChatRoom()");
+    console.log(">>> goToChatRoom() > chatListContainer.innerHTML = " + document.getElementsByClassName('chatListContainer').innerHTML);
+}

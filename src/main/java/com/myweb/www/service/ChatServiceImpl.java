@@ -67,4 +67,9 @@ public class ChatServiceImpl implements ChatService {
 		cdao.updateSendDate(cmvo);
 	}
 
+	@Override
+	public void registerChatRoom(ChatRoomVO crvo) {
+		cdao.insertChatRoom(crvo);
+	}
+
 }
