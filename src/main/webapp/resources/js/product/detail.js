@@ -152,7 +152,6 @@ geocoder.addressSearch(getLoca, function (result, status) {
     }
 });
 
-
 // 채팅방 개설 관련 (작성자: 조민규)
 async function createChatRoom(p_number) {
     console.log(">>> createChatRoom()");
@@ -170,12 +169,9 @@ async function createChatRoom(p_number) {
             })
         }
         const response = await fetch(url, config);
+
+        window.location.href = '/chat/main?p_number=' + p_number;
     } catch (error) {
         console.error(error);
     }
-}
-
-function goToChatRoom(p_number) {
-    console.log(">>> goToChatRoom()");
-    console.log(">>> goToChatRoom() > chatListContainer.innerHTML = " + document.getElementsByClassName('chatListContainer').innerHTML);
 }

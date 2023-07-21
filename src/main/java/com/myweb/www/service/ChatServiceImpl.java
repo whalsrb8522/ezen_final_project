@@ -68,8 +68,9 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	@Override
-	public void registerChatRoom(ChatRoomVO crvo) {
-		cdao.insertChatRoom(crvo);
+	public int registerChatRoom(ChatRoomVO crvo) {
+		return cdao.insertChatRoom(crvo);
+		
 	}
 
 }

@@ -16,6 +16,6 @@ public interface ChatService {
 
 	void insertMessage(ChatMessageVO cmvo);
 
-	void registerChatRoom(ChatRoomVO crvo);
+	int registerChatRoom(ChatRoomVO crvo);
 
 }

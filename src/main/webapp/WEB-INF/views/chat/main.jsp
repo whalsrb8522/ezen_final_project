@@ -37,7 +37,7 @@
 						<!-- 채팅방 목록 -->
 						<div class="chatListContainer">
 							<c:forEach items="${listCdto }" var="cdto">
-									<div class="chatList" onclick="getChat(${cdto.crvo.cr_number }, ${ses.m_number })">
+									<div class="chatList" onclick="getChat(${cdto.crvo.cr_number })">
 										<div class="chatListImg">
 											<img alt="프로필" src="">
 										</div>
@@ -130,6 +130,7 @@
 </body>
 <script type="text/javascript">
 	var sessionMemberNumber = '<c:out value="${ses.m_number }"></c:out>';
+	var selectRoomNumber = '<c:out value="${selectRoomNumber }"></c:out>';
 </script>
 <script type="text/javascript" src="/resources/js/chat/chat.js"></script>
 </html>
