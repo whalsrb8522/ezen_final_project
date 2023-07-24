@@ -61,6 +61,7 @@ document.querySelectorAll(".slider-dot .dot").forEach((dot, index) => {
 // product-status 변경하기
 async function changeStatus(target) {
     var p_status = target.value;
+    console.log(p_status);
     try {
         const url = '/product/detail';
         const config = {
