@@ -156,17 +156,30 @@ public class MemberServiceImpl implements MemberService {
 		memberDetails.setMivo(midao.selectMemberImage(m_number));
 		return memberDetails;
 	}
-
-
-
-
-
-
+	
+	
 	@Override
 	public int modifyMember(MemberDTO mdto) {
-		// TODO Auto-generated method stub
-		return mdao.updateMember(mdto);
+	    log.info("---- modifyMember service ----");
+	    log.info("Data to update: " + mdto.toString());
+	    int result = mdao.updateMember(mdto);
+	    log.info("Update result: " + result);
+	    return result;
 	}
+
+
+
+
+
+
+
+//	@Override
+//	public int modifyMember(MemberDTO mdto) {
+//		log.info("---- modifyMember service ----");
+//		log.info("Data to update: " + mdto.toString());
+//		// TODO Auto-generated method stub
+//		return mdao.updateMember(mdto);
+//	}
 
 
 

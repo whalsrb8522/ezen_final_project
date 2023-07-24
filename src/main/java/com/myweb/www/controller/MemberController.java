@@ -1,11 +1,15 @@
 package com.myweb.www.controller;
 
+import java.io.IOException;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +39,8 @@ public class MemberController {
 	private MemberService memberService;
 	@Inject
 	private MemberImageHandler mihd;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	//회원가입
 	@GetMapping("/signup")
@@ -161,49 +167,62 @@ public class MemberController {
 	// 회원정보 수정 처리
 	@PostMapping("/modify")
 	public String modifyPost(HttpServletRequest request,
-	                         @RequestParam("old_password") String oldPassword,
-	                         @RequestParam("new_password") String newPassword,
-	                         @RequestParam("nickname") String nickname,
-	                         @RequestParam("introduce") String introduce,
+	                         @RequestParam("m_pw") String oldPassword,
+	                         @RequestParam("m_chgPw") String newPassword,
+	                         @RequestParam("m_nick_name") String nickname,
+	                         @RequestParam("m_introduct") String introduce,
 	                         @RequestParam(name="file", required = false) MultipartFile file,
-	                         Model m, RedirectAttributes rAttr) {
+	                         @RequestParam("m_address") String address,
+	                         Model model) {
+	    // 현재 로그인한 사용자 정보를 받아옴.
 	    HttpSession session = request.getSession();
-	    Integer m_number = (Integer) session.getAttribute("m_number");
-	    MemberDTO memberDTO = memberService.getMemberDetails(m_number); // 변경된 부분
+	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 
-	    if (memberDTO == null) {
-	        return "not-found"; // 회원을 찾지 못한 경우에 대한 예외 처리
+	    if (loginUser == null) {
+	        // 로그인이 되어있지 않으면 로그인 페이지로 리다이렉트
+	        return "redirect:/login";
 	    }
 
-	    MemberVO member = memberDTO.getMvo(); // 기존 회원 정보 얻기
-	    if (!member.getM_pw().equals(oldPassword)) {
-	        rAttr.addFlashAttribute("errorMessage", "기존 비밀번호가 일치하지 않습니다.");
-	        return "redirect:/member/modify";
+	    // 비밀번호 확인. 만약 기존 비밀번호와 일치하지 않으면 오류 메시지를 띄우고 수정 페이지로 돌아감.
+	    if (!passwordEncoder.matches(oldPassword, loginUser.getM_pw())) {
+	        model.addAttribute("errorMessage", "기존 비밀번호가 일치하지 않습니다.");
+	        return "member/modify";
 	    }
 
-	    MemberImageVO mivo = null;
-	    if(file != null && file.getSize() > 0) { 
-	        mivo = mihd.uploadFile(file); 
-	    } else {
-	        log.info("수정 이미지 file null");
+	    // 새로운 비밀번호 암호화
+	    String encodedNewPassword = passwordEncoder.encode(newPassword);
+	    loginUser.setM_pw(encodedNewPassword);
+
+	    // 닉네임, 자기소개, 주소 변경
+	    loginUser.setM_nick_name(nickname);
+	    loginUser.setM_introduct(introduce);
+	    loginUser.setM_address(address);
+
+	    // 파일이 업로드 된 경우에만 파일 변경
+	    if (file != null && !file.isEmpty()) {
+	        String originalFilename = file.getOriginalFilename();
+	        String filename = System.currentTimeMillis() + originalFilename;
+	        String savePath = "E:\\\\Workspace\\\\ezen_final_project\\\\src\\\\main\\\\webapp\\\\resources\\\\fileUpload";  // 저장 경로, 실제 프로젝트에 맞게 수정 필요
+
+	        try {
+	            file.transferTo(new File(savePath, filename));
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	        loginUser.setProfileImage(filename);  // 'setProfileImage'를 'MemberVO' 클래스가 가지고 있다고 가정
 	    }
 
-	    member.setM_pw(newPassword);
-	    member.setM_nick_name(nickname);
-	    member.setM_introduct(introduce);
+	    // 사용자 정보 변경 적용
+	    memberService.updateMember(loginUser);  // 'updateMember'를 'MemberService' 인터페이스가 제공한다고 가정
 
-	    MemberDTO mdto = new MemberDTO(member, mivo);
-	    int isOk = memberService.modifyMember(mdto);
+	    // 세션에 변경된 사용자 정보 업데이트
+	    session.setAttribute("loginUser", loginUser);
 
-	    if(isOk > 0) {
-	        m.addAttribute("msg_modify", 1);
-	        rAttr.addFlashAttribute("isOk", isOk);
-	    } else {
-	        m.addAttribute("msg_modify", 0);
-	    }
-
-	    return "redirect:/member/detail";
+	    // 수정이 완료되었으면 메인 페이지로 리다이렉트
+	    return "redirect:/";
 	}
+
+
 
 
 
