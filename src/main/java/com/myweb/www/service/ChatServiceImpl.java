@@ -47,16 +47,18 @@ public class ChatServiceImpl implements ChatService {
 	}
 	
 	@Override
-	public ChatMessageDTO getMessage(int cr_number) {
+	public ChatMessageDTO getMessage(int cr_number, int m_number) {
+		log.info(">>> getMessage()");
+		log.info(">>> cr_number = " + cr_number);
+		log.info(">>> m_number = " + m_number);
+		
 		ChatMessageDTO cmdto = new ChatMessageDTO();
 
 		cmdto.setMvo(mdao.selectMemberWithNumber(cdao.selectBuyer(cr_number)));
 		cmdto.setPvo(pdao.selectProductWithNumber(cr_number));
 		cmdto.setListCmvo(cdao.selectMessage(cr_number));
 
-		log.info(">>> getMessage() > cmdto.mvo = " + cmdto.getMvo().toString());
-		log.info(">>> getMessage() > cmdto.pvo = " + cmdto.getPvo().toString());
-		log.info(">>> getMessage() > cmdto.listCmvo = " + cmdto.getListCmvo().toString());
+		cdao.updateReadDate(cr_number, m_number);
 		
 		return cmdto;
 	}

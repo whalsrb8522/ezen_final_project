@@ -40,4 +40,9 @@
 			where cr_number = #{cr_number} and cr_seller = #{cr_seller} and cr_buyer = #{cr_buyer}
 		);
 	</insert>
+	
+	<update id="updateReadDate">
+		update chat_message set cm_read_date = now() 
+		where cr_number = #{cr_number} and cm_sender = #{m_number};
+	</update>
 </mapper>

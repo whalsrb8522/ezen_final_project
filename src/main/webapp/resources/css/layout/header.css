@@ -100,10 +100,25 @@ header #memberContainer1 {
 header #memberContainer a, #memberContainer1 a {
 	color: #666;
 	text-decoration: none;
+  position: relative;
 } header #memberContainer a:hover, #memberContainer1 a:hover {
 	color: #C97FE8;
 	font-weight: 550;
 }
+
+header .notification {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 250px;
+  display: flex;
+  align-items: center;
+  border: 1px solid gray;
+  border-radius: 10px;
+  justify-content: center;
+  padding: 5px;
+}   
 
 /*메뉴 드롭다운*/
 
@@ -163,7 +178,6 @@ header #memberContainer a, #memberContainer1 a {
   background-color: #c97fe8;
   color: white;
 }
-
 
 .menu .depth_1 li:not(:first-child) a {
   border-top: none;

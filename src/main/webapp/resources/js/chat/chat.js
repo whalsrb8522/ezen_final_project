@@ -19,11 +19,11 @@ async function getChat(cr_number) {
 
     try {
         const resp = await fetch('/chat/view/' + this.cr_number);
-        const result = await resp.json();
+        const cmdto = await resp.json();
 
-        let mvo = result.mvo;
-        let pvo = result.pvo;
-        let listCmvo = result.listCmvo;
+        let mvo = cmdto.mvo;
+        let pvo = cmdto.pvo;
+        let listCmvo = cmdto.listCmvo;
 
         console.log(">>> getChat() <<<");
         console.log(mvo);

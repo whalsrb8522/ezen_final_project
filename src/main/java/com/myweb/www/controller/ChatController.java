@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.myweb.www.domain.ChatMessageDTO;
 import com.myweb.www.domain.ChatRoomDTO;
@@ -61,15 +60,6 @@ public class ChatController {
 		return new ResponseEntity<List<ChatRoomDTO>>(listCdto, HttpStatus.OK);
     }
     
-	/*
-	 * //채팅방 개설
-	 * 
-	 * @PostMapping(value = "/room") public String create(@RequestParam String name,
-	 * RedirectAttributes rttr){		// 매개변수로는 상품번호를 넣을것
-	 * rttr.addFlashAttribute("roomName", csvc.createChatRoom(""); return
-	 * "redirect:/chat/rooms"; }
-	 */
-    
     // 채팅방 개설
     @PostMapping(value = "/register")
     public ResponseEntity<Integer> register(@RequestBody Map<String, Integer> chatRegisterData, HttpSession ses) {
@@ -91,9 +81,20 @@ public class ChatController {
     
     //채팅방 조회
 	@GetMapping(value = "/view/{cr_number}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<ChatMessageDTO> view(@PathVariable("cr_number")int cr_number) {
-		ChatMessageDTO cmdto = csvc.getMessage(cr_number);
+	public ResponseEntity<ChatMessageDTO> view(@PathVariable("cr_number")int cr_number, HttpSession ses) {
+		log.info(">>> view()");
+		MemberVO sesMvo = (MemberVO) ses.getAttribute("ses");
+		
+		ChatMessageDTO cmdto = csvc.getMessage(cr_number, sesMvo.getM_number());
+		
 		return new ResponseEntity<ChatMessageDTO>(cmdto, HttpStatus.OK);
 	}
 	
+	// 채팅 수신 확인
+	@GetMapping(value="/header")
+	public ResponseEntity<Boolean> header() {
+		csvc.isReadMessage();
+		
+		return null;
+	}
 }
