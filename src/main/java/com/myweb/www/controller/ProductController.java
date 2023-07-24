@@ -66,11 +66,11 @@ public class ProductController {
 	
 	@GetMapping("/detail")
 	public void detail(@RequestParam("p_number")int p_number, Model m) {
-		// readCount 추가
 		psv.readCount(p_number);
 		ProductDTO pdto = psv.detail(p_number);
 		m.addAttribute("pdto", pdto);
 	}
+	
 	
 	@PostMapping(value = "/detail", consumes = "application/json")
 	public ResponseEntity<String> postDetail(@RequestBody Map<String, Integer> data) {
