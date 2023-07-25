@@ -12,13 +12,13 @@
 	<link rel="stylesheet" type="text/css" href="/resources/css/layout/nav.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 	<style>
-	.material-symbols-outlined {
-	  font-variation-settings:
-	  'FILL' 0,
-	  'wght' 400,
-	  'GRAD' 0,
-	  'opsz' 48
-	}
+		.material-symbols-outlined {
+			font-variation-settings:
+				'FILL' 0,
+				'wght' 400,
+				'GRAD' 0,
+				'opsz' 48
+		}
 	</style>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
@@ -50,7 +50,15 @@
 				<!-- 로그인 후 -->
 				<div id="memberContainer1">
 						<a href="/member/detail">내 상점</a>
-						<a href="/chat/main">채팅방</a>
+						<a href="/chat/main">
+							<span class="notification">
+								<span class="material-symbols-outlined">
+									notifications
+								</span>
+								새로운 메시지가 있습니다!
+							</span>
+							채팅방
+						</a>
 						<a href="/member/signout">로그아웃</a>
 				</div>
 			</c:if>

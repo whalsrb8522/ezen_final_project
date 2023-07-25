@@ -15,6 +15,6 @@ import lombok.ToString;
 @ToString
 public class ChatMessageDTO {
 	private MemberVO mvo;
-	private ProductVO pvo;
+	private ProductDTO pdto;
 	private List<ChatMessageVO> listCmvo;
 }

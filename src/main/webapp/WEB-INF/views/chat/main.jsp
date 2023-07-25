@@ -69,7 +69,7 @@
 					</div>
 				</div>
 				<div class="roomContainer">
-					<div id="chatDisplyNone">
+					<div id="chatDisplayNone">
 						<p>대화를 선택해주세요.</p>
 					</div>
 					
@@ -78,7 +78,6 @@
 							<span class="material-symbols-outlined" id="backBtn">keyboard_backspace</span>
 							<div class="roomTopBox3">
 								<div class="roomTopBox-nick">닉네임</div>
-								<div class="roomTopBox-time">평균 응답 시간</div>
 							</div>
 						</div>
 						
@@ -114,7 +113,7 @@
 							<div id="roomInputBox">
 								<span id="modalBtn" class="material-symbols-outlined">add</span>
 								<div id="roomInputRight">
-									<input type="text" id="chatInput" placeholder="메시지를 입력해주세요." onkeypress="if(event.keyCode==13){sendMessage();}">
+									<input type="text" id="chatInput" placeholder="메시지를 입력해주세요." onKeypress="javascript:if(event.keyCode==13) {sendMessage()}">
 									<span id="chatSendBtn" class="material-symbols-outlined" onclick="sendMessage()">send</span>
 								</div>
 							</div>

@@ -2,80 +2,74 @@
 var sockJs = new SockJS("/echo");
 var stomp = Stomp.over(sockJs);
 
-var cr_number;
+var cr_number;      // 채팅방 번호
+var sessionMemberNumber = sessionMemberNumber;  // 로그인한 회원 번호
 
+var chatDisplayNone = document.getElementById('chatDisplayNone');
 var roomTopBoxNick = document.querySelector('.roomTopBox-nick');  // 닉네임 표시
 var roomMidBoxEx = document.querySelector('.roomMidBoxEx');       // 상품 정보 표시
 var roomMidBox = document.getElementById('roomMidBox');           // 채팅 내용 표시
 
-// 메시지 내용 불러오기
-async function getChat(cr_number) {
-    const chatDisplyNone = document.getElementById('chatDisplyNone');
 
-    roomMidBox.innerHTML = '';
-    chatDisplyNone.classList.add('dp_none');
+// STOMP 연결
+stomp.connect({}, () => {
+    // STOMP 연결 끊겼을 경우
+    stomp.ws.onclose = function (event) {
+        stomp.send('/pub/chat/disconnet', {}, JSON.stringify({cr_number: this.cr_number, cm_sender: this.sessionMemberNumber }));
+    };
+
+    // 메시지 수신했을 경우 채팅방 갱신
+    stomp.subscribe("/sub/chat/main/*", (chat) => {
+        printChatList();
+    });
+});   
+
+// 채팅방 열기
+async function getChat(cr_number) {
+    chatDisplayNone.classList.add('dp_none');
 
     this.cr_number = cr_number;
 
-    try {
-        const resp = await fetch('/chat/view/' + this.cr_number);
-        const result = await resp.json();
+    printChatRoom(this.cr_number);
 
-        let mvo = result.mvo;
-        let pvo = result.pvo;
-        let listCmvo = result.listCmvo;
-
-        console.log(">>> getChat() <<<");
-        console.log(mvo);
-        console.log(pvo);
-        console.log(listCmvo);
-
-        roomTopBoxNick.innerHTML = mvo.m_nick_name;
-
-        let div = `
-            <img alt="" src="" class="item-image">
-            <div class="item-info">
-                <span class="trade-status">거래중</span>
-                <span class="price">${pvo.p_price}원</span>
-            </div >
-            <span class="trade-title">${pvo.p_name}</span>`;
-
-        roomMidBoxEx.innerHTML = div;
-
-        for (let cmvo of listCmvo) {
-            printMessage(cmvo.cm_sender, sessionMemberNumber, cmvo.cm_content);
-            roomMidBox.scrollTop = roomMidBox.scrollHeight;
-        }
-
-        stomp.subscribe("/sub/chat/main/" + cr_number, (chat) => {
-            receiveMessage(chat);
-            roomMidBox.scrollTop = roomMidBox.scrollHeight;
-        });
-    } catch (error) {
-        console.log(error);
-    }
+    stomp.subscribe("/sub/chat/main/" + cr_number, (chat) => {
+        console.log(">>> mainChat : " + chat);
+        receiveMessage(chat);
+        roomMidBox.scrollTop = roomMidBox.scrollHeight;
+    });
 }
 
 // 채팅방 닫기
 document.getElementById('backBtn').addEventListener('click', () => {
-    const chatDisplyNone = document.getElementById('chatDisplyNone');
-    chatDisplyNone.classList.remove('dp_none');
+    roomMidBox.innerHTML = '';
+    chatDisplayNone.classList.remove('dp_none');
 });
+
+// 메시지 발신 함수
+function sendMessage() {
+    let chatInput = document.getElementById('chatInput');
+
+    if (chatInput.value != undefined || chatInput.value == '') {
+        stomp.send('/pub/chat/message', {}, JSON.stringify({ cr_number: this.cr_number, cm_content: chatInput.value, cm_sender: this.sessionMemberNumber }));
+    }
+
+    chatInput.value = '';
+};
 
 // 메시지 수신 함수
 function receiveMessage(chat) {
-    console.log(">>> receiveMessage()");
-    console.log(">>> receiveMessage() > chat = " + chat);
+    console.log(">>> receiveMessage() > chat : " + chat);
 
     let content = JSON.parse(chat.body);
     let cm_content = content.cm_content;
     let cm_sender = content.cm_sender;
 
     printMessage(cm_sender, sessionMemberNumber, cm_content);
-    listChat();
+    printChatList();
 }
 
-async function listChat() {
+// 채팅목록 출력
+async function printChatList() {
     const chatListContainer = document.querySelector('.chatListContainer');
     console.log(chatListContainer);
 
@@ -101,11 +95,43 @@ async function listChat() {
                     </div>
                 </div>`;
 
-            console.log(div);
             chatListContainer.innerHTML += div;
         }
     } catch (error) {
-        console.log(error);
+        console.error(error);
+    }
+}
+
+// 채팅방 내용 출력
+async function printChatRoom(cr_number) {
+    try {
+        const resp = await fetch('/chat/view/' + this.cr_number);
+        const cmdto = await resp.json();
+
+        let mvo = cmdto.mvo;
+        let pdto = cmdto.pdto;
+        let listCmvo = cmdto.listCmvo;
+
+        roomTopBoxNick.innerHTML = mvo.m_nick_name;
+
+        let div = `
+            <img alt="" src="/resources/fileUpload/${pdto.piList[0].pi_dir }/${pdto.piList[0].pi_uuid }_th_${pdto.piList[0].pi_name }" class="item-image">
+            <div class="item-info">
+                <span class="trade-status">거래중</span>
+                <span class="price">${pdto.pvo.p_price}원</span>
+            </div >
+            <span class="trade-title">${pdto.pvo.p_name}</span>`;
+
+        roomMidBoxEx.innerHTML = div;
+
+        roomMidBox.innerHTML = '';
+
+        for (let cmvo of listCmvo) {
+            printMessage(cmvo.cm_sender, sessionMemberNumber, cmvo.cm_content);
+            roomMidBox.scrollTop = roomMidBox.scrollHeight;
+        }
+    } catch (error) {
+        console.error(error);
     }
 }
 
@@ -130,20 +156,6 @@ function printMessage(sender, loginUser, content) {
 
     roomMidBox.appendChild(div);
 }
-
-// 메시지 발신 함수
-function sendMessage() {
-    let chatInput = document.getElementById('chatInput');
-
-    if (chatInput.value != null) {
-        stomp.send('/pub/chat/message', {}, JSON.stringify({ cr_number: this.cr_number, cm_content: chatInput.value, cm_sender: this.sessionMemberNumber }));
-    }
-
-    chatInput.value = '';
-};
-
-// STOMP 연결
-stomp.connect({}, () => { });
 
 window.onload = () => {
     if (selectRoomNumber != null && selectRoomNumber != '') {
