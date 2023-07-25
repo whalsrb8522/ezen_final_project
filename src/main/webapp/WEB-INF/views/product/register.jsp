@@ -117,11 +117,11 @@
 			<div class="register-title">결제</div>
 			<div>
 				<label class="pay-label">
-					<input type="radio" name="p_pay" value="onionPay" checked="checked">
+					<input type="radio" name="p_pay" value="양파페이" checked="checked">
 					<span>양파페이</span>
   				</label>
   				<label>
-					<input type="radio" name="p_pay" value="money">
+					<input type="radio" name="p_pay" value="만나서 현금 결제">
 					<span>만나서 현금 결제</span>
 				</label>
 			</div>
