@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="com.myweb.www.domain.ProductVO" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<% pageContext.setAttribute("replaceChar", "\n"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -123,6 +125,7 @@
 						
 						<c:when test="${ses.m_number eq pvo.m_number && ses.m_number ne null }">
 							<a href="/product/modify?p_number=${pvo.p_number }"><button type="button" class="background-gray detail-btn">수정하기</button></a>
+							
 							<button type="button" class="background-purple detail-btn" onclick="location.href='/chat/main'">내 채팅방</button>
 						</c:when>
 					</c:choose>
@@ -137,7 +140,7 @@
 				<div id="info-wrap">
 					<div class="detail-pro-info"><b>상품 정보</b></div>
 					<div id="detail-info">
-						${pvo.p_info }
+						${fn:replace(pvo.p_info, replaceChar, "<br/>") }
 					</div>
 				</div>
 				<div id="product-member-wrap">

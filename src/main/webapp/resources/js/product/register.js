@@ -242,4 +242,3 @@ function counterInfo() {
         infoInput.value = infoInput.value.slice(0, maxLengthInfo);
     }
 }
-
