@@ -67,10 +67,6 @@
 		select * from product_like where p_number = #{p_number} and m_number = #{sesM_number}
 	</select> 
 	
-	<select id="selectOne" resultType="com.myweb.www.domain.ProductVO">
-		select * from product where p_number=#{p_number}
-	</select>
-	
 	<update id="updateModify">
 		update product set p_name=#{p_name}, p_price=#{p_price}, p_category=#{p_category}, p_mod_date=now(),
 		p_info=#{p_info}, p_location=#{p_location}, p_pay=#{p_pay} where p_number=#{p_number}

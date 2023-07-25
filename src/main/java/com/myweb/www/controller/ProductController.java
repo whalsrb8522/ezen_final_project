@@ -124,7 +124,7 @@ public class ProductController {
 	}
 	
 	@PostMapping("/modify")
-	public String postModify(RedirectAttributes rAttr, ProductVO pvo, @RequestParam(name="files")MultipartFile[] files) {
+	public String postModify(RedirectAttributes rAttr, ProductVO pvo, @RequestParam(name="files", required = false)MultipartFile[] files) {
 		List<ProductImageVO> piList = null;
 		if(files[0].getSize()>0) {
 			piList = pihd.uploadFiles(files);

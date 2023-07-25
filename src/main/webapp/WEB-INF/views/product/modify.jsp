@@ -40,7 +40,7 @@
 			<div class="register-title">제목</div>
 			<div id="errorFlex">
 			<div id="all-title">
-				<input type="hidden" name="m_number" value="1">
+				<input type="hidden" name="p_number" value="${pvo.p_number }">
 				<input class="border-gray title-input" id="nameInput" name="p_name" value="${pvo.p_name }" placeholder="상품 제목을 입력해 주세요." onkeyup="counterTitle(); deleteErrorMsg();" maxlength="20">
 				<a href="/" class="input-a">거래금지품목</a>
 				<div><span id="countingTitle">0/20</span></div>
@@ -126,11 +126,11 @@
 			<div class="register-title">결제</div>
 			<div>
 				<label class="pay-label">
-					<input type="radio" name="p_pay" value="onionPay" <c:if test="${pvo.p_pay eq '양파페이' }">checked="checked"</c:if>>
+					<input type="radio" name="p_pay" value="양파페이" <c:if test="${pvo.p_pay eq '양파페이' }">checked="checked"</c:if>>
 					<span>양파페이</span>
   				</label>
   				<label>
-					<input type="radio" name="p_pay" value="money" <c:if test="${pvo.p_pay eq '만나서 현금 결제' }">checked="checked"</c:if>>
+					<input type="radio" name="p_pay" value="만나서 현금 결제" <c:if test="${pvo.p_pay eq '만나서 현금 결제' }">checked="checked"</c:if>>
 					<span>만나서 현금 결제</span>
 				</label>
 			</div>
