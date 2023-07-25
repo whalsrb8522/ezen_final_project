@@ -37,33 +37,42 @@
 						<!-- 채팅방 목록 -->
 						<div class="chatListContainer">
 							<c:forEach items="${listCdto }" var="cdto">
-									<div class="chatList" onclick="getChat(${cdto.crvo.cr_number })">
-										<div class="chatListImg">
-											<img alt="프로필" src="">
+								<script type="text/javascript">
+									console.log('<c:out value="${cdto}"></c:out>');
+								</script>
+							
+								<div class="chatList" onclick="getChat(${cdto.crvo.cr_number })">
+									<c:if test="${cdto.notReadCount > 0 }">
+										<div class="chatListCount">
+											${cdto.notReadCount }
 										</div>
-										<div class="chatListText">
-											<div class="chatListTextUp">
-												<c:choose>
-													<c:when test="${cdto.senderMvo.m_number eq ses.m_number }">
-														${cdto.receiverMvo.m_nick_name }
-													</c:when>
-													<c:otherwise>
-														${cdto.senderMvo.m_nick_name }
-													</c:otherwise>
-												</c:choose>
-											</div>
-											<div class="chatListTextDown">
-												<c:choose>
-													<c:when test="${cdto.lastMessage eq null }">
-														대화 내용이 없습니다.
-													</c:when>
-													<c:otherwise>
-														${cdto.lastMessage }
-													</c:otherwise>
-												</c:choose>
-											</div>
-										</div>								
+									</c:if>
+									<div class="chatListImg">
+										<img alt="프로필" src="">
 									</div>
+									<div class="chatListText">
+										<div class="chatListTextUp">
+											<c:choose>
+												<c:when test="${cdto.senderMvo.m_number eq ses.m_number }">
+													${cdto.receiverMvo.m_nick_name }
+												</c:when>
+												<c:otherwise>
+													${cdto.senderMvo.m_nick_name }
+												</c:otherwise>
+											</c:choose>
+										</div>
+										<div class="chatListTextDown">
+											<c:choose>
+												<c:when test="${cdto.lastMessage eq null }">
+													대화 내용이 없습니다.
+												</c:when>
+												<c:otherwise>
+													${cdto.lastMessage }
+												</c:otherwise>
+											</c:choose>
+										</div>
+									</div>								
+								</div>
 							</c:forEach>
 						</div>
 					</div>

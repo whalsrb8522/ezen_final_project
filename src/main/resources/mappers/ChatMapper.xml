@@ -27,7 +27,6 @@
 		select cr_seller from chat_room where cr_number = #{cr_number};
 	</select>
 	
-	
 	<insert id="insertMessage">
 		insert into chat_message(cr_number, cm_sender, cm_content)
 		value(#{cr_number}, #{cm_sender}, #{cm_content});
@@ -48,6 +47,13 @@
 	
 	<update id="updateReadDate">
 		update chat_message set cm_read_date = now() 
-		where cr_number = #{cr_number} and cm_sender = #{m_number};
+		where cr_number = #{cr_number} and cm_sender != #{m_number};
 	</update>
+	
+	<select id="countNotReadMessage" resultType="int">
+		select count(*) from chat_message 
+		where cr_number = #{crvo.cr_number} and 
+			cm_read_date is null and 
+			cm_sender != #{sesMvo.m_number};
+	</select>
 </mapper>
