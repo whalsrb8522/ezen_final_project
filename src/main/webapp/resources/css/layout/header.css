@@ -114,7 +114,7 @@ header .notification {
   width: 250px;
   display: flex;
   align-items: center;
-  border: 1px solid gray;
+  border: 1px solid gray; 
   border-radius: 10px;
   justify-content: center;
   padding: 5px;

@@ -90,11 +90,4 @@ public class ChatController {
 		return new ResponseEntity<ChatMessageDTO>(cmdto, HttpStatus.OK);
 	}
 	
-	// 채팅 수신 확인
-	@GetMapping(value="/header")
-	public ResponseEntity<Boolean> header() {
-		csvc.isReadMessage();
-		
-		return null;
-	}
 }

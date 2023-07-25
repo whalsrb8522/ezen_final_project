@@ -96,9 +96,4 @@
 	</nav>
 </body>
 
-<script type="text/javascript">
-	var sessionMemberNumber = '<c:out value="${ses.m_number }"></c:out>';
-</script>
-<script type="text/javascript" src="/resources/js/chat/header.js"></script>
-
 </html>
