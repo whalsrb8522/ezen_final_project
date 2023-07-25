@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +12,12 @@
 	<link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/member/modify.css">
 	
+	<!-- 닉네임 / 비밀번호 중복 확인을 위해 jquery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
+	<!-- 프로필 사진 미리보기 X심볼 -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@30,400,1,200" />
+	
 	<!-- 구글 폰트 -->
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 	
@@ -20,7 +27,7 @@
 </head>
 <body>
 	<div id="container">
-		<form action="/member/signup" method="POST" id="innerContainer">
+		<form action="/member/modify" method="POST" enctype="multipart/form-data" id="innerContainer">
 			<a href="/" id="logoContainer">	
 				<img alt="로고" src="/resources/img/logo.png" id="logoImage">
 				<span id="logoText">양파마켓</span>
@@ -31,31 +38,35 @@
 			<div id="emailContainer">
 				<h2>이메일</h2>
 				<div id="emailInput">
-					<input type="text" name="" class="border-gray input-box" placeholder="${member.mvo.m_mail} " disabled="disabled">
+					<input type="text" name="m_mail" class="border-gray input-box" value="${member.mvo.m_mail}" placeholder="${member.mvo.m_mail} " disabled="disabled">
 				</div>
 			</div>
 			
 			<div id="oldPasswordContainer">
 				<h2>기존 비밀번호</h2>
 				<h6>영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</h6>
-				<input type="password" id="" value="" name="" class="border-gray input-box" placeholder="비밀번호">
+				<input type="password" id="userpw" value="" name="m_pw" class="border-gray input-box" placeholder="비밀번호">
+				<div class="passwordAlert"></div>
 			</div>			
 			
 			<div id="newPasswordContainer">
 				<h2>변경 비밀번호</h2>
 				<h6>영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</h6>
-				<input type="password" id="" name="" class="border-gray input-box" placeholder="비밀번호">
+				<input type="password" id="changePw" name="m_chgPw" class="border-gray input-box" placeholder="비밀번호">
+				<div class="newPasswordAlert"></div>
 			</div>			
 			
 			<div id="newPasswordCheckContainer">
 				<h2>변경 비밀번호 확인</h2>
-				<input type="password" id="" class="border-gray input-box" placeholder="비밀번호 확인">
+				<input type="password" id="changePwChk" name="m_chgPw_check" class="border-gray input-box" placeholder="비밀번호 확인">
+				<div class="successPwChk"></div>
 			</div>
 			
 			<div id="nickNameContainer">
 				<h2>닉네임</h2>
 				<h6>다른 유저와 겹치지 않도록 입력해주세요. (2~15자)</h6>
-				<input type="text" id="modNick" value="${member.mvo.m_nick_name}" class="border-gray input-box" placeholder="닉네임">
+				<input type="text" id="nick" value="${member.mvo.m_nick_name}" name="m_nick_name" class="border-gray input-box" placeholder="닉네임">
+				<div class="successNameChk"></div>
 			</div>
 			
 			<div id="introduceContainer">
@@ -122,6 +133,8 @@
 		</form>
 	</div>
 	
-	<script type="text/javascript" src="/resources/js/member/signup.js"></script>
+	<script type="text/javascript" src="/resources/js/member/modify.js"></script>
+	
+	
 </body>
 </html>

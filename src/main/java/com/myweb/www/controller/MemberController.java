@@ -1,16 +1,24 @@
 package com.myweb.www.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Map;
+import java.util.UUID;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,6 +43,8 @@ public class MemberController {
 	private MemberService memberService;
 	@Inject
 	private MemberImageHandler mihd;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	//회원가입
 	@GetMapping("/signup")
@@ -117,7 +127,7 @@ public class MemberController {
 		request.getSession().invalidate();
 		m.addAttribute("msg_logout", 1);
 		
-		return "home";
+		return "redirect:/";
 	}
 	
 	// 회원정보
@@ -140,6 +150,7 @@ public class MemberController {
 //
 //	}
 
+	
 	// 회원정보 수정 페이지
 	@GetMapping("/modify")
 	public String modifyGet(HttpServletRequest request, Model model) {
@@ -154,56 +165,107 @@ public class MemberController {
 	        return "not-found"; // 회원을 찾지 못한 경우에 대한 예외 처리
 	    }
 	}
-	
-	
-	
 
 	// 회원정보 수정 처리
 	@PostMapping("/modify")
 	public String modifyPost(HttpServletRequest request,
-	                         @RequestParam("old_password") String oldPassword,
-	                         @RequestParam("new_password") String newPassword,
-	                         @RequestParam("nickname") String nickname,
-	                         @RequestParam("introduce") String introduce,
+	                         @RequestParam("m_pw") String oldPassword,
+	                         @RequestParam("m_chgPw") String newPassword,
+	                         @RequestParam("m_nick_name") String nickname,
+	                         @RequestParam("m_introduct") String introduce,
 	                         @RequestParam(name="file", required = false) MultipartFile file,
-	                         Model m, RedirectAttributes rAttr) {
+	                         @RequestParam("m_address") String address,
+	                         Model model) {
+		log.info("회원 정보 수정 시작: " + request.getSession().getAttribute("m_number"));
+	    // 현재 로그인한 사용자 정보를 받아옴.
 	    HttpSession session = request.getSession();
-	    Integer m_number = (Integer) session.getAttribute("m_number");
-	    MemberDTO memberDTO = memberService.getMemberDetails(m_number); // 변경된 부분
+	    MemberVO loggedInUser = (MemberVO)session.getAttribute("ses");
 
-	    if (memberDTO == null) {
-	        return "not-found"; // 회원을 찾지 못한 경우에 대한 예외 처리
+	    if (loggedInUser == null) {
+	        // 로그인이 되어있지 않으면 로그인 페이지로 리다이렉트
+	        return "redirect:/member/signin";
 	    }
 
-	    MemberVO member = memberDTO.getMvo(); // 기존 회원 정보 얻기
-	    if (!member.getM_pw().equals(oldPassword)) {
-	        rAttr.addFlashAttribute("errorMessage", "기존 비밀번호가 일치하지 않습니다.");
-	        return "redirect:/member/modify";
+	    // 비밀번호 확인. 만약 기존 비밀번호와 일치하지 않으면 오류 메시지를 띄우고 수정 페이지로 돌아감.
+	    if (!passwordEncoder.matches(oldPassword, loggedInUser.getM_pw())) {
+	    	log.info("비밀번호 일치하지 않음: " + loggedInUser.getM_number());
+	        model.addAttribute("errorMessage", "기존 비밀번호가 일치하지 않습니다.");
+	        return "member/modify";
 	    }
 
-	    MemberImageVO mivo = null;
-	    if(file != null && file.getSize() > 0) { 
-	        mivo = mihd.uploadFile(file); 
+	    // 새로운 비밀번호 암호화
+	    String encodedNewPassword = passwordEncoder.encode(newPassword);
+	    loggedInUser.setM_pw(encodedNewPassword);
+	    log.info("비밀번호 암호화 완료: " + loggedInUser.getM_number());
+
+	    // 닉네임, 자기소개, 주소 변경
+	    loggedInUser.setM_nick_name(nickname);
+	    loggedInUser.setM_introduct(introduce);
+	    loggedInUser.setM_address(address);
+	    log.info("회원 정보 변경 완료: " + loggedInUser.getM_number());
+
+	 // 파일이 업로드 된 경우에만 파일 변경
+	    if (file != null && !file.isEmpty()) {
+	        // 파일의 원래 이름을 가져옵니다.
+	        String originalFilename = file.getOriginalFilename();
+	        // 파일 이름을 현재 시간 + 원래 파일 이름으로 설정하여 중복을 방지합니다.
+	        String filename = System.currentTimeMillis() + originalFilename;
+	        // 파일을 저장할 경로를 설정합니다.
+	        String savePath = "E:\\\\Workspace\\\\ezen_final_project\\\\src\\\\main\\\\webapp\\\\resources\\\\fileUpload";
+
+	        // 파일을 지정된 경로에 저장합니다.
+	        try {
+	            file.transferTo(new File(savePath, filename));
+	            log.info("File transfer completed: " + filename); // 파일 전송 완료 로그
+	        } catch (IOException e) {
+	            log.error("Error during file transfer: ", e); // 파일 전송 중 오류 로그
+	            e.printStackTrace();
+	        }
+
+	        // 새로운 MemberImageVO 객체를 생성하고, 파일에 관련된 정보를 설정합니다.
+	        MemberImageVO memberImage = new MemberImageVO();
+	        memberImage.setMi_name(filename);
+	        memberImage.setMi_dir(savePath);
+	        memberImage.setMi_uuid(UUID.randomUUID().toString());
+	        memberImage.setM_number(loggedInUser.getM_number());
+
+	        // 회원 정보와 이미지 정보를 가지는 MemberDTO 객체를 생성합니다.
+	        MemberDTO memberDTO = new MemberDTO();
+	        memberDTO.setMvo(loggedInUser);
+	        memberDTO.setMivo(memberImage);
+
+	        // 회원 정보와 이미지 정보를 DB에 업데이트합니다.
+	        try {
+	            memberService.updateMember(memberDTO);
+	            log.info("회원 정보 DB 업데이트 완료: " + loggedInUser.getM_number()); // 회원 정보 업데이트 완료 로그
+	        } catch (Exception e) {
+	            log.error("회원 정보 DB 업데이트 오류: " + loggedInUser.getM_number(), e); // 회원 정보 업데이트 오류 로그
+	        }
+	        
 	    } else {
-	        log.info("수정 이미지 file null");
+	        // 파일이 업로드되지 않은 경우, 이미지 정보 없이 사용자 정보만 변경합니다.
+	        MemberDTO memberDTO = new MemberDTO();
+	        memberDTO.setMvo(loggedInUser);
+	        memberService.updateMember(memberDTO);
+	        log.info("회원 정보 DB 업데이트 완료 (이미지 없음): " + loggedInUser.getM_number()); // 회원 정보 업데이트 완료 로그 (이미지 없음)
 	    }
 
-	    member.setM_pw(newPassword);
-	    member.setM_nick_name(nickname);
-	    member.setM_introduct(introduce);
 
-	    MemberDTO mdto = new MemberDTO(member, mivo);
-	    int isOk = memberService.modifyMember(mdto);
+	    // 세션에 변경된 사용자 정보 업데이트
+	    session.setAttribute("ses", loggedInUser);
+	    log.info("세션 정보 업데이트 완료: " + loggedInUser.getM_number());
 
-	    if(isOk > 0) {
-	        m.addAttribute("msg_modify", 1);
-	        rAttr.addFlashAttribute("isOk", isOk);
-	    } else {
-	        m.addAttribute("msg_modify", 0);
-	    }
-
-	    return "redirect:/member/detail";
+	    
+	    log.info("회원 정보 수정 완료: " + request.getSession().getAttribute("m_number"));
+	    // 수정이 완료되었으면 메인 페이지로 리다이렉트
+	    return "redirect:/";
 	}
+	
+
+
+
+
+
 
 
 
