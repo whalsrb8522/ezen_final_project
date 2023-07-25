@@ -39,8 +39,6 @@ public interface ProductDAO {
 
 	ProductLikeVO selectProductLike(@Param("p_number")int p_number, @Param("sesM_number")int sesM_number);
 
-	ProductVO selectOne(int p_number);
-
 	int updateModify(ProductVO pvo);
 
 }

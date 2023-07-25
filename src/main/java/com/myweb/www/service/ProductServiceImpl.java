@@ -114,7 +114,6 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public int updateModify(ProductDTO pdto) {
-		ProductVO tmpProduct = pdao.selectOne(pdto.getPvo().getP_number());
 		int isOk = pdao.updateModify(pdto.getPvo());
 		if(pdto.getPiList()==null) {
 			isOk *= 1;
