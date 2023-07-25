@@ -42,11 +42,15 @@ public class ChatServiceImpl implements ChatService {
 		List<ChatRoomVO> listCrvo = cdao.selectChatRoom(sesMvo);
 		
 		for(ChatRoomVO crvo : listCrvo) {
+			log.info(">>> crvo : " + crvo.toString());
+			log.info(">>> sesMvo : " + sesMvo.toString());
+			
 			String lastMessage = cdao.selectLastMessage(crvo);
+			int notReadCount = cdao.countNotReadMessage(crvo, sesMvo);
 			MemberVO sender_mvo = mdao.selectMemberWithNumber(crvo.getCr_seller());
 			MemberVO receiver_mvo = mdao.selectMemberWithNumber(crvo.getCr_buyer());
 			
-			listCdto.add(new ChatRoomDTO(crvo, lastMessage, sender_mvo, receiver_mvo));
+			listCdto.add(new ChatRoomDTO(crvo, lastMessage, notReadCount, sender_mvo, receiver_mvo));
 		}
 		
 		return listCdto;
@@ -63,6 +67,7 @@ public class ChatServiceImpl implements ChatService {
 		MemberVO mvo = new MemberVO();
 		ProductDTO pdto = new ProductDTO(
 				pdao.selectProductWithNumber(cr_number),
+				null,
 				pidao.selectFile(cr_number));
 		List<ChatMessageVO> listCmvo = cdao.selectMessage(cr_number);
 		

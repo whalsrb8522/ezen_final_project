@@ -15,14 +15,14 @@ var roomMidBox = document.getElementById('roomMidBox');           // 채팅 내�
 stomp.connect({}, () => {
     // STOMP 연결 끊겼을 경우
     stomp.ws.onclose = function (event) {
-        stomp.send('/pub/chat/disconnet', {}, JSON.stringify({cr_number: this.cr_number, cm_sender: this.sessionMemberNumber }));
+        stomp.send('/pub/chat/disconnet', {}, JSON.stringify({ cr_number: this.cr_number, cm_sender: this.sessionMemberNumber }));
     };
 
     // 메시지 수신했을 경우 채팅방 갱신
     stomp.subscribe("/sub/chat/main/*", (chat) => {
         printChatList();
     });
-});   
+});
 
 // 채팅방 열기
 async function getChat(cr_number) {
@@ -31,6 +31,7 @@ async function getChat(cr_number) {
     this.cr_number = cr_number;
 
     printChatRoom(this.cr_number);
+    printChatList();
 
     stomp.subscribe("/sub/chat/main/" + cr_number, (chat) => {
         console.log(">>> mainChat : " + chat);
@@ -93,7 +94,8 @@ async function printChatList() {
                             ${cdto.lastMessage == null ? "대화 내용이 없습니다." : cdto.lastMessage}
                         </div>
                     </div>
-                </div>`;
+                </div>
+            `;
 
             chatListContainer.innerHTML += div;
         }
@@ -115,7 +117,7 @@ async function printChatRoom(cr_number) {
         roomTopBoxNick.innerHTML = mvo.m_nick_name;
 
         let div = `
-            <img alt="" src="/resources/fileUpload/${pdto.piList[0].pi_dir }/${pdto.piList[0].pi_uuid }_th_${pdto.piList[0].pi_name }" class="item-image">
+            <img alt = "" src = "/resources/fileUpload/${pdto.piList[0].pi_dir}/${pdto.piList[0].pi_uuid}_th_${pdto.piList[0].pi_name}" class="item-image" >
             <div class="item-info">
                 <span class="trade-status">거래중</span>
                 <span class="price">${pdto.pvo.p_price}원</span>
@@ -149,10 +151,11 @@ function printMessage(sender, loginUser, content) {
     div.innerHTML += `
         <div class="chatMessage">
             ${content}
-        </div>
+        </div >
         <div class="chatTime">
             00:00
-        </div>`
+        </div>
+    `;
 
     roomMidBox.appendChild(div);
 }

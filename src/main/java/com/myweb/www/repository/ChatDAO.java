@@ -34,4 +34,8 @@ public interface ChatDAO {
 			@Param("cr_number")int cr_number, 
 			@Param("m_number")int m_number);
 
+	public int countNotReadMessage(
+			@Param("crvo")ChatRoomVO crvo, 
+			@Param("sesMvo")MemberVO sesMvo);
+
 }
