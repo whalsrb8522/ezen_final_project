@@ -14,7 +14,6 @@ let marker = new daum.maps.Marker({
     map: map
 });
 
-
 function search_loca() {
     new daum.Postcode({
         oncomplete: function (data) {
@@ -87,13 +86,55 @@ function setDetailImage(event) {
             // 썸네일 삭제
             li.remove();
         });
-        fileInput.addEventListener('click',()=>{
+
+        fileInput.addEventListener('click', () => {
             li.remove();
         })
 
         fileUl.appendChild(li);
     }
 }
+
+
+async function removeFileToserver(uuid) {
+    try {
+        const url = '/product/file/' + uuid;
+        const config = {
+            method: 'delete'
+        };
+        const response = await fetch(url, config);
+        const result = await response.text();
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// 기존 등록된 이미지를 삭제하는 함수
+function deleteFile(button) {
+    const li = button.parentNode;
+    let uuid = button.dataset.uuid;
+    console.log(uuid);
+
+    // DB에서 데이터 삭제
+    removeFileToserver(uuid).then(result => {
+        console.log(result);
+        if (result > 0) {
+            // 썸네일 삭제
+            li.remove();
+        }
+    })
+
+    // 해당 파일을 목록에서 제거
+    // const filesArray = Array.from(fileInput.files);
+    // const updatedFiles = filesArray.filter(file => file.name !== li.firstChild.src.split('/').pop());
+
+    // const dataTransfer = new DataTransfer();
+    // updatedFiles.forEach(file => dataTransfer.items.add(file));
+    // fileInput.files = dataTransfer.files;
+}
+
+
 
 // 카테고리 선택
 const cate_btn = document.querySelectorAll('.cate-btn');

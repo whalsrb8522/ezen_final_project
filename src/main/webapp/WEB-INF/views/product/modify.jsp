@@ -26,6 +26,12 @@
 						이미지 등록
 						<input type="file" id="file" name="files" onchange="setDetailImage(event);" multiple class="file-input" accept="image/*">
 					</li>
+					<c:forEach items="${flist }" var="flist">
+						<li class="regi-file">
+							<img src="/resources/fileUpload/${flist.pi_dir }/${flist.pi_uuid }_th_${flist.pi_name }" style="width:202px; height:202px;">
+							<button type="button" class="file-del" data-uuid="${flist.pi_uuid }" onclick="deleteFile(this);"></button>
+						</li>
+					</c:forEach>
 				</ul>
 			</div>
 		</div>
@@ -86,7 +92,7 @@
 		<div id="loca-wrap">
 			<div class="register-title regi-location">거래 희망 장소</div>
 			<div id="search-loca">
-				<input type="text" id="search-address" class="border-gray search-input" name="p_location" placeholder="주소 검색을 눌러 입력해 주세요." onblur="deleteErrorMsg();" readonly="readonly">
+				<input type="text" id="search-address" class="border-gray search-input" name="p_location" value="${pvo.p_location }" placeholder="주소 검색을 눌러 입력해 주세요." onblur="deleteErrorMsg();" readonly="readonly">
 				<input type="button" class="background-gray search-loca-btn" onclick="search_loca()" value="주소 검색"><br>
 				<span id="locationError" class="error-message"></span>
 				<div id="regi-map" style="width:800px;height:300px;margin-top:10px;display:none"></div>
@@ -97,7 +103,7 @@
 			<div class="register-title">가격</div>
 			<div id="price-all">
 				<div>
-					<input class="border-gray title-input" name="p_price" id="priceInput" placeholder="숫자만 입력해 주세요." onkeyup="deleteErrorMsg();" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+					<input class="border-gray title-input" name="p_price" id="priceInput" value="${pvo.p_price }" placeholder="숫자만 입력해 주세요." onkeyup="deleteErrorMsg();" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 					<span>원</span>
 				</div>
 				<span id="priceError" class="error-message"></span>
@@ -109,7 +115,7 @@
 			<div id="info-all">
 				<div id="regi-info">
 					<textarea rows="10" class="info-text border-gray" name="p_info" id="infoInput" onkeyup="counterInfo(); deleteErrorMsg();" 
-					placeholder="여러 장의 상품 사진과 구입 연도, 브랜드, 사용감, 하자 유무 등 구매자에게 필요한 정보를 꼭 포함해 주세요."></textarea>
+					placeholder="여러 장의 상품 사진과 구입 연도, 브랜드, 사용감, 하자 유무 등 구매자에게 필요한 정보를 꼭 포함해 주세요.">${pvo.p_info }</textarea>
 					<span id="countingInfo">0/2000</span>
 				</div>
 				<span id="infoError" class="error-message"></span>
@@ -120,18 +126,18 @@
 			<div class="register-title">결제</div>
 			<div>
 				<label class="pay-label">
-					<input type="radio" name="p_pay" value="onionPay" checked="checked">
+					<input type="radio" name="p_pay" value="onionPay" <c:if test="${pvo.p_pay eq '양파페이' }">checked="checked"</c:if>>
 					<span>양파페이</span>
   				</label>
   				<label>
-					<input type="radio" name="p_pay" value="money">
+					<input type="radio" name="p_pay" value="money" <c:if test="${pvo.p_pay eq '만나서 현금 결제' }">checked="checked"</c:if>>
 					<span>만나서 현금 결제</span>
 				</label>
 			</div>
 		</div>
 		<div id="btn-wrap">
-			<button id="productRegiBtn" class="background-purple regi-btn">등록하기</button>
-			<a href="/product/list"><button type="button" class="background-gray regi-btn">취소</button></a>
+			<button id="productRegiBtn" class="background-purple regi-btn">수정하기</button>
+			<a href="javascript:window.history.back();"><button type="button" class="background-gray regi-btn">취소</button></a>
 		</div>
 	</div>
 </form>	

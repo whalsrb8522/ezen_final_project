@@ -61,9 +61,10 @@ document.querySelectorAll(".slider-dot .dot").forEach((dot, index) => {
 // product-status 변경하기
 async function changeStatus(target) {
     var p_status = target.value;
-    console.log(p_status);
+    console.log(">>> p_number = " + p_number);
+    console.log(">>> p_status = " + p_status);
     try {
-        const url = '/product/detail';
+        const url = '/product/status';
         const config = {
             method: 'post',
             headers: {
@@ -82,10 +83,11 @@ async function changeStatus(target) {
 
 // 찜 기능 구현
 async function updateLike(event) {
-    let p_like = event.target.value;
-    console.log(p_like);
+    console.log(">>> p_number = " + p_number);
+    console.log(">>> sessionMemberNumber = " + sessionMemberNumber);
+
     try {
-        const url = '/product/detail';
+        const url = '/product/like';
         const config = {
             method: 'post',
             headers: {
@@ -97,14 +99,16 @@ async function updateLike(event) {
             })
         }
         const response = await fetch(url, config);
-        const result = await response.text();
-        console.log(result);
-        const likeButton = document.getElementById('p_like');
-        if (result === "liked") {
-            likeButton.innerText = '찜 해제';
-        } else if (result === "unliked") {
-            likeButton.innerText = '찜';
-        }
+        // const result = await response.text();
+
+        location.reload();
+
+        // const likeButton = document.getElementById('p_like');
+        // if (result === "liked") {
+        //     likeButton.innerText = '찜 해제';
+        // } else if (result === "unliked") {
+        //     likeButton.innerText = '찜';
+        // }
     } catch (error) {
         console.log(error);
     }

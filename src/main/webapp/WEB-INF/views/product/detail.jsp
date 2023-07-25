@@ -18,6 +18,7 @@
 	<jsp:include page="../layout/header.jsp"></jsp:include>
 	<c:set var="pvo" value="${pdto.pvo }"></c:set>
 	<c:set var="flist" value="${pdto.piList }"></c:set>
+	<c:set var="plvo" value="${pdto.plvo }"></c:set>
 	<!-- 전체 틀 -->
 	<div id="detail-wrap">
 		<div id="detail-category">
@@ -48,15 +49,16 @@
 			<hr>
 			<br>
 			<!-- 거래 상태 표시 -->
-			<div>
-				<select name="p_status" class="product-status" onchange="changeStatus(this)">
-	 	 			<option disabled>판매상태</option>
-	  				<option value="0" <c:if test="${pvo.p_status eq 0 }">selected="selected"</c:if>>구매가능</option>
-	  				<option value="1" <c:if test="${pvo.p_status eq 1 }">selected="selected"</c:if>>예약중</option>
-	  				<option value="2" <c:if test="${pvo.p_status eq 2 }">selected="selected"</c:if>>거래완료</option>
-	  				
-				</select>
-			</div>
+			<c:if test="${pvo.m_number eq ses.m_number }">
+				<div>
+					<select name="p_status" class="product-status" onchange="changeStatus(this)">
+		 	 			<option disabled>판매상태</option>
+		  				<option value="0" <c:if test="${pvo.p_status eq 0 }">selected="selected"</c:if>>구매가능</option>
+		  				<option value="1" <c:if test="${pvo.p_status eq 1 }">selected="selected"</c:if>>예약중</option>
+		  				<option value="2" <c:if test="${pvo.p_status eq 2 }">selected="selected"</c:if>>거래완료</option>
+					</select>
+				</div>
+			</c:if>
 					
 			<div id="detail-left">
 			<div class="slider_img">
@@ -108,12 +110,19 @@
 					<a href="javascript:window.history.back();"><button type="button" class="background-gray detail-btn">다른 상품 찾기</button></a>
 					<c:choose>
 						<c:when test="${ses.m_number ne pvo.m_number && ses.m_number ne null }">
-							<button type="button" id="p_like" class="background-gray detail-btn" onclick="updateLike(event)">찜</button>
+							<c:choose>
+								<c:when test="${plvo eq null }">
+									<button type="button" id="p_like" class="background-gray detail-btn" onclick="updateLike(event)">찜</button>
+								</c:when>
+								<c:when test="${plvo ne null }">
+									<button type="button" id="p_like" class="background-gray detail-btn" onclick="updateLike(event)">찜 해제</button>
+								</c:when>
+							</c:choose>
 							<button type="button" class="background-purple detail-btn" onclick="createChatRoom(${param.p_number})">채팅하기</button>
 						</c:when>
 						
 						<c:when test="${ses.m_number eq pvo.m_number && ses.m_number ne null }">
-							<a href="/product/modify"><button type="button" class="background-gray detail-btn">수정하기</button></a>
+							<a href="/product/modify?p_number=${pvo.p_number }"><button type="button" class="background-gray detail-btn">수정하기</button></a>
 							<button type="button" class="background-purple detail-btn" onclick="location.href='/chat/main'">내 채팅방</button>
 						</c:when>
 					</c:choose>
@@ -215,9 +224,6 @@
 <script type="text/javascript">
 		var p_number = ${param.p_number};
 		var sessionMemberNumber = '<c:out value="${ses.m_number }"></c:out>';
-		
-		console.log(">>> p_number = " + p_number);
-		console.log(">>> sessionMemberNumber = " + sessionMemberNumber);
 </script>
 </body>
 </html>
