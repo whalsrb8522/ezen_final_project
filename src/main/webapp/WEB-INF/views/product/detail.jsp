@@ -82,7 +82,7 @@
 					<div id="detail-title">${pvo.p_name }</div>
 					<div id="price-wrap">
 						<div id="detail-price">${pvo.p_price } <span style="font-size:24px">원</span></div>
-						<div id="detail-pay">양파페이</div>
+						<div id="detail-pay">${pvo.p_pay }</div>
 					</div>
 				</div>
 				<div id="little-wrap">
