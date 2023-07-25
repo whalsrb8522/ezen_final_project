@@ -1,3 +1,7 @@
+// 기본 비밀번호 확인 (일치하지 않을 시 폼 제출X)
+
+
+
 // 닉네임 중복 확인
 
 function checkNickname() {
@@ -50,22 +54,10 @@ function checkNickname() {
      });
  }
 
-// 비밀번호
+// 비밀번호 변경
 
 document.addEventListener('DOMContentLoaded', function() {
      var passwordReg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
- 
-     // 기존 비밀번호 확인
-     document.getElementById('userpw').addEventListener('blur', function() {
-         var oldPassword = document.getElementById('userpw').value;
- 
-         if (oldPassword.length > 0) { // oldPassword의 길이가 0보다 클 경우에만 코드 실행
-             document.querySelector('.passwordAlert').innerText = "확인되었습니다.";
-             document.querySelector('.passwordAlert').style.color = "green";
-         } else {
-             document.querySelector('.passwordAlert').innerText = "";
-         }
-     });
  
      // 변경 비밀번호 확인
      document.getElementById('changePw').addEventListener('blur', function() {
@@ -236,15 +228,7 @@ function execDaumPostcode() {
 
 // 기존 약관 불러오기 (추가할 것)
 
-// 기존 비밀번호를 입력해야 수정이 되도록 수정할 것
 
 
 
-// 체크
-$("#modifyForm").on("submit", function() {
-    var oldPw = $("#userpw").val();
-    var newPw = $("#changePw").val();
-    alert("Old Password: " + oldPw);
-    alert("New Password: " + newPw);
-    // Rest of the submit function
-});
+
