@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,6 +66,7 @@
 				<h2>닉네임</h2>
 				<h6>다른 유저와 겹치지 않도록 입력해주세요. (2~15자)</h6>
 				<input type="text" id="nick" value="${member.mvo.m_nick_name}" name="m_nick_name" class="border-gray input-box" placeholder="닉네임">
+				<div class="successNameChk"></div>
 			</div>
 			
 			<div id="introduceContainer">
@@ -132,5 +134,7 @@
 	</div>
 	
 	<script type="text/javascript" src="/resources/js/member/modify.js"></script>
+	
+	
 </body>
 </html>
