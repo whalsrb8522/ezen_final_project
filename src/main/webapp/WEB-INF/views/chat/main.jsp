@@ -37,39 +37,48 @@
 						<!-- 채팅방 목록 -->
 						<div class="chatListContainer">
 							<c:forEach items="${listCdto }" var="cdto">
-									<div class="chatList" onclick="getChat(${cdto.crvo.cr_number })">
-										<div class="chatListImg">
-											<img alt="프로필" src="">
+								<script type="text/javascript">
+									console.log('<c:out value="${cdto}"></c:out>');
+								</script>
+							
+								<div class="chatList" onclick="getChat(${cdto.crvo.cr_number })">
+									<c:if test="${cdto.notReadCount > 0 }">
+										<div class="chatListCount">
+											${cdto.notReadCount }
 										</div>
-										<div class="chatListText">
-											<div class="chatListTextUp">
-												<c:choose>
-													<c:when test="${cdto.senderMvo.m_number eq ses.m_number }">
-														${cdto.receiverMvo.m_nick_name }
-													</c:when>
-													<c:otherwise>
-														${cdto.senderMvo.m_nick_name }
-													</c:otherwise>
-												</c:choose>
-											</div>
-											<div class="chatListTextDown">
-												<c:choose>
-													<c:when test="${cdto.lastMessage eq null }">
-														대화 내용이 없습니다.
-													</c:when>
-													<c:otherwise>
-														${cdto.lastMessage }
-													</c:otherwise>
-												</c:choose>
-											</div>
-										</div>								
+									</c:if>
+									<div class="chatListImg">
+										<img alt="프로필" src="">
 									</div>
+									<div class="chatListText">
+										<div class="chatListTextUp">
+											<c:choose>
+												<c:when test="${cdto.senderMvo.m_number eq ses.m_number }">
+													${cdto.receiverMvo.m_nick_name }
+												</c:when>
+												<c:otherwise>
+													${cdto.senderMvo.m_nick_name }
+												</c:otherwise>
+											</c:choose>
+										</div>
+										<div class="chatListTextDown">
+											<c:choose>
+												<c:when test="${cdto.lastMessage eq null }">
+													대화 내용이 없습니다.
+												</c:when>
+												<c:otherwise>
+													${cdto.lastMessage }
+												</c:otherwise>
+											</c:choose>
+										</div>
+									</div>								
+								</div>
 							</c:forEach>
 						</div>
 					</div>
 				</div>
 				<div class="roomContainer">
-					<div id="chatDisplyNone">
+					<div id="chatDisplayNone">
 						<p>대화를 선택해주세요.</p>
 					</div>
 					
@@ -78,7 +87,6 @@
 							<span class="material-symbols-outlined" id="backBtn">keyboard_backspace</span>
 							<div class="roomTopBox3">
 								<div class="roomTopBox-nick">닉네임</div>
-								<div class="roomTopBox-time">평균 응답 시간</div>
 							</div>
 						</div>
 						
@@ -114,7 +122,7 @@
 							<div id="roomInputBox">
 								<span id="modalBtn" class="material-symbols-outlined">add</span>
 								<div id="roomInputRight">
-									<input type="text" id="chatInput" placeholder="메시지를 입력해주세요." onkeypress="if(event.keyCode==13){sendMessage();}">
+									<input type="text" id="chatInput" placeholder="메시지를 입력해주세요." onKeypress="javascript:if(event.keyCode==13) {sendMessage()}">
 									<span id="chatSendBtn" class="material-symbols-outlined" onclick="sendMessage()">send</span>
 								</div>
 							</div>

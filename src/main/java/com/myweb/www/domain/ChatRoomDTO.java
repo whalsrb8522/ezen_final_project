@@ -14,6 +14,7 @@ import lombok.ToString;
 public class ChatRoomDTO {
 	private ChatRoomVO crvo;
 	private String lastMessage;
+	private int notReadCount;
 	private MemberVO senderMvo;
 	private MemberVO receiverMvo;
 }

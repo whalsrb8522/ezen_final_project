@@ -62,6 +62,7 @@ hr {
 }
 
 .chatList {
+	position: relative;
 	cursor: pointer;
 	height: 80px;
 	display: flex;
@@ -71,6 +72,21 @@ hr {
 
 .chatList:hover {
 	background-color: rgb(246, 246, 246);
+}
+
+.chatListCount {
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	border-radius: 100%;
+	background: rgb(255, 84, 66);
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: 8px;
+	left: 8px;
+	font-size: 13px;
 }
 
 .chatListImg {
@@ -173,7 +189,7 @@ hr {
 	background-color: rgb(246, 246, 246);
 }
 
-#chatDisplyNone {
+#chatDisplayNone {
 	width: 100%;
 	height: 100%;
 	display: flex;
@@ -215,7 +231,7 @@ hr {
 	cursor: pointer;
 }
 
-.roomTopBox-time {
+.roomTopBox-online {
 	font-size: 12px;
 	color: rgb(153, 153, 153);
 }

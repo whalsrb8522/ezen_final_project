@@ -12,7 +12,7 @@ public interface ChatService {
 
 	List<ChatRoomDTO> getChatList(MemberVO sesMvo);
 
-	ChatMessageDTO getMessage(int cr_number);
+	ChatMessageDTO getMessage(int cr_number, int sessionM_number);
 
 	void insertMessage(ChatMessageVO cmvo);
 
