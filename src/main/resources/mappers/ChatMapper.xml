@@ -27,9 +27,13 @@
 		select cr_seller from chat_room where cr_number = #{cr_number};
 	</select>
 	
-	<insert id="insertMessage">
+	<insert id="insertTextMessage">
 		insert into chat_message(cr_number, cm_sender, cm_content)
 		value(#{cr_number}, #{cm_sender}, #{cm_content});
+	</insert>
+	
+	<insert id="insertImageMessage">
+		insert into chat_message()
 	</insert>
 	
 	<update id="updateSendDate">

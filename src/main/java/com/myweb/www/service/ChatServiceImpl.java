@@ -87,9 +87,15 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	@Override
-	public void insertMessage(ChatMessageVO cmvo) {
-		cdao.insertMessage(cmvo);
+	public void insertTextMessage(ChatMessageVO cmvo) {
+		cdao.insertTextMessage(cmvo);
 		cdao.updateSendDate(cmvo);
+	}
+
+	@Override
+	public void insertImageMessage(ChatMessageVO cmvo) {
+		cdao.insertImageMessage(cmvo);
+		cdao.updateSendDate(cmvo);		
 	}
 
 	@Override

@@ -30,7 +30,11 @@ public class StompController {
     	log.info(">>> message() > cmvo.cr_number = " + cmvo.getCr_number());
     	log.info(">>> message() > cmvo = " + cmvo.toString());
     	
-    	csvc.insertMessage(cmvo);
+    	if (cmvo.getCm_type().equals("t")) {
+    		csvc.insertTextMessage(cmvo);
+    	} else if (cmvo.getCm_type().equals("i")) {
+    		csvc.insertImageMessage(cmvo);
+    	}
         messagingTemplate.convertAndSend("/sub/chat/main/" + cmvo.getCr_number(), cmvo);
     }
 
