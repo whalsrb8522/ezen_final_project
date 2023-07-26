@@ -12,5 +12,14 @@
     	select * from member_image where m_number = #{m_number}
 	</select>
 	
+	<update id="updateMemberImage">
+    update member_image
+    set 
+    mi_uuid = #{mi_uuid},
+    mi_dir = #{mi_dir},
+    mi_name = #{mi_name}
+    where m_number = #{m_number}
+</update>
+	
 
 </mapper>

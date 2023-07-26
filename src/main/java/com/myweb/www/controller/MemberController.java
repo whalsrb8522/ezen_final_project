@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,7 +45,7 @@ public class MemberController {
 	@Inject
 	private MemberImageHandler mihd;
 	@Autowired
-	private PasswordEncoder passwordEncoder;
+	private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 	//회원가입
 	@GetMapping("/signup")
@@ -144,11 +145,6 @@ public class MemberController {
 	        return "not-found"; // 회원을 찾지 못한 경우에 대한 예외 처리
 	    }
 	}
-	
-//	@GetMapping("/modify")	
-//	public void modify() {	
-//
-//	}
 
 	
 	// 회원정보 수정 페이지
@@ -197,6 +193,10 @@ public class MemberController {
 	    String encodedNewPassword = passwordEncoder.encode(newPassword);
 	    loggedInUser.setM_pw(encodedNewPassword);
 	    log.info("비밀번호 암호화 완료: " + loggedInUser.getM_number());
+	    
+	 // 세션에 변경된 사용자 정보 업데이트
+	    session.setAttribute("ses", loggedInUser);
+	    log.info("세션 정보 업데이트 완료: " + loggedInUser.getM_number());
 
 	    // 닉네임, 자기소개, 주소 변경
 	    loggedInUser.setM_nick_name(nickname);
@@ -206,27 +206,7 @@ public class MemberController {
 
 	 // 파일이 업로드 된 경우에만 파일 변경
 	    if (file != null && !file.isEmpty()) {
-	        // 파일의 원래 이름을 가져옵니다.
-	        String originalFilename = file.getOriginalFilename();
-	        // 파일 이름을 현재 시간 + 원래 파일 이름으로 설정하여 중복을 방지합니다.
-	        String filename = System.currentTimeMillis() + originalFilename;
-	        // 파일을 저장할 경로를 설정합니다.
-	        String savePath = "E:\\\\Workspace\\\\ezen_final_project\\\\src\\\\main\\\\webapp\\\\resources\\\\fileUpload";
-
-	        // 파일을 지정된 경로에 저장합니다.
-	        try {
-	            file.transferTo(new File(savePath, filename));
-	            log.info("File transfer completed: " + filename); // 파일 전송 완료 로그
-	        } catch (IOException e) {
-	            log.error("Error during file transfer: ", e); // 파일 전송 중 오류 로그
-	            e.printStackTrace();
-	        }
-
-	        // 새로운 MemberImageVO 객체를 생성하고, 파일에 관련된 정보를 설정합니다.
-	        MemberImageVO memberImage = new MemberImageVO();
-	        memberImage.setMi_name(filename);
-	        memberImage.setMi_dir(savePath);
-	        memberImage.setMi_uuid(UUID.randomUUID().toString());
+	    	MemberImageVO memberImage = mihd.uploadFile(file);
 	        memberImage.setM_number(loggedInUser.getM_number());
 
 	        // 회원 정보와 이미지 정보를 가지는 MemberDTO 객체를 생성합니다.
@@ -251,9 +231,7 @@ public class MemberController {
 	    }
 
 
-	    // 세션에 변경된 사용자 정보 업데이트
-	    session.setAttribute("ses", loggedInUser);
-	    log.info("세션 정보 업데이트 완료: " + loggedInUser.getM_number());
+	    
 
 	    
 	    log.info("회원 정보 수정 완료: " + request.getSession().getAttribute("m_number"));
@@ -261,59 +239,32 @@ public class MemberController {
 	    return "redirect:/";
 	}
 	
-
-
-
-
-
-
-
-
-
-	
-	
-	
-	
-
-
-	
-	/*	@PostMapping("/signup")
-	public String signupPost(Model m, MemberVO member) {
-		log.info("signUp 접근");
-		log.info(member.toString());
-		int isOk = memberService.signUp(member);
-		if(isOk > 0) {
-			m.addAttribute("msg_signup", 1);
-		}else {
-			m.addAttribute("msg_signup", 0);
-		}
-		return "home"; 
-	}
-	
-*/	
-	
-	/*	//프로필 사진 업로드
-	 @PostMapping("/signup")
-	    public String profilePost(MemberVO mvo ,RedirectAttributes rAttr,
-	            @RequestParam(name="file", required = false)MultipartFile file) {
-	        log.info(">>> mvo "+mvo);
-	        log.info(">>> file "+file);
-
-	        MemberImageVO mivo = null;
-	        if(file.getSize() > 0) { 
-	        	mivo = mihd.uploadFile(file); 
-	        } else {
-	            log.info("file null");
-	        }
+	@PostMapping("/checkPassword")
+	@ResponseBody
+	public ResponseEntity<Boolean> checkPassword(HttpServletRequest request, @RequestParam("m_pw") String oldPassword){
+	    // 세션에서 사용자 검색
+	    HttpSession session = request.getSession();
+	    System.out.println("Session: " + session);
+	    MemberVO loggedInUser = (MemberVO)session.getAttribute("ses");
+	    System.out.println("Logged in user: " + loggedInUser);
 	    
-	        MemberDTO mdto = new MemberDTO(mvo, mivo);
-	        int isOk = memberService.register(mdto);
-	        
-	        log.info("-=-=> board register >>"+ (isOk >0 ? "OK" : "FAIL"));
-	        rAttr.addFlashAttribute("isOk", isOk);
-	        return "redirect:/member/signup";
-	    }
+	    System.out.println("Received old password: " + oldPassword); // Added logging here
+	    System.out.println("Password in session: " + loggedInUser.getM_pw()); // Added logging here
 
-*/	
+	    if(loggedInUser != null) {
+	        System.out.println("Password from session: " + loggedInUser.getM_pw());
+	    }
+	    
+	    // 해시된 암호가 입력한 암호와 일치하는지 확인
+	 // Check if the hashed password matches the entered password
+	    boolean isPasswordMatching = passwordEncoder.matches(oldPassword, loggedInUser.getM_pw());
+	    System.out.println("Is password matching: " + isPasswordMatching); // Added logging here
+
+	    return ResponseEntity.ok().body(isPasswordMatching);
+	}
+
+
+	
+
 
 }

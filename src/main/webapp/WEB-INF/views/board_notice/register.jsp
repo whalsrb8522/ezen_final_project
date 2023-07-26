@@ -4,8 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>양파마켓 | 공지사항 등록</title>
 <link rel="icon" type="image/png" href="/resources/images/favicon.png">
+
 <link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/board_notice/register.css">
 <style>

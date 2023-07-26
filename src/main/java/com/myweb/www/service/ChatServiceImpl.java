@@ -61,6 +61,8 @@ public class ChatServiceImpl implements ChatService {
 		log.info(">>> getMessage()");
 		log.info(">>> cr_number = " + cr_number);
 		log.info(">>> m_number = " + sessionM_number);
+
+		cdao.updateReadDate(cr_number, sessionM_number);
 		
 		ChatMessageDTO cmdto = new ChatMessageDTO();
 
@@ -81,8 +83,6 @@ public class ChatServiceImpl implements ChatService {
 		cmdto.setPdto(pdto);
 		cmdto.setListCmvo(listCmvo);
 
-		cdao.updateReadDate(cr_number, sessionM_number);
-		
 		return cmdto;
 	}
 

@@ -19,7 +19,7 @@
 	<div id="container">
 		<div id="innerContainer">
 			<a href="/" id="logoContainer">
-				<img alt="로고" src="/resources/img/logo.png" id="logoImage">
+				<img alt="로고" src="/resources/image/logo.png" id="logoImage">
 				<span id="logoText">양파마켓</span>
 			</a>
 			
@@ -39,17 +39,17 @@
 			<div id="signSnsBtn">
 			  <a href="javascript:kakaoLogin();">
 			    <div class="snsCircle snsCircle-yellow">
-			      <img src="/resources/img/kakao-logo.png" alt="소셜 로고">
+			      <img src="/resources/image/kakao-logo.png" alt="소셜 로고">
 			    </div>
 			  </a>
 			  <a id="naverIdLogin_loginButton" href="javascript:void(0)" >
 			    <div class="snsCircle snsCircle-green">
-			      <img src="/resources/img/naver-logo.png" alt="소셜 로고">
+			      <img src="/resources/image/naver-logo.png" alt="소셜 로고">
 			    </div>
 			  </a>
 			  <a href="javascript:;" class="facebook">
 			    <div class="snsCircle snsCircle-blue">
-			      <img src="/resources/img/facebook-logo.png" alt="소셜 로고">
+			      <img src="/resources/image/facebook-logo.png" alt="소셜 로고">
 			    </div>
 			  </a>
 			</div>
