@@ -21,6 +21,8 @@
 	<c:set var="pvo" value="${pdto.pvo }"></c:set>
 	<c:set var="flist" value="${pdto.piList }"></c:set>
 	<c:set var="plvo" value="${pdto.plvo }"></c:set>
+	<c:set var="mvo" value="${mdto.mvo }"></c:set>
+	<c:set var="mivo" value="${mdto.mivo }"></c:set>
 	<!-- 전체 틀 -->
 	<div id="detail-wrap">
 		<div id="detail-category">
@@ -85,7 +87,7 @@
 					<input type="hidden" value="${pvo.p_number }"> 
 					<div id="detail-title">${pvo.p_name }</div>
 					<div id="price-wrap">
-						<div id="detail-price">${pvo.p_price } <span style="font-size:24px">원</span></div>
+						<div id="detail-price"><fmt:formatNumber value="${pvo.p_price }" pattern="#,###,###" /><span style="font-size:24px">원</span></div>
 						<div id="detail-pay">${pvo.p_pay }</div>
 					</div>
 				</div>

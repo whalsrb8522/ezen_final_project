@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,71 +28,47 @@
 		<div id="inner-box">
 			<div id="second-inner">
 				<h3>공지사항</h3>
-				<div id="comment-btn">
-					<a href="/board_notice/register"><button class="background-purple submit-button">등록하기</button></a>
-				</div>
+				<c:if test="${ses.m_isAdmin eq 1 }">
+					<div id="comment-btn">
+						<a href="/board_notice/register"><button class="background-purple submit-button">등록하기</button></a>
+					</div>
+				</c:if>
 			</div>		
 		</div>
 		
-		<div id="inner-box">
+		<!-- <div id="inner-box">
 			<div id="searchBox" class="border-gray">
 				<span id="searchIcon" class="material-symbols-outlined">search</span>
 				<input type="text" id="searchInput">
 			</div>
-		</div>
+		</div> -->
 		
 		<div id="inner-box">
-			<div id="notice">전체공지</div>			
-			<div id="not-title">
-				<span class="material-symbols-outlined">check_circle</span>
-				<a href="/board_notice/detail"><span>7월, 고객센터 운영 시간 안내</span></a>
-			</div>
-			<div id="not-title">
-				<span class="material-symbols-outlined">check_circle</span>
-				<a><span>개인정보처리방침 개정 안내 (2023.07.03)</span></a>
-			</div>
-			<div id="not-title">
-				<span class="material-symbols-outlined">check_circle</span>
-				<a><span>서비스 이용약관 개정 안내 (2023.04.01)</span></a>
-			</div>
-			<div id="not-title">
-				<span class="material-symbols-outlined">check_circle</span>
-				<a><span>양파마켓을 사칭하는 메시지, 조심하세요!</span></a>
-			</div>	
-			<div id="not-title">
-				<span class="material-symbols-outlined">check_circle</span>
-				<a><span>모두보기 누르면 나올 것 1</span></a>
-			</div>	
-			<div id="not-title">
-				<span class="material-symbols-outlined">check_circle</span>
-				<a><span>모두보기 누르면 나올 것 2</span></a>
-			</div>	
-			<div id="not-title">
-				<span class="material-symbols-outlined">check_circle</span>
-				<a><span>모두보기 누르면 나올 것 3</span></a>
-			</div>	
-			<div id="not-title">
-				<span class="material-symbols-outlined">check_circle</span>
-				<a><span>모두보기 누르면 나올 것 4</span></a>
-			</div>	
+			<div id="notice">전체공지</div>
+			<c:forEach items="${bnvo }" var="bnvo">
+				<div id="not-title">
+					<span class="material-symbols-outlined">check_circle</span>
+					<a href="/board_notice/detail?bn_number=${bnvo.bn_number }"><span>${bnvo.bn_title }</span></a>
+				</div>
+			</c:forEach>
 		</div>
 		
-		<div id="showAll">
+		<!-- <div id="showAll">
 			<a><span>문서 모두보기</span></a>
 		</div>
 		
 		<div id="inner-box">
-			<!-- 페이지네이션 -->
+			페이지네이션
 			<div id="page-wrap">
-				<!-- 이전페이지 -->
+				이전페이지
 				<div class="background-gray page-btn">&lt;</div>
-				<!-- 컨트롤러에서 page 정보를 싣고 와야 함 -->
-				<!-- 숫자 페이지 -->
+				컨트롤러에서 page 정보를 싣고 와야 함
+				숫자 페이지
 				<div class="background-gray page-btn">i</div>
-				<!-- 다음페이지 -->
+				다음페이지
 				<div class="background-gray page-btn">&gt;</div>
 			</div>
-		</div>
+		</div> -->
 		
 	</div>
 
