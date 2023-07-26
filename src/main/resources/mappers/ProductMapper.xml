@@ -63,7 +63,14 @@
 		delete from product_like where p_number=#{p_number} and m_number=#{m_number}
 	</delete>
 	
+	<select id="selectProductLike" resultType="com.myweb.www.domain.ProductLikeVO">
+		select * from product_like where p_number = #{p_number} and m_number = #{sesM_number}
+	</select> 
 	
+	<update id="updateModify">
+		update product set p_name=#{p_name}, p_price=#{p_price}, p_category=#{p_category}, p_mod_date=now(),
+		p_info=#{p_info}, p_location=#{p_location}, p_pay=#{p_pay} where p_number=#{p_number}
+	</update>
 
  	<sql id="categorySearch">
 		<if test="p_category != null">
@@ -73,7 +80,8 @@
 			AND (p_name like concat('%', #{keyword}, '%')
 			OR p_info like concat('%', #{keyword}, '%'))
 		</if>
-	</sql> 
+	</sql>
+	
 	
 	<!-- 채팅 기능 구현 (작성자: 조민규) -->
 	<select id="selectProductWithNumber" resultType="com.myweb.www.domain.ProductVO">

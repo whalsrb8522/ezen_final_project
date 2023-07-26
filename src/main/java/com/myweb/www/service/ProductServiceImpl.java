@@ -53,9 +53,8 @@ public class ProductServiceImpl implements ProductService {
 		for(ProductVO pvo : listPvo) {
 			List<ProductImageVO> piList = pidao.selectFileList(pvo);
 			
-			listPdto.add(new ProductDTO(pvo, piList));
+			listPdto.add(new ProductDTO(pvo, null, piList));
 		}
-		
 		return listPdto;
 	}
 
@@ -68,7 +67,18 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public ProductDTO detail(int p_number, int sesM_number) {
+		ProductDTO pdto = new ProductDTO();
+		pdto.setPvo(pdao.selectPno(p_number));
+		pdto.setPlvo(pdao.selectProductLike(p_number, sesM_number));
+		pdto.setPiList(pidao.selectFile(p_number));
+		return pdto;
+	}
+
+	@Override
 	public int updateStatus(ProductVO pvo) {
+		log.info(">>> pvo = " + pvo.toString());
+		
 		int isOk = pdao.updateStatus(pvo);
 		log.info(">> 구매상태 > "+(isOk>0?"성공":"실패"));
 		return isOk;
@@ -83,6 +93,8 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public boolean insertLikeMember(ProductLikeVO plvo) {
+		log.info(">>> plvo = " + plvo.toString());
+		
 		ProductLikeVO existingLikes = pdao.getLikeRecord(plvo);
 		log.info("existingLikes 결과값"+existingLikes);
 		if(existingLikes == null) {
@@ -98,6 +110,30 @@ public class ProductServiceImpl implements ProductService {
 			return false;
 		}
 		return false;
+	}
+
+	@Override
+	public int updateModify(ProductDTO pdto) {
+		int isOk = pdao.updateModify(pdto.getPvo());
+		if(pdto.getPiList()==null) {
+			isOk *= 1;
+		} else {
+			if(isOk>0&&pdto.getPiList().size()>0) {
+				int p_number = pdto.getPvo().getP_number();
+				for(ProductImageVO pivo : pdto.getPiList()) {
+					pivo.setP_number(p_number);
+					log.info(">>> 새로운 파일 삽입 > "+pivo.toString());
+					isOk *= pidao.insertProductImage(pivo);
+				}
+			}
+		}
+		return isOk;
+	}
+
+	@Override
+	public int removeFile(String pi_uuid) {
+		// TODO Auto-generated method stub
+		return pidao.deleteFile(pi_uuid);
 	}
 	
 }

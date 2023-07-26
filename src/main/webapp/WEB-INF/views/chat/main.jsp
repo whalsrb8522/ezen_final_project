@@ -38,6 +38,11 @@
 						<div class="chatListContainer">
 							<c:forEach items="${listCdto }" var="cdto">
 								<div class="chatList" onclick="getChat(${cdto.crvo.cr_number })">
+									<c:if test="${cdto.notReadCount > 0 }">
+										<div class="chatListCount">
+											${cdto.notReadCount }
+										</div>
+									</c:if>
 									<div class="chatListImg">
 										<img alt="프로필" src="">
 									</div>

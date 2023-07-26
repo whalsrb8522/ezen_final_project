@@ -23,7 +23,9 @@ public interface MemberDAO {
 
 	MemberVO getNewMember(String m_mail);
 
-	int updateMember(MemberDTO mdto);
+	void updateMember(MemberDTO memberDTO);
+
+	
 
 	
 
