@@ -135,5 +135,11 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return pidao.deleteFile(pi_uuid);
 	}
+
+	@Override
+	public int removeIsDel(int p_number) {
+		// TODO Auto-generated method stub
+		return pdao.updateIsDel(p_number);
+	}
 	
 }

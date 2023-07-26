@@ -128,7 +128,7 @@
 		</div>
 		<div id="btn-wrap">
 			<button id="productRegiBtn" class="background-purple regi-btn">등록하기</button>
-			<a href="/product/list"><button type="button" class="background-gray regi-btn">취소</button></a>
+			<a href="javascript:window.history.back();"><button type="button" class="background-gray regi-btn">취소</button></a>
 		</div>
 	</div>
 </form>	

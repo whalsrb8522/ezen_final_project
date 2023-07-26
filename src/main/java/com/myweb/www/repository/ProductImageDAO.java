@@ -15,4 +15,6 @@ public interface ProductImageDAO {
 
 	int deleteFile(String pi_uuid);
 
+	List<ProductImageVO> selectFile();
+
 }

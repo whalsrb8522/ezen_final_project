@@ -24,6 +24,7 @@
 	<delete id="deleteFile">
 		delete from product_image where pi_uuid=#{pi_uuid}
 	</delete>
+	
 </mapper>
 
 

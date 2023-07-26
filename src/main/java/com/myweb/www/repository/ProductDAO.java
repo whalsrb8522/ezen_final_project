@@ -41,4 +41,6 @@ public interface ProductDAO {
 
 	int updateModify(ProductVO pvo);
 
+	int updateIsDel(int p_number);
+
 }
