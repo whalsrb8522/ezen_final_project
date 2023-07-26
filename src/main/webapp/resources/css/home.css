@@ -65,13 +65,12 @@
 	height: 200px;
 }
 
-#container .product-text {
+.product-title {
     white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	padding: 5px 5px;
 	font-size: 15px;
-    
 }
 
 #container .product-text ul {

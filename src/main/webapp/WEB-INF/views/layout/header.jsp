@@ -49,6 +49,7 @@
 			<c:if test="${ses.m_mail ne null}">
 				<!-- 로그인 후 -->
 				<div id="memberContainer1">
+						<a href="/product/register">판매하기</a>
 						<a href="/member/detail">내 상점</a>
 						<a href="/chat/main">
 							<span class="notification">

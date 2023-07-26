@@ -31,4 +31,6 @@ public interface ProductService {
 
 	int removeFile(String pi_uuid);
 
+	int removeIsDel(int p_number);
+
 }

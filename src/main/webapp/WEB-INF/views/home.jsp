@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -37,15 +38,13 @@
 						<div class="product-text">
 							<ul>
 								<li class="product-title">${productList.pvo.p_name }</li>
-								<li class="product-price">${productList.pvo.p_price } <span style="font-size: 12px;">원</span></li>
+								<li class="product-price"><fmt:formatNumber value="${productList.pvo.p_price }" pattern="#,###,###" /> <span style="font-size: 12px;">원</span></li>
 							</ul>
 						</div>
 						
 						<div class="product-location">
-							<span class="material-symbols-outlined">
-								location_on
-							</span>
-							${productList.pvo.p_location }
+							<span class="material-symbols-outlined">location_on</span>
+							<span class="location-sub">${productList.pvo.p_location }</span>
 						</div>
 					</div>
 					
@@ -54,6 +53,7 @@
 		</div>
 	
 	
-	<jsp:include page="./layout/footer.jsp"></jsp:include>
+<jsp:include page="./layout/footer.jsp"></jsp:include>
+<script type="text/javascript" src="/resources/js/product/list.js"></script>
 </body>
 </html>

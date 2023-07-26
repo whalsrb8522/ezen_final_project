@@ -139,6 +139,13 @@ public class ProductController {
 	public ResponseEntity<String> removeFile(@PathVariable("uuid")String pi_uuid){
 		return psv.removeFile(pi_uuid) > 0 ? new ResponseEntity<String>("1", HttpStatus.OK) : new ResponseEntity<String>("0", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
+	@GetMapping("/remove")
+	public String remove(RedirectAttributes rAttr, @RequestParam("p_number")int p_number) {
+		int isOk = psv.removeIsDel(p_number);
+		log.info(">>> 글 삭제 > "+(isOk>0?"성공":"실패"));
+		return "redirect:/product/list";
+	}
 
 
 }
