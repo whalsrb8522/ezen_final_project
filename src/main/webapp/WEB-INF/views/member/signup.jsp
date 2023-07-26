@@ -30,7 +30,7 @@
 	<div id="container">
 		<form action="/member/signup" method="POST" id="innerContainer" enctype="multipart/form-data" onsubmit="return validateForm();">
 			<a href="/" id="logoContainer">	
-				<img alt="로고" src="/resources/img/logo.png" id="logoImage">
+				<img alt="로고" src="/resources/image/logo.png" id="logoImage">
 				<span id="logoText">양파마켓</span>
 			</a>
 		
@@ -41,17 +41,17 @@
 			<div id="signSnsBtn">
 			  <a href="javascript:kakaoLogin();">
 			    <div class="snsCircle snsCircle-yellow">
-			      <img src="/resources/img/kakao-logo.png" alt="소셜 로고">
+			      <img src="/resources/image/kakao-logo.png" alt="소셜 로고">
 			    </div>
 			  </a>
 			  <a href="#">
 			    <div class="snsCircle snsCircle-green">
-			      <img src="/resources/img/naver-logo.png" alt="소셜 로고">
+			      <img src="/resources/image/naver-logo.png" alt="소셜 로고">
 			    </div>
 			  </a>
 			  <a href="#">
 			    <div class="snsCircle snsCircle-blue">
-			      <img src="/resources/img/facebook-logo.png" alt="소셜 로고">
+			      <img src="/resources/image/facebook-logo.png" alt="소셜 로고">
 			    </div>
 			  </a>
 			</div>

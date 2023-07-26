@@ -22,7 +22,7 @@
 					<div id="memberImage">
 						<!-- 회원이 프로필 사진을 등록 안했을 경우 -->
 						<c:if test="${empty member.mivo.mi_name}">
-							<img alt="프로필 사진" src="/resources/img/profile.png">
+							<img alt="프로필 사진" src="/resources/image/profile.png">
 						</c:if>
 						<!-- 회원이 프로필 사진을 등록 했을 경우 -->
 						<!-- DB에 사진이 추가되고, 사진을 불러오기까지 오래걸림(10~30분 정도.. 왜지.. -->

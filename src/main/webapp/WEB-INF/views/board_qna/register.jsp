@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>양파마켓 | 1:1문의하기</title>
-<link rel="icon" type="image/png" href="/resources/images/favicon.png">
+<link rel="icon" type="image/png" href="/resources/image/favicon.png">
 <link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/board_qna/register.css">
 </head>

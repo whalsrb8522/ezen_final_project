@@ -17,4 +17,5 @@ public class ChatMessageVO {
 	private Integer cm_sender;
 	private String cm_content;
 	private String cm_send_date;
+	private String cm_type;
 }

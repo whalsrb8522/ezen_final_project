@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>양파마켓 | 1:1문의하기</title>
-<link rel="icon" type="image/png" href="/resources/images/favicon.png">
+<link rel="icon" type="image/png" href="/resources/image/favicon.png">
 <link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/board_qna/detail.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -36,7 +36,7 @@
 		<div id="inner-box">
 			<div id="writer-box">
 				<div id="writer-profile">
-					<img src="/resources/images/basicprofile.jpeg" alt="Image">
+					<img src="/resources/image/basicprofile.jpeg" alt="Image">
 				</div>
 				<div id="writer-info">
 					<div id="nick-info">
@@ -61,7 +61,7 @@
 			<div id="comment_box" >
 				<div id="comment-info">
 					<div id="writer-profile">
-						<img src="/resources/images/basicprofile.jpeg" alt="Image">
+						<img src="/resources/image/basicprofile.jpeg" alt="Image">
 					</div>
 					<div id="writer-comment">
 		 				<textarea class="border-gray" id="loc-content" name="loc-content" 
@@ -81,7 +81,7 @@
 			<div id="comment_box" >
 				<div id="comment-info">
 					<div id="writer-profile">
-						<img src="/resources/images/basicprofile.jpeg" alt="Image">
+						<img src="/resources/image/basicprofile.jpeg" alt="Image">
 					</div>
 					<div id="writer-comment">
 		 				<textarea class="border-gray" id="loc-content" name="loc-content" 
@@ -100,7 +100,7 @@
 		<div id="inner-box">
 			<div id="writer-box">
 				<div id="writer-profile">
-					<img src="/resources/images/basicprofile.jpeg" alt="Image">
+					<img src="/resources/image/basicprofile.jpeg" alt="Image">
 				</div>
 				<div id="writer-info">
 					<div id="nick-info">
