@@ -9,23 +9,25 @@ document.getElementById('innerContainer').addEventListener('submit', function(e)
     
 
     $.ajax({
-        type: "POST",
-        url: "/member/checkPassword",
-        data: {
-            m_pw: oldPassword
-        },
-        dataType: "json",
-        success: function(response){
-            console.log("Response received: " + response);
-            if(response === true){
-                // 기존 비밀번호가 일치하면 폼 제출
-                document.getElementById('innerContainer').submit();
-            }else{
-                // 기존 비밀번호가 일치하지 않다면 alert
-                alert("입력하신 비밀번호가 기존 비밀번호와 일치하지 않습니다.");
-            }
+    type: "POST",
+    url: "/member/checkPassword",
+    data: {
+        m_pw: oldPassword
+    },
+    dataType: "json",
+    success: function(response){
+        console.log("Response received: " + response);
+        console.log("Submitted password (unencrypted): " + oldPassword); // 비밀번호 로깅
+        if(response === true){
+            // 기존 비밀번호가 일치하면 폼 제출
+            document.getElementById('innerContainer').submit();
+        }else{
+            // 기존 비밀번호가 일치하지 않다면 alert
+            alert("입력하신 비밀번호가 기존 비밀번호와 일치하지 않습니다.");
         }
-    });
+    }
+});
+
 });
 
 
@@ -92,6 +94,8 @@ document.addEventListener('DOMContentLoaded', function() {
      // 변경 비밀번호 확인
      document.getElementById('changePw').addEventListener('blur', function() {
          var newPassword = document.getElementById('changePw').value;
+         
+         console.log("New password (unencrypted): " + newPassword); // 비밀번호 로깅
      
          if (!passwordReg.test(newPassword) && newPassword.length > 0) { // newPassword의 길이가 0보다 클 경우에만 코드 실행
              document.querySelector('.newPasswordAlert').innerText = "영문, 숫자를 모두 포함한 8자 이상이어야 합니다.";

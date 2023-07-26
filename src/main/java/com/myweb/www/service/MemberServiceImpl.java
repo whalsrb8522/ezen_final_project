@@ -162,6 +162,7 @@ public class MemberServiceImpl implements MemberService {
 
 
 	//modify
+	
 	@Override
 	public void updateMember(MemberDTO memberDTO) {
 	    try {
@@ -173,10 +174,20 @@ public class MemberServiceImpl implements MemberService {
 
 	        // Encoding the password
 	        String m_pw = member.getM_pw();
-	        String encodedM_pw = passwordEncoder.encode(m_pw);
-	        member.setM_pw(encodedM_pw);
+	        String encodedM_pw = passwordEncoder.encode(m_pw); // new password is encrypted
+	        member.setM_pw(encodedM_pw); // encrypted password is set
 
-	        mdao.updateMember(memberDTO);
+	        mdao.updateMember(member); // update member with the encrypted password
+
+	        // Fetch the updated member
+	        MemberVO updatedMember = mdao.getMember(member.getM_mail());
+
+	        // Check the password
+	        if (passwordEncoder.matches(m_pw, updatedMember.getM_pw())) {
+	            log.info("Password updated correctly");
+	        } else {
+	            log.error("Password didn't update correctly");
+	        }
 
 	        if(memberDTO.getMivo() != null) {
 	            midao.updateMemberImage(memberDTO.getMivo());
@@ -186,6 +197,8 @@ public class MemberServiceImpl implements MemberService {
 	        throw new RuntimeException("Error in updating member", e);
 	    }
 	}
+
+
 
 
 

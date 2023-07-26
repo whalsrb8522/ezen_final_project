@@ -27,14 +27,15 @@
 		LIMIT 1
 	</select>
 	
-	<update id="updateMember" parameterType="com.myweb.www.domain.MemberDTO">
+	<update id="updateMember" parameterType="com.myweb.www.domain.MemberVO">
     UPDATE member SET
-    m_pw = #{mvo.m_pw},
-    m_nick_name = #{mvo.m_nick_name},
-    m_introduct = #{mvo.m_introduct},
-    m_address = #{mvo.m_address}
-    WHERE m_number = #{mvo.m_number}
+    m_pw = #{m_pw},
+    m_nick_name = #{m_nick_name},
+    m_introduct = #{m_introduct},
+    m_address = #{m_address}
+    WHERE m_number = #{m_number}
 </update>
+
 
 	
 

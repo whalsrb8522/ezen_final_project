@@ -40,6 +40,10 @@ public interface ProductDAO {
 	ProductLikeVO selectProductLike(@Param("p_number")int p_number, @Param("sesM_number")int sesM_number);
 
 	int updateModify(ProductVO pvo);
+	
+	
+	//(작성자 : 안세호)
+	List<ProductVO> selectProductsByMember(Integer m_number);
 
 	int updateIsDel(int p_number);
 

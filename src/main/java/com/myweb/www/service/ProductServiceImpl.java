@@ -142,4 +142,12 @@ public class ProductServiceImpl implements ProductService {
 		return pdao.updateIsDel(p_number);
 	}
 	
+	
+	//작성자:안세호
+	@Override
+	public List<ProductVO> getProductByMember(Integer m_number) {
+		// TODO Auto-generated method stub
+		return pdao.selectProductsByMember(m_number);
+	}
+	
 }
