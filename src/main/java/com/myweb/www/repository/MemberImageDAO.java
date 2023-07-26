@@ -8,4 +8,6 @@ public interface MemberImageDAO {
 
 	MemberImageVO selectMemberImage(int m_number);
 
+	void updateMemberImage(MemberImageVO mivo);
+
 }

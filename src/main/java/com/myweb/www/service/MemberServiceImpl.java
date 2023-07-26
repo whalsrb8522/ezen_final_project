@@ -23,7 +23,7 @@ public class MemberServiceImpl implements MemberService {
 	private MemberImageDAO midao;
 
 	@Inject
-	BCryptPasswordEncoder passwordencoder;
+    BCryptPasswordEncoder passwordEncoder;
 	
 	@Override
 	@Transactional
@@ -49,7 +49,7 @@ public class MemberServiceImpl implements MemberService {
 	    String m_pw = member.getM_pw();
 
 	    //encode(암호화) / matches(원래 비번, 암호화된 비번)
-	    String encodeM_pw = passwordencoder.encode(m_pw); // 기존 패스워드 암호화
+	    String encodeM_pw = passwordEncoder.encode(m_pw); // 기존 패스워드 암호화
 	    member.setM_pw(encodeM_pw);
 
 	    int isOk = mdao.insertMember(member);
@@ -129,7 +129,7 @@ public class MemberServiceImpl implements MemberService {
 		if(member == null) { return null; }
 		
 		//원래 pw와 암호화된 pw가 매치가 된다면 true
-		if(passwordencoder.matches(m_pw, member.getM_pw())) {
+		if(passwordEncoder.matches(m_pw, member.getM_pw())) {
 			return member;
 		}else {
 			return null;
@@ -164,9 +164,34 @@ public class MemberServiceImpl implements MemberService {
 	//modify
 	@Override
 	public void updateMember(MemberDTO memberDTO) {
-		mdao.updateMember(memberDTO);
-		
+	    try {
+	        MemberVO member = memberDTO.getMvo();
+
+	        if(member.getM_pw() == null || member.getM_pw().length() == 0) {
+	            throw new IllegalArgumentException("Password can't be null or empty.");
+	        }
+
+	        // Encoding the password
+	        String m_pw = member.getM_pw();
+	        String encodedM_pw = passwordEncoder.encode(m_pw);
+	        member.setM_pw(encodedM_pw);
+
+	        mdao.updateMember(memberDTO);
+
+	        if(memberDTO.getMivo() != null) {
+	            midao.updateMemberImage(memberDTO.getMivo());
+	        }
+	    } catch (Exception e) {
+	        log.error("Error in updating member", e);
+	        throw new RuntimeException("Error in updating member", e);
+	    }
 	}
+
+
+
+
+
+
 	
 	
 	
