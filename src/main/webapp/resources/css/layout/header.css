@@ -143,6 +143,7 @@ header .notification {
   left: 0;
   display: none; /* 초기에는 숨김 */
   padding-top: 20px;
+  z-index: 2;
 }
 .menu li:hover > .depth_1 {
   display: block; /* 호버 시에만 보여지도록 설정 */
