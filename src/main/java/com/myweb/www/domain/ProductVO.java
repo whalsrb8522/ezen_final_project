@@ -1,5 +1,7 @@
 package com.myweb.www.domain;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,4 +30,6 @@ public class ProductVO {
 	private String p_pay;
 	private int p_read_count;
 	
+	//작성자:안세호
+	private List<ProductImageVO> piList;
 }

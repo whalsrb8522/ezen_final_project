@@ -2,6 +2,7 @@ package com.myweb.www.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -30,8 +31,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.myweb.www.domain.MemberDTO;
 import com.myweb.www.domain.MemberImageVO;
 import com.myweb.www.domain.MemberVO;
+import com.myweb.www.domain.ProductVO;
 import com.myweb.www.handler.MemberImageHandler;
 import com.myweb.www.service.MemberService;
+import com.myweb.www.service.ProductService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,6 +49,8 @@ public class MemberController {
 	private MemberImageHandler mihd;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	@Inject
+	private ProductService psv;
 
 	//회원가입
 	@GetMapping("/signup")
@@ -138,8 +143,16 @@ public class MemberController {
 	    Integer m_number = (Integer) session.getAttribute("m_number");
 	    
 	    MemberDTO member = memberService.getMemberDetails(m_number);
+	    
+	    // 상품 정보를 가져옵니다.
+	    List<ProductVO> productList = psv.getProductByMember(m_number);
+	    
+	    
+	    
+	    model.addAttribute("member", member);
+	    model.addAttribute("productList", productList);
+	    
 	    if (member != null) {
-	        model.addAttribute("member", member);
 	        return "/member/detail";
 	    } else {
 	        return "not-found"; // 회원을 찾지 못한 경우에 대한 예외 처리
@@ -217,9 +230,16 @@ public class MemberController {
 	        // 회원 정보와 이미지 정보를 DB에 업데이트합니다.
 	        try {
 	            memberService.updateMember(memberDTO);
-	            log.info("회원 정보 DB 업데이트 완료: " + loggedInUser.getM_number()); // 회원 정보 업데이트 완료 로그
+	            log.info("회원 정보 DB 업데이트 완료: " + loggedInUser.getM_number());
+
+	            // DB 업데이트 후 세션 업데이트
+	            session.setAttribute("ses", loggedInUser);
+	            log.info("세션 정보 업데이트 완료: " + loggedInUser.getM_number());
+
+	            // 사용자 정보 변경 확인
+	            log.info("변경된 회원 정보: " + loggedInUser);
 	        } catch (Exception e) {
-	            log.error("회원 정보 DB 업데이트 오류: " + loggedInUser.getM_number(), e); // 회원 정보 업데이트 오류 로그
+	            log.error("회원 정보 DB 업데이트 오류: " + loggedInUser.getM_number(), e);
 	        }
 	        
 	    } else {
@@ -228,10 +248,16 @@ public class MemberController {
 	        memberDTO.setMvo(loggedInUser);
 	        memberService.updateMember(memberDTO);
 	        log.info("회원 정보 DB 업데이트 완료 (이미지 없음): " + loggedInUser.getM_number()); // 회원 정보 업데이트 완료 로그 (이미지 없음)
+	        
+	     // DB 업데이트 후 세션 업데이트
+	        session.setAttribute("ses", loggedInUser);
+	        log.info("세션 정보 업데이트 완료: " + loggedInUser.getM_number());
+
+	        // 사용자 정보 변경 확인
+	        log.info("변경된 회원 정보: " + loggedInUser);
 	    }
 
 
-	    
 
 	    
 	    log.info("회원 정보 수정 완료: " + request.getSession().getAttribute("m_number"));

@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page import="com.myweb.www.domain.ProductVO" %>
+<%@ page import="com.myweb.www.domain.ProductImageVO" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html>
@@ -34,6 +38,14 @@
 					<button type="button" onclick="location.href='/member/modify'" id="profileModifyBtn" class="background-purple">프로필 수정</button>
 				</div>
 				<div id="memberProfileRight">
+				
+				<c:set var="completedSalesCount" value="0" />
+
+				<c:forEach items="${productList}" var="product">
+				    <c:if test="${product.m_number == member.mvo.m_number && product.p_status eq 2}">
+				        <c:set var="completedSalesCount" value="${completedSalesCount + 1}" />
+				    </c:if>
+				</c:forEach>
 					<!-- m_number / m_nick_name 출력 -->
 					<h3>상점 ${member.mvo.m_number}호(${member.mvo.m_nick_name})</h3>
 					<div id="memberStoreInfo">
@@ -48,7 +60,7 @@
 							<span class="material-symbols-outlined store-icon">
 								shopping_basket
 							</span>
-							상품 판매 0회
+							상품 판매 ${completedSalesCount}회
 						</p>
 					</div>
 					<div id="memberMain">
@@ -81,62 +93,41 @@
 			<div id="memberProduct">
 				<p>상품 0</p>
 				
+				<!-- 상품 리스트 -->
 				<div id="productContainer">
-					<div onclick="location.href='#'" class="product">
-						<div class="product-image">
-							<img alt="상품 이미지" src="">
-						</div>
-						<div class="product-text">
-							<ul>
-								<li class="product-title">상품명</li>
-								<li class="product-price">1,000,000 <span style="font-size: 12px;">원</span></li>
-							</ul>
-						</div>
-						<div class="product-location">
-							<span class="material-symbols-outlined">
-								location_on
-							</span>
-							인천광역시 계양구
-						</div>
-					</div>
+				    <c:forEach items="${productList}" var="product">
+				        <c:if test="${product.m_number == member.mvo.m_number}">
+				            <div onclick="location.href='/product/detail?p_number=${product.p_number}'" class="product">
+				                <div class="product-image">
+				                    <img alt="상품 이미지" src="/resources/fileUpload/${product.piList[0].pi_dir}/${product.piList[0].pi_uuid}_th_${product.piList[0].pi_name}">
+				                </div>
+				
+				                <div class="product-text">
+				                    <ul>
+				                        <li class="product-title">${product.p_name}</li>
+				                        <li class="product-price">${product.p_price}<span style="font-size: 12px;">원</span></li>
+				                    </ul>
+				                </div>
+				
+				                <div class="product-location">
+				                    <span class="material-symbols-outlined">
+				                        location_on
+				                    </span>
+				                    ${product.p_location}
+				                </div>
+				            </div>
+				        </c:if>
+				    </c:forEach>
+				</div>
+
+
+
 					
-					<div onclick="location.href='#'" class="product">
-						<div class="product-image">
-							<img alt="상품 이미지" src="">
-						</div>
-						<div class="product-text">
-							<ul>
-								<li class="product-title">상품명</li>
-								<li class="product-price">1,000,000 <span style="font-size: 12px;">원</span></li>
-							</ul>
-						</div>
-						<div class="product-location">
-							<span class="material-symbols-outlined">
-								location_on
-							</span>
-							인천광역시 계양구
-						</div>
-					</div>
 					
-					<div onclick="location.href='#'" class="product">
-						<div class="product-image">
-							<img alt="상품 이미지" src="">
-						</div>
-						<div class="product-text">
-							<ul>
-								<li class="product-title">상품명</li>
-								<li class="product-price">1,000,000 <span style="font-size: 12px;">원</span></li>
-							</ul>
-						</div>
-						<div class="product-location">
-							<span class="material-symbols-outlined">
-								location_on
-							</span>
-							인천광역시 계양구
-						</div>
-					</div>
 					
-					<div onclick="location.href='#'" class="product">
+					
+					
+					<!-- <div onclick="location.href='#'" class="product">
 						<div class="product-image">
 							<img alt="상품 이미지" src="">
 						</div>
@@ -152,11 +143,11 @@
 							</span>
 							인천광역시 계양구
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
-	</div>
+	
 	
 	<jsp:include page="../layout/footer.jsp"></jsp:include>
 </body>

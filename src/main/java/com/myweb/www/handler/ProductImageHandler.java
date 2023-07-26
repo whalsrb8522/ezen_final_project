@@ -20,7 +20,7 @@ import net.coobird.thumbnailator.Thumbnails;
 @Component
 public class ProductImageHandler {
 	
-	private final String UP_DIR = "D:\\_final_project\\ezen_final_project\\src\\main\\webapp\\resources\\fileUpload";
+	private final String UP_DIR = "src\\main\\webapp\\resources\\fileUpload";
 			
 	
 	public List<ProductImageVO> uploadFiles(MultipartFile[] files){

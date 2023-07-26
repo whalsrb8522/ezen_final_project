@@ -87,5 +87,11 @@
 	<select id="selectProductWithNumber" resultType="com.myweb.www.domain.ProductVO">
 		select * from product where p_number = #{c_number}
 	</select>
+	
+	<!-- 작성자: 안세호  -->
+	<select id="selectProductsByMember" resultType="com.myweb.www.domain.ProductVO">
+	    SELECT * FROM product
+	    WHERE m_number = #{m_number}
+	</select>
 
 </mapper>

@@ -120,13 +120,16 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    flex-wrap: wrap;
     margin-top: 30px
 }
 
 #productContainer .product {
-    width: 210px;
+    box-sizing: border-box; /* border와 padding이 width에 포함되도록 합니다 */
+    width: calc(33.33% - 10px); /* 간격을 고려한 너비 설정. 간격을 조절하려면 10px 값을 바꾸세요 */
     border: 1px solid rgb(238, 238, 238);
     cursor: pointer;
+    margin: 5px; /* 상품 간의 간격을 주기 위해 추가했습니다 */
 }
 
 #productContainer .product-image {

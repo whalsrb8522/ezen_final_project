@@ -30,5 +30,8 @@ public interface ProductService {
 	int updateModify(ProductDTO pdto);
 
 	int removeFile(String pi_uuid);
+	
+	//member/detail (작성자:안세호)
+	List<ProductVO> getProductByMember(Integer m_number);
 
 }

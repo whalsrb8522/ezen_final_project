@@ -136,4 +136,12 @@ public class ProductServiceImpl implements ProductService {
 		return pidao.deleteFile(pi_uuid);
 	}
 	
+	
+	//작성자:안세호
+	@Override
+	public List<ProductVO> getProductByMember(Integer m_number) {
+		// TODO Auto-generated method stub
+		return pdao.selectProductsByMember(m_number);
+	}
+	
 }
