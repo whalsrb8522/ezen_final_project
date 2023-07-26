@@ -1,5 +1,35 @@
 // 기본 비밀번호 확인 (일치하지 않을 시 폼 제출X)
 
+document.getElementById('innerContainer').addEventListener('submit', function(e){
+    e.preventDefault();
+    
+    var oldPassword = document.getElementById('userpw').value;
+    console.log("Submitting form with password: " + oldPassword);
+    
+    
+
+    $.ajax({
+        type: "POST",
+        url: "/member/checkPassword",
+        data: {
+            m_pw: oldPassword
+        },
+        dataType: "json",
+        success: function(response){
+            console.log("Response received: " + response);
+            if(response === true){
+                // 기존 비밀번호가 일치하면 폼 제출
+                document.getElementById('innerContainer').submit();
+            }else{
+                // 기존 비밀번호가 일치하지 않다면 alert
+                alert("입력하신 비밀번호가 기존 비밀번호와 일치하지 않습니다.");
+            }
+        }
+    });
+});
+
+
+
 
 
 // 닉네임 중복 확인
@@ -112,6 +142,28 @@ function fileSizeValidation(fileName, fileSize){
 
  document.addEventListener('DOMContentLoaded', function() {
      var imagePathElement = document.getElementById('imagePath');
+     var imageWrapper = document.getElementById('imageWrapper');
+     var previewImage = document.getElementById('imagePreview');
+     var mapAddress = document.getElementById('mapAddress').value;
+
+    // 기존 이미지가 있는 경우 이미지 표시
+    if (previewImage.src !== "") {
+        imageWrapper.style.display = 'block';
+    }
+    
+    // 기존 주소가 있는 경우 주소맵 표시
+    if (mapAddress !== "") {
+        geocoder.addressSearch(mapAddress, function(results, status) {
+            if (status === daum.maps.services.Status.OK) {
+                var result = results[0];
+                var coords = new daum.maps.LatLng(result.y, result.x);
+                mapContainer.style.display = "block";
+                map.relayout();
+                map.setCenter(coords);
+                marker.setPosition(coords)
+            }
+        });
+    }
 
      var handleImageChange = function(e){
           document.getElementById('submitBtn').disabled = false;
