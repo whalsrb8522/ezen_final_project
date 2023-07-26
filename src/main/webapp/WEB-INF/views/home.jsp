@@ -5,11 +5,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title>양심거래 파트너 양파마켓</title>
-	<link rel="shortcut icon" href="/resources/img/favicon.png">
+	<link rel="shortcut icon" href="/resources/image/favicon.png">
 	<link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/home.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
-	<link rel="icon" type="image/png" href="/resources/img/favicon.png">
+	<link rel="icon" type="image/png" href="/resources/image/favicon.png">
 </head>
 <body>
 	<jsp:include page="./layout/header.jsp"></jsp:include>
@@ -17,7 +17,7 @@
 	<div id="container">
 		
 			<div>
-				<a href="#"><img alt="메인 이미지" src="/resources/img/메인.png" width="1024px" height="300px"></a>
+				<a href="#"><img alt="메인 이미지" src="/resources/image/메인.png" width="1024px" height="300px"></a>
 			</div>
 			
 			<div id="todayProduct">

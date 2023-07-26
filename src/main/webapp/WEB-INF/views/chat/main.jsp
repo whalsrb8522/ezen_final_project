@@ -112,6 +112,16 @@
 									00:00
 								</div>
 							</div>
+							<div class="sendMessage">
+								<div class="chatMessage">
+									<div class="chatImage">
+										<img alt="" src="/resources/image/44.jpg">
+									</div>
+								</div>
+								<div class="chatTime">
+									00:00
+								</div>
+							</div>
 						</div>
 						
 						<div id="roomBotBox">
@@ -129,8 +139,33 @@
 		</div>
 	</div>
 	
+	<div class="modal">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close-modal material-symbols-outlined">close</span>
+			</div>
+			<div class="modal-body">
+				<div class="option" data-action="showFileUploadWindow()">
+					<span class="material-symbols-outlined larger-icon">photo</span> <span
+						class="option-label">사진선택</span>
+				</div>
+				<div class="option" data-action="showMap()">
+					<span class="material-symbols-outlined larger-icon">location_on</span>
+					<span class="option-label">장소선택</span>
+				</div>
+				<div class="option" data-action="showRemittanceWindow()">
+					<span class="material-symbols-outlined larger-icon">calendar_today</span>
+					<span class="option-label">거래약속</span>
+				</div>
+				<div class="option">
+					<span class="material-symbols-outlined larger-icon">payment</span>
+					<span class="option-label">양파페이</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<jsp:include page="../layout/footer.jsp"></jsp:include>
-	<jsp:include page="../chat/modal.jsp"></jsp:include>
 </body>
 <script type="text/javascript">
 	var sessionMemberNumber = '<c:out value="${ses.m_number }"></c:out>';

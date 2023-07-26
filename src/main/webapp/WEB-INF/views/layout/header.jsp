@@ -7,7 +7,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-	<link rel="icon" type="image/png" href="/resources/img/favicon.png">
+	<link rel="icon" type="image/png" href="/resources/image/favicon.png">
 	<link rel="stylesheet" type="text/css" href="/resources/css/layout/header.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/layout/nav.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -27,7 +27,7 @@
 	<header>
 		<div id="headerContainer">
 			<a href="/" id="logoContainer">
-				<img alt="로고" src="/resources/img/logo.png" id="logoImage">
+				<img alt="로고" src="/resources/image/logo.png" id="logoImage">
 				<span id="logoText">양파마켓</span>
 			</a>
 			<form action="/product/list">
@@ -88,7 +88,7 @@
 			</ul>
 			<div id="menuContainer">
 				<a href="/board_location/list">양파타운</a>
-				<img src="/resources/img/new.png" width="72" height="26" alt="양파타운">
+				<img src="/resources/image/new.png" width="72" height="26" alt="양파타운">
 				<a href="/board_qna/register">1:1문의</a>
 				<a href="/board_notice/list">공지사항</a>
 			</div>

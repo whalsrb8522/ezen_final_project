@@ -10,7 +10,6 @@ var roomTopBoxNick = document.querySelector('.roomTopBox-nick');  // 닉네임 �
 var roomMidBoxEx = document.querySelector('.roomMidBoxEx');       // 상품 정보 표시
 var roomMidBox = document.getElementById('roomMidBox');           // 채팅 내용 표시
 
-
 // STOMP 연결
 stomp.connect({}, () => {
     // STOMP 연결 끊겼을 경우
@@ -19,7 +18,9 @@ stomp.connect({}, () => {
     };
 
     // 메시지 수신했을 경우 채팅방 갱신
-    stomp.subscribe("/sub/chat/main/*", (chat) => {
+    stomp.subscribe('/sub/chat/main/*', (chat) => {
+        console.log(">>> stomp.subscribe('/sub/chat/main/*')");
+
         printChatList();
     });
 });
@@ -29,13 +30,16 @@ async function getChat(cr_number) {
     chatDisplayNone.classList.add('dp_none');
 
     this.cr_number = cr_number;
+    console.log(">>> cr_number: " + this.cr_number);
 
-    printChatRoom(this.cr_number);
     printChatList();
+    printChatRoom(this.cr_number);
 
     stomp.subscribe("/sub/chat/main/" + cr_number, (chat) => {
-        console.log(">>> mainChat : " + chat);
-        receiveMessage(chat);
+        console.log(">>> stomp.subscribe('/sub/chat/main/cr_number') : " + chat);
+
+        receiveMessage(chat, new Date());
+        printChatRoom(this.cr_number);
         roomMidBox.scrollTop = roomMidBox.scrollHeight;
     });
 }
@@ -50,23 +54,30 @@ document.getElementById('backBtn').addEventListener('click', () => {
 function sendMessage() {
     let chatInput = document.getElementById('chatInput');
 
-    if (chatInput.value != undefined || chatInput.value == '') {
-        stomp.send('/pub/chat/message', {}, JSON.stringify({ cr_number: this.cr_number, cm_content: chatInput.value, cm_sender: this.sessionMemberNumber }));
+    if (chatInput.value != undefined || chatInput.value != '') {
+        stomp.send('/pub/chat/message', {}, JSON.stringify({ 
+            cr_number: this.cr_number, 
+            cm_content: chatInput.value, 
+            cm_sender: this.sessionMemberNumber,
+            cm_type: 't'
+        }));
     }
 
     chatInput.value = '';
 };
 
+
+
 // 메시지 수신 함수
-function receiveMessage(chat) {
+function receiveMessage(chat, datetime) {
     console.log(">>> receiveMessage() > chat : " + chat);
 
     let content = JSON.parse(chat.body);
     let cm_content = content.cm_content;
     let cm_sender = content.cm_sender;
 
-    printMessage(cm_sender, sessionMemberNumber, cm_content);
     printChatList();
+    printMessageText(cm_sender, sessionMemberNumber, cm_content, datetime);
 }
 
 // 채팅목록 출력
@@ -83,6 +94,7 @@ async function printChatList() {
         for (const cdto of result) {
             let div = `
                 <div class="chatList" onclick="getChat(${cdto.crvo.cr_number}, ${sessionMemberNumber})">
+                    ${cdto.notReadCount > 0 ? `<div class="chatListCount">${cdto.notReadCount}</div>` : ``}
                     <div class="chatListImg">
                         <img alt="프로필" src="">
                     </div>
@@ -129,7 +141,12 @@ async function printChatRoom(cr_number) {
         roomMidBox.innerHTML = '';
 
         for (let cmvo of listCmvo) {
-            printMessage(cmvo.cm_sender, sessionMemberNumber, cmvo.cm_content);
+            if (cmvo.cm_type == 't') {
+                printMessageText(cmvo.cm_sender, sessionMemberNumber, cmvo.cm_content, cmvo.cm_send_date);    
+            } else if (cmvo.cm_type == 'i') {
+                printMessageImage();
+            }
+            
             roomMidBox.scrollTop = roomMidBox.scrollHeight;
         }
     } catch (error) {
@@ -137,8 +154,8 @@ async function printChatRoom(cr_number) {
     }
 }
 
-// 메시지 내용 출력 함수
-function printMessage(sender, loginUser, content) {
+// 메시지 내용 출력 함수 (텍스트)
+function printMessageText(sender, loginUser, content, datetime) {
     let roomMidBox = document.getElementById('roomMidBox');
     let div = document.createElement('div');
 
@@ -148,16 +165,28 @@ function printMessage(sender, loginUser, content) {
         div.classList.add('receiveMessage');
     }
 
+    console.log(">>> datetime : " + datetime);
+    let date = new Date(datetime);
+    console.log(">> date : " + date);
+
+    let hours = ('0' + date.getHours()).slice(-2);
+    let minutes = ('0' + date.getMinutes()).slice(-2);
+
     div.innerHTML += `
         <div class="chatMessage">
             ${content}
         </div >
         <div class="chatTime">
-            00:00
+            ${hours}:${minutes}
         </div>
     `;
 
     roomMidBox.appendChild(div);
+}
+
+// 메시지 내용 출력 함수 (텍스트)
+function printMessageImage(sender, loginUser, content, datetime) {
+    
 }
 
 window.onload = () => {
@@ -165,3 +194,77 @@ window.onload = () => {
         getChat(selectRoomNumber);
     }
 }
+
+// --------------------------------------
+
+// 모달 생성 및 닫기
+const modal = document.querySelector('.modal');
+const closeModal = document.querySelector('.close-modal');
+
+// 옵션
+const options = document.querySelectorAll('.option');
+
+// 파일 업로드 (열기만)
+function showFileUploadWindow() {
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.accept = 'image/*';
+  fileInput.click();
+
+  fileInput.addEventListener('change', function(event) {
+    const selectedFile = event.target.files[0];
+    console.log(">>> file : " + selectedFile);
+    console.log(">>> file.type : " + selectedFile.type);
+    console.log(">>> file.name : " + selectedFile.name);
+    
+    if (selectedFile.type.startsWith("image/")) {
+        stomp.send('/pub/chat/message', {}, JSON.stringify({ 
+            cr_number: cr_number, 
+            cm_content: selectedFile.name, 
+            cm_sender: sessionMemberNumber,
+            cm_type: 'i'
+        }));
+    } else {
+    	alert("이미지 파일만 선택 가능합니다.");
+    }
+  });
+}
+
+// 지도
+function showMap() {
+  
+  console.log('지도 보기');
+}
+
+// 달력
+function showRemittanceWindow() {
+
+  console.log('달력 보기');
+}
+
+// 모달 여는 버튼 설정
+const openModalBtn = document.getElementById('modalBtn');
+openModalBtn.addEventListener('click', function() {
+  modal.style.display = 'block';
+});
+
+// 모달 닫는 버튼 설정
+closeModal.addEventListener('click', function() {
+  modal.style.display = 'none';
+});
+
+window.addEventListener('click', function(event) {
+  if (event.target === modal) {
+    modal.style.display = 'block';
+  }
+});
+
+options.forEach(option => {
+  const action = option.getAttribute('data-action');
+  if (action) {
+    option.addEventListener('click', function() {
+      eval(action);
+      modal.style.display = 'none'; 
+    });
+  }
+});

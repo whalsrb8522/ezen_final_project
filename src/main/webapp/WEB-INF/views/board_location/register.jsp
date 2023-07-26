@@ -7,7 +7,7 @@
 <title>양파마켓 | 지역게시판</title>
 <link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/board_location/register.css">
-<link rel="icon" type="image/png" href="/resources/images/favicon.png">
+<link rel="icon" type="image/png" href="/resources/image/favicon.png">
 <style>
 </style>
 </head>

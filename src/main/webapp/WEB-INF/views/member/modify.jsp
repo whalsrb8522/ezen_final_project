@@ -29,7 +29,7 @@
 	<div id="container">
 		<form action="/member/modify" method="POST" enctype="multipart/form-data" id="innerContainer">
 			<a href="/" id="logoContainer">	
-				<img alt="로고" src="/resources/img/logo.png" id="logoImage">
+				<img alt="로고" src="/resources/image/logo.png" id="logoImage">
 				<span id="logoText">양파마켓</span>
 			</a>
 		
