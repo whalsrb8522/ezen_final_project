@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.myweb.www.domain.MemberDTO;
 import com.myweb.www.domain.MemberVO;
 import com.myweb.www.domain.ProductDTO;
 import com.myweb.www.domain.ProductImageVO;
@@ -71,8 +72,12 @@ public class ProductController {
 	}
 	
 	@GetMapping("/detail")
-	public void detail(@RequestParam("p_number")int p_number, Model m, HttpSession ses) {
+	public void detail(@RequestParam("p_number")int p_number, MemberDTO mdto, Model m, HttpSession ses) {
 		MemberVO sesMvo = (MemberVO) ses.getAttribute("ses");
+//		MemberDTO mdto = new MemberDTO();
+		m.addAttribute(mdto);
+		
+		
 		ProductDTO pdto = new ProductDTO();
 		psv.readCount(p_number);
 		if (sesMvo == null) {
