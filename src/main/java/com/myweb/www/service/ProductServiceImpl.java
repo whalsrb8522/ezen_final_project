@@ -145,9 +145,20 @@ public class ProductServiceImpl implements ProductService {
 	
 	//작성자:안세호
 	@Override
-	public List<ProductVO> getProductByMember(Integer m_number) {
-		// TODO Auto-generated method stub
-		return pdao.selectProductsByMember(m_number);
+	public List<ProductDTO> getProductByMember(Integer m_number) {
+	    List<ProductVO> products = pdao.selectProductsByMember(m_number);
+	    List<ProductDTO> productList = new ArrayList<>();
+	    
+	    for (ProductVO product : products) {
+	        List<ProductImageVO> images = pidao.selectImagesByProduct(product.getP_number());
+	        ProductDTO productDTO = new ProductDTO();
+	        productDTO.setPvo(product);
+	        productDTO.setPiList(images);
+	        productList.add(productDTO);
+	    }
+
+	    return productList;
 	}
+
 	
 }

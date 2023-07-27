@@ -1,7 +1,5 @@
 package com.myweb.www.domain;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,10 +11,10 @@ import lombok.ToString;
 @ToString
 @Setter
 @Getter
-public class MemberDTO {
-	private MemberVO mvo;
-	private MemberImageVO mivo;
-	
-
-	
+public class BoardQnaCommentVO {
+	private int bqc_number;
+	private int bq_number;
+	private String bqc_writer;
+	private String bqc_content;
+	private String bqc_reg_date;
 }

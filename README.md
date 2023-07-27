@@ -192,4 +192,17 @@ alter table chat_message drop cm_receiver;
 
 -- [07.18 | detail 페이지를 위한 m_reg_date 컬럼 추가]
 alter table member add m_reg_date date not null default (current_date);
+
+-- [07.27 | board_qna list페이지 글 답변 상태 변경을 위한 컬럼 추가]
+alter table board_qna add bq_status tinyint default 0 not null;
+
+-- [07.27 | board_qna 답변 관련 테이블 추가]
+create table board_qna_comment(
+bqc_number int auto_increment not null,
+bq_number int not null,
+bqc_writer varchar(50) not null,
+bqc_content text not null,
+bqc_reg_date datetime default now() not null,
+primary key(bqc_number),
+foreign key(bq_number) references board_qna(bq_number));
 ```

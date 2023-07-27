@@ -1,3 +1,5 @@
+
+
 // 카테고리 나타내기
 let detailCate = document.getElementById('detail-cate-wrap');
 let detailscroll = document.querySelector('.detail-cate-scroll');

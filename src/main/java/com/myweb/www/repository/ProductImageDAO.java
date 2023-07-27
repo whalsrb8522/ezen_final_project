@@ -16,5 +16,8 @@ public interface ProductImageDAO {
 	int deleteFile(String pi_uuid);
 
 	List<ProductImageVO> selectFile();
+	
+	// 작성자:안세호
+	List<ProductImageVO> selectImagesByProduct(int p_number);
 
 }

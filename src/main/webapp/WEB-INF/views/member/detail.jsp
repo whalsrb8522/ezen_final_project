@@ -2,11 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ page import="com.myweb.www.domain.ProductVO" %>
-<%@ page import="com.myweb.www.domain.ProductImageVO" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,7 +40,7 @@
 				<c:set var="completedSalesCount" value="0" />
 
 				<c:forEach items="${productList}" var="product">
-				    <c:if test="${product.m_number == member.mvo.m_number && product.p_status eq 2}">
+				    <c:if test="${product.pvo.m_number == member.mvo.m_number && product.pvo.p_status eq 2}">
 				        <c:set var="completedSalesCount" value="${completedSalesCount + 1}" />
 				    </c:if>
 				</c:forEach>
@@ -84,28 +82,36 @@
 				</div>
 			</div>
 			
+			<!-- 상품 수 가져오기 -->
+			<c:set var="productCount" value="0" />
+			<c:forEach items="${productList}" var="productList">
+			    <c:if test="${productList.pvo.m_number == member.mvo.m_number}">
+			        <c:set var="productCount" value="${productCount + 1}" />
+			    </c:if>
+			</c:forEach>
+			
 			<div id="memberMenu">
-				<button class="border-gray">상품 0</button>
+				<button class="border-gray">상품 ${productCount}</button>
 				<button class="border-gray">상품후기 0</button>
 				<button class="border-gray">찜 0</button>
 			</div>
 			
 			<div id="memberProduct">
-				<p>상품 0</p>
+				<p>상품 ${productCount}</p>
 				
 				<!-- 상품 리스트 -->
-				<div id="productContainer">
+				<%-- <div id="productContainer">
 				    <c:forEach items="${productList}" var="product">
-				        <c:if test="${product.m_number == member.mvo.m_number}">
-				            <div onclick="location.href='/product/detail?p_number=${product.p_number}'" class="product">
+				        <c:if test="${product.pvo.m_number == member.mvo.m_number}">
+				            <div onclick="location.href='/product/detail?p_number=${product.pvo.p_number}'" class="product">
 				                <div class="product-image">
-				                    <img alt="상품 이미지" src="/resources/fileUpload/${product.piList[0].pi_dir}/${product.piList[0].pi_uuid}_th_${product.piList[0].pi_name}">
+				                    <img alt="상품 이미지" src="../resources/fileUpload/${product.piList[0].pi_dir}/${product.piList[0].pi_uuid}_th_${product.piList[0].pi_name}">
 				                </div>
 				
 				                <div class="product-text">
 				                    <ul>
-				                        <li class="product-title">${product.p_name}</li>
-				                        <li class="product-price">${product.p_price}<span style="font-size: 12px;">원</span></li>
+				                        <li class="product-title">${product.pvo.p_name}</li>
+				                        <li class="product-price">${product.pvo.p_price}<span style="font-size: 12px;">원</span></li>
 				                    </ul>
 				                </div>
 				
@@ -113,11 +119,45 @@
 				                    <span class="material-symbols-outlined">
 				                        location_on
 				                    </span>
-				                    ${product.p_location}
+				                    ${product.pvo.p_location}
 				                </div>
 				            </div>
 				        </c:if>
 				    </c:forEach>
+				</div> --%>
+				
+				
+				<div>
+					<c:forEach items="${productList }" var="productList">
+						<c:set value="${productList.piList }" var="piList"></c:set>
+						<c:if test="${productList.pvo.m_number == member.mvo.m_number}">
+						<div class="product-wrapper" onclick="location.href='/product/detail?p_number=${productList.pvo.p_number }'">
+							<div class="product-photo">
+								<img alt="없음" src="/resources/fileUpload/${productList.piList[0].pi_dir }/${productList.piList[0].pi_uuid }_th_${productList.piList[0].pi_name }" class="product-photo">
+								<!-- 구매가능, 예약중, 거래완료 -->
+								<div class="product-status">
+								<c:if test="${productList.pvo.p_status eq 0 }">
+									<img alt="" src="/resources/image/purchase.png">
+								</c:if>
+								<c:if test="${productList.pvo.p_status eq 1 }">
+									<img alt="" src="/resources/image/reservation.png">
+								</c:if>
+								<c:if test="${productList.pvo.p_status eq 2 }">
+									<img alt="" src="/resources/image/completed.png">
+								</c:if>
+								</div>
+							</div>
+							<div style="display: none">${productList.pvo.p_number }</div>
+							<div class="product-title">${productList.pvo.p_name }</div>
+							<div class="product-price"><b><fmt:formatNumber value="${productList.pvo.p_price }" pattern="#,###,###" /> <span style="font-size:12px">원</span></b></div>
+							
+							<div class="product-location">
+								<span class="material-symbols-outlined">location_on</span>
+								<span class="location-sub">${productList.pvo.p_location }</span>
+							</div>
+						</div>
+						</c:if>
+					</c:forEach>
 				</div>
 
 
@@ -150,5 +190,6 @@
 	
 	
 	<jsp:include page="../layout/footer.jsp"></jsp:include>
+	<script type="text/javascript" src="/resources/js/product/list.js"></script>
 </body>
 </html>
