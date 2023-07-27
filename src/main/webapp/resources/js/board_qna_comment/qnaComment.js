@@ -26,9 +26,10 @@ document.getElementById('postCmt').addEventListener('click', () => {
     } else {
         let cmtData = {
             bq_number: bq_number,
-            bq_writer: document.getElementById('cmtWriter').innerText,
-            bq_content: cmtText
+            bqc_writer: document.getElementById('cmtWriter').value,
+            bqc_content: cmtText
         };
+        console.log(cmtData);
         postCommentToserver(cmtData).then(result => {
             if (result > 0) {
                 document.getElementById('loc-content').value = "";
@@ -68,9 +69,10 @@ function getCommentList(bq_number) {
 					                    </div>
                                     </div>
                                 </div>`;
-                inner += `<div id="content-box">${bqcvo.bqc_content}</div>
-                            </div>`;
+                inner += `<div id="content-box"><p style="white-space: pre-line;">${bqcvo.bqc_content}</p></div></div>`;
+                // inner.replace(/(?:\r\n|\r|\n)/g, '<br />');
                 div.innerHTML += inner;
+                
             }
         }
     })
