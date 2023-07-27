@@ -1,5 +1,7 @@
 package com.myweb.www.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -8,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.myweb.www.domain.MemberDTO;
 import com.myweb.www.domain.MemberImageVO;
 import com.myweb.www.domain.MemberVO;
+import com.myweb.www.domain.ProductDTO;
 import com.myweb.www.repository.MemberDAO;
 import com.myweb.www.repository.MemberImageDAO;
 
@@ -24,6 +27,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Inject
     BCryptPasswordEncoder passwordEncoder;
+	private ProductService psv;
 	
 	@Override
 	@Transactional
@@ -154,6 +158,8 @@ public class MemberServiceImpl implements MemberService {
 		MemberDTO memberDetails = new MemberDTO();
 		memberDetails.setMvo(mdao.selectMemberWithNumber(m_number));
 		memberDetails.setMivo(midao.selectMemberImage(m_number));
+		
+	    
 		return memberDetails;
 	}
 

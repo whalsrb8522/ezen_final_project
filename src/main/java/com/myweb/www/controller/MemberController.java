@@ -31,6 +31,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.myweb.www.domain.MemberDTO;
 import com.myweb.www.domain.MemberImageVO;
 import com.myweb.www.domain.MemberVO;
+import com.myweb.www.domain.ProductDTO;
 import com.myweb.www.domain.ProductVO;
 import com.myweb.www.handler.MemberImageHandler;
 import com.myweb.www.service.MemberService;
@@ -145,7 +146,7 @@ public class MemberController {
 	    MemberDTO member = memberService.getMemberDetails(m_number);
 	    
 	    // 상품 정보를 가져옵니다.
-	    List<ProductVO> productList = psv.getProductByMember(m_number);
+	    List<ProductDTO> productList = psv.getProductByMember(m_number);
 	    
 	    
 	    

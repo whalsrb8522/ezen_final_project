@@ -115,27 +115,83 @@
     background: none;
 }
 
+/* 상품 리스트 */
+.product-wrapper:nth-child(5n+0){
+	margin-right: 0;
+}
+
+.product-wrapper{
+	display: inline-block;
+	width: 190px;
+	height: 300px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	cursor: pointer;
+	border: 1px solid rgb(238, 238, 238);
+}
+
+.product-photo{
+	position: relative;
+	width: 190px;
+	height: 200px;
+}
+
+.product-status{
+	position: absolute;
+	left: 10px;
+	bottom: 10px;
+}
+
+.product-title{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding: 5px 5px;
+	font-size: 15px;
+}
+
+.product-list-alink{
+	color: black;
+}
+
+.product-price{
+	padding: 0 5px 10px 5px;
+	
+}
+
+.product-location{
+	display: flex;
+	justify-content : center;
+	align-items: center;
+	font-size: 12px;
+	padding: 3px 0;
+	border-top: 1px solid black;
+}
+
+
 /* 내 상품 본문 */
-#productContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin-top: 30px
+/* #productContainer {
+    display: inline-block;
+	width: 190px;
+	height: 300px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	cursor: pointer;
+	border: 1px solid rgb(238, 238, 238);
 }
 
 #productContainer .product {
-    box-sizing: border-box; /* border와 padding이 width에 포함되도록 합니다 */
-    width: calc(33.33% - 10px); /* 간격을 고려한 너비 설정. 간격을 조절하려면 10px 값을 바꾸세요 */
+    box-sizing: border-box; border와 padding이 width에 포함되도록 합니다
+    width: calc(33.33% - 10px); 간격을 고려한 너비 설정. 간격을 조절하려면 10px 값을 바꾸세요
     border: 1px solid rgb(238, 238, 238);
     cursor: pointer;
-    margin: 5px; /* 상품 간의 간격을 주기 위해 추가했습니다 */
+    margin: 5px; 상품 간의 간격을 주기 위해 추가했습니다
 }
 
 #productContainer .product-image {
-	width: 100%;
+	position: relative;
+	width: 190px;
 	height: 200px;
-	overflow: hidden;
 }
 
 #productContainer .product-image img {
@@ -162,4 +218,4 @@
     align-items: center;
     border-top: 1px solid black;
     padding: 5px;
-}
+} */
