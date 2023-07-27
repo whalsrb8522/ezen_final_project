@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<% pageContext.setAttribute("replaceChar", "\n"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,7 +51,7 @@
 				</div>
 			</div>
 			<div id="content-box">
-				<span>${bqvo.bq_content }</span>
+				<span>${fn:replace(bqvo.bq_content, replaceChar, "<br/>") }</span>
 			</div>
 		</div>
 		
@@ -83,7 +85,7 @@
 					<div id="comment-info">
 						<div id="writer-profile">
 							<img src="/resources/image/basicprofile.jpeg" alt="Image">
-							<input type="hidden" id="cmtWriter" value="${ses.m_nick_name }">
+							<input type="hidden" id="cmtWriter" name="bqc_writer" value="${ses.m_nick_name }">
 						</div>
 						<div id="writer-comment">
 			 				<textarea class="border-gray" id="loc-content" name="loc-content" 
@@ -115,7 +117,6 @@
 				</div>
 			</div>
 			<div id="content-box">
-				
 			</div>
 		</div>
 		</div>
