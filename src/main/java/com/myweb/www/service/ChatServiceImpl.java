@@ -42,8 +42,8 @@ public class ChatServiceImpl implements ChatService {
 		List<ChatRoomVO> listCrvo = cdao.selectChatRoom(sesMvo);
 		
 		for(ChatRoomVO crvo : listCrvo) {
-			log.info(">>> crvo : " + crvo.toString());
-			log.info(">>> sesMvo : " + sesMvo.toString());
+//			log.info(">>> crvo : " + crvo.toString());
+//			log.info(">>> sesMvo : " + sesMvo.toString());
 			
 			String lastMessage = cdao.selectLastMessage(crvo);
 			int notReadCount = cdao.countNotReadMessage(crvo, sesMvo);
@@ -58,9 +58,9 @@ public class ChatServiceImpl implements ChatService {
 	
 	@Override
 	public ChatMessageDTO getMessage(int cr_number, int sessionM_number) {
-		log.info(">>> getMessage()");
-		log.info(">>> cr_number = " + cr_number);
-		log.info(">>> m_number = " + sessionM_number);
+//		log.info(">>> getMessage()");
+//		log.info(">>> cr_number = " + cr_number);
+//		log.info(">>> m_number = " + sessionM_number);
 
 		cdao.updateReadDate(cr_number, sessionM_number);
 		

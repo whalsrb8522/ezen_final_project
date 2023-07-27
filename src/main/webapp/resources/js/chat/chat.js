@@ -201,19 +201,29 @@ function showFileUploadWindow() {
     fileInput.accept = 'image/*';
     fileInput.click();
 
-    fileInput.addEventListener('change', function (event) {
+    fileInput.addEventListener('change', async function (event) {
         const selectedFile = event.target.files[0];
         console.log(">>> file : " + selectedFile);
         console.log(">>> file.type : " + selectedFile.type);
         console.log(">>> file.name : " + selectedFile.name);
 
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+
         if (selectedFile.type.startsWith("image/")) {
-            stomp.send('/pub/chat/message', {}, JSON.stringify({
-                cr_number: cr_number,
-                cm_content: selectedFile.name,
-                cm_sender: sessionMemberNumber,
-                cm_type: 'i'
-            }));
+            const resp = await fetch("/chat/upload", {
+                method: 'POST',
+                body: formData
+            });
+
+            if (resp.ok) {
+                stomp.send('/pub/chat/message', {}, JSON.stringify({
+                    cr_number: cr_number,
+                    cm_content: selectedFile.name,
+                    cm_sender: sessionMemberNumber,
+                    cm_type: 'i'
+                }));
+            }
         } else {
             alert("이미지 파일만 선택 가능합니다.");
         }

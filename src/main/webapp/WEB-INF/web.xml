@@ -29,8 +29,8 @@
   		<async-supported>true</async-supported>
   		<multipart-config>
 			<!-- <location>D:\_final_project\ezen_final_project\src\main\webapp\resources\fileUpload</location> -->
-			<!-- <location>E:\Workspace\Spring\ezen_final_project\src\main\webapp\resources\fileUpload</location> -->
-			<location>E:\Workspace\ezen_final_project\src\main\webapp\resources\fileUpload</location>
+			<location>E:\Workspace\Spring\ezen_final_project\src\main\webapp\resources\fileUpload</location>
+			<!-- <location>E:\Workspace\ezen_final_project\src\main\webapp\resources\fileUpload</location> -->
 			<max-file-size>20971520</max-file-size>
 			<max-request-size>41943040</max-request-size>
 			<file-size-threshold>20971520</file-size-threshold>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.socket.WebSocketSession;
 
 import com.myweb.www.domain.ChatMessageVO;
+import com.myweb.www.handler.ChatMessageImageHandler;
 import com.myweb.www.service.ChatService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,7 @@ public class StompController {
 	@Inject
     private final SimpMessagingTemplate messagingTemplate = null;
 	@Inject 
-	ChatService csvc;
+	private ChatService csvc;
 
     @MessageMapping(value = "/chat/enter")
     public void enter(ChatMessageVO cmvo, WebSocketSession session) {
