@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,12 +29,12 @@
 			<h3>문의내역</h3>			
 		</div>
 		
-		<div id="inner-box">
+		<!-- <div id="inner-box">
 			<div id="searchBox" class="border-gray">
 				<span id="searchIcon" class="material-symbols-outlined">search</span>
 				<input type="text" id="searchInput" placeholder="　요청 검색">
 			</div>
-		</div>
+		</div> -->
 		
 		<div id="inner-box">
 			<div id ="requests">
@@ -41,35 +42,42 @@
 					<thead class="table-light">
 						<tr>
 							<th>제목</th>
-							<th>ID</th>
+							<th>닉네임</th>
 							<th>등록시간</th>
 							<th>상태</th>
 						</tr>					
 					</thead>
 					<tbody>
-						<tr>
-							<td><a href="/board_qna/detail">의뢰문의</a></td>
-							<td>mari</td>
-							<td>2023.07.04</td>
-							<td>답변 전</td>
-						</tr>					
+					<c:forEach items="${bqvo }" var="bqvo">
+						<tr onclick="location.href='/board_qna/detail?bq_number=${bqvo.bq_number }'">
+							<td>${bqvo.bq_title }</td>
+							<td>${bqvo.bq_writer }</td>
+							<td>${bqvo.bq_reg_date }</td>
+							<td>
+								<c:choose>
+									<c:when test="${bqvo.bq_status eq 0 }">답변 전</c:when>
+									<c:when test="${bqvo.bq_status eq 1 }">답변 완료</c:when>
+								</c:choose>
+							</td>
+						</tr>
+					</c:forEach>			
 					</tbody>
 				</table>
 			</div>
 		</div>
 		
-		<div id="inner-box">
-			<!-- 페이지네이션 -->
+		<!-- <div id="inner-box">
+			페이지네이션
 			<div id="page-wrap">
-				<!-- 이전페이지 -->
+				이전페이지
 				<div class="background-gray page-btn">&lt;</div>
-				<!-- 컨트롤러에서 page 정보를 싣고 와야 함 -->
-				<!-- 숫자 페이지 -->
+				컨트롤러에서 page 정보를 싣고 와야 함
+				숫자 페이지
 				<div class="background-gray page-btn">i</div>
-				<!-- 다음페이지 -->
+				다음페이지
 				<div class="background-gray page-btn">&gt;</div>
 			</div>
-		</div>
+		</div> -->
 		
 	</div>
 
