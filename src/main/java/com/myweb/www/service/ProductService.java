@@ -32,7 +32,7 @@ public interface ProductService {
 	int removeFile(String pi_uuid);
 	
 	//member/detail (작성자:안세호)
-	List<ProductVO> getProductByMember(Integer m_number);
+	List<ProductDTO> getProductByMember(Integer m_number);
 
 	int removeIsDel(int p_number);
 

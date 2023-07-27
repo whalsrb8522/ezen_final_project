@@ -1,5 +1,7 @@
 package com.myweb.www.domain;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,5 +16,7 @@ import lombok.ToString;
 public class MemberDTO {
 	private MemberVO mvo;
 	private MemberImageVO mivo;
+	
+
 	
 }

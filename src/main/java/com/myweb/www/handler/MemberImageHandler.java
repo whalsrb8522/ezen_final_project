@@ -22,7 +22,7 @@ public class MemberImageHandler {
 	
 	
 	//주소 주의 (D드라이브 / E드라이브)
-	private final String UP_DIR = "src\\main\\webapp\\resources\\fileUpload";
+	private final String UP_DIR = "E:\\Workspace\\ezen_final_project\\src\\main\\webapp\\resources\\fileUpload";
 
 	public MemberImageVO uploadFile(MultipartFile file) {
 			LocalDate date = LocalDate.now();
