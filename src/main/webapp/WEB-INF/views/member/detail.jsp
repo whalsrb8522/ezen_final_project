@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -91,9 +89,9 @@
 			</c:forEach>
 			
 			<div id="memberMenu">
-				<button class="border-gray">상품 ${productCount}</button>
-				<button class="border-gray">상품후기 0</button>
-				<button class="border-gray">찜 0</button>
+				<button class="border-gray" onclick="">상품 ${productCount}</button>
+				<button class="border-gray" onclick="">상품후기 0</button>
+				<button class="border-gray" onclick="">찜 0</button>
 			</div>
 			
 			<div id="memberProduct">
@@ -127,7 +125,7 @@
 				</div> --%>
 				
 				
-				<div>
+				<div class="productList">
 					<c:forEach items="${productList }" var="productList">
 						<c:set value="${productList.piList }" var="piList"></c:set>
 						<c:if test="${productList.pvo.m_number == member.mvo.m_number}">
@@ -158,6 +156,12 @@
 						</div>
 						</c:if>
 					</c:forEach>
+				</div>
+				
+				<div class="reviewList" style="display: none;">
+				</div>
+				
+				<div class="favoriteList" style="display: none;">
 				</div>
 
 
@@ -190,6 +194,6 @@
 	
 	
 	<jsp:include page="../layout/footer.jsp"></jsp:include>
-	<script type="text/javascript" src="/resources/js/product/list.js"></script>
+	<script type="text/javascript" src="/resources/js/member/detail.js"></script>
 </body>
 </html>

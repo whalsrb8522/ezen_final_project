@@ -159,6 +159,12 @@ public class ProductServiceImpl implements ProductService {
 
 	    return productList;
 	}
+	//작성자:안세호(찜한 게시글 가져오기)
+	@Override
+	public List<ProductDTO> getLikedProductsByMember(Integer m_number) {
+		// TODO Auto-generated method stub
+		return pdao.getAllLikesByUser(m_number);
+	}
 
 	
 }
