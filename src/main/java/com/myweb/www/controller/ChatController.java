@@ -17,12 +17,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.myweb.www.domain.ChatMessageDTO;
+import com.myweb.www.domain.ChatMessageImageDTO;
+import com.myweb.www.domain.ChatMessageImageVO;
 import com.myweb.www.domain.ChatRoomDTO;
 import com.myweb.www.domain.ChatRoomVO;
 import com.myweb.www.domain.MemberVO;
 import com.myweb.www.domain.ProductVO;
+import com.myweb.www.handler.ChatMessageImageHandler;
 import com.myweb.www.repository.ProductDAO;
 import com.myweb.www.service.ChatService;
 
@@ -39,6 +43,8 @@ public class ChatController {
 	private ChatService csvc;
 	@Inject
 	private ProductDAO pdao;
+	@Inject
+	private ChatMessageImageHandler cmihd;
 	
 	//채팅방 목록 조회
     @GetMapping(value = "/main")
@@ -90,4 +96,19 @@ public class ChatController {
 		return new ResponseEntity<ChatMessageDTO>(cmdto, HttpStatus.OK);
 	}
 	
+	// 이미지 업로드
+	@PostMapping(value = "/upload", consumes = "multipart/form-data")
+	public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file) {
+		try {
+			log.info(">>> file : " + file.toString());
+			
+			ChatMessageImageVO cmivo = cmihd.uploadFiles(file);
+			csvc.insertImageMessage(cmivo);
+			
+			return new ResponseEntity<String>("success", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<String>("fail", HttpStatus.BAD_REQUEST);
+		}
+	}
 }

@@ -20,7 +20,9 @@ public interface ChatDAO {
 
 	public List<ChatRoomVO> selectChatRoom(MemberVO sesMvo);
 
-	public void insertMessage(ChatMessageVO cmvo);
+	public void insertTextMessage(ChatMessageVO cmvo);
+
+	public void insertImageMessage(ChatMessageVO cmvo);
 
 	public void updateSendDate(ChatMessageVO cmvo);
 
