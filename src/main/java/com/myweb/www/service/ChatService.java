@@ -14,7 +14,9 @@ public interface ChatService {
 
 	ChatMessageDTO getMessage(int cr_number, int sessionM_number);
 
-	void insertMessage(ChatMessageVO cmvo);
+	void insertTextMessage(ChatMessageVO cmvo);
+
+	void insertImageMessage(ChatMessageVO cmvo);
 
 	int registerChatRoom(ChatRoomVO crvo);
 
