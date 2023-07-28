@@ -21,8 +21,8 @@
 	<c:set var="pvo" value="${pdto.pvo }"></c:set>
 	<c:set var="flist" value="${pdto.piList }"></c:set>
 	<c:set var="plvo" value="${pdto.plvo }"></c:set>
-	<c:set var="mvo" value="${mdto.mvo }"></c:set>
-	<c:set var="mivo" value="${mdto.mivo }"></c:set>
+	<c:set var="mvo" value="${pdto.mdto.mvo }"></c:set>
+	<c:set var="mivo" value="${pdto.mdto.mivo }"></c:set>
 	<!-- 전체 틀 -->
 	<div id="detail-wrap">
 		<div id="detail-category">
@@ -149,12 +149,28 @@
 					<div class="detail-pro-info"><b>상점정보</b></div>
 					<div id="pro-mem-wrap">
 						<div id="product-store">
-							<div id="product-profile">
-								<a class="pro-file-photo"><img alt="글쓴이프로필사진" src="/resources/image/44.jpg" style="width:48px;height:48px;"></a>
+							<div id="product-profile" onclick="location.href='/product/store?m_number=${mvo.m_number}'">
+								<a class="pro-file-photo">
+									<!-- 회원이 프로필 사진을 등록 안했을 경우 -->
+									<c:if test="${empty mivo.mi_name}">
+										<img alt="프로필 사진" src="/resources/image/profile.png" style="width:48px;height:48px;">
+									</c:if>
+									<!-- 회원이 프로필 사진을 등록 했을 경우 -->
+									<c:if test="${not empty mivo.mi_name}">
+										<img alt="프로필 사진" src="/resources/fileUpload/${mivo.mi_dir}/${mivo.mi_uuid}_th_${mivo.mi_name}" style="width:48px;height:48px;">
+									</c:if>
+								</a>
 							</div>
+							<!-- 상품 수 가져오기 -->
+							<c:set var="productCount" value="0" />
+							<c:forEach items="${productList}" var="productList">
+			    				<c:if test="${productList.pvo.m_number == mvo.m_number}">
+			        				<c:set var="productCount" value="${productCount + 1}" />
+			    				</c:if>
+							</c:forEach>
 							<div>
-								<div><a>닉네임</a></div>
-								<div><a class="store-cnt">상품 몇 개</a></div>
+								<div class="pointer" onclick="location.href='/product/store?m_number=${mvo.m_number}'">${mvo.m_nick_name }</div>
+								<div><a class="store-cnt">상품 ${productCount} 개</a></div>
 							</div>
 						</div>
 						<div>

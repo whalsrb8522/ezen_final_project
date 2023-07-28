@@ -294,6 +294,10 @@
 	border-radius: 50%;
 }
 
+.pointer{
+	cursor: pointer;
+}
+
 .store-cnt{
 	font-size: 13px;
 	color: rgb(153, 153, 153);

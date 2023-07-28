@@ -11,6 +11,7 @@ import com.myweb.www.domain.MemberDTO;
 import com.myweb.www.domain.MemberImageVO;
 import com.myweb.www.domain.MemberVO;
 import com.myweb.www.domain.ProductDTO;
+import com.myweb.www.domain.ProductImageVO;
 import com.myweb.www.repository.MemberDAO;
 import com.myweb.www.repository.MemberImageDAO;
 
@@ -203,9 +204,6 @@ public class MemberServiceImpl implements MemberService {
 	        throw new RuntimeException("Error in updating member", e);
 	    }
 	}
-
-
-
 
 
 

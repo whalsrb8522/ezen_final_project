@@ -2,10 +2,6 @@ package com.myweb.www.repository;
 
 
 import org.springframework.stereotype.Repository;
-
-
-import com.myweb.www.domain.ChatRoomVO;
-import com.myweb.www.domain.MemberDTO;
 import com.myweb.www.domain.MemberVO;
 
 @Repository
@@ -24,12 +20,12 @@ public interface MemberDAO {
 	MemberVO getNewMember(String m_mail);
 
 	
-
 	void updateMember(MemberVO member);
+	
+	
+	// 작성자 : 김경아
+	MemberVO getMemberProduct(int m_number);
 
 	
-
-	
-
 
 }

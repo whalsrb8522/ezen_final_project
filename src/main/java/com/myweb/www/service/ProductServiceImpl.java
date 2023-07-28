@@ -6,11 +6,16 @@ import java.util.List;
 import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
+import com.myweb.www.domain.MemberDTO;
+import com.myweb.www.domain.MemberImageVO;
+import com.myweb.www.domain.MemberVO;
 import com.myweb.www.domain.ProductDTO;
 import com.myweb.www.domain.ProductImageVO;
 import com.myweb.www.domain.ProductLikeVO;
 import com.myweb.www.domain.ProductPagingVO;
 import com.myweb.www.domain.ProductVO;
+import com.myweb.www.repository.MemberDAO;
+import com.myweb.www.repository.MemberImageDAO;
 import com.myweb.www.repository.ProductDAO;
 import com.myweb.www.repository.ProductImageDAO;
 
@@ -23,6 +28,10 @@ public class ProductServiceImpl implements ProductService {
 	private ProductDAO pdao;
 	@Inject
 	private ProductImageDAO pidao;
+	@Inject
+	private MemberDAO mdao;
+	@Inject
+	private MemberImageDAO midao;
 
 
 	@Override
@@ -53,7 +62,7 @@ public class ProductServiceImpl implements ProductService {
 		for(ProductVO pvo : listPvo) {
 			List<ProductImageVO> piList = pidao.selectFileList(pvo);
 			
-			listPdto.add(new ProductDTO(pvo, null, piList));
+			listPdto.add(new ProductDTO(pvo, null, piList, null));
 		}
 		return listPdto;
 	}
@@ -63,6 +72,13 @@ public class ProductServiceImpl implements ProductService {
 		ProductDTO pdto = new ProductDTO();
 		pdto.setPvo(pdao.selectPno(p_number));
 		pdto.setPiList(pidao.selectFile(p_number));
+		
+		// detail 상점 정보 가져오기
+		MemberVO mvo = mdao.getMemberProduct(pdto.getPvo().getM_number());
+		MemberImageVO mivo = midao.selectMemberImage(pdto.getPvo().getM_number());
+		MemberDTO mdto = new MemberDTO(mvo, mivo);
+		pdto.setMdto(mdto);
+		log.info("service : "+pdto.toString());
 		return pdto;
 	}
 
@@ -72,6 +88,12 @@ public class ProductServiceImpl implements ProductService {
 		pdto.setPvo(pdao.selectPno(p_number));
 		pdto.setPlvo(pdao.selectProductLike(p_number, sesM_number));
 		pdto.setPiList(pidao.selectFile(p_number));
+		
+		// detail 상점 정보 가져오기
+		MemberVO mvo = mdao.getMemberProduct(pdto.getPvo().getM_number());
+		MemberImageVO mivo = midao.selectMemberImage(pdto.getPvo().getM_number());
+		MemberDTO mdto = new MemberDTO(mvo, mivo);
+		pdto.setMdto(mdto);
 		return pdto;
 	}
 
