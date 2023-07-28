@@ -92,10 +92,18 @@
 		select * from product where p_number = #{c_number}
 	</select>
 	
-	<!-- 작성자: 안세호  -->
+	<!-- 작성자: 안세호 (내 상품 리스트 가져오기) -->
 	<select id="selectProductsByMember" resultType="com.myweb.www.domain.ProductVO">
 	    SELECT * FROM product
 	    WHERE m_number = #{m_number}
+	</select>
+	
+	<!-- 작성자 : 안세호 (찜한 상품 정보 가져오기)-->
+	<select id="selectLikedProductsByMember" resultType="com.myweb.www.domain.ProductVO">
+	    SELECT * FROM product
+	    WHERE p_number IN (
+	        SELECT p_number FROM product_like WHERE m_number = #{m_number}
+	    )
 	</select>
 	
 

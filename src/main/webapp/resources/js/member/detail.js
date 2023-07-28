@@ -1,6 +1,23 @@
-// 상품 리스트 출력
-// 리뷰 출력
-// 찜 게시글 출력(유저가 찜한 전체 게시글 select하는 쿼리 ProductMapper에 추가할 것)
+
+//각 버튼 별 내 상품 리스트, 리뷰, 찜 상품 출력
+function showProductList() {
+    document.querySelector('.productList').style.display = 'block';
+    document.querySelector('.reviewList').style.display = 'none';
+    document.querySelector('.likedProductList').style.display = 'none';
+}
+
+function showReviewList() {
+    document.querySelector('.productList').style.display = 'none';
+    document.querySelector('.reviewList').style.display = 'block';
+    document.querySelector('.likedProductList').style.display = 'none';
+}
+
+function showLikedProductList() {
+    document.querySelector('.productList').style.display = 'none';
+    document.querySelector('.reviewList').style.display = 'none';
+    document.querySelector('.likedProductList').style.display = 'block';
+}
+
 
 
 

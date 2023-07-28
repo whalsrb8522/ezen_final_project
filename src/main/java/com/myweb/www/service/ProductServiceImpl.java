@@ -143,7 +143,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	
-	//작성자:안세호
+	//작성자:안세호(내 상품 리스트 가져오기)
 	@Override
 	public List<ProductDTO> getProductByMember(Integer m_number) {
 	    List<ProductVO> products = pdao.selectProductsByMember(m_number);
@@ -162,8 +162,22 @@ public class ProductServiceImpl implements ProductService {
 	//작성자:안세호(찜한 게시글 가져오기)
 	@Override
 	public List<ProductDTO> getLikedProductsByMember(Integer m_number) {
-		// TODO Auto-generated method stub
-		return pdao.getAllLikesByUser(m_number);
+	    List<ProductVO> products = pdao.selectLikedProductsByMember(m_number);
+	    List<ProductDTO> likedProductList = new ArrayList<>();
+	    
+	    for (ProductVO product : products) {
+	        List<ProductImageVO> images = pidao.selectImagesByProduct(product.getP_number());
+	        ProductLikeVO like = pdao.selectProductLike(product.getP_number(), m_number);
+	        
+	        ProductDTO productDTO = new ProductDTO();
+	        productDTO.setPvo(product);
+	        productDTO.setPiList(images);
+	        productDTO.setPlvo(like);
+	        
+	        likedProductList.add(productDTO);
+	    }
+
+	    return likedProductList;
 	}
 
 	

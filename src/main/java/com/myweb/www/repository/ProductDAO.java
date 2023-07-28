@@ -46,10 +46,12 @@ public interface ProductDAO {
 	
 	//(작성자 : 안세호)
 	List<ProductVO> selectProductsByMember(Integer m_number);
-	List<ProductDTO> getAllLikesByUser(Integer m_number);
+	List<ProductVO> selectLikedProductsByMember(Integer m_number);
 
 
 	int updateIsDel(int p_number);
+
+	
 
 	
 }

@@ -80,7 +80,7 @@
 				</div>
 			</div>
 			
-			<!-- 상품 수 가져오기 -->
+			<!-- 내 상품 수 가져오기 -->
 			<c:set var="productCount" value="0" />
 			<c:forEach items="${productList}" var="productList">
 			    <c:if test="${productList.pvo.m_number == member.mvo.m_number}">
@@ -88,14 +88,17 @@
 			    </c:if>
 			</c:forEach>
 			
+			<!-- 찜한 상품 수 가져오기 -->
+			<c:set var="likedCount" value="${fn:length(likedProductList)}" />
+			
 			<div id="memberMenu">
-				<button class="border-gray" onclick="">상품 ${productCount}</button>
-				<button class="border-gray" onclick="">상품후기 0</button>
-				<button class="border-gray" onclick="">찜 0</button>
+				<button class="border-gray" onclick="showProductList()">상품 ${productCount}</button>
+				<button class="border-gray" onclick="showrReviewList()">상품후기 </button>
+				<button class="border-gray" onclick="showLikedProductList()">찜 ${likedCount}</button>
 			</div>
 			
 			<div id="memberProduct">
-				<p>상품 ${productCount}</p>
+				
 				
 				<!-- 상품 리스트 -->
 				<%-- <div id="productContainer">
@@ -125,7 +128,8 @@
 				</div> --%>
 				
 				
-				<div class="productList">
+				<div class="productList" style="display: block;">
+					<p>상품 ${productCount}</p>
 					<c:forEach items="${productList }" var="productList">
 						<c:set value="${productList.piList }" var="piList"></c:set>
 						<c:if test="${productList.pvo.m_number == member.mvo.m_number}">
@@ -161,8 +165,39 @@
 				<div class="reviewList" style="display: none;">
 				</div>
 				
-				<div class="favoriteList" style="display: none;">
+				<div class="likedProductList" style="display: none;">
+					<p>찜 ${likedCount}</p>
+				    <c:forEach items="${likedProductList}" var="likedProduct">
+				    	<c:set value="${likedProduct.piList }" var="piList"></c:set>
+				        <div class="product-wrapper" onclick="location.href='/product/detail?p_number=${likedProduct.pvo.p_number }'">
+				            <div class="product-photo">
+				                <!-- You may need to adjust the way you access the image's src attribute, depending on how images are stored for your products -->
+				                <img alt="없음" src="/resources/fileUpload/${likedProduct.piList[0].pi_dir }/${likedProduct.piList[0].pi_uuid }_th_${likedProduct.piList[0].pi_name }" class="product-photo">
+				                <!-- 구매가능, 예약중, 거래완료 -->
+				                <div class="product-status">
+				                    <c:if test="${likedProduct.pvo.p_status eq 0 }">
+				                        <img alt="" src="/resources/image/purchase.png">
+				                    </c:if>
+				                    <c:if test="${likedProduct.pvo.p_status eq 1 }">
+				                        <img alt="" src="/resources/image/reservation.png">
+				                    </c:if>
+				                    <c:if test="${likedProduct.pvo.p_status eq 2 }">
+				                        <img alt="" src="/resources/image/completed.png">
+				                    </c:if>
+				                </div>
+				            </div>
+				            <div style="display: none">${likedProduct.pvo.p_number }</div>
+				            <div class="product-title">${likedProduct.pvo.p_name }</div>
+				            <div class="product-price"><b><fmt:formatNumber value="${likedProduct.pvo.p_price }" pattern="#,###,###" /> <span style="font-size:12px">원</span></b></div>
+				            
+				            <div class="product-location">
+				                <span class="material-symbols-outlined">location_on</span>
+				                <span class="location-sub">${likedProduct.pvo.p_location }</span>
+				            </div>
+				        </div>
+				    </c:forEach>
 				</div>
+
 
 
 
