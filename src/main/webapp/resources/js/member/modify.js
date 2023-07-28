@@ -285,6 +285,28 @@ function execDaumPostcode() {
 // 기존 약관 불러오기 (추가할 것)
 
 
+//회원탈퇴
+
+function removeMember() {
+    if(confirm("회원 탈퇴를 진행하시겠습니까?")) {
+        $.ajax({
+            type: "POST",
+            url: "/member/remove",
+            success: function(response) {
+                alert('탈퇴가 정상적으로 완료되었습니다.');
+                window.location.href = '/member/signin';  // 로그인 페이지로 이동
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert('회원 탈퇴에 실패하였습니다. 다시 시도해주세요.');
+                console.log(jqXHR, textStatus, errorThrown);
+            }
+        });
+    }
+}
+
+
+
+
 
 
 

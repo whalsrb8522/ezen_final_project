@@ -88,12 +88,15 @@
 			    </c:if>
 			</c:forEach>
 			
+			<!-- 상품후기 가져오기 -->
+			<c:set var="reviewCount" value="0" />
+			
 			<!-- 찜한 상품 수 가져오기 -->
 			<c:set var="likedCount" value="${fn:length(likedProductList)}" />
 			
 			<div id="memberMenu">
 				<button class="border-gray" onclick="showProductList()">상품 ${productCount}</button>
-				<button class="border-gray" onclick="showrReviewList()">상품후기 </button>
+				<button class="border-gray" onclick="showrReviewList()">상품후기 ${reviewCount}</button>
 				<button class="border-gray" onclick="showLikedProductList()">찜 ${likedCount}</button>
 			</div>
 			
@@ -163,6 +166,7 @@
 				</div>
 				
 				<div class="reviewList" style="display: none;">
+					<p>상품후기 ${reviewCount}</p>
 				</div>
 				
 				<div class="likedProductList" style="display: none;">

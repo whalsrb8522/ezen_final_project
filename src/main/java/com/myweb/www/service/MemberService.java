@@ -1,5 +1,7 @@
 package com.myweb.www.service;
 
+import java.util.Map;
+
 import com.myweb.www.domain.MemberDTO;
 import com.myweb.www.domain.MemberVO;
 
@@ -20,6 +22,8 @@ public interface MemberService {
 	
 	//modify
 	void updateMember(MemberDTO memberDTO);
+
+	int updateMemberStatus(Map<String, Object> params);
 
 
 

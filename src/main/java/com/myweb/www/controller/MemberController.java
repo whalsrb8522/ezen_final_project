@@ -2,6 +2,7 @@ package com.myweb.www.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -113,6 +114,12 @@ public class MemberController {
 	    MemberVO isMember = memberService.isMember(m_mail, m_pw);
 	    
 	    if(isMember != null) {
+	    	//탈퇴한 회원 확인
+	    	if(isMember.getM_isDel() == 1) {
+	            redirectAttributes.addFlashAttribute("errorMessage", "탈퇴한 회원입니다.");
+	            return "redirect:/member/signin";
+	        }
+	    	//정상적인 회원
 	        HttpSession ses = request.getSession();
 	        ses.setAttribute("ses", isMember); //세션에 객체 담기
 	        ses.setAttribute("m_number", isMember.getM_number()); // 로그인한 사용자의 m_number 세션에 저장
@@ -287,12 +294,38 @@ public class MemberController {
 	    }
 	    
 	    // 해시된 암호가 입력한 암호와 일치하는지 확인
-	 // Check if the hashed password matches the entered password
 	    boolean isPasswordMatching = passwordEncoder.matches(oldPassword, loggedInUser.getM_pw());
 	    System.out.println("Is password matching: " + isPasswordMatching); // Added logging here
 
 	    return ResponseEntity.ok().body(isPasswordMatching);
 	}
+	
+	//회원탈퇴 기능(실제 DB에서 삭제X / isDel 값만 1로 변경 / 추후 관리를 위해 Map으로)
+	@PostMapping("/remove")
+	@ResponseBody
+	public ResponseEntity<String> removeMember(HttpServletRequest request) {
+	    HttpSession session = request.getSession();
+	    MemberVO loggedInUser = (MemberVO)session.getAttribute("ses");
+	    
+	    if(loggedInUser == null) {
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요한 서비스입니다.");
+	    }
+
+	    int m_number = loggedInUser.getM_number();
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("m_number", m_number);
+	    params.put("isDel", 1);
+	    int isDel = memberService.updateMemberStatus(params);
+	    
+	    //서버 오류 확인을 위해 추가
+	    if(isDel > 0) {
+	        session.invalidate(); // 세션 종료
+	        return ResponseEntity.ok().body("회원탈퇴가 정상적으로 처리되었습니다.");
+	    } else {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원탈퇴에 실패하였습니다. 다시 시도해주세요.");
+	    }
+	}
+
 
 
 	

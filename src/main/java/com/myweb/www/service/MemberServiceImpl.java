@@ -1,6 +1,7 @@
 package com.myweb.www.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -202,6 +203,28 @@ public class MemberServiceImpl implements MemberService {
 	        log.error("Error in updating member", e);
 	        throw new RuntimeException("Error in updating member", e);
 	    }
+	}
+
+
+
+
+
+
+//	@Override
+//	public int updateMemberStatus(int m_number, int isDel) {
+//		// TODO Auto-generated method stub
+//		return mdao.updateMemberStatus(m_number, isDel);
+//	}
+
+
+
+
+
+
+	@Override
+	public int updateMemberStatus(Map<String, Object> params) {
+		// TODO Auto-generated method stub
+		return mdao.updateMemberStatus(params);
 	}
 
 

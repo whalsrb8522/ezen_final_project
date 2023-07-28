@@ -1,6 +1,8 @@
 package com.myweb.www.repository;
 
 
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 
 
@@ -26,6 +28,8 @@ public interface MemberDAO {
 	
 
 	void updateMember(MemberVO member);
+
+	int updateMemberStatus(Map<String, Object> params);
 
 	
 
