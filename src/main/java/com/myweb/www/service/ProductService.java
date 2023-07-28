@@ -30,6 +30,7 @@ public interface ProductService {
 	
 	//member/detail (작성자:안세호)
 	List<ProductDTO> getProductByMember(Integer m_number);
+	List<ProductDTO> getLikedProductsByMember(Integer m_number);
 
 	int removeIsDel(int p_number);
 

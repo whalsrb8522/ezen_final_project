@@ -113,6 +113,7 @@
     flex: 1 1 auto;
     height: 40px;
     background: none;
+    cursor: pointer;
 }
 
 /* 상품 리스트 */

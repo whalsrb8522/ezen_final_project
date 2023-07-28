@@ -148,10 +148,14 @@ public class MemberController {
 	    // 상품 정보를 가져옵니다.
 	    List<ProductDTO> productList = psv.getProductByMember(m_number);
 	    
-	    
+	    // 찜한 상품 정보를 가져옵니다.
+	    List<ProductDTO> likedProductList = psv.getLikedProductsByMember(m_number);
 	    
 	    model.addAttribute("member", member);
+	    //내가 작성한 상품 리스트
 	    model.addAttribute("productList", productList);
+	    //내가 찜한 게시글
+	    model.addAttribute("likedProductList", likedProductList);
 	    
 	    if (member != null) {
 	        return "/member/detail";
