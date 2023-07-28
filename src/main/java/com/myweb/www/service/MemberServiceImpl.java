@@ -12,6 +12,7 @@ import com.myweb.www.domain.MemberDTO;
 import com.myweb.www.domain.MemberImageVO;
 import com.myweb.www.domain.MemberVO;
 import com.myweb.www.domain.ProductDTO;
+import com.myweb.www.domain.ProductImageVO;
 import com.myweb.www.repository.MemberDAO;
 import com.myweb.www.repository.MemberImageDAO;
 
@@ -210,6 +211,7 @@ public class MemberServiceImpl implements MemberService {
 
 
 
+
 //	@Override
 //	public int updateMemberStatus(int m_number, int isDel) {
 //		// TODO Auto-generated method stub
@@ -226,19 +228,6 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return mdao.updateMemberStatus(params);
 	}
-
-
-
-
-
-
-
-
-	
-	
-	
-	
-
 
 
 

@@ -31,6 +31,7 @@ import com.myweb.www.domain.ProductPagingVO;
 import com.myweb.www.domain.ProductVO;
 import com.myweb.www.handler.ProductImageHandler;
 import com.myweb.www.handler.ProductPagingHandler;
+import com.myweb.www.service.MemberService;
 import com.myweb.www.service.ProductService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -43,6 +44,8 @@ public class ProductController {
 	private ProductService psv;
 	@Inject
 	private ProductImageHandler pihd;
+	@Inject
+	private MemberService memberService;
 	
 	
 	
@@ -65,24 +68,21 @@ public class ProductController {
 		if(files[0].getSize()>0) {
 			piList = pihd.uploadFiles(files);
 		}
-		ProductDTO pdto = new ProductDTO(pvo, null, piList);
+		ProductDTO pdto = new ProductDTO(pvo, null, piList, null);
 		int isOk = psv.productRegister(pdto);
 		rAttr.addFlashAttribute("isOk", isOk);
 		return "redirect:/product/list";
 	}
 	
 	@GetMapping("/detail")
-	public void detail(@RequestParam("p_number")int p_number, MemberDTO mdto, Model m, HttpSession ses) {
+	public void detail(@RequestParam("p_number")int p_number, Model m, HttpSession ses) {
+		
 		MemberVO sesMvo = (MemberVO) ses.getAttribute("ses");
-//		MemberDTO mdto = new MemberDTO();
-		m.addAttribute(mdto);
-		
-		
 		ProductDTO pdto = new ProductDTO();
 		psv.readCount(p_number);
-		if (sesMvo == null) {
+		if (sesMvo == null) {  // 로그인 안 되었을 때
 			pdto = psv.detail(p_number);
-		} else {
+		} else {  // 로그인 되었을 때
 			pdto = psv.detail(p_number, sesMvo.getM_number());
 		}
 		log.info(">>> pdto = " + pdto.toString());
@@ -134,7 +134,7 @@ public class ProductController {
 		if(files[0].getSize()>0) {
 			piList = pihd.uploadFiles(files);
 		}
-		ProductDTO pdto = new ProductDTO(pvo, null, piList);
+		ProductDTO pdto = new ProductDTO(pvo, null, piList, null);
 		int isOk = psv.updateModify(pdto);
 		log.info(">>> 글 수정 > "+(isOk>0?"성공":"실패"));
 		return "redirect:/product/list";
@@ -150,6 +150,16 @@ public class ProductController {
 		int isOk = psv.removeIsDel(p_number);
 		log.info(">>> 글 삭제 > "+(isOk>0?"성공":"실패"));
 		return "redirect:/product/list";
+	}
+	
+	// 상점 정보 보기
+	@GetMapping("/store")
+	public void getStore(@RequestParam("m_number")int m_number, Model m) {
+		MemberDTO member = memberService.getMemberDetails(m_number);
+	    List<ProductDTO> productList = psv.getProductByMember(m_number);
+	    
+	    m.addAttribute("member", member);
+	    m.addAttribute("productList", productList);
 	}
 
 

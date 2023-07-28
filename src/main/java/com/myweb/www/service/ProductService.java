@@ -2,9 +2,6 @@ package com.myweb.www.service;
 
 import java.util.List;
 
-import org.springframework.lang.Nullable;
-
-import com.myweb.www.domain.MemberVO;
 import com.myweb.www.domain.ProductDTO;
 import com.myweb.www.domain.ProductLikeVO;
 import com.myweb.www.domain.ProductPagingVO;

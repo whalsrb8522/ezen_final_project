@@ -50,5 +50,10 @@
 		resultType="com.myweb.www.domain.MemberVO">
 		select * from member where m_number = #{m_number}
 	</select>
+	
+	<!-- product 작성자:김경아 -->
+	<select id="getMemberProduct" resultType="com.myweb.www.domain.MemberVO">
+		select * from member where m_number=#{m_number}
+	</select>
 
 </mapper>

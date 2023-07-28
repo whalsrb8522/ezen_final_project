@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.myweb.www.domain.ChatMessageImageVO;
 import com.myweb.www.domain.ChatMessageVO;
 import com.myweb.www.domain.ChatRoomVO;
 import com.myweb.www.domain.MemberVO;
@@ -20,9 +21,7 @@ public interface ChatDAO {
 
 	public List<ChatRoomVO> selectChatRoom(MemberVO sesMvo);
 
-	public void insertTextMessage(ChatMessageVO cmvo);
-
-	public void insertImageMessage(ChatMessageVO cmvo);
+	public void insertMessage(ChatMessageVO cmvo);
 
 	public void updateSendDate(ChatMessageVO cmvo);
 
@@ -32,12 +31,16 @@ public interface ChatDAO {
 
 	public int insertChatRoom(ChatRoomVO crvo);
 
-	public void updateReadDate(
+	public int updateReadDate(
 			@Param("cr_number")int cr_number, 
 			@Param("m_number")int m_number);
 
 	public int countNotReadMessage(
 			@Param("crvo")ChatRoomVO crvo, 
 			@Param("sesMvo")MemberVO sesMvo);
+
+	public void insertChatImage(ChatMessageImageVO cmivo);
+
+	public ChatMessageImageVO selectImage(int cm_number);
 
 }

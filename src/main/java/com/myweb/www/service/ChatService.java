@@ -5,6 +5,7 @@ import java.util.List;
 import com.myweb.www.domain.ChatRoomDTO;
 import com.myweb.www.domain.ChatRoomVO;
 import com.myweb.www.domain.ChatMessageDTO;
+import com.myweb.www.domain.ChatMessageImageVO;
 import com.myweb.www.domain.ChatMessageVO;
 import com.myweb.www.domain.MemberVO;
 
@@ -14,10 +15,12 @@ public interface ChatService {
 
 	ChatMessageDTO getMessage(int cr_number, int sessionM_number);
 
-	void insertTextMessage(ChatMessageVO cmvo);
-
-	void insertImageMessage(ChatMessageVO cmvo);
+	void insertMessage(ChatMessageVO cmvo);
 
 	int registerChatRoom(ChatRoomVO crvo);
+
+	void registerChatImage(ChatMessageImageVO cmivo);
+
+	ChatMessageImageVO getImage(int cm_number);
 
 }
