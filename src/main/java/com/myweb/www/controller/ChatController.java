@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.myweb.www.domain.ChatMessageDTO;
 import com.myweb.www.domain.ChatMessageImageDTO;
 import com.myweb.www.domain.ChatMessageImageVO;
+import com.myweb.www.domain.ChatMessageVO;
 import com.myweb.www.domain.ChatRoomDTO;
 import com.myweb.www.domain.ChatRoomVO;
 import com.myweb.www.domain.MemberVO;
@@ -100,15 +101,23 @@ public class ChatController {
 	@PostMapping(value = "/upload", consumes = "multipart/form-data")
 	public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file) {
 		try {
-			log.info(">>> file : " + file.toString());
+			log.info(">>> upload()");
 			
 			ChatMessageImageVO cmivo = cmihd.uploadFiles(file);
-			csvc.insertImageMessage(cmivo);
+			csvc.registerChatImage(cmivo);
 			
 			return new ResponseEntity<String>("success", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<String>("fail", HttpStatus.BAD_REQUEST);
 		}
+	}
+    
+    // 이미지 불러오기
+	@GetMapping(value = "/image/{cm_number}", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<ChatMessageImageVO> view(@PathVariable("cm_number") int cm_number) {
+		ChatMessageImageVO cmivo = csvc.getImage(cm_number);
+		
+		return new ResponseEntity<ChatMessageImageVO>(cmivo, HttpStatus.OK);
 	}
 }
