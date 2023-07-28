@@ -17,4 +17,5 @@ public class ProductDTO {
 	private ProductVO pvo;
 	private ProductLikeVO plvo;
 	private List<ProductImageVO> piList;
+	private MemberDTO mdto;
 }
