@@ -12,7 +12,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ChatRoomVO {
-	private int cr_number;
-	private int cr_seller;
-	private int cr_buyer;
+	private Integer cr_number;
+	private Integer cr_seller;
+	private Integer cr_buyer;
 }
