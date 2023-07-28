@@ -41,3 +41,5 @@ for (let i = 0; i < location_spans.length; i++) {
     location_span.innerHTML = location_sub;
 }
 
+
+

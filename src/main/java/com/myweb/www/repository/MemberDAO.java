@@ -1,6 +1,8 @@
 package com.myweb.www.repository;
 
 
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 import com.myweb.www.domain.MemberVO;
 
@@ -25,6 +27,8 @@ public interface MemberDAO {
 	
 	// 작성자 : 김경아
 	MemberVO getMemberProduct(int m_number);
+
+	int updateMemberStatus(Map<String, Object> params);
 
 	
 

@@ -28,13 +28,19 @@
 	</select>
 	
 	<update id="updateMember" parameterType="com.myweb.www.domain.MemberVO">
-    UPDATE member SET
-    m_pw = #{m_pw},
-    m_nick_name = #{m_nick_name},
-    m_introduct = #{m_introduct},
-    m_address = #{m_address}
-    WHERE m_number = #{m_number}
-</update>
+	    UPDATE member SET
+	    m_pw = #{m_pw},
+	    m_nick_name = #{m_nick_name},
+	    m_introduct = #{m_introduct},
+	    m_address = #{m_address}
+	    WHERE m_number = #{m_number}
+	</update>
+	
+	<!-- 회원탈퇴 기능 -->
+	<update id="updateMemberStatus" parameterType="map">
+	    UPDATE member SET m_isDel = #{isDel} WHERE m_number = #{m_number}
+	</update>
+
 
 
 	
