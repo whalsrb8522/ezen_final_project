@@ -205,4 +205,19 @@ bqc_content text not null,
 bqc_reg_date datetime default now() not null,
 primary key(bqc_number),
 foreign key(bq_number) references board_qna(bq_number));
+
+-- [07.29 | 리뷰를 위한 테이블 추가]
+create table product_review(
+pr_number int auto_increment not null,
+pr_buyer int not null,
+pr_seller int not null,
+pr_p_number int not null,
+pr_score int not null,
+pr_content text not null,
+pr_reg_date datetime default now() not null,
+pr_isDel tinyint default 0 not null,
+primary key(pr_number),
+foreign key(pr_buyer) references member(m_number),
+foreign key(pr_seller) references member(m_number),
+foreign key(pr_p_number) references product(p_number));
 ```
