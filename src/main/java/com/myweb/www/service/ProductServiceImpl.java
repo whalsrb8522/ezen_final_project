@@ -13,6 +13,7 @@ import com.myweb.www.domain.ProductDTO;
 import com.myweb.www.domain.ProductImageVO;
 import com.myweb.www.domain.ProductLikeVO;
 import com.myweb.www.domain.ProductPagingVO;
+import com.myweb.www.domain.ProductReviewDTO;
 import com.myweb.www.domain.ProductVO;
 import com.myweb.www.repository.MemberDAO;
 import com.myweb.www.repository.MemberImageDAO;
@@ -164,6 +165,22 @@ public class ProductServiceImpl implements ProductService {
 		return pdao.updateIsDel(p_number);
 	}
 	
+	@Override
+	public ProductReviewDTO getReview(int p_number) {
+		ProductReviewDTO prdto = new ProductReviewDTO();
+		prdto.setPvo(pdao.selectPno(p_number));
+		prdto.setPiList(pidao.selectFile(p_number));
+		MemberVO mvo = mdao.getMemberProduct(prdto.getPvo().getM_number());
+		prdto.setMvo(mvo);
+		log.info("prdto~: "+prdto.toString());
+		return prdto;
+	}
+	
+	@Override
+	public int insertReview(ProductReviewDTO prdto) {
+		// TODO Auto-generated method stub
+		return pdao.insertReview(prdto);
+	}
 	
 	//작성자:안세호(내 상품 리스트 가져오기)
 	@Override
@@ -201,6 +218,8 @@ public class ProductServiceImpl implements ProductService {
 
 	    return likedProductList;
 	}
+
+
 
 	
 }
