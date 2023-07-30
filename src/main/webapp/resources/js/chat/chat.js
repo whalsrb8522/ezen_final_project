@@ -11,25 +11,52 @@ var roomMidBoxEx = document.querySelector('.roomMidBoxEx');       // 상품 정�
 var roomMidBox = document.getElementById('roomMidBox');           // 채팅 내용 표시
 
 // STOMP 연결
-stomp.connect({}, () => {
-    // 메시지 수신했을 경우 채팅방 갱신
-    stomp.subscribe('/sub/chat/main/*', (chat) => {
-        printChatList();
+window.onload = () => {
+    stomp.connect({}, () => {
+        stomp.subscribe('/sub/chat/main/*', (chat) => {
+            let message = JSON.parse(chat.body);
+
+            console.log(">>> chatRommNumber : " + chatRoomNumber);
+            console.log(">>> stomp.subscribe('sub/chat/main/*) > message.cr_number : " + message.cr_number);
+
+            if (message.cr_number != chatRoomNumber) {
+                console.log(">>> point1");
+                printChatList();
+            }
+        });
+
+        if (selectRoomNumber != null && selectRoomNumber != '') {
+            chatRoomNumber = selectRoomNumber;
+            getChat(chatRoomNumber);
+        }
     });
-});
+};
 
 // 채팅방 열기
-async function getChat(cr_number) {
+function getChat(cr_number) {
+    chatRoomNumber = cr_number;
+
     chatDisplayNone.classList.add('dp_none');
-
-    this.chatRoomNumber = cr_number;
-
     printChatList();
     printChatRoom();
 
     stomp.subscribe("/sub/chat/main/" + chatRoomNumber, (chat) => {
-        receiveMessage(chat);
+        console.log(">>> stomp.subscribe('/sub/chat/main') > chat : " + chat);
+
+        let message = JSON.parse(chat.body);
+
+        let cmvo = {
+            cr_number: message.cr_number,
+            cm_sender: message.cm_sender,
+            cm_content: message.cm_content,
+            cm_send_date: message.cm_send_date,
+            cm_type: message.cm_type,
+        }
+
         printChatRoom();
+        printMessage(cmvo, sessionMemberNumber);
+        console.log(">>> point2");
+        printChatList();
     });
 }
 
@@ -49,7 +76,7 @@ function sendMessage() {
             cm_content: chatInput.value,
             cm_sender: sessionMemberNumber,
             cm_send_date: new Date(),
-            cm_type: 't'
+            cm_type: 't',
         }));
     } else {
         alert('내용을 입력해주세요!');
@@ -59,14 +86,11 @@ function sendMessage() {
 };
 
 // 메시지 수신 함수
-function receiveMessage(chat) {
-    let message = JSON.parse(chat.body);
- 
-    console.log(message);
+// function receiveMessage(chat) {
+//     let message = JSON.parse(chat.body);
 
-    // printChatList();
-    printMessage(chat, sessionMemberNumber);
-}
+//     console.log(message);
+// }
 
 // 채팅목록 출력
 async function printChatList() {
@@ -116,6 +140,11 @@ async function printChatRoom() {
         let pdto = cmdto.pdto;
         let listCmvo = cmdto.listCmvo;
 
+        console.log(">>> mvo, pdto, listCmvo")
+        console.log(mvo);
+        console.log(pdto);
+        console.log(listCmvo);
+
         roomTopBoxNick.innerHTML = mvo.m_nick_name;
 
         let div = `
@@ -153,9 +182,9 @@ function printMessage(cmvo, sessionMemberNumber) {
     let hours = ('0' + date.getHours()).slice(-2);
     let minutes = ('0' + date.getMinutes()).slice(-2);
 
-    // console.log(">>> 168 > cmvo.cm_type : " + cmvo.cm_type);    
+    console.log(">>> cmvo.cm_type : " + cmvo.cm_type);
 
-    if(cmvo.cm_type == 't') {
+    if (cmvo.cm_type == 't') {
         div.innerHTML += `
             <div class="chatMessage">
                 ${cmvo.cm_content}
@@ -169,7 +198,7 @@ function printMessage(cmvo, sessionMemberNumber) {
             try {
                 const resp = await fetch("/chat/image/" + cmvo.cm_number);
                 const cmivo = await resp.json();
-                
+
                 div.innerHTML += `
                     <div class="chatMessage">
                         <div class="chatImage">
@@ -189,13 +218,6 @@ function printMessage(cmvo, sessionMemberNumber) {
     roomMidBox.appendChild(div);
     roomMidBox.scrollTop = roomMidBox.scrollHeight;
 }
-
-window.onload = () => {
-    if (selectRoomNumber != null && selectRoomNumber != '') {
-        getChat(selectRoomNumber);
-    }
-}
-
 
 // --------------------------------------
 
@@ -221,7 +243,7 @@ function showFileUploadWindow() {
 
         if (selectedFile.type.startsWith("image/")) {
             console.log(">>> chatRoomNumber : " + chatRoomNumber);
-            
+
             stomp.send('/pub/chat/message', {}, JSON.stringify({
                 cr_number: chatRoomNumber,
                 cm_content: '사진',
