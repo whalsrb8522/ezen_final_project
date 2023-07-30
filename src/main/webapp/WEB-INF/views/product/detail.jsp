@@ -36,7 +36,7 @@
 							<span class="material-symbols-outlined arrow-down">expand_more</span>
 						</div>
 						<div class="detail-cate-scroll">
-							<a class="scroll-detail" onclick="location.href='/product/list?p_category=전자기기'" data-value="전자기기">전자기기</a>
+							<a class="scroll-detail" onclick="location.href='/product/list?p_category=전자기기'">전자기기</a>
 							<a class="scroll-detail" onclick="location.href='/product/list?p_category=아웃도어, 스포츠'">아웃도어, 스포츠</a>
 							<a class="scroll-detail" onclick="location.href='/product/list?p_category=자동차용품, 공구'">자동차용품, 공구</a>
 							<a class="scroll-detail" onclick="location.href='/product/list?p_category=가구, 조명'">가구, 조명</a>
@@ -123,6 +123,7 @@
 								</c:when>
 							</c:choose>
 							<button type="button" class="background-purple detail-btn" onclick="createChatRoom(${param.p_number})">채팅하기</button>
+							<button type="button" class="background-purple detail-btn" onclick="reviewModal()">후기 쓰기</button>
 						</c:when>
 						
 						<c:when test="${ses.m_number eq pvo.m_number && ses.m_number ne null }">
@@ -134,6 +135,7 @@
 				</div>
 			</div>
 		</div>
+		<div class="modal-content"></div>
 		<br>
 		<br>
 		<hr>
@@ -161,16 +163,10 @@
 									</c:if>
 								</a>
 							</div>
-							<!-- 상품 수 가져오기 -->
-							<c:set var="productCount" value="0" />
-							<c:forEach items="${productList}" var="productList">
-			    				<c:if test="${productList.pvo.m_number == mvo.m_number}">
-			        				<c:set var="productCount" value="${productCount + 1}" />
-			    				</c:if>
-							</c:forEach>
+							
 							<div>
 								<div class="pointer" onclick="location.href='/product/store?m_number=${mvo.m_number}'">${mvo.m_nick_name }</div>
-								<div><a class="store-cnt">상품 ${productCount} 개</a></div>
+								<%-- <div><a class="store-cnt">상품 ${productCount} 개</a></div> --%>
 							</div>
 						</div>
 						<div>

@@ -75,6 +75,11 @@
 	<update id="updateIsDel">
 		update product set p_isDel = 1 where p_number=#{p_number}
 	</update>
+	
+	<insert id="insertReview">
+		insert into product_review(pr_buyer, pr_seller, pr_p_number, pr_score, pr_content)
+		values (#{pr_buyer}, #{pr_seller}, #{pr_p_number}, #{pr_score}, #{pr_content})
+	</insert>
 
  	<sql id="categorySearch">
 		<if test="p_category != null">

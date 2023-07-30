@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +29,8 @@ import com.myweb.www.domain.ProductDTO;
 import com.myweb.www.domain.ProductImageVO;
 import com.myweb.www.domain.ProductLikeVO;
 import com.myweb.www.domain.ProductPagingVO;
+import com.myweb.www.domain.ProductReviewDTO;
+import com.myweb.www.domain.ProductReviewVO;
 import com.myweb.www.domain.ProductVO;
 import com.myweb.www.handler.ProductImageHandler;
 import com.myweb.www.handler.ProductPagingHandler;
@@ -160,6 +163,20 @@ public class ProductController {
 	    
 	    m.addAttribute("member", member);
 	    m.addAttribute("productList", productList);
+	}
+	
+	@GetMapping("/review")
+	public void getReview(@RequestParam("p_number")int p_number, Model m) {
+		ProductReviewDTO prdto = psv.getReview(p_number);
+		m.addAttribute("prdto", prdto);
+	}
+	
+	@PostMapping("/review")
+	public String postReview(RedirectAttributes rAttr, ProductReviewVO prvo, ProductVO pvo) {
+		ProductReviewDTO prdto = new ProductReviewDTO(prvo, pvo, null, null, null);
+		int isOk = psv.insertReview(prdto);
+		log.info(">>> 리뷰 작성 > "+(isOk>0?"성공":"실패"));
+		return "redirect:/product/detail";
 	}
 
 
