@@ -90,9 +90,14 @@ public class ChatController {
 	@GetMapping(value = "/view/{cr_number}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<ChatMessageDTO> view(@PathVariable("cr_number")int cr_number, HttpSession ses, Model m) {
 		log.info(">>> view()");
+		ChatMessageDTO cmdto = new ChatMessageDTO();
 		MemberVO sesMvo = (MemberVO) ses.getAttribute("ses");
 		
-		ChatMessageDTO cmdto = csvc.getMessage(cr_number, sesMvo.getM_number());
+		int isOk = csvc.moidfyReadDate(cr_number, sesMvo.getM_number());
+		
+		if (isOk > 0) {
+			cmdto = csvc.getMessage(cr_number, sesMvo.getM_number());
+		}
 		
 		return new ResponseEntity<ChatMessageDTO>(cmdto, HttpStatus.OK);
 	}

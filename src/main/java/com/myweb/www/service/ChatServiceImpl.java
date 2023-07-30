@@ -54,9 +54,16 @@ public class ChatServiceImpl implements ChatService {
 		
 		return listCdto;
 	}
+
+	@Override
+	@Transactional
+	public int moidfyReadDate(int cr_number, int sessionM_number) {
+		return cdao.updateReadDate(cr_number, sessionM_number);
+	}
 	
 	@Override
-	public synchronized ChatMessageDTO getMessage(int cr_number, int sessionM_number) {
+	@Transactional
+	public ChatMessageDTO getMessage(int cr_number, int sessionM_number) {
 		cdao.updateReadDate(cr_number, sessionM_number);
 		
 		ChatMessageDTO cmdto = new ChatMessageDTO();
