@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.myweb.www.domain.ChatMessageImageVO;
 import com.myweb.www.domain.ChatMessageVO;

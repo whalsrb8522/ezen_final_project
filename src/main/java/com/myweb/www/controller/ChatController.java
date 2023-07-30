@@ -88,7 +88,7 @@ public class ChatController {
     
     //채팅방 조회
 	@GetMapping(value = "/view/{cr_number}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<ChatMessageDTO> view(@PathVariable("cr_number")int cr_number, HttpSession ses) {
+	public ResponseEntity<ChatMessageDTO> view(@PathVariable("cr_number")int cr_number, HttpSession ses, Model m) {
 		log.info(">>> view()");
 		MemberVO sesMvo = (MemberVO) ses.getAttribute("ses");
 		

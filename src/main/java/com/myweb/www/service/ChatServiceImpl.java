@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.myweb.www.domain.ChatMessageDTO;
 import com.myweb.www.domain.ChatMessageImageVO;
@@ -55,17 +56,17 @@ public class ChatServiceImpl implements ChatService {
 	}
 	
 	@Override
-	public ChatMessageDTO getMessage(int cr_number, int sessionM_number) {
+	public synchronized ChatMessageDTO getMessage(int cr_number, int sessionM_number) {
 		cdao.updateReadDate(cr_number, sessionM_number);
 		
 		ChatMessageDTO cmdto = new ChatMessageDTO();
-		
 		MemberVO mvo = new MemberVO();
-		ProductDTO pdto = new ProductDTO(
-				pdao.selectProductWithNumber(cr_number),
-				null,
-				pidao.selectFile(cr_number));
-		List<ChatMessageVO> listCmvo = cdao.selectMessage(cr_number);
+		ProductDTO pdto = new ProductDTO();
+		List<ChatMessageVO> listCmvo = new ArrayList<ChatMessageVO>();
+		
+		
+		pdto.setPvo(pdao.selectProductWithNumber(cr_number));
+		pdto.setPiList(pidao.selectFile(cr_number));
 		
 		if (pdto.getPvo().getM_number() == sessionM_number) {
 			mvo = mdao.selectMemberWithNumber(cdao.selectBuyer(cr_number));
@@ -73,10 +74,12 @@ public class ChatServiceImpl implements ChatService {
 			mvo = mdao.selectMemberWithNumber(cdao.selectSeller(cr_number));
 		}
 		
+		listCmvo = cdao.selectMessage(cr_number);
+		
 		cmdto.setMvo(mvo);
 		cmdto.setPdto(pdto);
 		cmdto.setListCmvo(listCmvo);
-
+		
 		return cmdto;
 	}
 
