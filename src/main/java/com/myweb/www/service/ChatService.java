@@ -23,6 +23,4 @@ public interface ChatService {
 
 	ChatMessageImageVO getImage(int cm_number);
 
-	int moidfyReadDate(int cr_number, int m_number);
-
 }

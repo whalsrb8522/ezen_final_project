@@ -36,7 +36,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequiredArgsConstructor
 @RequestMapping("/chat/*")
 public class ChatController {
 	
@@ -61,8 +60,8 @@ public class ChatController {
     @GetMapping(value = "/list", produces = { MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<List<ChatRoomDTO>> list(HttpSession ses) {
     	MemberVO sesMvo = (MemberVO) ses.getAttribute("ses");
+    	
     	List<ChatRoomDTO> listCdto = csvc.getChatList(sesMvo);
-    	log.info(">>> list() > listCdto = " + listCdto.toString());
 
 		return new ResponseEntity<List<ChatRoomDTO>>(listCdto, HttpStatus.OK);
     }
@@ -90,14 +89,11 @@ public class ChatController {
 	@GetMapping(value = "/view/{cr_number}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<ChatMessageDTO> view(@PathVariable("cr_number")int cr_number, HttpSession ses, Model m) {
 		log.info(">>> view()");
-		ChatMessageDTO cmdto = new ChatMessageDTO();
+		
 		MemberVO sesMvo = (MemberVO) ses.getAttribute("ses");
 		
-		int isOk = csvc.moidfyReadDate(cr_number, sesMvo.getM_number());
-		
-		if (isOk > 0) {
-			cmdto = csvc.getMessage(cr_number, sesMvo.getM_number());
-		}
+//		csvc.modifyReadDate(cr_number, sesMvo.getM_number());
+		ChatMessageDTO cmdto = csvc.getMessage(cr_number, sesMvo.getM_number());
 		
 		return new ResponseEntity<ChatMessageDTO>(cmdto, HttpStatus.OK);
 	}
@@ -120,7 +116,7 @@ public class ChatController {
     
     // 이미지 불러오기
 	@GetMapping(value = "/image/{cm_number}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<ChatMessageImageVO> view(@PathVariable("cm_number") int cm_number) {
+	public ResponseEntity<ChatMessageImageVO> image(@PathVariable("cm_number") int cm_number) {
 		ChatMessageImageVO cmivo = csvc.getImage(cm_number);
 		
 		return new ResponseEntity<ChatMessageImageVO>(cmivo, HttpStatus.OK);

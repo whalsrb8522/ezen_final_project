@@ -19,13 +19,13 @@ window.onload = () => {
             console.log(">>> chatRommNumber : " + chatRoomNumber);
             console.log(">>> stomp.subscribe('sub/chat/main/*) > message.cr_number : " + message.cr_number);
 
-            if (message.cr_number != chatRoomNumber) {
-                console.log(">>> point1");
-                printChatList();
-            }
+            console.log(">>> point1");
+            printChatList();
         });
 
         if (selectRoomNumber != null && selectRoomNumber != '') {
+            console.log(">>> stomp.connect() > selectRoomNumber : " + selectRoomNumber);
+
             chatRoomNumber = selectRoomNumber;
             getChat(chatRoomNumber);
         }
@@ -37,8 +37,12 @@ function getChat(cr_number) {
     chatRoomNumber = cr_number;
 
     chatDisplayNone.classList.add('dp_none');
-    printChatList();
+    (() => {
+
+    })();
+
     printChatRoom();
+    printChatList();
 
     stomp.subscribe("/sub/chat/main/" + chatRoomNumber, (chat) => {
         console.log(">>> stomp.subscribe('/sub/chat/main') > chat : " + chat);
@@ -103,7 +107,6 @@ async function printChatList() {
         chatListContainer.innerHTML = '';
 
         for (const cdto of result) {
-            // console.log(">>> cdto.lastMessage : " + cdto.lastMessage);
             console.log(">>> cdto.notReadCount : " + cdto.notReadCount);
 
             let div = `
@@ -132,9 +135,13 @@ async function printChatList() {
 
 // 채팅방 내용 출력
 async function printChatRoom() {
+    console.log(">>> printChatRoom()");
+
     try {
-        const resp = await fetch('/chat/view/' + chatRoomNumber);
-        const cmdto = await resp.json();
+        // const updateResp = await fetch('chat/update/' + chatRoomNumber);
+
+        const viewResp = await fetch('/chat/view/' + chatRoomNumber);
+        const cmdto = await viewResp.json();
 
         let mvo = cmdto.mvo;
         let pdto = cmdto.pdto;
