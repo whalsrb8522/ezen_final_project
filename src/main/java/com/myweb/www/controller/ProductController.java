@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -90,6 +89,9 @@ public class ProductController {
 		}
 		log.info(">>> pdto = " + pdto.toString());
 		m.addAttribute("pdto", pdto);
+		
+		ProductReviewDTO prdto = psv.getReview(p_number);
+		m.addAttribute("prdto", prdto);
 	}
 	
 	@PostMapping(value = "/status", consumes = "application/json")
@@ -160,7 +162,6 @@ public class ProductController {
 	public void getStore(@RequestParam("m_number")int m_number, Model m) {
 		MemberDTO member = memberService.getMemberDetails(m_number);
 	    List<ProductDTO> productList = psv.getProductByMember(m_number);
-	    
 	    m.addAttribute("member", member);
 	    m.addAttribute("productList", productList);
 	}
@@ -173,10 +174,10 @@ public class ProductController {
 	
 	@PostMapping("/review")
 	public String postReview(RedirectAttributes rAttr, ProductReviewVO prvo, ProductVO pvo) {
-		ProductReviewDTO prdto = new ProductReviewDTO(prvo, pvo, null, null, null);
+		ProductReviewDTO prdto = new ProductReviewDTO(prvo, pvo, null, null, null, null);
 		int isOk = psv.insertReview(prdto);
 		log.info(">>> 리뷰 작성 > "+(isOk>0?"성공":"실패"));
-		return "redirect:/product/detail";
+		return "redirect:/product/list";
 	}
 
 
