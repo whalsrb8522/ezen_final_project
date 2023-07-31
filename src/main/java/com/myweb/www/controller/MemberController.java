@@ -100,6 +100,14 @@ public class MemberController {
 	    return memberService.nicknameCheck(m_nick_name);
 	}
 	
+	//이메일 중복체크
+	@PostMapping("/emailCheck")
+	@ResponseBody
+	public ResponseEntity<Integer> emailCheck(@RequestParam("m_mail") String m_mail) {
+	    log.info("Checking email: " + m_mail);
+	    return memberService.emailCheck(m_mail);
+	}
+	
 	
 	//로그인
 	@GetMapping("/signin")
@@ -234,12 +242,12 @@ public class MemberController {
 	    	MemberImageVO memberImage = mihd.uploadFile(file);
 	        memberImage.setM_number(loggedInUser.getM_number());
 
-	        // 회원 정보와 이미지 정보를 가지는 MemberDTO 객체를 생성합니다.
+	        // 회원 정보와 이미지 정보를 가지는 MemberDTO 객체를 생성
 	        MemberDTO memberDTO = new MemberDTO();
 	        memberDTO.setMvo(loggedInUser);
 	        memberDTO.setMivo(memberImage);
 
-	        // 회원 정보와 이미지 정보를 DB에 업데이트합니다.
+	        // 회원 정보와 이미지 정보 DB에 업데이트
 	        try {
 	            memberService.updateMember(memberDTO);
 	            log.info("회원 정보 DB 업데이트 완료: " + loggedInUser.getM_number());
@@ -255,7 +263,7 @@ public class MemberController {
 	        }
 	        
 	    } else {
-	        // 파일이 업로드되지 않은 경우, 이미지 정보 없이 사용자 정보만 변경합니다.
+	        // 파일이 업로드되지 않은 경우, 이미지 정보 없이 사용자 정보만 변경
 	        MemberDTO memberDTO = new MemberDTO();
 	        memberDTO.setMvo(loggedInUser);
 	        memberService.updateMember(memberDTO);
@@ -286,8 +294,8 @@ public class MemberController {
 	    MemberVO loggedInUser = (MemberVO)session.getAttribute("ses");
 	    System.out.println("Logged in user: " + loggedInUser);
 	    
-	    System.out.println("Received old password: " + oldPassword); // Added logging here
-	    System.out.println("Password in session: " + loggedInUser.getM_pw()); // Added logging here
+	    System.out.println("Received old password: " + oldPassword); 
+	    System.out.println("Password in session: " + loggedInUser.getM_pw()); 
 
 	    if(loggedInUser != null) {
 	        System.out.println("Password from session: " + loggedInUser.getM_pw());
@@ -295,7 +303,7 @@ public class MemberController {
 	    
 	    // 해시된 암호가 입력한 암호와 일치하는지 확인
 	    boolean isPasswordMatching = passwordEncoder.matches(oldPassword, loggedInUser.getM_pw());
-	    System.out.println("Is password matching: " + isPasswordMatching); // Added logging here
+	    System.out.println("Is password matching: " + isPasswordMatching); 
 
 	    return ResponseEntity.ok().body(isPasswordMatching);
 	}

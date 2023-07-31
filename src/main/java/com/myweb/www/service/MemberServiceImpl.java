@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -143,12 +146,21 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 	}
+	//닉네임 중복체크
 	@Override
 	public int nicknameCheck(String m_nick_name) {
 		// TODO Auto-generated method stub
 		int count =  mdao.nicknameCheck(m_nick_name);
 		return (count == 0) ? 0 : 1;
 	}
+	
+	//이메일 중복체크
+	@Override
+	public ResponseEntity<Integer> emailCheck(String m_mail) {
+	    int count = mdao.emailCheck(m_mail);
+	    return new ResponseEntity<>(count, HttpStatus.OK);
+	}
+
 
 
 
@@ -229,6 +241,12 @@ public class MemberServiceImpl implements MemberService {
 		return mdao.updateMemberStatus(params);
 	}
 
+
+
+
+
+
+	
 
 
 
