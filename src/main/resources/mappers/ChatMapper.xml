@@ -70,4 +70,9 @@
 	<select id="selectImage" resultType="com.myweb.www.domain.ChatMessageImageVO">
 		select * from chat_message_image where cm_number = #{cm_number};
 	</select>
+	
+	<!-- 작성자 : 김경아 -->
+	<select id="getChat" resultType="com.myweb.www.domain.ChatRoomVO">
+		select * from chat_room where cr_number=#{cr_number}
+	</select>
 </mapper>
