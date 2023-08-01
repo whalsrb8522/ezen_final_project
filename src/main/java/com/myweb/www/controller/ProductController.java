@@ -174,8 +174,8 @@ public class ProductController {
 	}
 	
 	@PostMapping("/review")
-	public String postReview(RedirectAttributes rAttr, ProductReviewVO prvo, ProductVO pvo) {
-		ProductReviewDTO prdto = new ProductReviewDTO(prvo, pvo, null, null, null, null);
+	public String postReview(RedirectAttributes rAttr, ProductVO pvo, ProductReviewVO prvo) {
+		ProductReviewDTO prdto = new ProductReviewDTO(null, prvo, pvo, null, null, null, null);
 		int isOk = psv.insertReview(prdto);
 		log.info(">>> 리뷰 작성 > "+(isOk>0?"성공":"실패"));
 		return "redirect:/product/list";

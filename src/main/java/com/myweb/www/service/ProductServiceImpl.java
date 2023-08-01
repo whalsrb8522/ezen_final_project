@@ -21,6 +21,7 @@ import com.myweb.www.repository.MemberDAO;
 import com.myweb.www.repository.MemberImageDAO;
 import com.myweb.www.repository.ProductDAO;
 import com.myweb.www.repository.ProductImageDAO;
+import com.myweb.www.repository.ProductReviewDAO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,6 +38,8 @@ public class ProductServiceImpl implements ProductService {
 	private MemberImageDAO midao;
 	@Inject
 	private ChatDAO cdao;
+	@Inject
+	private ProductReviewDAO prdao;
 
 
 	@Override
@@ -174,21 +177,24 @@ public class ProductServiceImpl implements ProductService {
 		ProductReviewDTO prdto = new ProductReviewDTO();
 		prdto.setPvo(pdao.selectPno(p_number));
 		prdto.setPiList(pidao.selectFile(p_number));
+		
+		prdto.setPrvol(prdao.selectPrvo(p_number));
+		prdto.setMivo(midao.selectMivo(prdto.getPvo().getM_number()));
+
 		MemberVO mvo = mdao.getMemberProduct(prdto.getPvo().getM_number());
 		prdto.setMvo(mvo);
-		ChatRoomVO crvo = prdto.getCrvo();
-		if(crvo != null && crvo.getCr_number() != null) {
-			crvo = cdao.getChat(crvo.getCr_number());
-			prdto.setCrvo(crvo);
-		}
+		ChatRoomVO crvo = cdao.getChat(p_number);
+		prdto.setCrvo(crvo);
+		prdto.mergeLists();
 		log.info("prdto~: "+prdto.toString());
 		return prdto;
 	}
 	
+
 	@Override
 	public int insertReview(ProductReviewDTO prdto) {
-		// TODO Auto-generated method stub
-		return pdao.insertReview(prdto.getPrvo());
+		
+		return prdao.insertReview(prdto.getPrvo());
 	}
 	
 	//작성자:안세호(내 상품 리스트 가져오기)
