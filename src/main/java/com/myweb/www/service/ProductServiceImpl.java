@@ -15,6 +15,7 @@ import com.myweb.www.domain.ProductImageVO;
 import com.myweb.www.domain.ProductLikeVO;
 import com.myweb.www.domain.ProductPagingVO;
 import com.myweb.www.domain.ProductReviewDTO;
+import com.myweb.www.domain.ProductReviewVO;
 import com.myweb.www.domain.ProductVO;
 import com.myweb.www.repository.ChatDAO;
 import com.myweb.www.repository.MemberDAO;
@@ -177,7 +178,6 @@ public class ProductServiceImpl implements ProductService {
 		ProductReviewDTO prdto = new ProductReviewDTO();
 		prdto.setPvo(pdao.selectPno(p_number));
 		prdto.setPiList(pidao.selectFile(p_number));
-		
 		prdto.setPrvol(prdao.selectPrvo(p_number));
 		prdto.setMivo(midao.selectMivo(prdto.getPvo().getM_number()));
 
@@ -196,6 +196,29 @@ public class ProductServiceImpl implements ProductService {
 		
 		return prdao.insertReview(prdto.getPrvo());
 	}
+	
+	@Override
+	public ProductReviewDTO getReviewList(int m_number) {
+		ProductReviewDTO prdto = new ProductReviewDTO();
+		prdto.setPrvol(prdao.selectReviewList(m_number));
+		prdto.setMivo(midao.selectMivo(m_number));
+		prdto.mergeLists();
+		return prdto;
+	}
+
+	
+//	@Override
+//	public List<ProductReviewDTO> getReviewList(int m_number) {
+//		List<ProductReviewDTO> listPrdto = new ArrayList<ProductReviewDTO>();
+//		List<ProductReviewVO> listPrvo = prdao.selectReviewList(m_number);
+//		for(ProductReviewVO prvo : listPrvo) {
+//			List<MemberImageVO> mivo = midao.selectMivo(m_number);
+//			listPrdto.add(new ProductReviewDTO(listPrvo, null, null, null, null, mivo, null));
+//		}
+//		
+//		return listPrdto;
+//	}
+//	
 	
 	//작성자:안세호(내 상품 리스트 가져오기)
 	@Override
@@ -233,6 +256,9 @@ public class ProductServiceImpl implements ProductService {
 
 	    return likedProductList;
 	}
+
+	
+	
 
 
 

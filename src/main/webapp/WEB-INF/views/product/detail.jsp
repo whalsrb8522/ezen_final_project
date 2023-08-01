@@ -175,7 +175,7 @@
 							</div>
 						</div>
 						<div>
-							<div id="store-review">상점후기 <span id="review-cnt">2</span></div>
+							<div id="store-review">상점후기 <span id="review-cnt">${fn:length(prvol) }</span></div>
 						</div>
 						<!-- 상점후기 -->
 						<c:forEach items="${prvol }" var="prvoList" begin="0" end="1">
@@ -197,11 +197,9 @@
 										</div>
 										<div class="review-score">
 											<div class="star-score">
+											<c:forEach begin="1" end="${prvoList.pr_score }">
 												<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
-												<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
-												<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
-												<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
-												<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
+											</c:forEach>
 											</div>
 										</div>
 										<div class="review-detail">${prvoList.pr_content }</div>

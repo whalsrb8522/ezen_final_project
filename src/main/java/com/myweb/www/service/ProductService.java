@@ -39,4 +39,7 @@ public interface ProductService {
 
 	int insertReview(ProductReviewDTO prdto);
 
+	ProductReviewDTO getReviewList(int m_number);
+
+
 }
