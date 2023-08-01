@@ -14,18 +14,28 @@ var roomMidBox = document.getElementById('roomMidBox');           // 채팅 내�
 window.onload = () => {
     stomp.connect({}, () => {
         stomp.subscribe('/sub/chat/main/*', (chat) => {
+            // printChatList();
             let message = JSON.parse(chat.body);
 
-            console.log(">>> chatRommNumber : " + chatRoomNumber);
-            console.log(">>> stomp.subscribe('sub/chat/main/*) > message.cr_number : " + message.cr_number);
+            console.log(">>> stomp.subscribe('/sub/chat/main/*')");
+            console.log(message);
 
-            console.log(">>> point1");
+            let cmvo = {
+                cr_number: message.cr_number,
+                cm_sender: message.cm_sender,
+                cm_content: message.cm_content,
+                cm_send_date: message.cm_send_date,
+                cm_type: message.cm_type,
+            }
+
+            if (chatRoomNumber == message.cr_number) {
+                printMessage(cmvo, sessionMemberNumber);
+            }
+
             printChatList();
         });
 
         if (selectRoomNumber != null && selectRoomNumber != '') {
-            console.log(">>> stomp.connect() > selectRoomNumber : " + selectRoomNumber);
-
             chatRoomNumber = selectRoomNumber;
             getChat(chatRoomNumber);
         }
@@ -34,34 +44,30 @@ window.onload = () => {
 
 // 채팅방 열기
 function getChat(cr_number) {
+    console.log(">>> getChat()");
+
     chatRoomNumber = cr_number;
 
     chatDisplayNone.classList.add('dp_none');
-    (() => {
-
-    })();
 
     printChatRoom();
     printChatList();
 
-    stomp.subscribe("/sub/chat/main/" + chatRoomNumber, (chat) => {
-        console.log(">>> stomp.subscribe('/sub/chat/main') > chat : " + chat);
+    // stomp.subscribe("/sub/chat/main/" + chatRoomNumber, (chat) => {
+    //     let message = JSON.parse(chat.body);
 
-        let message = JSON.parse(chat.body);
+    //     let cmvo = {
+    //         cr_number: message.cr_number,
+    //         cm_sender: message.cm_sender,
+    //         cm_content: message.cm_content,
+    //         cm_send_date: message.cm_send_date,
+    //         cm_type: message.cm_type,
+    //     }
 
-        let cmvo = {
-            cr_number: message.cr_number,
-            cm_sender: message.cm_sender,
-            cm_content: message.cm_content,
-            cm_send_date: message.cm_send_date,
-            cm_type: message.cm_type,
-        }
-
-        printChatRoom();
-        printMessage(cmvo, sessionMemberNumber);
-        console.log(">>> point2");
-        printChatList();
-    });
+    //     printChatList();
+    //     printChatRoom();
+    //     printMessage(cmvo, sessionMemberNumber);
+    // });
 }
 
 // 채팅방 닫기
@@ -77,8 +83,8 @@ function sendMessage() {
     if (chatInput.value != undefined && chatInput.value != '') {
         stomp.send('/pub/chat/message', {}, JSON.stringify({
             cr_number: chatRoomNumber,
-            cm_content: chatInput.value,
             cm_sender: sessionMemberNumber,
+            cm_content: chatInput.value,
             cm_send_date: new Date(),
             cm_type: 't',
         }));
@@ -107,8 +113,6 @@ async function printChatList() {
         chatListContainer.innerHTML = '';
 
         for (const cdto of result) {
-            console.log(">>> cdto.notReadCount : " + cdto.notReadCount);
-
             let div = `
                 <div class="chatList" onclick="getChat(${cdto.crvo.cr_number}, ${sessionMemberNumber})">
                     ${cdto.notReadCount > 0 ? `<div class="chatListCount">${cdto.notReadCount}</div>` : ``}
@@ -138,19 +142,12 @@ async function printChatRoom() {
     console.log(">>> printChatRoom()");
 
     try {
-        // const updateResp = await fetch('chat/update/' + chatRoomNumber);
-
         const viewResp = await fetch('/chat/view/' + chatRoomNumber);
         const cmdto = await viewResp.json();
 
         let mvo = cmdto.mvo;
         let pdto = cmdto.pdto;
         let listCmvo = cmdto.listCmvo;
-
-        console.log(">>> mvo, pdto, listCmvo")
-        console.log(mvo);
-        console.log(pdto);
-        console.log(listCmvo);
 
         roomTopBoxNick.innerHTML = mvo.m_nick_name;
 
@@ -174,11 +171,32 @@ async function printChatRoom() {
     }
 }
 
+// 읽은 시간 업데이트
+function updateReadDate(cmvo) {
+    try {
+        const UpdateReadDate = fetch("/chat/update/", {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify({
+                cr_number: cmvo.cr_number,
+                cm_sender: sessionMemberNumber,
+            })
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 // 메시지 내용 출력 함수
 function printMessage(cmvo, sessionMemberNumber) {
-    let roomMidBox = document.getElementById('roomMidBox');
-    let div = document.createElement('div');
+    console.log(">>> printMessage")
+    console.log(cmvo);
 
+    updateReadDate(cmvo);
+
+    let div = document.createElement('div');
     if (cmvo.cm_sender == sessionMemberNumber) {
         div.classList.add('sendMessage');
     } else {
@@ -188,8 +206,6 @@ function printMessage(cmvo, sessionMemberNumber) {
     let date = new Date(cmvo.cm_send_date);
     let hours = ('0' + date.getHours()).slice(-2);
     let minutes = ('0' + date.getMinutes()).slice(-2);
-
-    console.log(">>> cmvo.cm_type : " + cmvo.cm_type);
 
     if (cmvo.cm_type == 't') {
         div.innerHTML += `
@@ -249,8 +265,6 @@ function showFileUploadWindow() {
         formData.append('file', selectedFile);
 
         if (selectedFile.type.startsWith("image/")) {
-            console.log(">>> chatRoomNumber : " + chatRoomNumber);
-
             stomp.send('/pub/chat/message', {}, JSON.stringify({
                 cr_number: chatRoomNumber,
                 cm_content: '사진',
@@ -279,7 +293,6 @@ function showRemittanceWindow() {
 
 // 이미지 확대
 function showImage() {
-
 }
 
 // 모달 여는 버튼 설정

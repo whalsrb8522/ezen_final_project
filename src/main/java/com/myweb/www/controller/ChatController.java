@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -92,7 +93,6 @@ public class ChatController {
 		
 		MemberVO sesMvo = (MemberVO) ses.getAttribute("ses");
 		
-//		csvc.modifyReadDate(cr_number, sesMvo.getM_number());
 		ChatMessageDTO cmdto = csvc.getMessage(cr_number, sesMvo.getM_number());
 		
 		return new ResponseEntity<ChatMessageDTO>(cmdto, HttpStatus.OK);
@@ -120,5 +120,17 @@ public class ChatController {
 		ChatMessageImageVO cmivo = csvc.getImage(cm_number);
 		
 		return new ResponseEntity<ChatMessageImageVO>(cmivo, HttpStatus.OK);
+	}
+	
+	// 읽은 시간 업데이트
+	@PutMapping(value = "/update", consumes = "application/json")
+	public ResponseEntity<HttpStatus> update(@RequestBody ChatMessageVO cmvo) {
+		log.info(">>> update()");
+		log.info(cmvo.toString());
+		
+		int isOk = csvc.modifyReadDate(cmvo.getCr_number(), cmvo.getCm_sender());
+		log.info(Integer.toString(isOk));
+		
+		return ResponseEntity.ok(HttpStatus.OK);
 	}
 }

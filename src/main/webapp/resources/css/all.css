@@ -8,9 +8,9 @@
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
-/* html {
+html {
 	overflow-y:scroll;
-} */
+}
 
 input, button, label, a {
 	cursor: pointer;

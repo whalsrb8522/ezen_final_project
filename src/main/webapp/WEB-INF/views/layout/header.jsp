@@ -52,12 +52,14 @@
 						<a href="/product/register">판매하기</a>
 						<a href="/member/detail">내 상점</a>
 						<a href="/chat/main">
+							<!-- 
 							<span class="notification">
 								<span class="material-symbols-outlined">
 									notifications
 								</span>
 								새로운 메시지가 있습니다!
 							</span>
+							 -->
 							채팅방
 						</a>
 						<a href="/member/signout">로그아웃</a>

@@ -56,8 +56,13 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	@Override
+	public int modifyReadDate(Integer cr_number, Integer cm_sender) {
+		return cdao.updateReadDate(cr_number, cm_sender);
+	}
+
+	@Override
 	public ChatMessageDTO getMessage(int cr_number, int sessionM_number) {
-		cdao.updateReadDate(cr_number, sessionM_number);
+//		cdao.updateReadDate(cr_number, sessionM_number);
 		
 		ProductDTO pdto = new ProductDTO();
 		pdto.setPvo(pdao.selectProductWithNumber(cr_number));
