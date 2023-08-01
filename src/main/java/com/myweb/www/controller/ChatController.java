@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,7 +37,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequiredArgsConstructor
 @RequestMapping("/chat/*")
 public class ChatController {
 	
@@ -61,8 +61,8 @@ public class ChatController {
     @GetMapping(value = "/list", produces = { MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<List<ChatRoomDTO>> list(HttpSession ses) {
     	MemberVO sesMvo = (MemberVO) ses.getAttribute("ses");
+    	
     	List<ChatRoomDTO> listCdto = csvc.getChatList(sesMvo);
-    	log.info(">>> list() > listCdto = " + listCdto.toString());
 
 		return new ResponseEntity<List<ChatRoomDTO>>(listCdto, HttpStatus.OK);
     }
@@ -90,6 +90,7 @@ public class ChatController {
 	@GetMapping(value = "/view/{cr_number}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<ChatMessageDTO> view(@PathVariable("cr_number")int cr_number, HttpSession ses, Model m) {
 		log.info(">>> view()");
+		
 		MemberVO sesMvo = (MemberVO) ses.getAttribute("ses");
 		
 		ChatMessageDTO cmdto = csvc.getMessage(cr_number, sesMvo.getM_number());
@@ -115,9 +116,21 @@ public class ChatController {
     
     // 이미지 불러오기
 	@GetMapping(value = "/image/{cm_number}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<ChatMessageImageVO> view(@PathVariable("cm_number") int cm_number) {
+	public ResponseEntity<ChatMessageImageVO> image(@PathVariable("cm_number") int cm_number) {
 		ChatMessageImageVO cmivo = csvc.getImage(cm_number);
 		
 		return new ResponseEntity<ChatMessageImageVO>(cmivo, HttpStatus.OK);
+	}
+	
+	// 읽은 시간 업데이트
+	@PutMapping(value = "/update", consumes = "application/json")
+	public ResponseEntity<HttpStatus> update(@RequestBody ChatMessageVO cmvo) {
+		log.info(">>> update()");
+		log.info(cmvo.toString());
+		
+		int isOk = csvc.modifyReadDate(cmvo.getCr_number(), cmvo.getCm_sender());
+		log.info(Integer.toString(isOk));
+		
+		return ResponseEntity.ok(HttpStatus.OK);
 	}
 }

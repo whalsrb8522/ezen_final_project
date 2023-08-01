@@ -31,7 +31,7 @@ public interface ChatDAO {
 	public int selectSeller(int cr_number);
 
 	public int insertChatRoom(ChatRoomVO crvo);
-
+	
 	public int updateReadDate(
 			@Param("cr_number")int cr_number, 
 			@Param("m_number")int m_number);

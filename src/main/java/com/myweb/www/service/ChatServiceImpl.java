@@ -54,28 +54,31 @@ public class ChatServiceImpl implements ChatService {
 		
 		return listCdto;
 	}
-	
+
 	@Override
-	public synchronized ChatMessageDTO getMessage(int cr_number, int sessionM_number) {
-		cdao.updateReadDate(cr_number, sessionM_number);
+	public int modifyReadDate(Integer cr_number, Integer cm_sender) {
+		return cdao.updateReadDate(cr_number, cm_sender);
+	}
+
+	@Override
+	public ChatMessageDTO getMessage(int cr_number, int sessionM_number) {
+//		cdao.updateReadDate(cr_number, sessionM_number);
 		
-		ChatMessageDTO cmdto = new ChatMessageDTO();
-		MemberVO mvo = new MemberVO();
 		ProductDTO pdto = new ProductDTO();
-		List<ChatMessageVO> listCmvo = new ArrayList<ChatMessageVO>();
-		
-		
 		pdto.setPvo(pdao.selectProductWithNumber(cr_number));
 		pdto.setPiList(pidao.selectFile(cr_number));
-		
+
+		MemberVO mvo = new MemberVO();
 		if (pdto.getPvo().getM_number() == sessionM_number) {
 			mvo = mdao.selectMemberWithNumber(cdao.selectBuyer(cr_number));
 		} else {
 			mvo = mdao.selectMemberWithNumber(cdao.selectSeller(cr_number));
 		}
-		
+
+		List<ChatMessageVO> listCmvo = new ArrayList<ChatMessageVO>();
 		listCmvo = cdao.selectMessage(cr_number);
-		
+
+		ChatMessageDTO cmdto = new ChatMessageDTO();
 		cmdto.setMvo(mvo);
 		cmdto.setPdto(pdto);
 		cmdto.setListCmvo(listCmvo);
