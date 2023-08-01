@@ -25,6 +25,7 @@
 	<c:set var="mivo" value="${pdto.mdto.mivo }"></c:set>
 	<c:set var="crvo" value="${prdto.crvo }"></c:set>
 	<c:set var="prvo" value="${prdto.prvo }"></c:set>
+	<c:set var="prvol" value="${prdto.prvol }"></c:set>
 	<!-- 전체 틀 -->
 	<div id="detail-wrap">
 		<div id="detail-category">
@@ -177,13 +178,22 @@
 							<div id="store-review">상점후기 <span id="review-cnt">2</span></div>
 						</div>
 						<!-- 상점후기 -->
-						<c:forEach items="${prvo }" var="prvo" begin="0" end="1">
+						<c:forEach items="${prvol }" var="prvoList" begin="0" end="1">
 							<div>
 								<div class="product-review">
-									<a class="review-profile"><img alt="리뷰쓴사람프로필사진" src="/resources/image/44.jpg" style="width:32px;height:32px"></a>
+									<a class="review-profile">
+									<!-- 회원이 프로필 사진을 등록 안했을 경우 -->
+									<c:if test="${empty prvoList.mivo.mi_name}">
+										<img alt="프로필 사진" src="/resources/image/profile.png" style="width:32px;height:32px">
+									</c:if>
+									<!-- 회원이 프로필 사진을 등록 했을 경우 -->
+									<c:if test="${not empty prvoList.mivo.mi_name}">
+										<img alt="프로필 사진" src="/resources/fileUpload/${prvoList.mivo.mi_dir}/${prvoList.mivo.mi_uuid}_th_${prvoList.mivo.mi_name}" style="width:32px;height:32px">
+									</c:if>
+									</a>
 									<div class="review-info">
 										<div class="reviewer">
-											<a class="review-nick">${prvo.pr_buyer }</a>
+											<a class="review-nick">${prvoList.pr_buyer }</a>
 										</div>
 										<div class="review-score">
 											<div class="star-score">
@@ -194,7 +204,7 @@
 												<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
 											</div>
 										</div>
-										<div class="review-detail">${prvo.pr_content }</div>
+										<div class="review-detail">${prvoList.pr_content }</div>
 									</div>
 								</div>
 							</div>

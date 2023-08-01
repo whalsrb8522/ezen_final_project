@@ -73,6 +73,6 @@
 	
 	<!-- 작성자 : 김경아 -->
 	<select id="getChat" resultType="com.myweb.www.domain.ChatRoomVO">
-		select * from chat_room where cr_number=#{cr_number}
+		select * from chat_room where cr_number=#{p_number}
 	</select>
 </mapper>

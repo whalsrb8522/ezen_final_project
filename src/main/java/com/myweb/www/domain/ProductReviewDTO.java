@@ -1,5 +1,6 @@
 package com.myweb.www.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -14,10 +15,29 @@ import lombok.ToString;
 @Setter
 @Getter
 public class ProductReviewDTO {
+	private List<ProductReviewVO> prvol;
 	private ProductReviewVO prvo;
 	private ProductVO pvo;
 	private List<ProductImageVO> piList;
 	private MemberVO mvo;
-	private MemberImageVO mivo;
+	private List<MemberImageVO> mivo;
 	private ChatRoomVO crvo;
+//	private List<Object> mergedList;
+	
+	// prvol와 mivo를 병합하는 메서드
+	public void mergeLists() {
+		List<ProductReviewVO> prvol = getPrvol();
+		List<MemberImageVO> mivo = getMivo();
+		
+		for(ProductReviewVO prvo : prvol) {
+			int m_number = prvo.getPr_buyer();
+			for(MemberImageVO mivoList : mivo) {
+				if(mivoList.getM_number() == m_number) {
+					prvo.setMivo(mivoList);
+					break;
+				}
+			}
+		}
+	}
+	
 }

@@ -20,4 +20,6 @@ public class ProductReviewVO {
 	private String pr_content;
 	private String pr_reg_date;
 	private int pr_isDel;
+	
+	private MemberImageVO mivo;
 }
