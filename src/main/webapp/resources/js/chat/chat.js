@@ -29,6 +29,7 @@ window.onload = () => {
             }
 
             if (chatRoomNumber == message.cr_number) {
+                updateReadDate(cmvo);
                 printMessage(cmvo, sessionMemberNumber);
             }
 
@@ -164,6 +165,7 @@ async function printChatRoom() {
         roomMidBox.innerHTML = '';
 
         for (let cmvo of listCmvo) {
+            updateReadDate(cmvo);
             printMessage(cmvo, sessionMemberNumber);
         }
     } catch (error) {
@@ -193,8 +195,6 @@ function updateReadDate(cmvo) {
 function printMessage(cmvo, sessionMemberNumber) {
     console.log(">>> printMessage")
     console.log(cmvo);
-
-    updateReadDate(cmvo);
 
     let div = document.createElement('div');
     if (cmvo.cm_sender == sessionMemberNumber) {
