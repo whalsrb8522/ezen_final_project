@@ -18,26 +18,37 @@
 	        
 	        // 이메일 중복 체크
 	        $.ajax({
-	            url: "/member/emailCheck",
-	            type: "POST",
-	            data: {'m_mail': $("#m_mail").val()},
-	            success: function(count) {
-	            console.log("Received count from server: ", count);
-	                if (count === 1) {
-	                    alert("이미 등록된 이메일입니다.");
-	                } else {
-	                    document.getElementById("mailCheckContainer").style.display = "block"; // mailCheckContainer 보이게 만들기
-	                    emailBtn.className = "background-gray";
-	                    
-	                    // 이메일 유효성이 검증되면, 인증 메일을 보냄
-	                    sendEmail();
-	                    console.log("인증메일 발송완료");
-	                }
-	            },
-	            error: function () {
-	                alert("이메일 확인에 실패했습니다.");
-	            }
-	        });
+                url: "/member/emailCheck",
+                type: "POST",
+                data: {'m_mail': $("#m_mail").val()},
+                success: function(data) {
+                    console.log("Server response: ", data);
+                    var xmlString = new XMLSerializer().serializeToString(data);
+                    console.log("XML string: ", xmlString);
+            
+                    // XML 응답 파싱
+                    var parser = new DOMParser();
+                    var xmlDoc = parser.parseFromString(xmlString, "text/xml");
+            
+                    // 'Integer' 태그의 값 얻기
+                    var intValue = parseInt(xmlDoc.getElementsByTagName("Integer")[0].childNodes[0].nodeValue);
+            
+                    if (intValue === 1) {
+                        alert("이미 등록된 이메일입니다.");
+                    } else {
+                        document.getElementById("mailCheckContainer").style.display = "block"; // mailCheckContainer 보이게 만들기
+                        emailBtn.className = "background-gray";
+                                
+                        // 이메일 유효성이 검증되면, 인증 메일을 보냄
+                        sendEmail();
+                        console.log("인증메일 발송완료");
+                    }
+                },
+                error: function () {
+                    alert("이메일 확인에 실패했습니다.");
+                }
+            });
+            
 	    } else {
 	        alert('올바른 이메일 주소를 입력해주세요');
 	    }

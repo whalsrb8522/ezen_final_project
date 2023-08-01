@@ -15,7 +15,7 @@ public interface MemberService {
 	//닉네임 중복체크
 	int nicknameCheck(String m_nick_name);
 	//이메일 중복체크
-	ResponseEntity<Integer> emailCheck(String m_mail);
+	int emailCheck(String m_mail);
 
 	int signUp(MemberDTO mdto);
 	

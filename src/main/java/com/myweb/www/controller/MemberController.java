@@ -103,7 +103,7 @@ public class MemberController {
 	//이메일 중복체크
 	@PostMapping("/emailCheck")
 	@ResponseBody
-	public ResponseEntity<Integer> emailCheck(@RequestParam("m_mail") String m_mail) {
+	public int emailCheck(@RequestParam("m_mail") String m_mail) {
 	    log.info("Checking email: " + m_mail);
 	    return memberService.emailCheck(m_mail);
 	}

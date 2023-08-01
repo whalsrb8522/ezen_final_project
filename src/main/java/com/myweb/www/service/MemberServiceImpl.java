@@ -156,9 +156,9 @@ public class MemberServiceImpl implements MemberService {
 	
 	//이메일 중복체크
 	@Override
-	public ResponseEntity<Integer> emailCheck(String m_mail) {
+	public int emailCheck(String m_mail) {
 	    int count = mdao.emailCheck(m_mail);
-	    return new ResponseEntity<>(count, HttpStatus.OK);
+	    return (count == 0) ? 0 : 1;
 	}
 
 
