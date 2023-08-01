@@ -2,18 +2,20 @@ package com.myweb.www.service;
 
 import java.util.Map;
 
+import org.springframework.http.ResponseEntity;
+
 import com.myweb.www.domain.MemberDTO;
 import com.myweb.www.domain.MemberVO;
 
 public interface MemberService {
 
-	//int signUp(MemberVO member);
+
 
 	MemberVO isMember(String m_mail, String m_pw);
-
+	//닉네임 중복체크
 	int nicknameCheck(String m_nick_name);
-
-	//int register(MemberDTO mdto);
+	//이메일 중복체크
+	int emailCheck(String m_mail);
 
 	int signUp(MemberDTO mdto);
 	
@@ -22,9 +24,14 @@ public interface MemberService {
 	
 	//modify
 	void updateMember(MemberDTO memberDTO);
+	
+
 
 	int updateMemberStatus(Map<String, Object> params);
+	
+	
 
+	
 
 
 

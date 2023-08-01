@@ -14,6 +14,8 @@ public interface MemberDAO {
 	int insertMember(MemberVO member);
 
 	int nameCheck(String m_nick_name);
+	
+	int emailCheck(String m_mail);
 
 	int nicknameCheck(String m_nick_name);
 	
@@ -22,13 +24,18 @@ public interface MemberDAO {
 	MemberVO getNewMember(String m_mail);
 
 	
-	void updateMember(MemberVO member);
+	int updateMember(MemberVO member);
 	
+
 	
 	// 작성자 : 김경아
 	MemberVO getMemberProduct(int m_number);
 
 	int updateMemberStatus(Map<String, Object> params);
+
+	
+
+	
 
 	
 

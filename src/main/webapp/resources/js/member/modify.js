@@ -34,6 +34,9 @@ document.getElementById('innerContainer').addEventListener('submit', function(e)
 
 
 
+
+
+
 // 닉네임 중복 확인
 
 function checkNickname() {
@@ -150,10 +153,20 @@ function fileSizeValidation(fileName, fileSize){
      var previewImage = document.getElementById('imagePreview');
      var mapAddress = document.getElementById('mapAddress').value;
 
-    // 기존 이미지가 있는 경우 이미지 표시
-    if (previewImage.src !== "") {
-        imageWrapper.style.display = 'block';
-    }
+    //기존 이미지가 있으면 display : block / 없으면 (이미지 로딩에 오류가 있으면) none
+	var tempImage = new Image();
+
+	tempImage.onload = function() {
+	    imageWrapper.style.display = 'block';
+	}
+	
+	tempImage.onerror = function() {
+	    imageWrapper.style.display = 'none';
+	}
+	
+	tempImage.src = previewImage.src;
+
+	
     
     // 기존 주소가 있는 경우 주소맵 표시
     if (mapAddress !== "") {
