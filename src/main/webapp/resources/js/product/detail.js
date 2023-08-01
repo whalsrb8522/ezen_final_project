@@ -178,7 +178,7 @@ async function reviewModal() {
         modalElement.innerHTML = modalContent;
         modalElement.style.display = 'block';
         document.body.classList.add('no-scroll');
-        document.body.style.paddingRight = '16px';
+        document.body.style.paddingRight = '25px';
 
         // review.js 파일을 동적으로 로드
         let script = document.createElement('script');
