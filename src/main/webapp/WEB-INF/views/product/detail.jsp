@@ -183,7 +183,7 @@
 									<a class="review-profile"><img alt="리뷰쓴사람프로필사진" src="/resources/image/44.jpg" style="width:32px;height:32px"></a>
 									<div class="review-info">
 										<div class="reviewer">
-											<a class="review-nick">${ }</a>
+											<a class="review-nick">${prvo.pr_buyer }</a>
 										</div>
 										<div class="review-score">
 											<div class="star-score">
@@ -194,40 +194,11 @@
 												<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
 											</div>
 										</div>
-										<div class="review-detail">빠른 거래 좋았습니다~~~~~!!!!fkflskdfksjldfkjsldfkjsldfkjsdlfkjsldfk
-										sdlfkjsldkfjsldkfjslfkjsldfksjdfsj
-										sdkfjlsdkfjsldfkjsdlfksjdflskdfjlesrisdpfisdf
-										adflskjdfpoiakgnlafvdv
-										aslkjfsldkjflsdkjflasdlfjasldfjsldfsldfkj!!!!!!</div>
+										<div class="review-detail">${prvo.pr_content }</div>
 									</div>
 								</div>
 							</div>
 						</c:forEach>
-						<!-- 상점후기 2 -->
-						<div>
-							<div class="product-review">
-								<a class="review-profile"><img alt="리뷰쓴사람프로필사진" src="/resources/image/44.jpg" style="width:32px;height:32px"></a>
-								<div class="review-info">
-									<div class="reviewer">
-										<a class="review-nick">리뷰쓴사람닉네임</a>
-									</div>
-									<div class="review-score">
-										<div class="star-score">
-											<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
-											<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
-											<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
-											<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
-											<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
-										</div>
-									</div>
-									<div class="review-detail">빠른 거래 좋았습니다~~~~~!!!!fkflskdfksjldfkjsldfkjsldfkjsdlfkjsldfk
-									sdlfkjsldkfjsldkfjslfkjsldfksjdfsj
-									sdkfjlsdkfjsldfkjsdlfksjdflskdfjlesrisdpfisdf
-									adflskjdfpoiakgnlafvdv
-									aslkjfsldkjflsdkjflasdlfjasldfjsldfsldfkj!!!!!!</div>
-								</div>
-							</div>
-						</div>
 						<!-- 상점후기 끝 -->
 					</div>
 				</div>
