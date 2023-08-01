@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
+import com.myweb.www.domain.ChatRoomVO;
 import com.myweb.www.domain.MemberDTO;
 import com.myweb.www.domain.MemberImageVO;
 import com.myweb.www.domain.MemberVO;
@@ -15,6 +16,7 @@ import com.myweb.www.domain.ProductLikeVO;
 import com.myweb.www.domain.ProductPagingVO;
 import com.myweb.www.domain.ProductReviewDTO;
 import com.myweb.www.domain.ProductVO;
+import com.myweb.www.repository.ChatDAO;
 import com.myweb.www.repository.MemberDAO;
 import com.myweb.www.repository.MemberImageDAO;
 import com.myweb.www.repository.ProductDAO;
@@ -33,6 +35,8 @@ public class ProductServiceImpl implements ProductService {
 	private MemberDAO mdao;
 	@Inject
 	private MemberImageDAO midao;
+	@Inject
+	private ChatDAO cdao;
 
 
 	@Override
@@ -172,6 +176,8 @@ public class ProductServiceImpl implements ProductService {
 		prdto.setPiList(pidao.selectFile(p_number));
 		MemberVO mvo = mdao.getMemberProduct(prdto.getPvo().getM_number());
 		prdto.setMvo(mvo);
+		ChatRoomVO crvo = cdao.getChat(prdto.getCrvo().getCr_number());
+		prdto.setCrvo(crvo);
 		log.info("prdto~: "+prdto.toString());
 		return prdto;
 	}
@@ -179,7 +185,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int insertReview(ProductReviewDTO prdto) {
 		// TODO Auto-generated method stub
-		return pdao.insertReview(prdto);
+		return pdao.insertReview(prdto.getPrvo());
 	}
 	
 	//작성자:안세호(내 상품 리스트 가져오기)

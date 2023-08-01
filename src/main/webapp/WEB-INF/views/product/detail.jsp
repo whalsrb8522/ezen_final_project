@@ -23,6 +23,8 @@
 	<c:set var="plvo" value="${pdto.plvo }"></c:set>
 	<c:set var="mvo" value="${pdto.mdto.mvo }"></c:set>
 	<c:set var="mivo" value="${pdto.mdto.mivo }"></c:set>
+	<c:set var="crvo" value="${prdto.crvo }"></c:set>
+	<c:set var="prvo" value="${prdto.prvo }"></c:set>
 	<!-- 전체 틀 -->
 	<div id="detail-wrap">
 		<div id="detail-category">
@@ -123,7 +125,9 @@
 								</c:when>
 							</c:choose>
 							<button type="button" class="background-purple detail-btn" onclick="createChatRoom(${param.p_number})">채팅하기</button>
-							<button type="button" class="background-purple detail-btn" onclick="reviewModal()">후기 쓰기</button>
+							<c:if test="${ses.m_number eq crvo.cr_buyer }">
+								<button type="button" class="background-purple detail-btn" onclick="reviewModal()">후기 쓰기</button>
+							</c:if>					
 						</c:when>
 						
 						<c:when test="${ses.m_number eq pvo.m_number && ses.m_number ne null }">
@@ -173,30 +177,32 @@
 							<div id="store-review">상점후기 <span id="review-cnt">2</span></div>
 						</div>
 						<!-- 상점후기 -->
-						<div>
-							<div class="product-review">
-								<a class="review-profile"><img alt="리뷰쓴사람프로필사진" src="/resources/image/44.jpg" style="width:32px;height:32px"></a>
-								<div class="review-info">
-									<div class="reviewer">
-										<a class="review-nick">리뷰쓴사람닉네임</a>
-									</div>
-									<div class="review-score">
-										<div class="star-score">
-											<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
-											<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
-											<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
-											<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
-											<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
+						<c:forEach items="${prvo }" var="prvo" begin="0" end="1">
+							<div>
+								<div class="product-review">
+									<a class="review-profile"><img alt="리뷰쓴사람프로필사진" src="/resources/image/44.jpg" style="width:32px;height:32px"></a>
+									<div class="review-info">
+										<div class="reviewer">
+											<a class="review-nick">${ }</a>
 										</div>
+										<div class="review-score">
+											<div class="star-score">
+												<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
+												<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
+												<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
+												<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
+												<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
+											</div>
+										</div>
+										<div class="review-detail">빠른 거래 좋았습니다~~~~~!!!!fkflskdfksjldfkjsldfkjsldfkjsdlfkjsldfk
+										sdlfkjsldkfjsldkfjslfkjsldfksjdfsj
+										sdkfjlsdkfjsldfkjsdlfksjdflskdfjlesrisdpfisdf
+										adflskjdfpoiakgnlafvdv
+										aslkjfsldkjflsdkjflasdlfjasldfjsldfsldfkj!!!!!!</div>
 									</div>
-									<div class="review-detail">빠른 거래 좋았습니다~~~~~!!!!fkflskdfksjldfkjsldfkjsldfkjsdlfkjsldfk
-									sdlfkjsldkfjsldkfjslfkjsldfksjdfsj
-									sdkfjlsdkfjsldfkjsdlfksjdflskdfjlesrisdpfisdf
-									adflskjdfpoiakgnlafvdv
-									aslkjfsldkjflsdkjflasdlfjasldfjsldfsldfkj!!!!!!</div>
 								</div>
 							</div>
-						</div>
+						</c:forEach>
 						<!-- 상점후기 2 -->
 						<div>
 							<div class="product-review">

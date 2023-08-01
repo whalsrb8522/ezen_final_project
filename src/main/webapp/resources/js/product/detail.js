@@ -161,15 +161,18 @@ geocoder.addressSearch(getLoca, function (result, status) {
 
 
 // review modal 열고 스크롤 막기
-function reviewModal() {
-    fetch(`/product/review?p_number=${p_number}`)
-      .then(response => {
+async function reviewModal() {
+    try {
+        const url = `/product/review?p_number=${p_number}`;
+        const config = {
+            method: 'get',
+        };
+        const response = await fetch(url, config);
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+            throw new Error("Network response was not ok");
         }
-        return response.text();
-      })
-      .then(modalContent => {
+        const modalContent = await response.text();
+
         // 가져온 jsp를 modal-content에 삽입
         let modalElement = document.querySelector('.modal-content');
         modalElement.innerHTML = modalContent;
@@ -177,18 +180,18 @@ function reviewModal() {
         document.body.classList.add('no-scroll');
         document.body.style.paddingRight = '16px';
 
-         // review.js 파일을 동적으로 로드
+        // review.js 파일을 동적으로 로드
         let script = document.createElement('script');
         script.src = '/resources/js/product/review.js';
         document.body.appendChild(script);
-      })
-      .catch(error => {
+    } catch (error) {
         // 에러 처리
         console.error("Error fetching data:", error);
-      });
-  }
+    }
+}
+
 // review modal 닫기
-function closeModal(){
+function closeModal() {
     let modalElement = document.querySelector('.modal-content');
     modalElement.style.display = 'none';
     document.body.classList.remove('no-scroll');

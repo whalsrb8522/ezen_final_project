@@ -18,5 +18,6 @@ public class ProductReviewDTO {
 	private ProductVO pvo;
 	private List<ProductImageVO> piList;
 	private MemberVO mvo;
+	private MemberImageVO mivo;
 	private ChatRoomVO crvo;
 }
