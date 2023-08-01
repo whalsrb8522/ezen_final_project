@@ -163,8 +163,10 @@ public class ProductController {
 	public void getStore(@RequestParam("m_number")int m_number, Model m) {
 		MemberDTO member = memberService.getMemberDetails(m_number);
 	    List<ProductDTO> productList = psv.getProductByMember(m_number);
+	    ProductReviewDTO reviewList = psv.getReviewList(m_number);
 	    m.addAttribute("member", member);
 	    m.addAttribute("productList", productList);
+	    m.addAttribute("reviewList", reviewList);
 	}
 	
 	@GetMapping("/review")

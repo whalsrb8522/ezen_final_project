@@ -95,14 +95,12 @@
 			</c:forEach>
 			
 			<div id="memberMenu">
-				<button class="border-gray">상품 ${productCount}</button>
-				<button class="border-gray">상품후기 0</button>
+				<button class="border-gray btn_ac">상품 ${productCount}</button>
+				<button class="border-gray btn_ac">상품후기 ${fn:length(prvol) }</button>
 			</div>
 			
-			<div id="memberProduct">
-				<p>상품 ${productCount}</p>
-				
-				<div>
+			<div id="memberProduct" class="swiper-container" style="display: block;">
+				<div style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
 					<c:forEach items="${productList }" var="productList">
 						<c:set value="${productList.piList }" var="piList"></c:set>
 						<c:if test="${productList.pvo.m_number == member.mvo.m_number}">
@@ -135,11 +133,47 @@
 					</c:forEach>
 				</div>
 				</div>
+				
+				<div id="memberReview" class="swiper-container" style="display: none;">
+					<div style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
+					<c:set var="prvol" value="${reviewList.prvol }"></c:set>
+					<c:set var="mivo" value="${reviewList.mivo }"></c:set>
+						<c:forEach items="${prvlo }" var="listRv">
+							<div class="product-review">
+									<a class="review-profile">
+									<!-- 회원이 프로필 사진을 등록 안했을 경우 -->
+									<c:if test="${empty listRv.mivo.mi_name}">
+										<img alt="프로필 사진" src="/resources/image/profile.png" style="width:32px;height:32px">
+									</c:if>
+									<!-- 회원이 프로필 사진을 등록 했을 경우 -->
+									<c:if test="${not empty listRv.mivo.mi_name}">
+										<img alt="프로필 사진" src="/resources/fileUpload/${listRv.mivo.mi_dir}/${listRv.mivo.mi_uuid}_th_${listRv.mivo.mi_name}" style="width:32px;height:32px">
+									</c:if>
+									</a>
+									<div class="review-info">
+										<div class="reviewer">
+											<a class="review-nick">${listRv.pr_buyer }</a>
+										</div>
+										<div class="review-score">
+											<div class="star-score">
+											<c:forEach begin="1" end="${listRv.pr_score }">
+												<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
+											</c:forEach>
+											</div>
+										</div>
+										<div class="review-detail">${listRv.pr_content }</div>
+									</div>
+								</div>
+						</c:forEach>
+					</div>
+				</div>
+				
 			</div>
 		</div>
 	
 	
 	<jsp:include page="../layout/footer.jsp"></jsp:include>
 	<script type="text/javascript" src="/resources/js/product/list.js"></script>
+	<script type="text/javascript" src="/resources/js/product/store.js"></script>
 </body>
 </html>
