@@ -40,6 +40,7 @@
 	    WHERE m_number = #{m_number}
 	</update>
 	
+
 	<!-- 회원탈퇴 기능 -->
 	<update id="updateMemberStatus" parameterType="map">
 	    UPDATE member SET m_isDel = #{isDel} WHERE m_number = #{m_number}

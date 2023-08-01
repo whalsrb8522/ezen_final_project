@@ -2,7 +2,7 @@
 // 이메일 - 아이디 , @ , 도메인 주소 합치기
 
 
-    let code = ""; // 이메일 인증 저장을 위한 코드
+    // let code = ""; // 이메일 인증 저장을 위한 코드
 
 	var emailBtn = document.getElementById("emailBtn");
 	emailBtn.onclick = function () {
@@ -17,76 +17,77 @@
 	        document.getElementById("m_mail").value = user_email + "@" + email_address;
 	        
 	        // 이메일 중복 체크
-	        $.ajax({
-                url: "/member/emailCheck",
-                type: "POST",
-                data: {'m_mail': $("#m_mail").val()},
-                success: function(data) {
-                    console.log("Server response: ", data);
-                    var xmlString = new XMLSerializer().serializeToString(data);
-                    console.log("XML string: ", xmlString);
+	//         $.ajax({
+    //             url: "/member/emailCheck",
+    //             type: "POST",
+    //             data: {'m_mail': $("#m_mail").val()},
+    //             success: function(data) {
+    //                 console.log("Server response: ", data);
+    //                 var xmlString = new XMLSerializer().serializeToString(data);
+    //                 console.log("XML string: ", xmlString);
             
-                    // XML 응답 파싱
-                    var parser = new DOMParser();
-                    var xmlDoc = parser.parseFromString(xmlString, "text/xml");
+    //                 // XML 응답 파싱
+    //                 var parser = new DOMParser();
+    //                 var xmlDoc = parser.parseFromString(xmlString, "text/xml");
             
-                    // 'Integer' 태그의 값 얻기
-                    var intValue = parseInt(xmlDoc.getElementsByTagName("Integer")[0].childNodes[0].nodeValue);
+    //                 // 'Integer' 태그의 값 얻기
+    //                 var intValue = parseInt(xmlDoc.getElementsByTagName("Integer")[0].childNodes[0].nodeValue);
             
-                    if (intValue === 1) {
-                        alert("이미 등록된 이메일입니다.");
-                    } else {
-                        document.getElementById("mailCheckContainer").style.display = "block"; // mailCheckContainer 보이게 만들기
-                        emailBtn.className = "background-gray";
+    //                 if (intValue === 1) {
+    //                     alert("이미 등록된 이메일입니다.");
+    //                 } else {
+    //                     document.getElementById("mailCheckContainer").style.display = "block"; // mailCheckContainer 보이게 만들기
+    //                     emailBtn.className = "background-gray";
                                 
-                        // 이메일 유효성이 검증되면, 인증 메일을 보냄
-                        sendEmail();
-                        console.log("인증메일 발송완료");
-                    }
-                },
-                error: function () {
-                    alert("이메일 확인에 실패했습니다.");
-                }
-            });
+    //                     // 이메일 유효성이 검증되면, 인증 메일을 보냄
+    //                     sendEmail();
+    //                     console.log("인증메일 발송완료");
+    //                 }
+    //             },
+    //             error: function () {
+    //                 alert("이메일 확인에 실패했습니다.");
+    //             }
+    //         });
             
-	    } else {
-	        alert('올바른 이메일 주소를 입력해주세요');
+	//     } else {
+	//         alert('올바른 이메일 주소를 입력해주세요');
+	//     }
+	// }
+	
+	// function sendEmail() {
+	//     $.ajax({
+	//         url: "/mailSender",
+	//         type: "get",
+	//         data: {'m_email': $("#m_mail").val()},
+	//         success: function(rnum) {
+	//             alert("기입하신 이메일로 인증번호를 전송했습니다.");
+	//             $("#mailCode").attr("disabled", false); //입력칸 활성화
+	//             code = rnum;
+	//             console.log(code, $("#mailCode").val())
+	//         },
+	//         error: function () {
+	//             alert("인증번호 전송 실패");
+	//         }
+	//     });
+	// }
+	
+	// console.log("mailBtn existence: " + $("#mailBtn").length); // 콘솔에 mailBtn 요소의 존재 여부 출력
+	
+	// $("#mailBtn").click(function() {
+	//     console.log($("#mailBtn"));
+	//     console.log('이메일 validation 트리거');
+	//     console.log(code, $("#mailCode").val())
+	//     if(code == $("#mailCode").val()) { //인증번호 같다면
+	//         alert("이메일 인증 완료");
+	//         mailBtn.className = "background-gray";
+	//         $(".successMail").text("인증이 완료되었습니다.");
+	//         $(".successMail").css("color", "green");
+	//         $("#mailValid").val("true"); // 인증 성공 시 mailValid 필드의 값을 true로 변경
+	//     } else {
+	//         alert("인증번호가 일치하지 않습니다. 다시 한번 입력해주세요");
 	    }
 	}
-	
-	function sendEmail() {
-	    $.ajax({
-	        url: "/mailSender",
-	        type: "get",
-	        data: {'m_email': $("#m_mail").val()},
-	        success: function(rnum) {
-	            alert("기입하신 이메일로 인증번호를 전송했습니다.");
-	            $("#mailCode").attr("disabled", false); //입력칸 활성화
-	            code = rnum;
-	            console.log(code, $("#mailCode").val())
-	        },
-	        error: function () {
-	            alert("인증번호 전송 실패");
-	        }
-	    });
-	}
-	
-	console.log("mailBtn existence: " + $("#mailBtn").length); // 콘솔에 mailBtn 요소의 존재 여부 출력
-	
-	$("#mailBtn").click(function() {
-	    console.log($("#mailBtn"));
-	    console.log('이메일 validation 트리거');
-	    console.log(code, $("#mailCode").val())
-	    if(code == $("#mailCode").val()) { //인증번호 같다면
-	        alert("이메일 인증 완료");
-	        mailBtn.className = "background-gray";
-	        $(".successMail").text("인증이 완료되었습니다.");
-	        $(".successMail").css("color", "green");
-	        $("#mailValid").val("true"); // 인증 성공 시 mailValid 필드의 값을 true로 변경
-	    } else {
-	        alert("인증번호가 일치하지 않습니다. 다시 한번 입력해주세요");
-	    }
-	});
+    // );
 
 
     
@@ -363,9 +364,9 @@ function validateForm() {
     console.log('validateForm 기능 called');
     var validationErrors = [];
 
-    if (document.getElementById("mailValid").value !== "true") {
-        validationErrors.push("이메일 인증을 완료해주세요");
-    }
+    // if (document.getElementById("mailValid").value !== "true") {
+    //     validationErrors.push("이메일 인증을 완료해주세요");
+    // }
 
     if (document.getElementById("nickValid").value !== "true") {
         validationErrors.push("닉네임 길이를 확인해주세요");

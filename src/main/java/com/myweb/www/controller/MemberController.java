@@ -181,132 +181,133 @@ public class MemberController {
 
 	
 	// 회원정보 수정 페이지
-	@GetMapping("/modify")
-	public String modifyGet(HttpServletRequest request, Model model) {
-	    HttpSession session = request.getSession();
-	    Integer m_number = (Integer) session.getAttribute("m_number");
+		@GetMapping("/modify")
+		public String modifyGet(HttpServletRequest request, Model model) {
+		    HttpSession session = request.getSession();
+		    Integer m_number = (Integer) session.getAttribute("m_number");
 
-	    MemberDTO member = memberService.getMemberDetails(m_number);
-	    if (member != null) {
-	        model.addAttribute("member", member);
-	        return "/member/modify";
-	    } else {
-	        return "not-found"; // 회원을 찾지 못한 경우에 대한 예외 처리
-	    }
-	}
+		    MemberDTO member = memberService.getMemberDetails(m_number);
+		    if (member != null) {
+		        model.addAttribute("member", member);
+		        return "/member/modify";
+		    } else {
+		        return "not-found"; // 회원을 찾지 못한 경우에 대한 예외 처리
+		    }
+		}
 
-	// 회원정보 수정 처리
-	@PostMapping("/modify")
-	public String modifyPost(HttpServletRequest request,
-	                         @RequestParam("m_pw") String oldPassword,
-	                         @RequestParam("m_chgPw") String newPassword,
-	                         @RequestParam("m_nick_name") String nickname,
-	                         @RequestParam("m_introduct") String introduce,
-	                         @RequestParam(name="file", required = false) MultipartFile file,
-	                         @RequestParam("m_address") String address,
-	                         Model model) {
-		log.info("회원 정보 수정 시작: " + request.getSession().getAttribute("m_number"));
-	    // 현재 로그인한 사용자 정보를 받아옴.
-	    HttpSession session = request.getSession();
-	    MemberVO loggedInUser = (MemberVO)session.getAttribute("ses");
+		// 회원정보 수정 처리
+		@PostMapping("/modify")
+		public String modifyPost(HttpServletRequest request,
+		                         @RequestParam("m_pw") String oldPassword,
+		                         @RequestParam("m_chgPw") String newPassword,
+		                         @RequestParam("m_nick_name") String nickname,
+		                         @RequestParam("m_introduct") String introduce,
+		                         @RequestParam(name="file", required = false) MultipartFile file,
+		                         @RequestParam("m_address") String address,
+		                         Model model) {
+			log.info("회원 정보 수정 시작: " + request.getSession().getAttribute("m_number"));
+		    // 현재 로그인한 사용자 정보를 받아옴.
+		    HttpSession session = request.getSession();
+		    MemberVO loggedInUser = (MemberVO)session.getAttribute("ses");
 
-	    if (loggedInUser == null) {
-	        // 로그인이 되어있지 않으면 로그인 페이지로 리다이렉트
-	        return "redirect:/member/signin";
-	    }
+		    if (loggedInUser == null) {
+		        // 로그인이 되어있지 않으면 로그인 페이지로 리다이렉트
+		        return "redirect:/member/signin";
+		    }
 
-	    // 비밀번호 확인. 만약 기존 비밀번호와 일치하지 않으면 오류 메시지를 띄우고 수정 페이지로 돌아감.
-	    if (!passwordEncoder.matches(oldPassword, loggedInUser.getM_pw())) {
-	    	log.info("비밀번호 일치하지 않음: " + loggedInUser.getM_number());
-	        model.addAttribute("errorMessage", "기존 비밀번호가 일치하지 않습니다.");
-	        return "member/modify";
-	    }
+		    // 비밀번호 확인. 만약 기존 비밀번호와 일치하지 않으면 오류 메시지를 띄우고 수정 페이지로 돌아감.
+		    if (!passwordEncoder.matches(oldPassword, loggedInUser.getM_pw())) {
+		    	log.info("비밀번호 일치하지 않음: " + loggedInUser.getM_number());
+		        model.addAttribute("errorMessage", "기존 비밀번호가 일치하지 않습니다.");
+		        return "member/modify";
+		    }
 
-	    // 새로운 비밀번호 암호화
-	    String encodedNewPassword = passwordEncoder.encode(newPassword);
-	    loggedInUser.setM_pw(encodedNewPassword);
-	    log.info("비밀번호 암호화 완료: " + loggedInUser.getM_number());
-	    
-	 // 세션에 변경된 사용자 정보 업데이트
-	    session.setAttribute("ses", loggedInUser);
-	    log.info("세션 정보 업데이트 완료: " + loggedInUser.getM_number());
+		    // 새로운 비밀번호 암호화
+		    String encodedNewPassword = passwordEncoder.encode(newPassword);
+		    loggedInUser.setM_pw(encodedNewPassword);
+		    log.info("비밀번호 암호화 완료: " + loggedInUser.getM_number());
+		    
+		 // 세션에 변경된 사용자 정보 업데이트
+		    session.setAttribute("ses", loggedInUser);
+		    log.info("세션 정보 업데이트 완료: " + loggedInUser.getM_number());
 
-	    // 닉네임, 자기소개, 주소 변경
-	    loggedInUser.setM_nick_name(nickname);
-	    loggedInUser.setM_introduct(introduce);
-	    loggedInUser.setM_address(address);
-	    log.info("회원 정보 변경 완료: " + loggedInUser.getM_number());
+		    // 닉네임, 자기소개, 주소 변경
+		    loggedInUser.setM_nick_name(nickname);
+		    loggedInUser.setM_introduct(introduce);
+		    loggedInUser.setM_address(address);
+		    log.info("회원 정보 변경 완료: " + loggedInUser.getM_number());
 
-	 // 파일이 업로드 된 경우에만 파일 변경
-	    if (file != null && !file.isEmpty()) {
-	    	MemberImageVO memberImage = mihd.uploadFile(file);
-	        memberImage.setM_number(loggedInUser.getM_number());
+		 // 파일이 업로드 된 경우에만 파일 변경
+		    if (file != null && !file.isEmpty()) {
+		    	MemberImageVO memberImage = mihd.uploadFile(file);
+		        memberImage.setM_number(loggedInUser.getM_number());
 
-	        // 회원 정보와 이미지 정보를 가지는 MemberDTO 객체를 생성
-	        MemberDTO memberDTO = new MemberDTO();
-	        memberDTO.setMvo(loggedInUser);
-	        memberDTO.setMivo(memberImage);
+		        // 회원 정보와 이미지 정보를 가지는 MemberDTO 객체를 생성합니다.
+		        MemberDTO memberDTO = new MemberDTO();
+		        memberDTO.setMvo(loggedInUser);
+		        memberDTO.setMivo(memberImage);
 
-	        // 회원 정보와 이미지 정보 DB에 업데이트
-	        try {
-	            memberService.updateMember(memberDTO);
-	            log.info("회원 정보 DB 업데이트 완료: " + loggedInUser.getM_number());
+		        // 회원 정보와 이미지 정보를 DB에 업데이트합니다.
+		        try {
+		            memberService.updateMember(memberDTO);
+		            log.info("회원 정보 DB 업데이트 완료: " + loggedInUser.getM_number());
 
-	            // DB 업데이트 후 세션 업데이트
-	            session.setAttribute("ses", loggedInUser);
-	            log.info("세션 정보 업데이트 완료: " + loggedInUser.getM_number());
+		            // DB 업데이트 후 세션 업데이트
+		            session.setAttribute("ses", loggedInUser);
+		            log.info("세션 정보 업데이트 완료: " + loggedInUser.getM_number());
 
-	            // 사용자 정보 변경 확인
-	            log.info("변경된 회원 정보: " + loggedInUser);
-	        } catch (Exception e) {
-	            log.error("회원 정보 DB 업데이트 오류: " + loggedInUser.getM_number(), e);
-	        }
-	        
-	    } else {
-	        // 파일이 업로드되지 않은 경우, 이미지 정보 없이 사용자 정보만 변경
-	        MemberDTO memberDTO = new MemberDTO();
-	        memberDTO.setMvo(loggedInUser);
-	        memberService.updateMember(memberDTO);
-	        log.info("회원 정보 DB 업데이트 완료 (이미지 없음): " + loggedInUser.getM_number()); // 회원 정보 업데이트 완료 로그 (이미지 없음)
-	        
-	     // DB 업데이트 후 세션 업데이트
-	        session.setAttribute("ses", loggedInUser);
-	        log.info("세션 정보 업데이트 완료: " + loggedInUser.getM_number());
+		            // 사용자 정보 변경 확인
+		            log.info("변경된 회원 정보: " + loggedInUser);
+		        } catch (Exception e) {
+		            log.error("회원 정보 DB 업데이트 오류: " + loggedInUser.getM_number(), e);
+		        }
+		        
+		    } else {
+		        // 파일이 업로드되지 않은 경우, 이미지 정보 없이 사용자 정보만 변경합니다.
+		        MemberDTO memberDTO = new MemberDTO();
+		        memberDTO.setMvo(loggedInUser);
+		        memberService.updateMember(memberDTO);
+		        log.info("회원 정보 DB 업데이트 완료 (이미지 없음): " + loggedInUser.getM_number()); // 회원 정보 업데이트 완료 로그 (이미지 없음)
+		        
+		     // DB 업데이트 후 세션 업데이트
+		        session.setAttribute("ses", loggedInUser);
+		        log.info("세션 정보 업데이트 완료: " + loggedInUser.getM_number());
 
-	        // 사용자 정보 변경 확인
-	        log.info("변경된 회원 정보: " + loggedInUser);
-	    }
+		        // 사용자 정보 변경 확인
+		        log.info("변경된 회원 정보: " + loggedInUser);
+		    }
 
 
 
-	    
-	    log.info("회원 정보 수정 완료: " + request.getSession().getAttribute("m_number"));
-	    // 수정이 완료되었으면 메인 페이지로 리다이렉트
-	    return "redirect:/";
-	}
+		    
+		    log.info("회원 정보 수정 완료: " + request.getSession().getAttribute("m_number"));
+		    // 수정이 완료되었으면 메인 페이지로 리다이렉트
+		    return "redirect:/";
+		}
+		
+		@PostMapping("/checkPassword")
+		@ResponseBody
+		public ResponseEntity<Boolean> checkPassword(HttpServletRequest request, @RequestParam("m_pw") String oldPassword){
+		    // 세션에서 사용자 검색
+		    HttpSession session = request.getSession();
+		    System.out.println("Session: " + session);
+		    MemberVO loggedInUser = (MemberVO)session.getAttribute("ses");
+		    System.out.println("Logged in user: " + loggedInUser);
+		    
+		    System.out.println("Received old password: " + oldPassword); // Added logging here
+		    System.out.println("Password in session: " + loggedInUser.getM_pw()); // Added logging here
+
+		    if(loggedInUser != null) {
+		        System.out.println("Password from session: " + loggedInUser.getM_pw());
+		    }
+		    
+		    // 해시된 암호가 입력한 암호와 일치하는지 확인
+		    boolean isPasswordMatching = passwordEncoder.matches(oldPassword, loggedInUser.getM_pw());
+		    System.out.println("Is password matching: " + isPasswordMatching); // Added logging here
+
+		    return ResponseEntity.ok().body(isPasswordMatching);
+		}
 	
-	@PostMapping("/checkPassword")
-	@ResponseBody
-	public ResponseEntity<Boolean> checkPassword(HttpServletRequest request, @RequestParam("m_pw") String oldPassword){
-	    // 세션에서 사용자 검색
-	    HttpSession session = request.getSession();
-	    System.out.println("Session: " + session);
-	    MemberVO loggedInUser = (MemberVO)session.getAttribute("ses");
-	    System.out.println("Logged in user: " + loggedInUser);
-	    
-	    System.out.println("Received old password: " + oldPassword); 
-	    System.out.println("Password in session: " + loggedInUser.getM_pw()); 
-
-	    if(loggedInUser != null) {
-	        System.out.println("Password from session: " + loggedInUser.getM_pw());
-	    }
-	    
-	    // 해시된 암호가 입력한 암호와 일치하는지 확인
-	    boolean isPasswordMatching = passwordEncoder.matches(oldPassword, loggedInUser.getM_pw());
-	    System.out.println("Is password matching: " + isPasswordMatching); 
-
-	    return ResponseEntity.ok().body(isPasswordMatching);
-	}
 	
 	//회원탈퇴 기능(실제 DB에서 삭제X / isDel 값만 1로 변경 / 추후 관리를 위해 Map으로)
 	@PostMapping("/remove")

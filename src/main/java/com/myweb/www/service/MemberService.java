@@ -24,8 +24,11 @@ public interface MemberService {
 	
 	//modify
 	void updateMember(MemberDTO memberDTO);
+	
+
 
 	int updateMemberStatus(Map<String, Object> params);
+	
 	
 
 	

@@ -34,6 +34,9 @@ document.getElementById('innerContainer').addEventListener('submit', function(e)
 
 
 
+
+
+
 // 닉네임 중복 확인
 
 function checkNickname() {

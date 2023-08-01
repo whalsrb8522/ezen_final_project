@@ -24,13 +24,16 @@ public interface MemberDAO {
 	MemberVO getNewMember(String m_mail);
 
 	
-	void updateMember(MemberVO member);
+	int updateMember(MemberVO member);
 	
+
 	
 	// 작성자 : 김경아
 	MemberVO getMemberProduct(int m_number);
 
 	int updateMemberStatus(Map<String, Object> params);
+
+	
 
 	
 
