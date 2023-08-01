@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
+import com.myweb.www.domain.ChatRoomVO;
 import com.myweb.www.domain.MemberDTO;
 import com.myweb.www.domain.MemberImageVO;
 import com.myweb.www.domain.MemberVO;
@@ -13,11 +14,14 @@ import com.myweb.www.domain.ProductDTO;
 import com.myweb.www.domain.ProductImageVO;
 import com.myweb.www.domain.ProductLikeVO;
 import com.myweb.www.domain.ProductPagingVO;
+import com.myweb.www.domain.ProductReviewDTO;
 import com.myweb.www.domain.ProductVO;
+import com.myweb.www.repository.ChatDAO;
 import com.myweb.www.repository.MemberDAO;
 import com.myweb.www.repository.MemberImageDAO;
 import com.myweb.www.repository.ProductDAO;
 import com.myweb.www.repository.ProductImageDAO;
+import com.myweb.www.repository.ProductReviewDAO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,6 +36,10 @@ public class ProductServiceImpl implements ProductService {
 	private MemberDAO mdao;
 	@Inject
 	private MemberImageDAO midao;
+	@Inject
+	private ChatDAO cdao;
+	@Inject
+	private ProductReviewDAO prdao;
 
 
 	@Override
@@ -164,6 +172,30 @@ public class ProductServiceImpl implements ProductService {
 		return pdao.updateIsDel(p_number);
 	}
 	
+	@Override
+	public ProductReviewDTO getReview(int p_number) {
+		ProductReviewDTO prdto = new ProductReviewDTO();
+		prdto.setPvo(pdao.selectPno(p_number));
+		prdto.setPiList(pidao.selectFile(p_number));
+		
+		prdto.setPrvol(prdao.selectPrvo(p_number));
+		prdto.setMivo(midao.selectMivo(prdto.getPvo().getM_number()));
+
+		MemberVO mvo = mdao.getMemberProduct(prdto.getPvo().getM_number());
+		prdto.setMvo(mvo);
+		ChatRoomVO crvo = cdao.getChat(p_number);
+		prdto.setCrvo(crvo);
+		prdto.mergeLists();
+		log.info("prdto~: "+prdto.toString());
+		return prdto;
+	}
+	
+
+	@Override
+	public int insertReview(ProductReviewDTO prdto) {
+		
+		return prdao.insertReview(prdto.getPrvo());
+	}
 	
 	//작성자:안세호(내 상품 리스트 가져오기)
 	@Override
@@ -201,6 +233,8 @@ public class ProductServiceImpl implements ProductService {
 
 	    return likedProductList;
 	}
+
+
 
 	
 }

@@ -28,6 +28,8 @@ import com.myweb.www.domain.ProductDTO;
 import com.myweb.www.domain.ProductImageVO;
 import com.myweb.www.domain.ProductLikeVO;
 import com.myweb.www.domain.ProductPagingVO;
+import com.myweb.www.domain.ProductReviewDTO;
+import com.myweb.www.domain.ProductReviewVO;
 import com.myweb.www.domain.ProductVO;
 import com.myweb.www.handler.ProductImageHandler;
 import com.myweb.www.handler.ProductPagingHandler;
@@ -87,6 +89,10 @@ public class ProductController {
 		}
 		log.info(">>> pdto = " + pdto.toString());
 		m.addAttribute("pdto", pdto);
+		
+		ProductReviewDTO prdto = psv.getReview(p_number);
+		log.info(">>> prdto = " + prdto.toString());
+		m.addAttribute("prdto", prdto);
 	}
 	
 	@PostMapping(value = "/status", consumes = "application/json")
@@ -157,9 +163,22 @@ public class ProductController {
 	public void getStore(@RequestParam("m_number")int m_number, Model m) {
 		MemberDTO member = memberService.getMemberDetails(m_number);
 	    List<ProductDTO> productList = psv.getProductByMember(m_number);
-	    
 	    m.addAttribute("member", member);
 	    m.addAttribute("productList", productList);
+	}
+	
+	@GetMapping("/review")
+	public void getReview(@RequestParam("p_number")int p_number, Model m) {
+		ProductReviewDTO prdto = psv.getReview(p_number);
+		m.addAttribute("prdto", prdto);
+	}
+	
+	@PostMapping("/review")
+	public String postReview(RedirectAttributes rAttr, ProductVO pvo, ProductReviewVO prvo) {
+		ProductReviewDTO prdto = new ProductReviewDTO(null, prvo, pvo, null, null, null, null);
+		int isOk = psv.insertReview(prdto);
+		log.info(">>> 리뷰 작성 > "+(isOk>0?"성공":"실패"));
+		return "redirect:/product/list";
 	}
 
 

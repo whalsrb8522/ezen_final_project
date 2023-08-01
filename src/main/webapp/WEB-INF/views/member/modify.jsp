@@ -45,7 +45,7 @@
 			<div id="oldPasswordContainer">
 				<h2>기존 비밀번호</h2>
 				<h6>영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</h6>
-				<input type="password" id="userpw" value="" name="m_pw" class="border-gray input-box" placeholder="비밀번호">
+				<input type="password" id="userpw" name="m_pw" class="border-gray input-box" placeholder="비밀번호">
 				<div class="passwordAlert"></div>
 			</div>			
 			

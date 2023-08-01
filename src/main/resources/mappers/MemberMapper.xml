@@ -17,6 +17,10 @@
 	<select id="nicknameCheck" resultType="int">
 		select count(*) from member where m_nick_name = #{m_nick_name}
 	</select>
+	
+	<select id="emailCheck" resultType="int">
+		select count(*) from member where m_mail = #{m_mail}
+	</select>
 
 	<select id="getNewMember" parameterType="string"
 		resultType="com.myweb.www.domain.MemberVO">
@@ -36,6 +40,7 @@
 	    WHERE m_number = #{m_number}
 	</update>
 	
+
 	<!-- 회원탈퇴 기능 -->
 	<update id="updateMemberStatus" parameterType="map">
 	    UPDATE member SET m_isDel = #{isDel} WHERE m_number = #{m_number}

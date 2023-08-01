@@ -23,6 +23,9 @@
 	<c:set var="plvo" value="${pdto.plvo }"></c:set>
 	<c:set var="mvo" value="${pdto.mdto.mvo }"></c:set>
 	<c:set var="mivo" value="${pdto.mdto.mivo }"></c:set>
+	<c:set var="crvo" value="${prdto.crvo }"></c:set>
+	<c:set var="prvo" value="${prdto.prvo }"></c:set>
+	<c:set var="prvol" value="${prdto.prvol }"></c:set>
 	<!-- 전체 틀 -->
 	<div id="detail-wrap">
 		<div id="detail-category">
@@ -36,7 +39,7 @@
 							<span class="material-symbols-outlined arrow-down">expand_more</span>
 						</div>
 						<div class="detail-cate-scroll">
-							<a class="scroll-detail" onclick="location.href='/product/list?p_category=전자기기'" data-value="전자기기">전자기기</a>
+							<a class="scroll-detail" onclick="location.href='/product/list?p_category=전자기기'">전자기기</a>
 							<a class="scroll-detail" onclick="location.href='/product/list?p_category=아웃도어, 스포츠'">아웃도어, 스포츠</a>
 							<a class="scroll-detail" onclick="location.href='/product/list?p_category=자동차용품, 공구'">자동차용품, 공구</a>
 							<a class="scroll-detail" onclick="location.href='/product/list?p_category=가구, 조명'">가구, 조명</a>
@@ -123,6 +126,9 @@
 								</c:when>
 							</c:choose>
 							<button type="button" class="background-purple detail-btn" onclick="createChatRoom(${param.p_number})">채팅하기</button>
+							<c:if test="${ses.m_number eq crvo.cr_buyer }">
+								<button type="button" class="background-purple detail-btn" onclick="reviewModal()">후기 쓰기</button>
+							</c:if>					
 						</c:when>
 						
 						<c:when test="${ses.m_number eq pvo.m_number && ses.m_number ne null }">
@@ -134,6 +140,7 @@
 				</div>
 			</div>
 		</div>
+		<div class="modal-content"></div>
 		<br>
 		<br>
 		<hr>
@@ -161,71 +168,47 @@
 									</c:if>
 								</a>
 							</div>
-							<!-- 상품 수 가져오기 -->
-							<c:set var="productCount" value="0" />
-							<c:forEach items="${productList}" var="productList">
-			    				<c:if test="${productList.pvo.m_number == mvo.m_number}">
-			        				<c:set var="productCount" value="${productCount + 1}" />
-			    				</c:if>
-							</c:forEach>
+							
 							<div>
 								<div class="pointer" onclick="location.href='/product/store?m_number=${mvo.m_number}'">${mvo.m_nick_name }</div>
-								<div><a class="store-cnt">상품 ${productCount} 개</a></div>
+								<%-- <div><a class="store-cnt">상품 ${productCount} 개</a></div> --%>
 							</div>
 						</div>
 						<div>
 							<div id="store-review">상점후기 <span id="review-cnt">2</span></div>
 						</div>
 						<!-- 상점후기 -->
-						<div>
-							<div class="product-review">
-								<a class="review-profile"><img alt="리뷰쓴사람프로필사진" src="/resources/image/44.jpg" style="width:32px;height:32px"></a>
-								<div class="review-info">
-									<div class="reviewer">
-										<a class="review-nick">리뷰쓴사람닉네임</a>
-									</div>
-									<div class="review-score">
-										<div class="star-score">
-											<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
-											<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
-											<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
-											<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
-											<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
+						<c:forEach items="${prvol }" var="prvoList" begin="0" end="1">
+							<div>
+								<div class="product-review">
+									<a class="review-profile">
+									<!-- 회원이 프로필 사진을 등록 안했을 경우 -->
+									<c:if test="${empty prvoList.mivo.mi_name}">
+										<img alt="프로필 사진" src="/resources/image/profile.png" style="width:32px;height:32px">
+									</c:if>
+									<!-- 회원이 프로필 사진을 등록 했을 경우 -->
+									<c:if test="${not empty prvoList.mivo.mi_name}">
+										<img alt="프로필 사진" src="/resources/fileUpload/${prvoList.mivo.mi_dir}/${prvoList.mivo.mi_uuid}_th_${prvoList.mivo.mi_name}" style="width:32px;height:32px">
+									</c:if>
+									</a>
+									<div class="review-info">
+										<div class="reviewer">
+											<a class="review-nick">${prvoList.pr_buyer }</a>
 										</div>
+										<div class="review-score">
+											<div class="star-score">
+												<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
+												<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
+												<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
+												<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
+												<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
+											</div>
+										</div>
+										<div class="review-detail">${prvoList.pr_content }</div>
 									</div>
-									<div class="review-detail">빠른 거래 좋았습니다~~~~~!!!!fkflskdfksjldfkjsldfkjsldfkjsdlfkjsldfk
-									sdlfkjsldkfjsldkfjslfkjsldfksjdfsj
-									sdkfjlsdkfjsldfkjsdlfksjdflskdfjlesrisdpfisdf
-									adflskjdfpoiakgnlafvdv
-									aslkjfsldkjflsdkjflasdlfjasldfjsldfsldfkj!!!!!!</div>
 								</div>
 							</div>
-						</div>
-						<!-- 상점후기 2 -->
-						<div>
-							<div class="product-review">
-								<a class="review-profile"><img alt="리뷰쓴사람프로필사진" src="/resources/image/44.jpg" style="width:32px;height:32px"></a>
-								<div class="review-info">
-									<div class="reviewer">
-										<a class="review-nick">리뷰쓴사람닉네임</a>
-									</div>
-									<div class="review-score">
-										<div class="star-score">
-											<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
-											<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
-											<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
-											<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
-											<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
-										</div>
-									</div>
-									<div class="review-detail">빠른 거래 좋았습니다~~~~~!!!!fkflskdfksjldfkjsldfkjsldfkjsdlfkjsldfk
-									sdlfkjsldkfjsldkfjslfkjsldfksjdfsj
-									sdkfjlsdkfjsldfkjsdlfksjdflskdfjlesrisdpfisdf
-									adflskjdfpoiakgnlafvdv
-									aslkjfsldkjflsdkjflasdlfjasldfjsldfsldfkj!!!!!!</div>
-								</div>
-							</div>
-						</div>
+						</c:forEach>
 						<!-- 상점후기 끝 -->
 					</div>
 				</div>

@@ -5,6 +5,7 @@ import java.util.List;
 import com.myweb.www.domain.ProductDTO;
 import com.myweb.www.domain.ProductLikeVO;
 import com.myweb.www.domain.ProductPagingVO;
+import com.myweb.www.domain.ProductReviewDTO;
 import com.myweb.www.domain.ProductVO;
 
 public interface ProductService {
@@ -33,5 +34,9 @@ public interface ProductService {
 	List<ProductDTO> getLikedProductsByMember(Integer m_number);
 
 	int removeIsDel(int p_number);
+
+	ProductReviewDTO getReview(int p_number);
+
+	int insertReview(ProductReviewDTO prdto);
 
 }

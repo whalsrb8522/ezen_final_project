@@ -75,7 +75,7 @@
 	<update id="updateIsDel">
 		update product set p_isDel = 1 where p_number=#{p_number}
 	</update>
-
+	
  	<sql id="categorySearch">
 		<if test="p_category != null">
 			AND p_category = #{p_category}				

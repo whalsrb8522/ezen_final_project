@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.myweb.www.domain.ProductDTO;
-import com.myweb.www.domain.ProductImageVO;
 import com.myweb.www.domain.ProductLikeVO;
 import com.myweb.www.domain.ProductPagingVO;
 import com.myweb.www.domain.ProductVO;
@@ -43,13 +41,16 @@ public interface ProductDAO {
 
 	int updateModify(ProductVO pvo);
 	
+	int updateIsDel(int p_number);
+	
 	
 	//(작성자 : 안세호)
 	List<ProductVO> selectProductsByMember(Integer m_number);
 	List<ProductVO> selectLikedProductsByMember(Integer m_number);
 
 
-	int updateIsDel(int p_number);
+
+
 
 	
 

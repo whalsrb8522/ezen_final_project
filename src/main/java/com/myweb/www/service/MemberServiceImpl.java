@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -87,43 +90,7 @@ public class MemberServiceImpl implements MemberService {
 	    return isOk;
 	}
 
-
-
-
-
 	
-	/*
-	//회원가입
-	@Override
-	public int signUp(MemberVO member) {
-		log.info("---> 회원가입(signup) Service 진입");
-		MemberVO tempMember = mdao.getMember(member.getM_mail());
-		
-		if(tempMember != null) {
-			return 0;
-		}
-		
-		if(member.getM_mail() == null || member.getM_mail().length() == 0) {
-			return 0;
-		}
-		
-		if(member.getM_pw() == null || member.getM_pw().length() == 0) {
-			return 0;
-		}
-		
-		//회원가입 진행
-		String m_pw = member.getM_pw();
-		
-		//encode(암호화) / matches(원래 비번, 암호화된 비번)
-		String encodeM_pw = passwordencoder.encode(m_pw); // 기존 패스워드 암호화
-		member.setM_pw(encodeM_pw);
-		
-		
-		int isOk = mdao.insertMember(member);
-		
-		return isOk;
-	}
-	*/
 	
 	//로그인
 	@Override
@@ -143,14 +110,20 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 	}
+	//닉네임 중복체크
 	@Override
 	public int nicknameCheck(String m_nick_name) {
 		// TODO Auto-generated method stub
 		int count =  mdao.nicknameCheck(m_nick_name);
 		return (count == 0) ? 0 : 1;
 	}
-
-
+	
+	//이메일 중복체크
+	@Override
+	public int emailCheck(String m_mail) {
+	    int count = mdao.emailCheck(m_mail);
+	    return (count == 0) ? 0 : 1;
+	}
 
 
 
@@ -167,56 +140,42 @@ public class MemberServiceImpl implements MemberService {
 
 
 
-
-
 	//modify
 	
-	@Override
-	public void updateMember(MemberDTO memberDTO) {
-	    try {
-	        MemberVO member = memberDTO.getMvo();
+		@Override
+		public void updateMember(MemberDTO memberDTO) {
+		    try {
+		        MemberVO member = memberDTO.getMvo();
 
-	        if(member.getM_pw() == null || member.getM_pw().length() == 0) {
-	            throw new IllegalArgumentException("Password can't be null or empty.");
-	        }
+		        if(member.getM_pw() == null || member.getM_pw().length() == 0) {
+		            throw new IllegalArgumentException("Password can't be null or empty.");
+		        }
 
-	        // Encoding the password
-	        String m_pw = member.getM_pw();
-	        String encodedM_pw = passwordEncoder.encode(m_pw); // new password is encrypted
-	        member.setM_pw(encodedM_pw); // encrypted password is set
+		        // Encoding the password
+		        String m_pw = member.getM_pw();
+		        String encodedM_pw = passwordEncoder.encode(m_pw); // new password is encrypted
+		        member.setM_pw(encodedM_pw); // encrypted password is set
 
-	        mdao.updateMember(member); // update member with the encrypted password
+		        mdao.updateMember(member); // update member with the encrypted password
 
-	        // Fetch the updated member
-	        MemberVO updatedMember = mdao.getMember(member.getM_mail());
+		        // Fetch the updated member
+		        MemberVO updatedMember = mdao.getMember(member.getM_mail());
 
-	        // Check the password
-	        if (passwordEncoder.matches(m_pw, updatedMember.getM_pw())) {
-	            log.info("Password updated correctly");
-	        } else {
-	            log.error("Password didn't update correctly");
-	        }
+		        // Check the password
+		        if (passwordEncoder.matches(m_pw, updatedMember.getM_pw())) {
+		            log.info("Password updated correctly");
+		        } else {
+		            log.error("Password didn't update correctly");
+		        }
 
-	        if(memberDTO.getMivo() != null) {
-	            midao.updateMemberImage(memberDTO.getMivo());
-	        }
-	    } catch (Exception e) {
-	        log.error("Error in updating member", e);
-	        throw new RuntimeException("Error in updating member", e);
-	    }
-	}
-
-
-
-
-
-
-
-//	@Override
-//	public int updateMemberStatus(int m_number, int isDel) {
-//		// TODO Auto-generated method stub
-//		return mdao.updateMemberStatus(m_number, isDel);
-//	}
+		        if(memberDTO.getMivo() != null) {
+		            midao.updateMemberImage(memberDTO.getMivo());
+		        }
+		    } catch (Exception e) {
+		        log.error("Error in updating member", e);
+		        throw new RuntimeException("Error in updating member", e);
+		    }
+		}
 
 
 
@@ -230,41 +189,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 
-
-
-
-
-//	@Override
-//	public int modifyMember(MemberDTO mdto) {
-//		log.info("---- modifyMember service ----");
-//		log.info("Data to update: " + mdto.toString());
-//		// TODO Auto-generated method stub
-//		return mdao.updateMember(mdto);
-//	}
-
-
-
-
-
-	/*
-	@Override
-	public int register(MemberDTO mdto) {
-		log.info("---> bvo+fList register in");
-		int isOk = mdao.insertMember(mdto.getMvo());
-		if(mdto.getMivo() != null) {
-			int m_number = mdao.selectM_number();
-	        mdto.getMivo().setM_number(m_number);
-	        log.info("---> insert File :"+ mdto.getMivo().toString());
-	        isOk *= midao.insertMemberImage(mdto.getMivo());
-	    }
-	    return isOk;
-	}
-	*/
 	
 
-	
-	
-	
+
 	 
 
 
