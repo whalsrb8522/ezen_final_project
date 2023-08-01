@@ -45,6 +45,6 @@ public interface ChatDAO {
 	public ChatMessageImageVO selectImage(int cm_number);
 
 	// 작성자 : 김경아
-	public ChatRoomVO getChat(Integer cr_number);
+	public ChatRoomVO getChat(int cr_number);
 
 }

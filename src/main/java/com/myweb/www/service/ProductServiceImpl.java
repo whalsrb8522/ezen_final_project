@@ -176,8 +176,11 @@ public class ProductServiceImpl implements ProductService {
 		prdto.setPiList(pidao.selectFile(p_number));
 		MemberVO mvo = mdao.getMemberProduct(prdto.getPvo().getM_number());
 		prdto.setMvo(mvo);
-		ChatRoomVO crvo = cdao.getChat(prdto.getCrvo().getCr_number());
-		prdto.setCrvo(crvo);
+		ChatRoomVO crvo = prdto.getCrvo();
+		if(crvo != null && crvo.getCr_number() != null) {
+			crvo = cdao.getChat(crvo.getCr_number());
+			prdto.setCrvo(crvo);
+		}
 		log.info("prdto~: "+prdto.toString());
 		return prdto;
 	}

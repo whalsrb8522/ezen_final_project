@@ -91,6 +91,7 @@ public class ProductController {
 		m.addAttribute("pdto", pdto);
 		
 		ProductReviewDTO prdto = psv.getReview(p_number);
+		log.info(">>> prdto = " + prdto.toString());
 		m.addAttribute("prdto", prdto);
 	}
 	
