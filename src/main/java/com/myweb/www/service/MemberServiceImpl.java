@@ -141,41 +141,41 @@ public class MemberServiceImpl implements MemberService {
 
 
 	//modify
-	
-		@Override
-		public void updateMember(MemberDTO memberDTO) {
-		    try {
-		        MemberVO member = memberDTO.getMvo();
+	@Override
+	public void updateMember(MemberDTO memberDTO) {
+	    try {
+	        MemberVO member = memberDTO.getMvo();
 
-		        if(member.getM_pw() == null || member.getM_pw().length() == 0) {
-		            throw new IllegalArgumentException("Password can't be null or empty.");
-		        }
+	        if(member.getM_pw() == null || member.getM_pw().length() == 0) {
+	            throw new IllegalArgumentException("Password can't be null or empty.");
+	        }
 
-		        // Encoding the password
-		        String m_pw = member.getM_pw();
-		        String encodedM_pw = passwordEncoder.encode(m_pw); // new password is encrypted
-		        member.setM_pw(encodedM_pw); // encrypted password is set
+	        // Encoding the password
+	        String m_pw = member.getM_pw();
+	        String encodedM_pw = passwordEncoder.encode(m_pw); // new password is encrypted
+	        member.setM_pw(encodedM_pw); // encrypted password is set
 
-		        mdao.updateMember(member); // update member with the encrypted password
+	        mdao.updateMember(member); // update member with the encrypted password
 
-		        // Fetch the updated member
-		        MemberVO updatedMember = mdao.getMember(member.getM_mail());
+	        // Fetch the updated member
+	        MemberVO updatedMember = mdao.getMember(member.getM_mail());
 
-		        // Check the password
-		        if (passwordEncoder.matches(m_pw, updatedMember.getM_pw())) {
-		            log.info("Password updated correctly");
-		        } else {
-		            log.error("Password didn't update correctly");
-		        }
+	        // Check the password
+	        if (passwordEncoder.matches(m_pw, updatedMember.getM_pw())) {
+	            log.info("Password updated correctly");
+	        } else {
+	            log.error("Password didn't update correctly");
+	        }
 
-		        if(memberDTO.getMivo() != null) {
-		            midao.updateMemberImage(memberDTO.getMivo());
-		        }
-		    } catch (Exception e) {
-		        log.error("Error in updating member", e);
-		        throw new RuntimeException("Error in updating member", e);
-		    }
-		}
+	        if(memberDTO.getMivo() != null) {
+	            midao.updateMemberImage(memberDTO.getMivo());
+	        }
+	    } catch (Exception e) {
+	        log.error("Error in updating member", e);
+	        throw new RuntimeException("Error in updating member", e);
+	    }
+	}
+
 
 
 
