@@ -12,12 +12,16 @@
 	<title>양파마켓 | 상점</title>
 	<link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/member/detail.css">
+	<link rel="stylesheet" type="text/css" href="/resources/css/product/detail.css">
+	<link rel="stylesheet" type="text/css" href="/resources/css/product/list.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body>
 	<jsp:include page="../layout/header.jsp"></jsp:include>
-
+	<c:set var="prvol" value="${reviewList.prvol }"></c:set>
+	<c:set var="mivo" value="${reviewList.mivo }"></c:set>
 	<div id="container">
+	<input type="hidden" value="${prvol.pr_buyer }">
 		<div id="innerContainer">
 			<div id="memberProfile" class="border-gray">
 				<div id="memberProfileLeft" class="background-gray">
@@ -93,10 +97,17 @@
 			        <c:set var="productCount" value="${productCount + 1}" />
 			    </c:if>
 			</c:forEach>
+			<!-- 리뷰 수 가져오기 -->
+			<c:set var="reviewCount" value="0" />
+			<c:forEach items="${prvol}" var="rvList">
+			    <c:if test="${rvList.pr_seller == member.mvo.m_number}">
+			        <c:set var="reviewCount" value="${reviewCount + 1}" />
+			    </c:if>
+			</c:forEach>
 			
 			<div id="memberMenu">
 				<button class="border-gray btn_ac">상품 ${productCount}</button>
-				<button class="border-gray btn_ac">상품후기 ${fn:length(prvol) }</button>
+				<button class="border-gray btn_ac">상품후기 ${reviewCount }</button>
 			</div>
 			
 			<div id="memberProduct" class="swiper-container" style="display: block;">
@@ -136,35 +147,49 @@
 				
 				<div id="memberReview" class="swiper-container" style="display: none;">
 					<div style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
-					<c:set var="prvol" value="${reviewList.prvol }"></c:set>
-					<c:set var="mivo" value="${reviewList.mivo }"></c:set>
-						<c:forEach items="${prvlo }" var="listRv">
+					
+						<c:forEach items="${prvol }" var="rvList">
 							<div class="product-review">
-									<a class="review-profile">
+									<a class="review-profile" href="/product/store?m_number=${rvList.pr_buyer }">
 									<!-- 회원이 프로필 사진을 등록 안했을 경우 -->
-									<c:if test="${empty listRv.mivo.mi_name}">
+									<c:if test="${empty rvList.mivo.mi_name}">
 										<img alt="프로필 사진" src="/resources/image/profile.png" style="width:32px;height:32px">
 									</c:if>
 									<!-- 회원이 프로필 사진을 등록 했을 경우 -->
-									<c:if test="${not empty listRv.mivo.mi_name}">
-										<img alt="프로필 사진" src="/resources/fileUpload/${listRv.mivo.mi_dir}/${listRv.mivo.mi_uuid}_th_${listRv.mivo.mi_name}" style="width:32px;height:32px">
+									<c:if test="${not empty rvList.mivo.mi_name}">
+										<img alt="프로필 사진" src="/resources/fileUpload/${rvList.mivo.mi_dir}/${rvList.mivo.mi_uuid}_th_${rvList.mivo.mi_name}" style="width:32px;height:32px">
 									</c:if>
 									</a>
 									<div class="review-info">
 										<div class="reviewer">
-											<a class="review-nick">${listRv.pr_buyer }</a>
+											<a class="review-nick" href="/product/store?m_number=${rvList.pr_buyer }">${rvList.pr_buyer }</a>
 										</div>
 										<div class="review-score">
 											<div class="star-score">
-											<c:forEach begin="1" end="${listRv.pr_score }">
+											<c:forEach begin="1" end="${rvList.pr_score }">
 												<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
 											</c:forEach>
 											</div>
 										</div>
-										<div class="review-detail">${listRv.pr_content }</div>
+										<div class="review-detail">${rvList.pr_content }</div>
 									</div>
 								</div>
 						</c:forEach>
+						<div id="page-wrap">
+						<!-- 이전페이지 -->
+						<c:if test="${rph.prev }">
+							<div class="background-gray page-btn" onclick="location.href='/product/store?pageNo=${rph.startPage-1}&qty=${rph.rpvo.qty }'">&lt;</div>
+						</c:if>
+						<!-- 컨트롤러에서 page 정보를 싣고 와야 함 -->
+						<!-- 숫자 페이지 -->
+						<c:forEach begin="${rph.startPage }" end="${rph.endPage }" var="i">
+							<div class="background-gray page-btn" onclick="location.href='/product/store?pageNo=${i}&qty=${rph.rpvo.qty}'">${i }</div>
+						</c:forEach>
+						<!-- 다음페이지 -->
+						<c:if test="${rph.next }">
+							<div class="background-gray page-btn" onclick="location.href='/product/store?pageNo=${rph.endPage+1}&qty=${rph.rpvo.qty}'">&gt;</div>
+						</c:if>
+					</div>
 					</div>
 				</div>
 				

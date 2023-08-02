@@ -25,5 +25,8 @@
 	<select id="selectMivo" resultType="com.myweb.www.domain.MemberImageVO">
 		select * from member_image where m_number=#{pr_seller}
 	</select>
+	<select id="selectRvMivo" resultType="com.myweb.www.domain.MemberImageVO">
+		select * from member_image where m_number=#{pr_buyer}
+	</select>
 
 </mapper>
