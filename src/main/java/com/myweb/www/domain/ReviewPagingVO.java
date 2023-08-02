@@ -12,6 +12,8 @@ public class ReviewPagingVO extends ProductReviewVO {
 	private int qty;
 	private int pageCnt;  // 페이지네이션 개수
 	
+	private MemberVO mvo;
+	
 	public ReviewPagingVO() {
 		this(1,15,10);
 	}
