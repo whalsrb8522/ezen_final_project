@@ -1,12 +1,9 @@
 package com.myweb.www.service;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,8 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.myweb.www.domain.MemberDTO;
 import com.myweb.www.domain.MemberImageVO;
 import com.myweb.www.domain.MemberVO;
-import com.myweb.www.domain.ProductDTO;
-import com.myweb.www.domain.ProductImageVO;
+
 import com.myweb.www.repository.MemberDAO;
 import com.myweb.www.repository.MemberImageDAO;
 
@@ -32,7 +28,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Inject
     BCryptPasswordEncoder passwordEncoder;
-	private ProductService psv;
+
 	
 	@Override
 	@Transactional
@@ -145,43 +141,43 @@ public class MemberServiceImpl implements MemberService {
 	public void updateMember(MemberDTO memberDTO) {
 	    try {
 	        MemberVO member = memberDTO.getMvo();
-
+	        
+	        // 비밀번호가 null이거나 길이가 0이면 예외 발생
 	        if(member.getM_pw() == null || member.getM_pw().length() == 0) {
-	            throw new IllegalArgumentException("Password can't be null or empty.");
+	            throw new IllegalArgumentException("비밀번호는 null이거나 비어있을 수 없습니다.");
 	        }
 
-	        // Encoding the password
+	        // 비밀번호를 암호화
 	        String m_pw = member.getM_pw();
-	        String encodedM_pw = passwordEncoder.encode(m_pw); // new password is encrypted
-	        member.setM_pw(encodedM_pw); // encrypted password is set
+	        String encodedM_pw = passwordEncoder.encode(m_pw); // 새 비밀번호 암호화
+	        member.setM_pw(encodedM_pw); // 암호화된 비밀번호 설정
 
-	        mdao.updateMember(member); // update member with the encrypted password
+	        mdao.updateMember(member); // member업데이트
 
-	        // Fetch the updated member
+	        // 업데이트된 회원정보 불러오기
 	        MemberVO updatedMember = mdao.getMember(member.getM_mail());
 
-	        // Check the password
+	        // 비밀번호 확인
 	        if (passwordEncoder.matches(m_pw, updatedMember.getM_pw())) {
-	            log.info("Password updated correctly");
+	            log.info("비밀번호가 정상적으로 업데이트됨");
 	        } else {
-	            log.error("Password didn't update correctly");
+	            log.error("비밀번호가 정상적으로 업데이트되지 않음");
 	        }
-
+	        
+	        // MemberImageVO 객체가 null이 아니면 이미지 정보 업데이트
 	        if(memberDTO.getMivo() != null) {
 	            midao.updateMemberImage(memberDTO.getMivo());
 	        }
 	    } catch (Exception e) {
-	        log.error("Error in updating member", e);
-	        throw new RuntimeException("Error in updating member", e);
+	        log.error("회원정보수정 중 오류 발생", e);
+	        throw new RuntimeException("회원정보수정 중 오류 발생", e);
 	    }
 	}
 
 
 
 
-
-
-
+	
 	@Override
 	public int updateMemberStatus(Map<String, Object> params) {
 		// TODO Auto-generated method stub

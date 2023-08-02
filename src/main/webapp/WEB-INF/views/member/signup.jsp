@@ -115,7 +115,7 @@
 			
 			<div id="introduceContainer">
 				<h2>자기 소개</h2>
-				<textarea name="m_introduct" class="border-gray textarea-box" placeholder="자기 소개를 입력해주세요."></textarea>
+				<textarea name="m_introduct" class="border-gray textarea-box" placeholder="자기 소개를 입력해주세요." maxlength="150"></textarea>
 			</div>
 			
 			<div id="mapContainer">

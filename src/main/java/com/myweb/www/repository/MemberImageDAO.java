@@ -10,7 +10,8 @@ public interface MemberImageDAO {
 	int insertMemberImage(MemberImageVO mivo);
 
 	MemberImageVO selectMemberImage(int m_number);
-
+	
+	//프로필사진 수정
 	void updateMemberImage(MemberImageVO mivo);
 
 	// 작성자 : 김경아
