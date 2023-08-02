@@ -178,7 +178,7 @@ async function reviewModal() {
         modalElement.innerHTML = modalContent;
         modalElement.style.display = 'block';
         document.body.classList.add('no-scroll');
-        document.body.style.paddingRight = '25px';
+        document.body.style.paddingRight = '17px';
 
         // review.js 파일을 동적으로 로드
         let script = document.createElement('script');
@@ -198,7 +198,14 @@ function closeModal() {
     document.body.style.padding = '';
 }
 
-
+// 삭제버튼 누르면 확인창 팝업
+document.getElementById('removeBtn').addEventListener("click", () => {
+    if (confirm("정말 삭제하시겠습니까?") == true) {
+        location.href = `/product/remove?p_number=${p_number}`;
+    } else {
+        return false;
+    }
+})
 
 // 채팅방 개설 관련 (작성자: 조민규)
 async function createChatRoom(p_number) {

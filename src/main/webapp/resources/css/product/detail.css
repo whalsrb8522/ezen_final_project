@@ -362,3 +362,8 @@
     color: rgb(136, 136, 136);
     line-height: 1.4;
 }
+
+/* store.jsp */
+#memberReview{
+	column-count: 2;
+}

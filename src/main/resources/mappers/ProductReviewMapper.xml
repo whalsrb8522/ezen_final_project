@@ -12,7 +12,20 @@
 		select * from product_review where pr_p_number=#{p_number}
 	</select>
 	
-	<select id="selectReviewList" resultType="com.myweb.www.domain.ProductReviewVO">
+	<!-- <select id="selectReviewList" resultType="com.myweb.www.domain.ProductReviewVO">
 		select * from product_review where pr_seller=#{m_number}
+	</select> -->
+	
+	<select id="getTotalRvCount" resultType="int">
+		select count(pr_number) from product_review where pr_isDel=0 and pr_seller=#{pr_seller}
+	</select>
+	
+	<select id="selectReviewList" resultType="com.myweb.www.domain.ProductReviewVO">
+		select * from
+		(select pr_number from product_review
+		where pr_isDel=0 and pr_seller=#{pr_seller}
+		order by pr_number desc
+		limit #{pageStart}, #{qty}) a left join product_review b
+		on a.pr_number = b.pr_number
 	</select>
 </mapper>

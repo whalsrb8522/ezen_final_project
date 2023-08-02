@@ -127,13 +127,21 @@
 							</c:choose>
 							<button type="button" class="background-purple detail-btn" onclick="createChatRoom(${param.p_number})">채팅하기</button>
 							<c:if test="${ses.m_number eq crvo.cr_buyer }">
-								<button type="button" class="background-purple detail-btn" onclick="reviewModal()">후기 쓰기</button>
+								<c:set var="hasLeftReview" value="false" />
+								<c:forEach items="${prvol }" var="prvol">
+									<c:if test="${prvo.pr_p_number eq pvo.p_number && prvo.pr_buyer eq ses.m_number }">
+										<c:set var="hasLeftReview" value="true"></c:set>
+									</c:if>
+								</c:forEach>
+								<c:if test="${not hasLeftReview}">
+									<button type="button" class="background-purple detail-btn" onclick="reviewModal()">후기 쓰기</button>
+								</c:if>
 							</c:if>					
 						</c:when>
 						
 						<c:when test="${ses.m_number eq pvo.m_number && ses.m_number ne null }">
 							<a href="/product/modify?p_number=${pvo.p_number }"><button type="button" class="background-gray detail-btn">수정하기</button></a>
-							<a href="/product/remove?p_number=${pvo.p_number }"><button type="button" class="background-gray detail-btn">삭제하기</button></a>
+							<button type="button" class="background-gray detail-btn" id="removeBtn">삭제하기</button>
 							<button type="button" class="background-purple detail-btn" onclick="location.href='/chat/main'">내 채팅방</button>
 						</c:when>
 					</c:choose>
@@ -181,7 +189,7 @@
 						<c:forEach items="${prvol }" var="prvoList" begin="0" end="1">
 							<div>
 								<div class="product-review">
-									<a class="review-profile">
+									<a class="review-profile" href="/product/store?m_number=${prvoList.pr_buyer }">
 									<!-- 회원이 프로필 사진을 등록 안했을 경우 -->
 									<c:if test="${empty prvoList.mivo.mi_name}">
 										<img alt="프로필 사진" src="/resources/image/profile.png" style="width:32px;height:32px">
@@ -193,7 +201,7 @@
 									</a>
 									<div class="review-info">
 										<div class="reviewer">
-											<a class="review-nick">${prvoList.pr_buyer }</a>
+											<a class="review-nick" href="/product/store?m_number=${prvoList.pr_buyer }">${prvoList.pr_buyer }</a>
 										</div>
 										<div class="review-score">
 											<div class="star-score">

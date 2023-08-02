@@ -7,6 +7,7 @@ import com.myweb.www.domain.ProductLikeVO;
 import com.myweb.www.domain.ProductPagingVO;
 import com.myweb.www.domain.ProductReviewDTO;
 import com.myweb.www.domain.ProductVO;
+import com.myweb.www.domain.ReviewPagingVO;
 
 public interface ProductService {
 
@@ -39,7 +40,11 @@ public interface ProductService {
 
 	int insertReview(ProductReviewDTO prdto);
 
-	ProductReviewDTO getReviewList(int m_number);
+//	ProductReviewDTO getReviewList(int m_number);
+
+	int getTotalRvCount(ReviewPagingVO rpvo);
+
+	ProductReviewDTO getReviewList(ReviewPagingVO rpvo);
 
 
 }

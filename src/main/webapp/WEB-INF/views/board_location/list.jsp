@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +27,9 @@
 			<div id="second-inner">
 				<h3>동네생활</h3>
 				<div id="comment-btn">
-					<a href="/board_location/register"><button class="background-purple submit-button">글쓰기</button></a>
+					<c:if test="${ses.m_number ne null }">
+						<a href="/board_location/register"><button class="background-purple submit-button">글쓰기</button></a>
+					</c:if>
 				</div>
 			</div>		
 		</div>

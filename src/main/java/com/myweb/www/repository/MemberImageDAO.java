@@ -16,4 +16,5 @@ public interface MemberImageDAO {
 
 	// 작성자 : 김경아
 	List<MemberImageVO> selectMivo(int m_number);
+	List<MemberImageVO> selectRvMivo(int m_number);
 }
