@@ -17,7 +17,7 @@ public interface MemberDAO {
 	
 	int emailCheck(String m_mail);
 
-	int nicknameCheck(String m_nick_name);
+	int nicknameCheck(String m_nick_name, int m_number);
 	
 	MemberVO selectMemberWithNumber(int m_number);
 

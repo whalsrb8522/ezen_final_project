@@ -87,9 +87,9 @@ public class MemberController {
 	 
 	@PostMapping("/nicknameCheck")
 	@ResponseBody
-	public int nicknameCheck(@RequestParam("m_nick_name") String m_nick_name) {
+	public int nicknameCheck(@RequestParam("m_nick_name") String m_nick_name, @RequestParam("m_number") int m_number) {
 		log.info("Checking nickname: " + m_nick_name);
-	    return memberService.nicknameCheck(m_nick_name);
+	    return memberService.nicknameCheck(m_nick_name, m_number);
 	}
 	
 	//이메일 중복체크

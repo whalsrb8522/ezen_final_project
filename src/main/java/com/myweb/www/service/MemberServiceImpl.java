@@ -108,9 +108,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 	//닉네임 중복체크
 	@Override
-	public int nicknameCheck(String m_nick_name) {
+	public int nicknameCheck(String m_nick_name, int m_number) {
 		// TODO Auto-generated method stub
-		int count =  mdao.nicknameCheck(m_nick_name);
+		int count =  mdao.nicknameCheck(m_nick_name, m_number);
 		return (count == 0) ? 0 : 1;
 	}
 	

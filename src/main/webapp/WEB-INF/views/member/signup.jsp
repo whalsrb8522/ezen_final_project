@@ -58,6 +58,7 @@
 			
 			<div id="emailContainer">
 			    <h2>이메일</h2>
+			    <div id="emailError" class="error-message"></div>
 			    <div id="emailInput">
 			        <input type="text" id="user_email" name="user_email" class="border-gray input-box" placeholder="이메일">
 			        @
@@ -87,6 +88,7 @@
 			
 			<div id="passwordContainer">
 				<h2>비밀번호</h2>
+				<div id="passwordError" class="error-message"></div>
 				<h6>영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</h6>
 				<input type="password" id="userpw" name="m_pw" class="border-gray input-box" placeholder="비밀번호">
 				<div class="passwordAlert"></div>
@@ -96,6 +98,7 @@
 			
 			<div id="passwordCheckContainer">
 				<h2>비밀번호 확인</h2>
+				<div id="passwordError1" class="error-message"></div>
 				<input type="password" id="userpwchk" name="m_pw_check" class="border-gray input-box" placeholder="비밀번호 확인">
 				<span class="point successPwChk"></span>
 				<input type="hidden" id="pwDoubleChk"/>
@@ -105,6 +108,8 @@
 			
 			<div id="nickNameContainer">
 				<h2>닉네임</h2>
+				<div id="nickError" class="error-message"></div>
+				<div id="nickError1" class="error-message"></div>
 				<h6>다른 유저와 겹치지 않도록 입력해주세요. (2~15자)</h6>
 				<input type="text" id="nick" class="border-gray input-box" placeholder="닉네임" name="m_nick_name" maxlength="15" onblur="checkNickname();">
 				<span class="point successNameChk"></span>
@@ -120,6 +125,7 @@
 			
 			<div id="mapContainer">
 				<h2>주소 선택</h2>
+				<div id="mapError" class="error-message"></div>
 				<div style="display: flex;">
 					<input type="text" id="mapAddress" class="border-gray input-box" placeholder="주소" disabled="disabled" name="m_address">
 					<input type="hidden" id="m_address" name="m_address">
@@ -149,6 +155,7 @@
 			
 			<div id="termsContainer">
 				<h2>약관동의</h2>
+				<div id="checkError" class="error-message"></div>
 				<div id="termsInnerContainer" class="border-gray">
 					<label for="termsAll">
 						<input type="checkbox" name="terms" id="termsAll" onClick="selectAll(this)">
@@ -177,7 +184,8 @@
 				</div>
 			</div>
 			
-			<div class="g-recaptcha" data-sitekey="6LeSzuEmAAAAAFNAFoHpVpKIeLw6Iso_AI757aeh"></div>
+			<div id="recaptchaError" class="error-message"></div>
+			<div class="g-recaptcha" id="recaptcha" data-sitekey="6LeSzuEmAAAAAFNAFoHpVpKIeLw6Iso_AI757aeh"></div>
 			
 			<button type="submit" id="submitBtn" class="background-purple">회원가입하기</button>
 			

@@ -44,13 +44,16 @@
 			
 			<div id="oldPasswordContainer">
 				<h2>기존 비밀번호</h2>
+				<div id="oldPasswordError" class="error-message"></div>
 				<h6>영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</h6>
 				<input type="password" id="userpw" name="m_pw" class="border-gray input-box" placeholder="비밀번호">
 				<div class="passwordAlert"></div>
+				<input type="hidden" id="oldUserpwValid" value="false">
 			</div>			
 			
 			<div id="newPasswordContainer">
 				<h2>변경 비밀번호</h2>
+				<div id="passwordError" class="error-message"></div>
 				<h6>영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</h6>
 				<input type="password" id="changePw" name="m_chgPw" class="border-gray input-box" placeholder="비밀번호">
 				<div class="newPasswordAlert"></div>
@@ -59,6 +62,7 @@
 			
 			<div id="newPasswordCheckContainer">
 				<h2>변경 비밀번호 확인</h2>
+				<div id="passwordError1" class="error-message"></div>
 				<input type="password" id="changePwChk" name="m_chgPw_check" class="border-gray input-box" placeholder="비밀번호 확인">
 				<div class="successPwChk"></div>
 				<input type="hidden" id="userpwMatch" value="false">
@@ -66,6 +70,8 @@
 			
 			<div id="nickNameContainer">
 				<h2>닉네임</h2>
+				<div id="nickError" class="error-message"></div>
+				<div id="nickError1" class="error-message"></div>
 				<h6>다른 유저와 겹치지 않도록 입력해주세요. (2~15자)</h6>
 				<input type="text" id="nick" value="${member.mvo.m_nick_name}" name="m_nick_name" class="border-gray input-box" placeholder="닉네임"  maxlength="15" onblur="checkNickname();">
 				<div class="successNameChk"></div>
@@ -80,6 +86,7 @@
 			
 			<div id="mapContainer">
 				<h2>주소 선택</h2>
+				<div id="mapError" class="error-message"></div>
 				<div style="display: flex;">
 					<input type="text" id="mapAddress" value="${member.mvo.m_address}" class="border-gray input-box" placeholder="주소" disabled="disabled" name="m_address">
 					<input type="hidden" id="m_address" name="m_address">
