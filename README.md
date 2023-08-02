@@ -220,4 +220,7 @@ primary key(pr_number),
 foreign key(pr_buyer) references member(m_number),
 foreign key(pr_seller) references member(m_number),
 foreign key(pr_p_number) references product(p_number));
+
+-- [08.02 | board_location 컬럼 추가]
+alter table board_location add bl_subject varchar(10) not null;
 ```
