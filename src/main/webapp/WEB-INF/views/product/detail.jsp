@@ -141,7 +141,7 @@
 						
 						<c:when test="${ses.m_number eq pvo.m_number && ses.m_number ne null }">
 							<a href="/product/modify?p_number=${pvo.p_number }"><button type="button" class="background-gray detail-btn">수정하기</button></a>
-							<a href="/product/remove?p_number=${pvo.p_number }"><button type="button" class="background-gray detail-btn">삭제하기</button></a>
+							<button type="button" class="background-gray detail-btn" id="removeBtn">삭제하기</button>
 							<button type="button" class="background-purple detail-btn" onclick="location.href='/chat/main'">내 채팅방</button>
 						</c:when>
 					</c:choose>
