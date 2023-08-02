@@ -27,7 +27,7 @@
 </head>
 <body>
 	<div id="container">
-		<form action="/member/modify" method="POST" enctype="multipart/form-data" id="innerContainer">
+		<form action="/member/modify" method="POST" enctype="multipart/form-data" id="innerContainer" onsubmit="return validateForm();">
 			<a href="/" id="logoContainer">	
 				<img alt="로고" src="/resources/image/logo.png" id="logoImage">
 				<span id="logoText">양파마켓</span>
@@ -54,12 +54,14 @@
 				<h6>영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</h6>
 				<input type="password" id="changePw" name="m_chgPw" class="border-gray input-box" placeholder="비밀번호">
 				<div class="newPasswordAlert"></div>
+				<input type="hidden" id="userpwValid" value="false">
 			</div>			
 			
 			<div id="newPasswordCheckContainer">
 				<h2>변경 비밀번호 확인</h2>
 				<input type="password" id="changePwChk" name="m_chgPw_check" class="border-gray input-box" placeholder="비밀번호 확인">
 				<div class="successPwChk"></div>
+				<input type="hidden" id="userpwMatch" value="false">
 			</div>
 			
 			<div id="nickNameContainer">
@@ -67,11 +69,13 @@
 				<h6>다른 유저와 겹치지 않도록 입력해주세요. (2~15자)</h6>
 				<input type="text" id="nick" value="${member.mvo.m_nick_name}" name="m_nick_name" class="border-gray input-box" placeholder="닉네임"  maxlength="15" onblur="checkNickname();">
 				<div class="successNameChk"></div>
+				<input type="hidden" id="nickValid" value="false">
+    			<input type="hidden" id="nickValid1" value="false">
 			</div>
 			
 			<div id="introduceContainer">
 				<h2>자기 소개</h2>
-				<textarea name="m_introduct" class="border-gray textarea-box" placeholder="자기 소개를 입력해주세요.">${member.mvo.m_introduct}</textarea>
+				<textarea name="m_introduct" class="border-gray textarea-box" placeholder="자기 소개를 입력해주세요." maxlength="150">${member.mvo.m_introduct}</textarea>
 			</div>
 			
 			<div id="mapContainer">

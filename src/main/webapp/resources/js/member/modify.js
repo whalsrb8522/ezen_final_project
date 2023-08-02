@@ -91,6 +91,7 @@ function checkNickname() {
 
 // 비밀번호 변경
 
+//비밀번호 조건 (영어 + 숫자 조합)
 document.addEventListener('DOMContentLoaded', function() {
      var passwordReg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
  
@@ -98,13 +99,14 @@ document.addEventListener('DOMContentLoaded', function() {
      document.getElementById('changePw').addEventListener('blur', function() {
          var newPassword = document.getElementById('changePw').value;
          
-         console.log("New password (unencrypted): " + newPassword); // 비밀번호 로깅
      
          if (!passwordReg.test(newPassword) && newPassword.length > 0) { // newPassword의 길이가 0보다 클 경우에만 코드 실행
              document.querySelector('.newPasswordAlert').innerText = "영문, 숫자를 모두 포함한 8자 이상이어야 합니다.";
              document.querySelector('.newPasswordAlert').style.color = "red";
+             document.getElementById('userpwValid').value = "false";
          } else {
              document.querySelector('.newPasswordAlert').innerText = "";
+             document.getElementById('userpwValid').value = "true";
          }
      });
  
@@ -117,9 +119,11 @@ document.addEventListener('DOMContentLoaded', function() {
              if (passwordCheck === newPassword) {
                  document.querySelector('.successPwChk').innerText = "비밀번호가 일치합니다.";
                  document.querySelector('.successPwChk').style.color = "green";
+                 document.getElementById('userpwMatch').value = "true";
              } else {
                  document.querySelector('.successPwChk').innerText = "비밀번호가 일치하지 않습니다.";
                  document.querySelector('.successPwChk').style.color = "red";
+                 document.getElementById('userpwMatch').value = "false";
              }
          }
      });
@@ -178,6 +182,9 @@ function fileSizeValidation(fileName, fileSize){
                 map.relayout();
                 map.setCenter(coords);
                 marker.setPosition(coords)
+                
+                // 여기서 m_address 필드에 주소 설정
+                document.getElementById("m_address").value = mapAddress;
             }
         });
     }
@@ -315,6 +322,52 @@ function removeMember() {
             }
         });
     }
+}
+
+// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+// 회원가입 유효성 검사
+window.onload = function() {
+document.getElementById('innerContainer').addEventListener('submit', function(event) {
+    console.log('Submit event 트리거');
+    if (!validateForm()) {
+        event.preventDefault();
+    }
+});
+
+function validateForm() {
+    console.log('validateForm 기능 called');
+    var validationErrors = [];
+
+    if (document.getElementById("nickValid").value !== "true") {
+        validationErrors.push("닉네임 길이를 확인해주세요");
+    }
+
+    if (document.getElementById("nickValid1").value !== "true") {
+        validationErrors.push("닉네임이 이미 사용중입니다");
+    }
+
+    if (document.getElementById("userpwValid").value !== "true") {
+        validationErrors.push("비밀번호는 영문, 숫자를 모두 포함한 8자 이상이어야 합니다");
+    }
+
+    if (document.getElementById("userpwMatch").value !== "true") {
+        validationErrors.push("비밀번호가 일치하지 않습니다");
+    }
+
+    if (!document.getElementById("m_address").value) {
+        validationErrors.push("주소를 입력해주세요");
+    }
+
+
+    if (validationErrors.length > 0) {
+        alert(validationErrors.join('\n'));
+        console.log("유효성 검사 오류발생");
+        return false;
+    }
+    console.log("유효성 검사 통과");
+    return true;
+}
 }
 
 
