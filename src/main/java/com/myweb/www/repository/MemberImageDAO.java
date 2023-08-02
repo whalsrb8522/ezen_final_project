@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.myweb.www.domain.MemberImageVO;
 import com.myweb.www.domain.ProductReviewVO;
+import com.myweb.www.domain.ReviewPagingVO;
 
 public interface MemberImageDAO {
 
@@ -16,5 +17,5 @@ public interface MemberImageDAO {
 
 	// 작성자 : 김경아
 	List<MemberImageVO> selectMivo(int m_number);
-	List<MemberImageVO> selectRvMivo(int m_number);
+	List<MemberImageVO> selectRvMivo(ReviewPagingVO rpvo);
 }

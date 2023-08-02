@@ -29,4 +29,5 @@ public class BoardLocationPagingHandler {
 		this.prev = this.startPage > 1;
 		this.next = this.endPage < realEndPage;
 	}
+
 }

@@ -12,6 +12,15 @@ public class BoardLocationPagingVO extends BoardLocationVO {
 	private int qty;
 	private int pageCnt;  // 페이지네이션 개수
 	
+	private String p_category;
+	
+	private String type;
+	private String keyword;
+	
+	public String[] getTypeToArray() {
+		return this.type == null ? new String[] {} : this.type.split("");
+	}
+	
 	public BoardLocationPagingVO() {
 		this(1,15,10);
 	}

@@ -68,107 +68,48 @@
 		</div>
 
 		<hr>
-		<div id="inner-box">
-		<a href="/board_location/detail">
-		<div id="list-box">
-			<div id="list-main">
-				<span>동물병원 추천해주세요..</span>
-			</div>
-			<div id="list-info">
-				<span>마리집사</span>
-				<span>·</span>
-				<span>13:25</span>
-				<span>·</span>
-				<span>조회수 3회</span>
-			</div>
-			<div id="list-icon">
-				<span class="material-symbols-outlined">favorite</span>
-				<span class="material-text">3</span>
-				<span class="material-symbols-outlined">sms</span>
-				<span class="material-text">1</span>
-			</div>
-		</div>
-		</a>			
-		</div>			
-		<hr>
-
-		<div id="inner-box">
-		<div id="list-box">
-			<div id="list-main">
-				<span>점심 메뉴 추천좀</span>
-			</div>
-			<div id="list-info">
-				<span>마리집사</span>
-				<span>·</span>
-				<span>13:25</span>
-				<span>·</span>
-				<span>조회수 3회</span>
-			</div>
-			<div id="list-icon">
-				<span class="material-symbols-outlined">favorite</span>
-				<span class="material-text">3</span>
-				<span class="material-symbols-outlined">sms</span>
-				<span class="material-text">1</span>
-			</div>
-		</div>			
-		</div>			
-		<hr>
-		
-		<div id="inner-box">
-		<div id="list-box">
-			<div id="list-main">
-				<span>초콜릿이 통째로! 칙촉! 촉촉한 초코칩은 가라</span>
-			</div>
-			<div id="list-info">
-				<span>마리집사</span>
-				<span>·</span>
-				<span>13:25</span>
-				<span>·</span>
-				<span>조회수 3회</span>
-			</div>
-			<div id="list-icon">
-				<span class="material-symbols-outlined">favorite</span>
-				<span class="material-text">3</span>
-				<span class="material-symbols-outlined">sms</span>
-				<span class="material-text">1</span>
-			</div>
-		</div>			
-		</div>			
-		<hr>
-
-		<div id="inner-box">
-		<div id="list-box">
-			<div id="list-main">
-				<span>안녕히 계세요 여러부운~</span>
-			</div>
-			<div id="list-info">
-				<span>마리집사</span>
-				<span>·</span>
-				<span>13:25</span>
-				<span>·</span>
-				<span>조회수 3회</span>
-			</div>
-			<div id="list-icon">
-				<span class="material-symbols-outlined">favorite</span>
-				<span class="material-text">3</span>
-				<span class="material-symbols-outlined">sms</span>
-				<span class="material-text">1</span>
-			</div>
-		</div>			
-		</div>			
-		<hr><br>
+		<c:forEach items="${bldto }" var="bldto">
+		<c:set var="blivo" value="${bldto.blivo }"></c:set>
+			<div id="inner-box" onclick="location.href='/board_location/detail?bl_number=${bldto.blvo.bl_number}'">
+			<div id="list-box">
+				<div id="list-main">
+					<span>${bldto.blvo.bl_title }</span>
+				</div>
+				<div id="list-info">
+					<span>${bldto.blvo.bl_writer }</span>
+					<span>·</span>
+					<span>${bldto.blvo.bl_reg_date }</span>
+					<span>·</span>
+					<span>조회수 3회</span>
+				</div>
+				<div id="list-icon">
+					<span class="material-symbols-outlined">favorite</span>
+					<span class="material-text">3</span>
+					<span class="material-symbols-outlined">sms</span>
+					<span class="material-text">1</span>
+				</div>
+			</div>		
+			</div>			
+			<hr>
+		</c:forEach>
 		
 		<div id="inner-box">
 			<!-- 페이지네이션 -->
-			<div id="page-wrap">
-				<!-- 이전페이지 -->
-				<div class="background-gray page-btn">&lt;</div>
-				<!-- 컨트롤러에서 page 정보를 싣고 와야 함 -->
-				<!-- 숫자 페이지 -->
-				<div class="background-gray page-btn">i</div>
-				<!-- 다음페이지 -->
-				<div class="background-gray page-btn">&gt;</div>
-			</div>
+		<div id="page-wrap">
+			<!-- 이전페이지 -->
+			<c:if test="${blph.prev }">
+				<div class="background-gray page-btn" onclick="location.href='/board_location/list?pageNo=${blph.startPage-1}&qty=${blph.blpvo.qty }&keyword=${pph.blpvo.keyword }'">&lt;</div>
+			</c:if>
+			<!-- 컨트롤러에서 page 정보를 싣고 와야 함 -->
+			<!-- 숫자 페이지 -->
+			<c:forEach begin="${blph.startPage }" end="${blph.endPage }" var="i">
+				<div class="background-gray page-btn" onclick="location.href='/board_location/list?pageNo=${i}&qty=${blph.blpvo.qty}&keyword=${blph.blpvo.keyword }'">${i }</div>
+			</c:forEach>
+			<!-- 다음페이지 -->
+			<c:if test="${blph.next }">
+				<div class="background-gray page-btn" onclick="location.href='/board_location/list?pageNo=${blph.endPage+1}&qty=${blph.ppvo.qty}&keyword=${blph.blpvo.keyword }'">&gt;</div>
+			</c:if>
+		</div>
 		</div>
 		
 
