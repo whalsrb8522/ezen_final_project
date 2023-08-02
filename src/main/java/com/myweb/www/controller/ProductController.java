@@ -31,8 +31,10 @@ import com.myweb.www.domain.ProductPagingVO;
 import com.myweb.www.domain.ProductReviewDTO;
 import com.myweb.www.domain.ProductReviewVO;
 import com.myweb.www.domain.ProductVO;
+import com.myweb.www.domain.ReviewPagingVO;
 import com.myweb.www.handler.ProductImageHandler;
 import com.myweb.www.handler.ProductPagingHandler;
+import com.myweb.www.handler.ReviewPagingHandler;
 import com.myweb.www.service.MemberService;
 import com.myweb.www.service.ProductService;
 
@@ -160,14 +162,19 @@ public class ProductController {
 	
 	// 상점 정보 보기
 	@GetMapping("/store")
-	public void getStore(@RequestParam("m_number")int m_number, Model m) {
+	public void getStore(@RequestParam("m_number")int m_number, ReviewPagingVO rpvo, Model m) {
 		MemberDTO member = memberService.getMemberDetails(m_number);
 	    List<ProductDTO> productList = psv.getProductByMember(m_number);
-	    ProductReviewDTO reviewList = psv.getReviewList(m_number);
+	    ProductReviewDTO reviewList = psv.getReviewList(rpvo);
 	    m.addAttribute("member", member);
 	    m.addAttribute("productList", productList);
 	    m.addAttribute("reviewList", reviewList);
+	    int totalCount = psv.getTotalRvCount(rpvo);
+	    log.info(">>> totalrv > "+totalCount);
+	    ReviewPagingHandler rph = new ReviewPagingHandler(rpvo, totalCount);
+	    m.addAttribute("rph", rph);
 	}
+	
 	
 	@GetMapping("/review")
 	public void getReview(@RequestParam("p_number")int p_number, Model m) {
