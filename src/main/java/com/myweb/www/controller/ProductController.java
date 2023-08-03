@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
@@ -162,19 +163,20 @@ public class ProductController {
 	
 	// 상점 정보 보기
 	@GetMapping("/store")
-	public void getStore(@RequestParam("m_number")int m_number, ReviewPagingVO rpvo, Model m) {
+	public void getStore(@RequestParam("m_number")int m_number, ReviewPagingVO rpvo, Model m, HttpServletRequest request) {
+		m.addAttribute("rpvo", rpvo);
 		MemberDTO member = memberService.getMemberDetails(m_number);
 	    List<ProductDTO> productList = psv.getProductByMember(m_number);
-	    ProductReviewDTO reviewList = psv.getReviewList(rpvo);
+	    List<ProductReviewDTO> reviewList = psv.getReviewList(rpvo);
 	    m.addAttribute("member", member);
 	    m.addAttribute("productList", productList);
 	    m.addAttribute("reviewList", reviewList);
 	    int totalCount = psv.getTotalRvCount(rpvo);
 	    log.info(">>> totalrv > "+totalCount);
+	    
 	    ReviewPagingHandler rph = new ReviewPagingHandler(rpvo, totalCount);
 	    m.addAttribute("rph", rph);
 	}
-	
 	
 	@GetMapping("/review")
 	public void getReview(@RequestParam("p_number")int p_number, Model m) {

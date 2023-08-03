@@ -19,7 +19,6 @@
 	<input type="hidden" name="pr_seller" value="${pvo.m_number }">
 	<input type="hidden" name="pr_p_number" value="${pvo.p_number }">
 		<div id="review-wrap">
-		${ses.m_number }
 			<div id="close" onclick="closeModal()">
 				<span class="material-symbols-outlined">close</span>
 			</div>

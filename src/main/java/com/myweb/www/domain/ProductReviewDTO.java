@@ -1,6 +1,5 @@
 package com.myweb.www.domain;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -22,7 +21,6 @@ public class ProductReviewDTO {
 	private MemberVO mvo;
 	private List<MemberImageVO> mivo;
 	private ChatRoomVO crvo;
-//	private List<Object> mergedList;
 	
 	// prvol와 mivo를 병합하는 메서드
 	public void mergeLists() {
