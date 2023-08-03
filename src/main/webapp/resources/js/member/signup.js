@@ -112,7 +112,10 @@ function checkNickname() {
     $.ajax({
         url: '/member/nicknameCheck',  
         type: 'POST',  
-        data: {m_nick_name: nick},  
+        data: {
+        		m_nick_name: nick,
+        		
+        },  
         success: function(data) {
             console.log("Server response: ", data);
             var xmlString = new XMLSerializer().serializeToString(data);
@@ -352,62 +355,116 @@ function removeMember() {
 // -------------------------------------------------------------
 
 // 회원가입 유효성 검사
-window.onload = function() {
-document.getElementById('innerContainer').addEventListener('submit', function(event) {
-    console.log('Submit event 트리거');
-    if (!validateForm()) {
-        event.preventDefault();
+    function validateForm() {
+        console.log('validateForm 기능 called');
+
+        // 이전 오류(error-message) 지우기 (수정된 사항 지우기)
+        var errorMessages = document.querySelectorAll('.error-message');
+        for (var i = 0; i < errorMessages.length; i++) {
+            errorMessages[i].textContent = '';
+            errorMessages[i].style.color = '';
+            errorMessages[i].style.fontSize = '';
+        }
+
+        var firstErrorField = null;
+        var firstErrorFieldMessage = null;
+
+        if (document.getElementById("mailValid").value !== "true") {
+		    if (!firstErrorField) {
+		        document.getElementById("emailError").textContent = "* 이메일 인증을 완료해주세요";
+		        document.getElementById("emailError").style.color = 'red';
+		        document.getElementById("emailError").style.fontSize = '14px';
+		        firstErrorField = document.getElementById("user_email");
+		    }
+		}
+		
+		if (document.getElementById("userpwValid").value !== "true") {
+            if (!firstErrorField) {
+	            document.getElementById("passwordError").textContent = "* 비밀번호는 영문, 숫자를 모두 포함한 8자 이상이어야 합니다";
+	            document.getElementById("passwordError").style.color = 'red';
+	            document.getElementById("passwordError").style.fontSize = '14px';
+                firstErrorField = document.getElementById("userpw");
+            }
+        }
+
+        if (document.getElementById("userpwMatch").value !== "true") {
+            if (!firstErrorField) {
+            	document.getElementById("passwordError1").textContent = "* 비밀번호가 일치하지 않습니다";
+	            document.getElementById("passwordError1").style.color = 'red';
+	            document.getElementById("passwordError1").style.fontSize = '14px';
+                firstErrorField = document.getElementById("userpwchk");
+            }
+        }
+
+        if (document.getElementById("nickValid").value !== "true") {
+            if (!firstErrorField) {
+            	document.getElementById("nickError").textContent = "* 닉네임 길이를 확인해주세요";
+	            document.getElementById("nickError").style.color = 'red';
+	            document.getElementById("nickError").style.fontSize = '14px';
+                firstErrorField = document.getElementById("nick");
+            }
+        }
+
+        if (document.getElementById("nickValid1").value !== "true") {
+            if (!firstErrorField) {
+            	document.getElementById("nickError1").textContent = "* 닉네임이 이미 사용중입니다";
+	            document.getElementById("nickError1").style.color = 'red';
+	            document.getElementById("nickError1").style.fontSize = '14px';
+                firstErrorField = document.getElementById("nick");
+            }
+        }
+
+
+        if (!document.getElementById("m_address").value) {
+            if (!firstErrorField) {
+            	document.getElementById("mapError").textContent = "* 주소를 입력해주세요";
+	            document.getElementById("mapError").style.color = 'red';
+	            document.getElementById("mapError").style.fontSize = '14px';
+                firstErrorField = document.getElementById("mapAddress");
+            }
+        }
+
+        var terms1 = document.getElementById("terms1").checked;
+		var terms2 = document.getElementById("terms2").checked;
+		var terms3 = document.getElementById("terms3").checked;
+		
+		if (!(terms1 && terms2 && terms3)) {
+		    if (!firstErrorField) {
+		        document.getElementById("checkError").textContent = "* 필수약관을 모두 선택해주세요";
+		        document.getElementById("checkError").style.color = 'red';
+	            document.getElementById("checkError").style.fontSize = '14px';
+		        firstErrorField = document.getElementById("terms1");
+		    }
+		}
+
+
+        if (grecaptcha.getResponse() === "") {
+		    if (!firstErrorField) {
+		        document.getElementById("recaptchaError").textContent = "* 보안인증을 완료해주세요.";
+		        document.getElementById("recaptchaError").style.color = 'red';
+	            document.getElementById("recaptchaError").style.fontSize = '14px';
+		        firstErrorField = document.getElementById("recaptcha");
+		    }
+		}
+
+
+        if (firstErrorField) {
+            firstErrorField.focus();
+            return false;
+        }
+
+        console.log("유효성 검사 통과");
+        return true;
     }
-});
-
-function validateForm() {
-    console.log('validateForm 기능 called');
-    var validationErrors = [];
-
-    if (document.getElementById("mailValid").value !== "true") {
-        validationErrors.push("이메일 인증을 완료해주세요");
-    }
-
-    if (document.getElementById("nickValid").value !== "true") {
-        validationErrors.push("닉네임 길이를 확인해주세요");
-    }
-
-    if (document.getElementById("nickValid1").value !== "true") {
-        validationErrors.push("닉네임이 이미 사용중입니다");
-    }
-
-    if (document.getElementById("userpwValid").value !== "true") {
-        validationErrors.push("비밀번호는 영문, 숫자를 모두 포함한 8자 이상이어야 합니다");
-    }
-
-    if (document.getElementById("userpwMatch").value !== "true") {
-        validationErrors.push("비밀번호가 일치하지 않습니다");
-    }
-
-    if (!document.getElementById("m_address").value) {
-        validationErrors.push("주소를 입력해주세요");
-    }
-
-    var terms1 = document.getElementById("terms1").checked;
-    var terms2 = document.getElementById("terms2").checked;
-    var terms3 = document.getElementById("terms3").checked;
-
-    if (!(terms1 && terms2 && terms3)) {
-        validationErrors.push("필수약관을 선택해주세요");
-    }
-
-    if (grecaptcha.getResponse() === "") {
-        validationErrors.push("보안인증을 완료해주세요.");
-
-    }
-
-    if (validationErrors.length > 0) {
-        alert(validationErrors.join('\n'));
-        console.log("유효성 검사 오류발생");
-        return false;
-    }
-    console.log("유효성 검사 통과");
-    return true;
+    
+    window.onload = function() {
+    document.getElementById('innerContainer').addEventListener('submit', function(event) {
+        console.log('Submit event 트리거');
+        if (!validateForm()) {
+            event.preventDefault();
+        }
+    });
 }
-}
+
+
 

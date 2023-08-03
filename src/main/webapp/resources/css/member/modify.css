@@ -128,20 +128,30 @@
 }
 
 #imageWrapper {
+    width: 125px;
+    height: 125px;
     position: relative;
-    display: inline-block; 
+    display: inline-block;
     margin-top: 10px;
+    border: 1px solid #ccc; 
+    border-radius: 5px;
 }
 
 #imagePreview {
     width: 100px;
     height: 100px;
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #removeImage {
     position: absolute;
+    top: 0;
+    right: 0;
     cursor: pointer;
-   
+    /* color: #ccc; */
 }
 
 #imageChoose {

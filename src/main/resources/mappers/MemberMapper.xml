@@ -15,7 +15,7 @@
 	</insert>
 
 	<select id="nicknameCheck" resultType="int">
-		select count(*) from member where m_nick_name = #{m_nick_name}
+		select count(*) from member where m_nick_name = #{m_nick_name} and m_number != #{m_number}
 	</select>
 	
 	<select id="emailCheck" resultType="int">
