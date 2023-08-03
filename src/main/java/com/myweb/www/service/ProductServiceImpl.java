@@ -15,6 +15,7 @@ import com.myweb.www.domain.ProductImageVO;
 import com.myweb.www.domain.ProductLikeVO;
 import com.myweb.www.domain.ProductPagingVO;
 import com.myweb.www.domain.ProductReviewDTO;
+import com.myweb.www.domain.ProductReviewVO;
 import com.myweb.www.domain.ProductVO;
 import com.myweb.www.domain.ReviewPagingVO;
 import com.myweb.www.repository.ChatDAO;
@@ -179,7 +180,8 @@ public class ProductServiceImpl implements ProductService {
 		ProductReviewDTO prdto = new ProductReviewDTO();
 		prdto.setPvo(pdao.selectPno(p_number));
 		prdto.setPiList(pidao.selectFile(p_number));
-		prdto.setPrvol(prdao.selectPrvo(p_number));
+		prdto.setPrvo(prdao.selectPrvo(p_number));
+		prdto.setPrvol(prdao.selectPrvol(prdto.getPvo().getM_number()));
 		prdto.setMivo(midao.selectMivo(prdto.getPvo().getM_number()));
 
 		MemberVO mvo = mdao.getMemberProduct(prdto.getPvo().getM_number());
@@ -199,14 +201,32 @@ public class ProductServiceImpl implements ProductService {
 	
 	// store 리뷰
 	@Override
-	public ProductReviewDTO getReviewList(ReviewPagingVO rpvo) {
-		ProductReviewDTO prdto = new ProductReviewDTO();
-		prdto.setPrvol(prdao.selectReviewList(rpvo));
-		prdto.setMivo(midao.selectRvMivo(rpvo));
-		prdto.mergeLists();
-		log.info("prdto!!: "+prdto.toString());
-		return prdto;
+	public List<ProductReviewDTO> getReviewList(ReviewPagingVO rpvo) {
+		List<ProductReviewDTO> listPrdto = new ArrayList<ProductReviewDTO>();
+		List<ProductReviewVO> listPrvo = prdao.selectReviewList(rpvo);
+		for(ProductReviewVO prvo : listPrvo) {
+			List<MemberImageVO> mivo = midao.selectRvMivo(prvo);
+			/* pvo 넣기 */
+			listPrdto.add(new ProductReviewDTO(null, prvo, null, null, null, mivo, null));
+			log.info("엠아븨오"+mivo.toString());
+		}
+		return listPrdto;
 	}
+
+	// store 리뷰
+//	@Override
+//	public List<ProductReviewDTO> getReviewList(ReviewPagingVO rpvo) {
+//		ProductReviewDTO prdto = new ProductReviewDTO();
+//		prdto.setPrvol(prdao.selectReviewList(rpvo));
+//		prdto.setMivo(midao.selectRvMivo(rpvo));
+//		prdto.mergeLists();
+//		log.info("prdto!!: "+prdto.toString());
+//		log.info("나와라: "+rpvo.getPr_seller());
+//		log.info("rpvo??뭐가들었니 : "+rpvo.toString());
+//		
+//		return prdto;
+//	}
+
 
 	@Override
 	public int getTotalRvCount(ReviewPagingVO rpvo) {
@@ -250,6 +270,8 @@ public class ProductServiceImpl implements ProductService {
 
 	    return likedProductList;
 	}
+
+	
 
 
 	

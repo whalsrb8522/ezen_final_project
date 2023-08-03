@@ -44,7 +44,7 @@ public interface ProductService {
 
 	int getTotalRvCount(ReviewPagingVO rpvo);
 
-	ProductReviewDTO getReviewList(ReviewPagingVO rpvo);
+	List<ProductReviewDTO> getReviewList(ReviewPagingVO rpvo);
 
 
 }

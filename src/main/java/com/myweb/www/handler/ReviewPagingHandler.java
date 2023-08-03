@@ -19,7 +19,7 @@ public class ReviewPagingHandler {
 	public ReviewPagingHandler(ReviewPagingVO rpvo, int totalCount) {
 		this.rpvo = rpvo;
 		this.totalCount = totalCount;
-		this.endPage = (int)(Math.ceil(rpvo.getPageNo() / (rpvo.getPageCnt()*1.0)))*rpvo.getPageCnt();
+		this.endPage = (int)(Math.ceil(rpvo.getPageNo() / (rpvo.getQty()*1.0)))*rpvo.getQty();
 		this.startPage = endPage -9;
 		int realEndPage = (int)Math.ceil((totalCount)*1.0 / rpvo.getQty());
 		if(realEndPage<this.endPage) {

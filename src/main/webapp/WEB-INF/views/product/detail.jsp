@@ -28,6 +28,7 @@
 	<c:set var="prvol" value="${prdto.prvol }"></c:set>
 	<!-- 전체 틀 -->
 	<div id="detail-wrap">
+	${prvo.pr_p_number }ddd
 		<div id="detail-category">
 			<div class="detail-category2">
 				<div class="detail-cate-home"><span class="material-symbols-outlined detail-cate-home">home</span>홈</div>
@@ -126,17 +127,15 @@
 								</c:when>
 							</c:choose>
 							<button type="button" class="background-purple detail-btn" onclick="createChatRoom(${param.p_number})">채팅하기</button>
-							<c:if test="${ses.m_number eq crvo.cr_buyer }">
-								<c:set var="hasLeftReview" value="false" />
-								<c:forEach items="${prvol }" var="prvol">
-									<c:if test="${prvo.pr_p_number eq pvo.p_number && prvo.pr_buyer eq ses.m_number }">
-										<c:set var="hasLeftReview" value="true"></c:set>
-									</c:if>
-								</c:forEach>
-								<c:if test="${not hasLeftReview}">
-									<button type="button" class="background-purple detail-btn" onclick="reviewModal()">후기 쓰기</button>
-								</c:if>
-							</c:if>					
+							<c:if test="${ses.m_number eq crvo.cr_buyer && pvo.p_number eq crvo.cr_number }">
+							    <c:if test="${pvo.p_number eq prvo.pr_p_number && prvo.pr_buyer ne ses.m_number}">
+							        <button type="button" class="background-purple detail-btn" onclick="reviewModal()">후기 쓰기</button>
+							    </c:if>
+							  	<c:if test="${empty prvo.pr_p_number}">
+							        <button type="button" class="background-purple detail-btn" onclick="reviewModal()">후기 쓰기</button>
+							        <label>이력 없음</label>
+							    </c:if>
+							</c:if>			
 						</c:when>
 						
 						<c:when test="${ses.m_number eq pvo.m_number && ses.m_number ne null }">
@@ -186,7 +185,7 @@
 							<div id="store-review">상점후기 <span id="review-cnt">${fn:length(prvol) }</span></div>
 						</div>
 						<!-- 상점후기 -->
-						<c:forEach items="${prvol }" var="prvoList" begin="0" end="1">
+						<c:forEach items="${prvol }" var="prvoList" begin="0" end="2">
 							<div>
 								<div class="product-review">
 									<a class="review-profile" href="/product/store?m_number=${prvoList.pr_buyer }">
