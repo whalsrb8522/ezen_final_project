@@ -15,7 +15,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
 	<!-- 프로필 사진 미리보기 X심볼 -->
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@30,400,1,200" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,400,0,-25" />
 	
 	<!-- 구글 폰트 -->
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -145,7 +145,7 @@
 			    <div id="imageWrapper" style="position: relative; display: none; margin-top: 10px;">
 			        <img id="imagePreview" src="" alt="selected image"/>
 			        <div id="removeImage" style="  cursor: pointer; z-index: 100">
-			        	<span class="material-symbols-outlined">cancel</span>
+			        	<span class="material-symbols-outlined">disabled_by_default</span>
 				   	</div>
 				</div>
 			</div>
