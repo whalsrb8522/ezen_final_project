@@ -94,21 +94,16 @@ public class MemberController {
 	
 
 	 //닉네임 중복체크(modify)
-	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	
 	@PostMapping("/nicknameCheck")
 	@ResponseBody
 	public int nicknameCheck(@RequestParam("m_nick_name") String m_nick_name, @RequestParam("m_number") int m_number) {
-	    try {
+	
 	        log.info("m_number: " + m_number);
 	        log.info("닉네임 체크: " + m_nick_name);
 
 	        return memberService.nicknameCheck(m_nick_name, m_number);
-	    } catch (Exception e) {
-	        log.error("Error occurred while checking nickname", e);
-	        // 서버 내부 에러 상태 코드 500 반환
-	        return 500;
-	    }
+	   
 	}
 	
 
@@ -204,11 +199,10 @@ public class MemberController {
 		        model.addAttribute("member", member);
 		        return "/member/modify";
 		    } else {
-		        return "not-found"; // 회원을 찾지 못한 경우에 대한 예외 처리
+		        return "not-found"; // 회원을 찾지 못한 경우에 대한 예외 처리 (로그인 되지 않은 상태)
 		    }
 		}
 
-		// 회원정보 수정 처리
 		// 회원정보 수정 처리
 		@PostMapping("/modify")
 		public String modifyPost(HttpServletRequest request,
