@@ -12,7 +12,7 @@
 		select * from product_review where pr_seller=#{m_number}
 	</select>
 	<select id="selectPrvo" resultType="com.myweb.www.domain.ProductReviewVO">
-		select * from product_review where pr_p_number=#{p_number}
+		select * from product_review where pr_p_number=#{p_number} and pr_buyer=#{sesM_number}
 	</select>
 	
 	<!-- <select id="selectReviewList" resultType="com.myweb.www.domain.ProductReviewVO">

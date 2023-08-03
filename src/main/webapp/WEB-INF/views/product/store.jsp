@@ -109,7 +109,7 @@
 			</div>
 			
 			<div id="memberProduct" class="swiper-container" style="display: block;">
-				<div style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
+				<div>
 					<c:forEach items="${productList }" var="productList">
 						<c:set value="${productList.piList }" var="piList"></c:set>
 						<c:if test="${productList.pvo.m_number == member.mvo.m_number}">
