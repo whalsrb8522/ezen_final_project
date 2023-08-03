@@ -69,6 +69,8 @@
 			</div>
 			
 			<div id="nickNameContainer">
+				<input type="hidden" id="memberNumber" value="${member.mvo.m_number}">
+				
 				<h2>닉네임</h2>
 				<div id="nickError" class="error-message"></div>
 				<div id="nickError1" class="error-message"></div>

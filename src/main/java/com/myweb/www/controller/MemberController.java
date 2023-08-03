@@ -8,6 +8,8 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -84,13 +86,23 @@ public class MemberController {
 	
 
 	 //닉네임 중복체크
-	 
+	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	
 	@PostMapping("/nicknameCheck")
 	@ResponseBody
 	public int nicknameCheck(@RequestParam("m_nick_name") String m_nick_name, @RequestParam("m_number") int m_number) {
-		log.info("Checking nickname: " + m_nick_name);
-	    return memberService.nicknameCheck(m_nick_name, m_number);
+	    try {
+	        log.info("m_number: " + m_number);
+	        log.info("닉네임 체크: " + m_nick_name);
+
+	        return memberService.nicknameCheck(m_nick_name, m_number);
+	    } catch (Exception e) {
+	        log.error("Error occurred while checking nickname", e);
+	        // 서버 내부 에러 상태 코드 500 반환
+	        return 500;
+	    }
 	}
+
 	
 	//이메일 중복체크
 	@PostMapping("/emailCheck")

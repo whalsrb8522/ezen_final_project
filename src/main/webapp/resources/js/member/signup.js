@@ -112,7 +112,10 @@ function checkNickname() {
     $.ajax({
         url: '/member/nicknameCheck',  
         type: 'POST',  
-        data: {m_nick_name: nick},  
+        data: {
+        		m_nick_name: nick,
+        		
+        },  
         success: function(data) {
             console.log("Server response: ", data);
             var xmlString = new XMLSerializer().serializeToString(data);
@@ -352,14 +355,6 @@ function removeMember() {
 // -------------------------------------------------------------
 
 // 회원가입 유효성 검사
-window.onload = function() {
-    document.getElementById('innerContainer').addEventListener('submit', function(event) {
-        console.log('Submit event 트리거');
-        if (!validateForm()) {
-            event.preventDefault();
-        }
-    });
-
     function validateForm() {
         console.log('validateForm 기능 called');
 
@@ -461,6 +456,15 @@ window.onload = function() {
         console.log("유효성 검사 통과");
         return true;
     }
+    
+    window.onload = function() {
+    document.getElementById('innerContainer').addEventListener('submit', function(event) {
+        console.log('Submit event 트리거');
+        if (!validateForm()) {
+            event.preventDefault();
+        }
+    });
 }
+
 
 
