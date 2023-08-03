@@ -176,11 +176,12 @@ public class ProductServiceImpl implements ProductService {
 	
 	// detail review
 	@Override
-	public ProductReviewDTO getReview(int p_number) {
+	public ProductReviewDTO getReview(int p_number, int sesM_number) {
 		ProductReviewDTO prdto = new ProductReviewDTO();
 		prdto.setPvo(pdao.selectPno(p_number));
 		prdto.setPiList(pidao.selectFile(p_number));
-		prdto.setPrvo(prdao.selectPrvo(p_number));
+		prdto.setPrvo(prdao.selectPrvo(p_number, sesM_number));
+		log.info("피알브이오 : "+prdao.selectPrvo(p_number,sesM_number));
 		prdto.setPrvol(prdao.selectPrvol(prdto.getPvo().getM_number()));
 		prdto.setMivo(midao.selectMivo(prdto.getPvo().getM_number()));
 
@@ -204,10 +205,9 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductReviewDTO> getReviewList(ReviewPagingVO rpvo) {
 		List<ProductReviewDTO> listPrdto = new ArrayList<ProductReviewDTO>();
 		List<ProductReviewVO> listPrvo = prdao.selectReviewList(rpvo);
-		for(ProductReviewVO prvo : listPrvo) {
-			List<MemberImageVO> mivo = midao.selectRvMivo(prvo);
-			/* pvo 넣기 */
-			listPrdto.add(new ProductReviewDTO(null, prvo, null, null, null, mivo, null));
+		for(ProductReviewVO a : listPrvo) {
+			List<MemberImageVO> mivo = midao.selectRvMivo(a);
+			listPrdto.add(new ProductReviewDTO(null, null, a, null, null, null, mivo, null));
 			log.info("엠아븨오"+mivo.toString());
 		}
 		return listPrdto;

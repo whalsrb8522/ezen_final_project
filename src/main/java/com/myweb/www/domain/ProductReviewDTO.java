@@ -15,6 +15,7 @@ import lombok.ToString;
 @Getter
 public class ProductReviewDTO {
 	private List<ProductReviewVO> prvol;
+	private List<ProductReviewVO> prvol2;
 	private ProductReviewVO prvo;
 	private ProductVO pvo;
 	private List<ProductImageVO> piList;

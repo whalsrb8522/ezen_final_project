@@ -93,7 +93,7 @@ public class ProductController {
 		log.info(">>> pdto = " + pdto.toString());
 		m.addAttribute("pdto", pdto);
 		
-		ProductReviewDTO prdto = psv.getReview(p_number);
+		ProductReviewDTO prdto = psv.getReview(p_number, sesMvo.getM_number());
 		log.info(">>> prdto = " + prdto.toString());
 		m.addAttribute("prdto", prdto);
 	}
@@ -179,14 +179,15 @@ public class ProductController {
 	}
 	
 	@GetMapping("/review")
-	public void getReview(@RequestParam("p_number")int p_number, Model m) {
-		ProductReviewDTO prdto = psv.getReview(p_number);
+	public void getReview(@RequestParam("p_number")int p_number, Model m, HttpSession ses) {
+		MemberVO sesMvo = (MemberVO) ses.getAttribute("ses");
+		ProductReviewDTO prdto = psv.getReview(p_number, sesMvo.getM_number());
 		m.addAttribute("prdto", prdto);
 	}
 	
 	@PostMapping("/review")
 	public String postReview(RedirectAttributes rAttr, ProductVO pvo, ProductReviewVO prvo) {
-		ProductReviewDTO prdto = new ProductReviewDTO(null, prvo, pvo, null, null, null, null);
+		ProductReviewDTO prdto = new ProductReviewDTO(null, null, prvo, pvo, null, null, null, null);
 		int isOk = psv.insertReview(prdto);
 		log.info(">>> 리뷰 작성 > "+(isOk>0?"성공":"실패"));
 		return "redirect:/product/list";
