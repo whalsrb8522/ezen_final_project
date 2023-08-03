@@ -95,7 +95,7 @@
 
 // 닉네임 중복 확인
 
-function checkNickname() {
+function checkNickname1() {
     var nick = $('#nick').val();
 
     if(nick.length < 2 || nick.length > 15){
@@ -110,10 +110,10 @@ function checkNickname() {
     console.log("nick: " + nick);  // nick 값 로그 출력
 
     $.ajax({
-        url: '/member/nicknameCheck',  
+        url: '/member/nicknameCheck1',  
         type: 'POST',  
         data: {
-        		m_nick_name: nick,
+        		m_nick_name: nick
         		
         },  
         success: function(data) {

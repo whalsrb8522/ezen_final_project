@@ -84,8 +84,16 @@ public class MemberController {
 	    return "redirect:/";	  
 	}
 	
+	//닉네임 중복체크(signup)
+	@PostMapping("/nicknameCheck1")
+	@ResponseBody
+	public int nicknameCheck1(@RequestParam("m_nick_name") String m_nick_name) {
+		log.info("(회원가입) 닉네임 체크: "+ m_nick_name);
+		return memberService.nicknameCheck1(m_nick_name);
+	}
+	
 
-	 //닉네임 중복체크
+	 //닉네임 중복체크(modify)
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	
 	@PostMapping("/nicknameCheck")
@@ -102,6 +110,7 @@ public class MemberController {
 	        return 500;
 	    }
 	}
+	
 
 	
 	//이메일 중복체크
