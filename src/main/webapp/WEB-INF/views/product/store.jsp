@@ -21,7 +21,6 @@
 	<c:set var="prvol" value="${reviewList.prvol }"></c:set>
 	<c:set var="mivo" value="${reviewList.mivo }"></c:set>
 	<div id="container">
-	<input type="hidden" value="${prvol.pr_buyer }">
 		<div id="innerContainer">
 			<div id="memberProfile" class="border-gray">
 				<div id="memberProfileLeft" class="background-gray">

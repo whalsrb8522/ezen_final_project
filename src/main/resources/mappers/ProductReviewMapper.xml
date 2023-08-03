@@ -23,7 +23,7 @@
 	<select id="selectReviewList" resultType="com.myweb.www.domain.ProductReviewVO">
 		select * from
 		(select pr_number from product_review
-		where pr_isDel=0 and pr_seller=#{pr_seller}
+		where pr_isDel=0
 		order by pr_number desc
 		limit #{pageStart}, #{qty}) a left join product_review b
 		on a.pr_number = b.pr_number

@@ -172,6 +172,7 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return pdao.updateIsDel(p_number);
 	}
+	
 	// detail review
 	@Override
 	public ProductReviewDTO getReview(int p_number) {
@@ -190,45 +191,23 @@ public class ProductServiceImpl implements ProductService {
 		return prdto;
 	}
 	
-
 	@Override
 	public int insertReview(ProductReviewDTO prdto) {
 		
 		return prdao.insertReview(prdto.getPrvo());
 	}
 	
-//	@Override
-//	public ProductReviewDTO getReviewList(int m_number) {
-//		ProductReviewDTO prdto = new ProductReviewDTO();
-//		prdto.setPrvol(prdao.selectReviewList(m_number));
-//		prdto.setMivo(midao.selectMivo(m_number));
-//		prdto.mergeLists();
-//		log.info("prdto!!: "+prdto.toString());
-//		return prdto;
-//	}
-	
 	// store 리뷰
 	@Override
 	public ProductReviewDTO getReviewList(ReviewPagingVO rpvo) {
 		ProductReviewDTO prdto = new ProductReviewDTO();
 		prdto.setPrvol(prdao.selectReviewList(rpvo));
-		prdto.setMivo(midao.selectRvMivo(prdto.getMvo().getM_number()));
+		prdto.setMivo(midao.selectRvMivo(rpvo));
 		prdto.mergeLists();
 		log.info("prdto!!: "+prdto.toString());
 		return prdto;
 	}
 
-//	@Override
-//	public ProductReviewDTO getReviewList(ReviewPagingVO rpvo) {
-//		List<ProductReviewDTO> listRvdto = new ArrayList<ProductReviewDTO>();
-//		List<ProductReviewVO> listRvo = prdao.selectReviewList(rpvo);
-//		for(ProductReviewVO prvo : listRvo) {
-//			List<MemberImageVO> mivo = midao.selectMivo(prvo);
-//			listRvdto.add(new ProductReviewDTO(listRvo, null, null, null, null, mivo, null));
-//		}
-//		return listRvdto;
-//	}
-	
 	@Override
 	public int getTotalRvCount(ReviewPagingVO rpvo) {
 		// TODO Auto-generated method stub
