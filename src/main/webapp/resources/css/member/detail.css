@@ -169,6 +169,20 @@
 	border-top: 1px solid black;
 }
 
+#page-wrap{
+	display: flex;
+ 	justify-content : center;
+}
+
+.page-btn{
+	width: 30px;
+	height: 30px;
+	padding: 2px 0;
+	margin: 0 2px;
+	text-align: center;
+	cursor: pointer;
+	
+}
 
 /* 내 상품 본문 */
 /* #productContainer {

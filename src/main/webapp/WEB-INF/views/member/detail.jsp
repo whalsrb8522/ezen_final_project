@@ -90,6 +90,12 @@
 			
 			<!-- 상품후기 가져오기 -->
 			<c:set var="reviewCount" value="0" />
+			<c:forEach items="${reviewList}" var="rvList">
+				<c:set var="prvo" value="${rvList.prvo }"></c:set>
+			    <c:if test="${prvo.pr_seller eq member.mvo.m_number}">
+			        <c:set var="reviewCount" value="${reviewCount + 1}" />
+			    </c:if>
+			</c:forEach>
 			
 			<!-- 찜한 상품 수 가져오기 -->
 			<c:set var="likedCount" value="${fn:length(likedProductList)}" />
@@ -163,11 +169,82 @@
 						</div>
 						</c:if>
 					</c:forEach>
+					
+					<!-- 페이지네이션 -->
+					<div id="page-wrap">
+						<!-- 이전페이지 -->
+						<c:if test="${pph.prev }">
+							<div class="background-gray page-btn" onclick="location.href='/product/list?pageNo=${pph.startPage-1}&qty=${pph.ppvo.qty }&keyword=${pph.ppvo.keyword }'">&lt;</div>
+						</c:if>
+						<!-- 컨트롤러에서 page 정보를 싣고 와야 함 -->
+						<!-- 숫자 페이지 -->
+						<c:forEach begin="${pph.startPage }" end="${pph.endPage }" var="i">
+							<div class="background-gray page-btn" onclick="location.href='/product/list?pageNo=${i}&qty=${pph.ppvo.qty}&keyword=${pph.ppvo.keyword }'">${i }</div>
+						</c:forEach>
+						<!-- 다음페이지 -->
+						<c:if test="${pph.next }">
+							<div class="background-gray page-btn" onclick="location.href='/product/list?pageNo=${pph.endPage+1}&qty=${pph.ppvo.qty}&keyword=${pph.ppvo.keyword }'">&gt;</div>
+						</c:if>
+					</div>
 				</div>
 				
-				<div class="reviewList" style="display: none;">
+				<!-- <div class="reviewList" style="display: none;">
+					
+				</div> -->
+				
+				<div id="memberReview" class="reviewList" style="display: none;">
 					<p>상품후기 ${reviewCount}</p>
+						<c:forEach items="${reviewList }" var="rvList">
+							<c:if test="${rvList.prvo.pr_seller eq member.mvo.m_number }">
+							<div class="product-review">
+									<a class="review-profile" href="/product/store?m_number=${rvList.prvo.pr_buyer }">
+									<!-- 회원이 프로필 사진을 등록 안했을 경우 -->
+									<c:if test="${empty mivo.mi_name}">
+										<img alt="프로필 사진" src="/resources/image/profile.png" style="width:32px;height:32px">
+									</c:if>
+									<!-- 회원이 프로필 사진을 등록 했을 경우 -->
+									<c:if test="${not empty mivo.mi_name}">
+										<img alt="프로필 사진" src="/resources/fileUpload/${mivo.mi_dir}/${mivo.mi_uuid}_th_${mivo.mi_name}" style="width:32px;height:32px">
+									</c:if>
+									</a>
+									<div class="review-info">
+										<div class="review-score">
+											<div class="star-score">
+											<c:forEach begin="1" end="${rvList.prvo.pr_score }">
+												<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
+											</c:forEach>
+											</div>
+										</div>
+										<div class="reviewer">
+											<a class="review-nick" href="/product/store?m_number=${rvList.prvo.pr_buyer }">${rvList.prvo.pr_buyer } | 
+											
+											<fmt:parseDate value="${rvList.prvo.pr_reg_date }" var="regDate" pattern="yyyy-MM-dd HH:mm:ss" />
+											<fmt:formatDate value="${regDate }" pattern="yyyy-MM-dd" /></a>
+										</div>
+										<div class="review-detail">${rvList.prvo.pr_content }</div>
+									</div>
+								</div>
+								</c:if>
+						</c:forEach>
+						<%-- <div id="page-wrap">
+						<!-- 이전페이지 -->
+						<c:if test="${rph.prev }">
+							<div class="background-gray page-btn" onclick="location.href='/product/store?pageNo=${rph.startPage-1}&qty=${rph.rpvo.qty }'">&lt;</div>
+						</c:if>
+						<!-- 컨트롤러에서 page 정보를 싣고 와야 함 -->
+						<!-- 숫자 페이지 -->
+						<c:forEach begin="${rph.startPage }" end="${rph.endPage }" var="i">
+							<div class="background-gray page-btn" onclick="location.href='/product/store?pageNo=${i}&qty=${rph.rpvo.qty}'">${i }</div>
+						</c:forEach>
+						<!-- 다음페이지 -->
+						<c:if test="${rph.next }">
+							<div class="background-gray page-btn" onclick="location.href='/product/store?pageNo=${rph.endPage+1}&qty=${rph.rpvo.qty}'">&gt;</div>
+						</c:if>
+					</div> --%>
+					
 				</div>
+				
+			
 				
 				<div class="likedProductList" style="display: none;">
 					<p>찜 ${likedCount}</p>
