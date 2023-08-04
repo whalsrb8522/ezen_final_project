@@ -84,16 +84,18 @@ public class ProductController {
 		
 		MemberVO sesMvo = (MemberVO) ses.getAttribute("ses");
 		ProductDTO pdto = new ProductDTO();
+		ProductReviewDTO prdto = new ProductReviewDTO();
 		psv.readCount(p_number);
-		if (sesMvo == null) {  // 로그인 안 되었을 때
-			pdto = psv.detail(p_number);
-		} else {  // 로그인 되었을 때
-			pdto = psv.detail(p_number, sesMvo.getM_number());
+
+		if (sesMvo == null) { // 로그인 안 되었을 때 
+			pdto = psv.detail(p_number); 
+		} else { // 로그인 되었을 때 
+			pdto = psv.detail(p_number, sesMvo.getM_number()); 
+			prdto = psv.getReview(p_number, sesMvo.getM_number());
 		}
 		log.info(">>> pdto = " + pdto.toString());
 		m.addAttribute("pdto", pdto);
 		
-		ProductReviewDTO prdto = psv.getReview(p_number, sesMvo.getM_number());
 		log.info(">>> prdto = " + prdto.toString());
 		m.addAttribute("prdto", prdto);
 	}

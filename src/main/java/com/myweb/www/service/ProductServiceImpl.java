@@ -192,6 +192,7 @@ public class ProductServiceImpl implements ProductService {
 		prdto.mergeLists();
 		log.info("prdto~: "+prdto.toString());
 		return prdto;
+		
 	}
 	
 	@Override
