@@ -100,45 +100,15 @@
 			<!-- 찜한 상품 수 가져오기 -->
 			<c:set var="likedCount" value="${fn:length(likedProductList)}" />
 			
+			
 			<div id="memberMenu">
-				<button class="border-gray" onclick="showProductList()">상품 ${productCount}</button>
-				<button class="border-gray" onclick="showrReviewList()">상품후기 ${reviewCount}</button>
-				<button class="border-gray" onclick="showLikedProductList()">찜 ${likedCount}</button>
+				<button class="border-gray btn_ac">상품 ${productCount}</button>
+				<button class="border-gray btn_ac">상품후기 ${reviewCount }</button>
+				<button class="border-gray btn_ac">찜 ${likedCount}</button>
 			</div>
 			
-			<div id="memberProduct">
-				
-				
-				<!-- 상품 리스트 -->
-				<%-- <div id="productContainer">
-				    <c:forEach items="${productList}" var="product">
-				        <c:if test="${product.pvo.m_number == member.mvo.m_number}">
-				            <div onclick="location.href='/product/detail?p_number=${product.pvo.p_number}'" class="product">
-				                <div class="product-image">
-				                    <img alt="상품 이미지" src="../resources/fileUpload/${product.piList[0].pi_dir}/${product.piList[0].pi_uuid}_th_${product.piList[0].pi_name}">
-				                </div>
-				
-				                <div class="product-text">
-				                    <ul>
-				                        <li class="product-title">${product.pvo.p_name}</li>
-				                        <li class="product-price">${product.pvo.p_price}<span style="font-size: 12px;">원</span></li>
-				                    </ul>
-				                </div>
-				
-				                <div class="product-location">
-				                    <span class="material-symbols-outlined">
-				                        location_on
-				                    </span>
-				                    ${product.pvo.p_location}
-				                </div>
-				            </div>
-				        </c:if>
-				    </c:forEach>
-				</div> --%>
-				
-				
-				<div class="productList" style="display: block;">
-					<p>상품 ${productCount}</p>
+			<div id="memberProduct" class="swiper-container" style="display: block;">
+				<div>
 					<c:forEach items="${productList }" var="productList">
 						<c:set value="${productList.piList }" var="piList"></c:set>
 						<c:if test="${productList.pvo.m_number == member.mvo.m_number}">
@@ -169,31 +139,13 @@
 						</div>
 						</c:if>
 					</c:forEach>
-					
-					<!-- 페이지네이션 -->
-					<div id="page-wrap">
-						<!-- 이전페이지 -->
-						<c:if test="${pph.prev }">
-							<div class="background-gray page-btn" onclick="location.href='/product/list?pageNo=${pph.startPage-1}&qty=${pph.ppvo.qty }&keyword=${pph.ppvo.keyword }'">&lt;</div>
-						</c:if>
-						<!-- 컨트롤러에서 page 정보를 싣고 와야 함 -->
-						<!-- 숫자 페이지 -->
-						<c:forEach begin="${pph.startPage }" end="${pph.endPage }" var="i">
-							<div class="background-gray page-btn" onclick="location.href='/product/list?pageNo=${i}&qty=${pph.ppvo.qty}&keyword=${pph.ppvo.keyword }'">${i }</div>
-						</c:forEach>
-						<!-- 다음페이지 -->
-						<c:if test="${pph.next }">
-							<div class="background-gray page-btn" onclick="location.href='/product/list?pageNo=${pph.endPage+1}&qty=${pph.ppvo.qty}&keyword=${pph.ppvo.keyword }'">&gt;</div>
-						</c:if>
-					</div>
 				</div>
 				
-				<!-- <div class="reviewList" style="display: none;">
-					
-				</div> -->
+
 				
-				<div id="memberReview" class="reviewList" style="display: none;">
-					<p>상품후기 ${reviewCount}</p>
+				</div>
+				
+				<div id="memberReview" class="swiper-container" style="display: none;">
 						<c:forEach items="${reviewList }" var="rvList">
 							<c:if test="${rvList.prvo.pr_seller eq member.mvo.m_number }">
 							<div class="product-review">
@@ -226,33 +178,21 @@
 								</div>
 								</c:if>
 						</c:forEach>
-						<%-- <div id="page-wrap">
-						<!-- 이전페이지 -->
-						<c:if test="${rph.prev }">
-							<div class="background-gray page-btn" onclick="location.href='/product/store?pageNo=${rph.startPage-1}&qty=${rph.rpvo.qty }'">&lt;</div>
-						</c:if>
-						<!-- 컨트롤러에서 page 정보를 싣고 와야 함 -->
-						<!-- 숫자 페이지 -->
-						<c:forEach begin="${rph.startPage }" end="${rph.endPage }" var="i">
-							<div class="background-gray page-btn" onclick="location.href='/product/store?pageNo=${i}&qty=${rph.rpvo.qty}'">${i }</div>
-						</c:forEach>
-						<!-- 다음페이지 -->
-						<c:if test="${rph.next }">
-							<div class="background-gray page-btn" onclick="location.href='/product/store?pageNo=${rph.endPage+1}&qty=${rph.rpvo.qty}'">&gt;</div>
-						</c:if>
-					</div> --%>
+						
+						
 					
 				</div>
 				
-			
 				
-				<div class="likedProductList" style="display: none;">
+				
+				
+				<div id="likedProductList" class="swiper-container" style="display: none;">
 					<p>찜 ${likedCount}</p>
 				    <c:forEach items="${likedProductList}" var="likedProduct">
 				    	<c:set value="${likedProduct.piList }" var="piList"></c:set>
 				        <div class="product-wrapper" onclick="location.href='/product/detail?p_number=${likedProduct.pvo.p_number }'">
 				            <div class="product-photo">
-				                <!-- You may need to adjust the way you access the image's src attribute, depending on how images are stored for your products -->
+				                
 				                <img alt="없음" src="/resources/fileUpload/${likedProduct.piList[0].pi_dir }/${likedProduct.piList[0].pi_uuid }_th_${likedProduct.piList[0].pi_name }" class="product-photo">
 				                <!-- 구매가능, 예약중, 거래완료 -->
 				                <div class="product-status">
@@ -277,34 +217,12 @@
 				            </div>
 				        </div>
 				    </c:forEach>
+				    
+				   
 				</div>
 
-
-
-
-					
-					
-					
-					
-					
-					<!-- <div onclick="location.href='#'" class="product">
-						<div class="product-image">
-							<img alt="상품 이미지" src="">
-						</div>
-						<div class="product-text">
-							<ul>
-								<li class="product-title">상품명</li>
-								<li class="product-price">1,000,000 <span style="font-size: 12px;">원</span></li>
-							</ul>
-						</div>
-						<div class="product-location">
-							<span class="material-symbols-outlined">
-								location_on
-							</span>
-							인천광역시 계양구
-						</div>
-					</div> -->
-				</div>
+				
+			
 			</div>
 		</div>
 	
