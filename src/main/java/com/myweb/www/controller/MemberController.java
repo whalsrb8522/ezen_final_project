@@ -243,8 +243,19 @@ public class MemberController {
 		        // DB에 업데이트
 		        memberService.updateMember(memberDTO);
 		    }
-
+		    
+		    // 변경하고자 하는 비밀번호가 비어 있는지 확인
+		    if (newPassword.isEmpty()) {
+		        // 변경 비밀번호가 빈칸일 경우, 기존 비밀번호를 그대로 사용
+		        newPassword = loggedInUser.getM_pw();
+		    } else {
+		        // 비밀번호가 빈칸이 아닌 경우, 비밀번호를 암호화하여 변경
+		        newPassword = passwordEncoder.encode(newPassword);
+		    }
+		    
+		    // 변경된 비밀번호를 DTO에 설정
 		    memberDTO.getMvo().setM_pw(newPassword);
+		  
 		    try {
 		        memberService.updateMember(memberDTO);
 		        log.info("회원 정보 DB 업데이트 완료: " + loggedInUser.getM_number());
