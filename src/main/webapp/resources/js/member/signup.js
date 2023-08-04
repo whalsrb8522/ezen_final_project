@@ -41,7 +41,7 @@
                                 
                         // 이메일 유효성이 검증되면, 인증 메일을 보냄
                         sendEmail();
-                        console.log("인증메일 발송완료");
+                        console.log("인증메일이 발송되었습니다.");
                     }
                 },
                 error: function () {
