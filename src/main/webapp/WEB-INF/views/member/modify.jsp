@@ -75,7 +75,7 @@
 				<div id="nickError" class="error-message"></div>
 				<div id="nickError1" class="error-message"></div>
 				<h6>다른 유저와 겹치지 않도록 입력해주세요. (2~15자)</h6>
-				<input type="text" id="nick" value="${member.mvo.m_nick_name}" name="m_nick_name" class="border-gray input-box" placeholder="닉네임"  maxlength="15" onblur="checkNickname();">
+				<input type="text" id="nick" value="${member.mvo.m_nick_name}" name="m_nick_name" class="border-gray input-box" placeholder="닉네임"  maxlength="15">
 				<div class="successNameChk"></div>
 				<input type="hidden" id="nickValid" value="false">
     			<input type="hidden" id="nickValid1" value="false">

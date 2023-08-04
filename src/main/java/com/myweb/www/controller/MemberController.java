@@ -84,24 +84,28 @@ public class MemberController {
 	    return "redirect:/";	  
 	}
 	
+	//닉네임 중복체크(signup)
+	@PostMapping("/nicknameCheck1")
+	@ResponseBody
+	public int nicknameCheck1(@RequestParam("m_nick_name") String m_nick_name) {
+		log.info("(회원가입) 닉네임 체크: "+ m_nick_name);
+		return memberService.nicknameCheck1(m_nick_name);
+	}
+	
 
-	 //닉네임 중복체크
-	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	 //닉네임 중복체크(modify)
 	
 	@PostMapping("/nicknameCheck")
 	@ResponseBody
 	public int nicknameCheck(@RequestParam("m_nick_name") String m_nick_name, @RequestParam("m_number") int m_number) {
-	    try {
+	
 	        log.info("m_number: " + m_number);
 	        log.info("닉네임 체크: " + m_nick_name);
 
 	        return memberService.nicknameCheck(m_nick_name, m_number);
-	    } catch (Exception e) {
-	        log.error("Error occurred while checking nickname", e);
-	        // 서버 내부 에러 상태 코드 500 반환
-	        return 500;
-	    }
+	   
 	}
+	
 
 	
 	//이메일 중복체크
@@ -195,11 +199,10 @@ public class MemberController {
 		        model.addAttribute("member", member);
 		        return "/member/modify";
 		    } else {
-		        return "not-found"; // 회원을 찾지 못한 경우에 대한 예외 처리
+		        return "not-found"; // 회원을 찾지 못한 경우에 대한 예외 처리 (로그인 되지 않은 상태)
 		    }
 		}
 
-		// 회원정보 수정 처리
 		// 회원정보 수정 처리
 		@PostMapping("/modify")
 		public String modifyPost(HttpServletRequest request,
@@ -240,8 +243,19 @@ public class MemberController {
 		        // DB에 업데이트
 		        memberService.updateMember(memberDTO);
 		    }
-
+		    
+		    // 변경하고자 하는 비밀번호가 비어 있는지 확인
+		    if (newPassword.isEmpty()) {
+		        // 변경 비밀번호가 빈칸일 경우, 기존 비밀번호를 그대로 사용
+		        newPassword = loggedInUser.getM_pw();
+		    } else {
+		        // 비밀번호가 빈칸이 아닌 경우, 비밀번호를 암호화하여 변경
+		        newPassword = passwordEncoder.encode(newPassword);
+		    }
+		    
+		    // 변경된 비밀번호를 DTO에 설정
 		    memberDTO.getMvo().setM_pw(newPassword);
+		  
 		    try {
 		        memberService.updateMember(memberDTO);
 		        log.info("회원 정보 DB 업데이트 완료: " + loggedInUser.getM_number());

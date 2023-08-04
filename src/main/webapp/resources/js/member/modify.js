@@ -1,91 +1,81 @@
-// 기존 비밀번호 확인 (일치하지 않을 시 폼 제출X)
-
-document.getElementById('innerContainer').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    var oldPassword = document.getElementById('userpw').value;
-    console.log("Submitting form with password: " + oldPassword);
-
-    $.ajax({
-        type: "POST",
-        url: "/member/checkPassword",
-        data: {
-            m_pw: oldPassword
-        },
-        dataType: "json",
-        async: false,  // Make request synchronous
-        success: function(response) {
-            console.log("Response received: " + response);
-            console.log("Submitted password (unencrypted): " + oldPassword);
-            
-            if (response === true) {
-                document.getElementById('oldUserpwValid').value = "true";
-                
-            } else {
-                document.getElementById('oldUserpwValid').value = "false";
-                
-            }
-        }
-    });
-});
-
 
 // 닉네임 중복 확인
 
-function checkNickname() {
-     var nick = $('#nick').val();
- 
-     if(nick.length < 2 || nick.length > 15){
-         $(".successNameChk").text('닉네임은 2 ~ 15 글자여야 합니다.');
-         $(".successNameChk").css("color", "red");
-         $("#nickValid").val("false");
- 
-         return;
-     }else {
-         $("#nickValid").val("true");
-     }
-     console.log("nick: " + nick);  // nick 값 로그 출력
-     var memberNumber = document.getElementById('memberNumber').value;
-	 console.log("m_number: " + memberNumber);
- 
-     $.ajax({
-         url: '/member/nicknameCheck',  
-         type: 'POST',  
-         data: {
-         		 m_nick_name: nick,
-		         m_number: memberNumber
-		    },    
-         success: function(data) {
-             console.log("Server response: ", data);
-             var xmlString = new XMLSerializer().serializeToString(data);
-             console.log("XML string: ", xmlString);
- 
-             // XML 응답 파싱
-             var parser = new DOMParser();
-             var xmlDoc = parser.parseFromString(xmlString, "text/xml");
- 
-             // 'Integer' 태그의 값 얻기
-             var intValue = parseInt(xmlDoc.getElementsByTagName("Integer")[0].childNodes[0].nodeValue);
-             
-             if (intValue == 0) {
-                 $(".successNameChk").text("사용가능한 닉네임입니다.");
-                     $(".successNameChk").css("color", "green");
-                 $("#nickValid1").val("true");
-                
-             } else {
-                 $(".successNameChk").text("사용중인 닉네임입니다");
-                     $(".successNameChk").css("color", "red");
-                 $("#nickValid1").val("false");
-                
-             }
-         },
-         error: function(err) {
-             console.log(err);
-             $("#nickValid").val("false");
-             $("#nickValid1").val("false");
-         }
-     });
- }
+window.addEventListener('load', function() {
+    var nickInput = document.getElementById("nick");
+    var originalNick = document.getElementById("nick").value;
+
+	
+    // 페이지 로딩 시 nickValid 값과 nickValid1 값을 true로 설정
+    document.getElementById('nickValid').value = "true";
+    document.getElementById('nickValid1').value = "true";
+	
+    nickInput.addEventListener('input', function() {
+        var nickValue = nickInput.value;
+	
+        // 닉네임 길이 체크 (2~15자)
+        if (nickValue.length < 2 || nickValue.length > 15) {
+            document.getElementById('nickValid').value = "false";
+        } else {
+            document.getElementById('nickValid').value = "true";
+            document.getElementById("nickError").textContent = "";
+        }
+	
+        // 사용자가 닉네임을 변경한 경우
+        if (nickValue !== originalNick) {
+            // nickValid1 값을 false로 설정
+            document.getElementById('nickValid1').value = "false";
+        }
+    });
+
+    nickInput.addEventListener('blur', function() {
+        var nickValue = nickInput.value;
+
+        if (nickValue !== originalNick) {
+            // 닉네임 중복 검사를 수행
+            $.ajax({
+                type: "post",
+                async: true,
+                url: "/member/nicknameCheck",
+                data: {
+                    m_nick_name: nickValue,
+                    m_number: $("#memberNumber").val()
+                },
+                success: function(data) {
+                	var xmlString = new XMLSerializer().serializeToString(data);
+                	
+                	// XML 응답 파싱
+		            var parser = new DOMParser();
+		            var xmlDoc = parser.parseFromString(xmlString, "text/xml");
+		            
+		            // 'Integer' 태그의 값 얻기
+            		var intValue = parseInt(xmlDoc.getElementsByTagName("Integer")[0].childNodes[0].nodeValue);
+                    
+                    if(intValue === 0) {
+                        // 닉네임이 중복되지 않는 경우
+                        document.getElementById('nickValid1').value = "true";
+                        document.getElementById("nickError1").textContent = "";
+                        $(".successNameChk").text("사용가능한 닉네임입니다.");
+						$(".successNameChk").css("color", "green");
+                    } else {
+                        // 닉네임이 중복되는 경우
+                        document.getElementById('nickValid1').value = "false";
+                        $(".successNameChk").text("사용중인 닉네임입니다");
+						$(".successNameChk").css("color", "red");
+                    }
+                },
+                error: function(e) {
+                    alert("닉네임 중복 검사 중 오류 발생");
+                }
+            });
+        } else {
+            // 사용자가 닉네임을 원래 값으로 다시 변경한 경우
+            // nickValid1 값을 true로 설정
+            document.getElementById('nickValid1').value = "true";
+            document.getElementById("nickError1").textContent = "";
+        }
+    });
+});
 
 // 비밀번호 변경
 
@@ -326,91 +316,117 @@ function removeMember() {
 
 // 회원정보수정 유효성 검사
 
+
+
 function validateForm() {
-        console.log('validateForm 기능 called');
+    console.log('validateForm 기능 called');
 
-        // 이전 오류(error-message) 지우기 (수정된 사항 지우기)
-        var errorMessages = document.querySelectorAll('.error-message');
-        for (var i = 0; i < errorMessages.length; i++) {
-            errorMessages[i].textContent = '';
-            errorMessages[i].style.color = '';
-            errorMessages[i].style.fontSize = '';
-        }
-
-        var firstErrorField = null;
-        var firstErrorFieldMessage = null;
-
-        if (document.getElementById("oldUserpwValid").value !== "true") {
-            document.getElementById("oldPasswordError").textContent = "* 기존 비밀번호가 일치하지 않습니다.";
-            document.getElementById("oldPasswordError").style.color = 'red';
-            document.getElementById("oldPasswordError").style.fontSize = '14px';
-            firstErrorField = document.getElementById("userpw");
-        }
-
-        var changePwValue = document.getElementById("changePw").value;
-        if (changePwValue && document.getElementById("userpwValid").value !== "true") {
-            document.getElementById("passwordError").textContent = "* 비밀번호는 영문, 숫자를 모두 포함한 8자 이상이어야 합니다";
-            document.getElementById("passwordError").style.color = 'red';
-            document.getElementById("passwordError").style.fontSize = '14px';
-            firstErrorField = document.getElementById("changePw");
-        }
-
-        var changePwChkValue = document.getElementById("changePwChk").value;
-        if (changePwChkValue && document.getElementById("userpwMatch").value !== "true") {
-            document.getElementById("passwordError1").textContent = "* 비밀번호가 일치하지 않습니다";
-            document.getElementById("passwordError1").style.color = 'red';
-            document.getElementById("passwordError1").style.fontSize = '14px';
-            firstErrorField = document.getElementById("changePwChk");
-        }
-
-        var nickValue = document.getElementById("nick").value;
-        
-        if (nickValue === "${member.mvo.m_nick_name}") {
-        	document.getElementById('nickValid').value = "true";
-        	document.getElementById('nickValid1').value = "true";
-        	
-        }
-
-        if (document.getElementById("nickValid").value !== "true") {
-            if (!firstErrorField) {
-            	document.getElementById("nickError").textContent = "* 닉네임 길이를 확인해주세요";
-	            document.getElementById("nickError").style.color = 'red';
-	            document.getElementById("nickError").style.fontSize = '14px';
-                firstErrorField = document.getElementById("nick");
-            }
-        }
-
-        if (document.getElementById("nickValid1").value !== "true") {
-            if (!firstErrorField) {
-            	document.getElementById("nickError1").textContent = "* 닉네임이 이미 사용중입니다";
-	            document.getElementById("nickError1").style.color = 'red';
-	            document.getElementById("nickError1").style.fontSize = '14px';
-                firstErrorField = document.getElementById("nick");
-            }
-        }
-
-        if (!document.getElementById("m_address").value) {
-            document.getElementById("mapError").textContent = "* 주소를 입력해주세요";
-            document.getElementById("mapError").style.color = 'red';
-            document.getElementById("mapError").style.fontSize = '14px';
-            firstErrorField = document.getElementById("mapAddress");
-        }
-
-        if (firstErrorField) {
-            firstErrorField.focus();
-            return false;
-        }
-
-        console.log("유효성 검사 통과");
-        return true;
+    // 이전 오류(error-message) 지우기 (수정된 사항 지우기)
+    var errorMessages = document.querySelectorAll('.error-message');
+    for (var i = 0; i < errorMessages.length; i++) {
+        errorMessages[i].textContent = '';
+        errorMessages[i].style.color = '';
+        errorMessages[i].style.fontSize = '';
     }
 
-window.onload = function() {
+    var firstErrorField = null;
+    var firstErrorFieldMessage = null;
+
+    if (document.getElementById("oldUserpwValid").value !== "true") {
+        document.getElementById("oldPasswordError").textContent = "* 기존 비밀번호가 일치하지 않습니다.";
+        document.getElementById("oldPasswordError").style.color = 'red';
+        document.getElementById("oldPasswordError").style.fontSize = '14px';
+        firstErrorField = document.getElementById("userpw");
+    }
+
+    var changePwValue = document.getElementById("changePw").value;
+    if (changePwValue && document.getElementById("userpwValid").value !== "true") {
+        document.getElementById("passwordError").textContent = "* 비밀번호는 영문, 숫자를 모두 포함한 8자 이상이어야 합니다";
+        document.getElementById("passwordError").style.color = 'red';
+        document.getElementById("passwordError").style.fontSize = '14px';
+        firstErrorField = document.getElementById("changePw");
+    }
+
+    var changePwChkValue = document.getElementById("changePwChk").value;
+    if (changePwChkValue && document.getElementById("userpwMatch").value !== "true") {
+        document.getElementById("passwordError1").textContent = "* 비밀번호가 일치하지 않습니다";
+        document.getElementById("passwordError1").style.color = 'red';
+        document.getElementById("passwordError1").style.fontSize = '14px';
+        firstErrorField = document.getElementById("changePwChk");
+    }
+
+
+    if (document.getElementById("nickValid").value !== "true") {
+        if (!firstErrorField) {
+        	document.getElementById("nickError").textContent = "* 닉네임 길이를 확인해주세요";
+            document.getElementById("nickError").style.color = 'red';
+            document.getElementById("nickError").style.fontSize = '14px';
+            firstErrorField = document.getElementById("nick");
+        }
+    }
+
+    if (document.getElementById("nickValid1").value !== "true") {
+        if (!firstErrorField) {
+        	document.getElementById("nickError1").textContent = "* 닉네임이 이미 사용중입니다";
+            document.getElementById("nickError1").style.color = 'red';
+            document.getElementById("nickError1").style.fontSize = '14px';
+            firstErrorField = document.getElementById("nick");
+        }
+    }
+
+    if (!document.getElementById("m_address").value) {
+        document.getElementById("mapError").textContent = "* 주소를 입력해주세요";
+        document.getElementById("mapError").style.color = 'red';
+        document.getElementById("mapError").style.fontSize = '14px';
+        firstErrorField = document.getElementById("mapAddress");
+    }
+
+    if (firstErrorField) {
+        firstErrorField.focus();
+        return false;
+    }
+
+    console.log("유효성 검사 통과");
+    return true;
+}
+
+//기존 비밀번호 확인
+window.addEventListener('load', function() {
     document.getElementById('innerContainer').addEventListener('submit', function(event) {
         console.log('Submit event 트리거');
-        if (!validateForm()) {
-            event.preventDefault();
-        }
-    });
 
-}
+        
+        event.preventDefault();
+
+        var oldPassword = document.getElementById('userpw').value;
+        console.log("Submitting form with password: " + oldPassword);
+
+        $.ajax({
+            type: "POST",
+            url: "/member/checkPassword",
+            data: {
+                m_pw: oldPassword
+            },
+            dataType: "json",
+            async: false,  // Make request synchronous
+            success: function(response) {
+                console.log("Response received: " + response);
+                console.log("Submitted password (unencrypted): " + oldPassword);
+                
+                if (response === true) {
+                    document.getElementById('oldUserpwValid').value = "true";
+                } else {
+                    document.getElementById('oldUserpwValid').value = "false";
+                }
+
+                
+                if (validateForm()) {
+                    
+                    event.target.submit();
+                }
+            }
+        });
+    });
+});
+
+

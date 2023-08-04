@@ -17,6 +17,8 @@ public interface MemberDAO {
 	int nameCheck(String m_nick_name);
 	
 	int emailCheck(String m_mail);
+	
+	int nicknameCheck1(String m_nick_name);
 
 	int nicknameCheck(@Param("m_nick_name") String m_nick_name, @Param("m_number") int m_number);
 	
@@ -33,6 +35,8 @@ public interface MemberDAO {
 	MemberVO getMemberProduct(int m_number);
 
 	int updateMemberStatus(Map<String, Object> params);
+
+	
 
 	
 
