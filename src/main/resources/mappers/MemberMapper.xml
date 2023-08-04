@@ -28,9 +28,9 @@
 
 	<select id="getNewMember" parameterType="string"
 		resultType="com.myweb.www.domain.MemberVO">
-		SELECT *
-		FROM Member
-		WHERE m_mail = #{m_mail}
+		select *
+		from member
+		where m_mail = #{m_mail}
 		ORDER BY m_number DESC
 		LIMIT 1
 	</select>

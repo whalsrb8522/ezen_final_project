@@ -16,7 +16,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
 	<!-- 프로필 사진 미리보기 X심볼 -->
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,400,0,-25" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,500,0,0" />
 	
 	<!-- 구글 폰트 -->
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -107,7 +107,7 @@
 			    <div id="imageWrapper" style="position: relative; display: none; margin-top: 10px;">
 			        <img id="imagePreview" src="/resources/fileUpload/${member.mivo.mi_dir}/${member.mivo.mi_uuid}_th_${member.mivo.mi_name}" alt="selected image"/>
 			        <div id="removeImage" style="  cursor: pointer; z-index: 100">
-			        	<span class="material-symbols-outlined">disabled_by_default</span>
+			        	<span class="material-symbols-outlined" style="">disabled_by_default</span>
 				   	</div>
 				</div>
 			</div>

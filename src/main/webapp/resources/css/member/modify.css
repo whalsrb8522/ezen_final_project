@@ -151,8 +151,9 @@
     top: 0;
     right: 0;
     cursor: pointer;
-    /* color: #ccc; */
+    color: #CD0000;
 }
+
 
 #imageChoose {
 	height: 40px;
