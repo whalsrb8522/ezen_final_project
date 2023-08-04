@@ -157,6 +157,10 @@
 				</div>
 				<div id="product-member-wrap">
 					<div class="detail-pro-info"><b>상점정보</b></div>
+					<c:if test="${ses.m_number eq null }">
+						<div>로그인하셔야 확인 가능합니다.</div>
+					</c:if>
+					<c:if test="${ses.m_number ne null }">
 					<div id="pro-mem-wrap">
 						<div id="product-store">
 							<div id="product-profile" onclick="location.href='/product/store?m_number=${mvo.m_number}'">
@@ -212,6 +216,7 @@
 						</c:forEach>
 						<!-- 상점후기 끝 -->
 					</div>
+					</c:if>
 				</div>
 			</div>
 			<div id="location-wrap">
