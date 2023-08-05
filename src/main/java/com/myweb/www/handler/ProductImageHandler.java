@@ -21,7 +21,8 @@ import net.coobird.thumbnailator.Thumbnails;
 public class ProductImageHandler {
 	
 	private final String UP_DIR = "E:\\Workspace\\ezen_final_project\\src\\main\\webapp\\resources\\fileUpload";
-	//"D:\\_final_project\\ezen_final_project\\src\\main\\webapp\\resources\\fileUpload";
+			//"D:\\_final_project\\ezen_final_project\\src\\main\\webapp\\resources\\fileUpload";
+	
 	
 	public List<ProductImageVO> uploadFiles(MultipartFile[] files){
 		LocalDate date = LocalDate.now();

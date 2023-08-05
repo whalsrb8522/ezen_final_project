@@ -126,17 +126,12 @@
 								</c:when>
 							</c:choose>
 							<button type="button" class="background-purple detail-btn" onclick="createChatRoom(${param.p_number})">채팅하기</button>
-							<c:if test="${ses.m_number eq crvo.cr_buyer }">
-								<c:set var="hasLeftReview" value="false" />
-								<c:forEach items="${prvol }" var="prvol">
-									<c:if test="${prvo.pr_p_number eq pvo.p_number && prvo.pr_buyer eq ses.m_number }">
-										<c:set var="hasLeftReview" value="true"></c:set>
-									</c:if>
-								</c:forEach>
-								<c:if test="${not hasLeftReview}">
-									<button type="button" class="background-purple detail-btn" onclick="reviewModal()">후기 쓰기</button>
-								</c:if>
-							</c:if>					
+							<c:if test="${ses.m_number eq crvo.cr_buyer && pvo.p_number eq crvo.cr_number }">
+							    <c:if test="${prvo.pr_buyer ne ses.m_number}">
+							        <button type="button" class="background-purple detail-btn" onclick="reviewModal()">후기 쓰기</button>
+							   </c:if>
+							  	 
+							</c:if>			
 						</c:when>
 						
 						<c:when test="${ses.m_number eq pvo.m_number && ses.m_number ne null }">
@@ -162,6 +157,10 @@
 				</div>
 				<div id="product-member-wrap">
 					<div class="detail-pro-info"><b>상점정보</b></div>
+					<c:if test="${ses.m_number eq null }">
+						<div>로그인하셔야 확인 가능합니다.</div>
+					</c:if>
+					<c:if test="${ses.m_number ne null }">
 					<div id="pro-mem-wrap">
 						<div id="product-store">
 							<div id="product-profile" onclick="location.href='/product/store?m_number=${mvo.m_number}'">
@@ -186,7 +185,7 @@
 							<div id="store-review">상점후기 <span id="review-cnt">${fn:length(prvol) }</span></div>
 						</div>
 						<!-- 상점후기 -->
-						<c:forEach items="${prvol }" var="prvoList" begin="0" end="1">
+						<c:forEach items="${prvol }" var="prvoList" begin="0" end="2">
 							<div>
 								<div class="product-review">
 									<a class="review-profile" href="/product/store?m_number=${prvoList.pr_buyer }">
@@ -217,6 +216,7 @@
 						</c:forEach>
 						<!-- 상점후기 끝 -->
 					</div>
+					</c:if>
 				</div>
 			</div>
 			<div id="location-wrap">

@@ -76,16 +76,14 @@
 				menu
 			</a>
 			<ul class="depth_1">
-		      <li><a href="#">강화군</a></li>
-		      <li><a href="#">옹진군</a></li>
-		      <li><a href="#">중구</a></li>
-		      <li><a href="#">동구</a></li>
-		      <li><a href="#">미추홀구</a></li>
-		      <li><a href="#">연수구</a></li>
-		      <li><a href="#">남동구</a></li>
-		      <li><a href="#">부평구</a></li>
-		      <li><a href="#">계양구</a></li>
-		      <li><a href="#">서구</a></li>
+		      <li><a onclick="location.href='/product/list?p_category=전자기기'">전자기기</a></li>
+		      <li><a onclick="location.href='/product/list?p_category=아웃도어, 스포츠'">아웃도어, 스포츠</a></li>
+		      <li><a onclick="location.href='/product/list?p_category=자동차용품, 공구'">자동차용품, 공구</a></li>
+		      <li><a onclick="location.href='/product/list?p_category=가구, 조명'">가구, 조명</a></li>
+		      <li><a onclick="location.href='/product/list?p_category=유아, 완구'">유아, 완구</a></li>
+		      <li><a onclick="location.href='/product/list?p_category=생활, 주방, 건강'">생활, 주방, 건강</a></li>
+		      <li><a onclick="location.href='/product/list?p_category=패션, 잡화'">패션, 잡화</a></li>
+		      <li><a onclick="location.href='/product/list?p_category=사무, 취미'">사무, 취미</a></li>
 		    </ul>
 		    </li>
 			</ul>

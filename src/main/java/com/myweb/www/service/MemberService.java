@@ -10,8 +10,10 @@ public interface MemberService {
 
 
 	MemberVO isMember(String m_mail, String m_pw);
-	//닉네임 중복체크
-	int nicknameCheck(String m_nick_name);
+	//(회원가입 닉네임 중복체크)
+	int nicknameCheck1(String m_nick_name);
+	//(회원정보수정)닉네임 중복체크
+	int nicknameCheck(String m_nick_name, int m_number);
 	//이메일 중복체크
 	int emailCheck(String m_mail);
 
@@ -24,6 +26,7 @@ public interface MemberService {
 	void updateMember(MemberDTO memberDTO);
 	
 	int updateMemberStatus(Map<String, Object> params);
+	
 	
 	
 

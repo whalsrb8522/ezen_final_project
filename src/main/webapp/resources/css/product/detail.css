@@ -321,6 +321,7 @@
 .product-review{
 	display: flex;
 	padding: 16px 0;
+	width: 500px;
 }
 
 .review-profile{
@@ -365,5 +366,4 @@
 
 /* store.jsp */
 #memberReview{
-	column-count: 2;
 }

@@ -36,7 +36,7 @@ public interface ProductService {
 
 	int removeIsDel(int p_number);
 
-	ProductReviewDTO getReview(int p_number);
+	ProductReviewDTO getReview(int p_number, int sesM_number);
 
 	int insertReview(ProductReviewDTO prdto);
 
@@ -44,7 +44,7 @@ public interface ProductService {
 
 	int getTotalRvCount(ReviewPagingVO rpvo);
 
-	ProductReviewDTO getReviewList(ReviewPagingVO rpvo);
+	List<ProductReviewDTO> getReviewList(ReviewPagingVO rpvo);
 
 
 }

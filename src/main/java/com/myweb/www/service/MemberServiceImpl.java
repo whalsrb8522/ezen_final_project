@@ -106,13 +106,24 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 	}
-	//닉네임 중복체크
+	
+	// (회원가입) 닉네임 중복 체크
 	@Override
-	public int nicknameCheck(String m_nick_name) {
+	public int nicknameCheck1(String m_nick_name) {
 		// TODO Auto-generated method stub
-		int count =  mdao.nicknameCheck(m_nick_name);
+		int count =  mdao.nicknameCheck1(m_nick_name);
 		return (count == 0) ? 0 : 1;
 	}
+	
+	// (회원정보수정) 닉네임 중복체크
+	@Override
+	public int nicknameCheck(String m_nick_name, int m_number) {
+		// TODO Auto-generated method stub
+		int count =  mdao.nicknameCheck(m_nick_name, m_number);
+		return (count == 0) ? 0 : 1;
+	}
+	
+	
 	
 	//이메일 중복체크
 	@Override
@@ -147,22 +158,10 @@ public class MemberServiceImpl implements MemberService {
 	            throw new IllegalArgumentException("비밀번호는 null이거나 비어있을 수 없습니다.");
 	        }
 
-	        // 비밀번호를 암호화
-	        String m_pw = member.getM_pw();
-	        String encodedM_pw = passwordEncoder.encode(m_pw); // 새 비밀번호 암호화
-	        member.setM_pw(encodedM_pw); // 암호화된 비밀번호 설정
-
 	        mdao.updateMember(member); // member업데이트
 
 	        // 업데이트된 회원정보 불러오기
-	        MemberVO updatedMember = mdao.getMember(member.getM_mail());
-
-	        // 비밀번호 확인
-	        if (passwordEncoder.matches(m_pw, updatedMember.getM_pw())) {
-	            log.info("비밀번호가 정상적으로 업데이트됨");
-	        } else {
-	            log.error("비밀번호가 정상적으로 업데이트되지 않음");
-	        }
+	       // MemberVO updatedMember = mdao.getMember(member.getM_mail());
 	        
 	        // MemberImageVO 객체가 null이 아니면 이미지 정보 업데이트
 	        if(memberDTO.getMivo() != null) {
@@ -183,6 +182,9 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return mdao.updateMemberStatus(params);
 	}
+
+
+	
 
 
 	

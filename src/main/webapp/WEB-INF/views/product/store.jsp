@@ -18,10 +18,7 @@
 </head>
 <body>
 	<jsp:include page="../layout/header.jsp"></jsp:include>
-	<c:set var="prvol" value="${reviewList.prvol }"></c:set>
-	<c:set var="mivo" value="${reviewList.mivo }"></c:set>
 	<div id="container">
-	<input type="hidden" value="${prvol.pr_buyer }">
 		<div id="innerContainer">
 			<div id="memberProfile" class="border-gray">
 				<div id="memberProfileLeft" class="background-gray">
@@ -99,8 +96,9 @@
 			</c:forEach>
 			<!-- 리뷰 수 가져오기 -->
 			<c:set var="reviewCount" value="0" />
-			<c:forEach items="${prvol}" var="rvList">
-			    <c:if test="${rvList.pr_seller == member.mvo.m_number}">
+			<c:forEach items="${reviewList}" var="rvList">
+				<c:set var="prvo" value="${rvList.prvo }"></c:set>
+			    <c:if test="${prvo.pr_seller eq member.mvo.m_number}">
 			        <c:set var="reviewCount" value="${reviewCount + 1}" />
 			    </c:if>
 			</c:forEach>
@@ -111,7 +109,7 @@
 			</div>
 			
 			<div id="memberProduct" class="swiper-container" style="display: block;">
-				<div style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
+				<div>
 					<c:forEach items="${productList }" var="productList">
 						<c:set value="${productList.piList }" var="piList"></c:set>
 						<c:if test="${productList.pvo.m_number == member.mvo.m_number}">
@@ -146,36 +144,39 @@
 				</div>
 				
 				<div id="memberReview" class="swiper-container" style="display: none;">
-					<div style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
-					
-						<c:forEach items="${prvol }" var="rvList">
+						<c:forEach items="${reviewList }" var="rvList">
+							<c:if test="${rvList.prvo.pr_seller eq member.mvo.m_number }">
 							<div class="product-review">
-									<a class="review-profile" href="/product/store?m_number=${rvList.pr_buyer }">
+									<a class="review-profile" href="/product/store?m_number=${rvList.prvo.pr_buyer }">
 									<!-- 회원이 프로필 사진을 등록 안했을 경우 -->
-									<c:if test="${empty rvList.mivo.mi_name}">
+									<c:if test="${empty mivo.mi_name}">
 										<img alt="프로필 사진" src="/resources/image/profile.png" style="width:32px;height:32px">
 									</c:if>
 									<!-- 회원이 프로필 사진을 등록 했을 경우 -->
-									<c:if test="${not empty rvList.mivo.mi_name}">
-										<img alt="프로필 사진" src="/resources/fileUpload/${rvList.mivo.mi_dir}/${rvList.mivo.mi_uuid}_th_${rvList.mivo.mi_name}" style="width:32px;height:32px">
+									<c:if test="${not empty mivo.mi_name}">
+										<img alt="프로필 사진" src="/resources/fileUpload/${mivo.mi_dir}/${mivo.mi_uuid}_th_${mivo.mi_name}" style="width:32px;height:32px">
 									</c:if>
 									</a>
 									<div class="review-info">
-										<div class="reviewer">
-											<a class="review-nick" href="/product/store?m_number=${rvList.pr_buyer }">${rvList.pr_buyer }</a>
-										</div>
 										<div class="review-score">
 											<div class="star-score">
-											<c:forEach begin="1" end="${rvList.pr_score }">
+											<c:forEach begin="1" end="${rvList.prvo.pr_score }">
 												<img alt="별점이미지" src="/resources/image/star.png" style="width:15px;height:14px">
 											</c:forEach>
 											</div>
 										</div>
-										<div class="review-detail">${rvList.pr_content }</div>
+										<div class="reviewer">
+											<a class="review-nick" href="/product/store?m_number=${rvList.prvo.pr_buyer }">${rvList.prvo.pr_buyer } | 
+											
+											<fmt:parseDate value="${rvList.prvo.pr_reg_date }" var="regDate" pattern="yyyy-MM-dd HH:mm:ss" />
+											<fmt:formatDate value="${regDate }" pattern="yyyy-MM-dd" /></a>
+										</div>
+										<div class="review-detail">${rvList.prvo.pr_content }</div>
 									</div>
 								</div>
+								</c:if>
 						</c:forEach>
-						<div id="page-wrap">
+						<%-- <div id="page-wrap">
 						<!-- 이전페이지 -->
 						<c:if test="${rph.prev }">
 							<div class="background-gray page-btn" onclick="location.href='/product/store?pageNo=${rph.startPage-1}&qty=${rph.rpvo.qty }'">&lt;</div>
@@ -189,8 +190,8 @@
 						<c:if test="${rph.next }">
 							<div class="background-gray page-btn" onclick="location.href='/product/store?pageNo=${rph.endPage+1}&qty=${rph.rpvo.qty}'">&gt;</div>
 						</c:if>
-					</div>
-					</div>
+					</div> --%>
+					
 				</div>
 				
 			</div>

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
@@ -83,16 +84,18 @@ public class ProductController {
 		
 		MemberVO sesMvo = (MemberVO) ses.getAttribute("ses");
 		ProductDTO pdto = new ProductDTO();
+		ProductReviewDTO prdto = new ProductReviewDTO();
 		psv.readCount(p_number);
-		if (sesMvo == null) {  // 로그인 안 되었을 때
-			pdto = psv.detail(p_number);
-		} else {  // 로그인 되었을 때
-			pdto = psv.detail(p_number, sesMvo.getM_number());
+
+		if (sesMvo == null) { // 로그인 안 되었을 때 
+			pdto = psv.detail(p_number); 
+		} else { // 로그인 되었을 때 
+			pdto = psv.detail(p_number, sesMvo.getM_number()); 
+			prdto = psv.getReview(p_number, sesMvo.getM_number());
 		}
 		log.info(">>> pdto = " + pdto.toString());
 		m.addAttribute("pdto", pdto);
 		
-		ProductReviewDTO prdto = psv.getReview(p_number);
 		log.info(">>> prdto = " + prdto.toString());
 		m.addAttribute("prdto", prdto);
 	}
@@ -162,29 +165,31 @@ public class ProductController {
 	
 	// 상점 정보 보기
 	@GetMapping("/store")
-	public void getStore(@RequestParam("m_number")int m_number, ReviewPagingVO rpvo, Model m) {
+	public void getStore(@RequestParam("m_number")int m_number, ReviewPagingVO rpvo, Model m, HttpServletRequest request) {
+		m.addAttribute("rpvo", rpvo);
 		MemberDTO member = memberService.getMemberDetails(m_number);
 	    List<ProductDTO> productList = psv.getProductByMember(m_number);
-	    ProductReviewDTO reviewList = psv.getReviewList(rpvo);
+	    List<ProductReviewDTO> reviewList = psv.getReviewList(rpvo);
 	    m.addAttribute("member", member);
 	    m.addAttribute("productList", productList);
 	    m.addAttribute("reviewList", reviewList);
 	    int totalCount = psv.getTotalRvCount(rpvo);
 	    log.info(">>> totalrv > "+totalCount);
+	    
 	    ReviewPagingHandler rph = new ReviewPagingHandler(rpvo, totalCount);
 	    m.addAttribute("rph", rph);
 	}
 	
-	
 	@GetMapping("/review")
-	public void getReview(@RequestParam("p_number")int p_number, Model m) {
-		ProductReviewDTO prdto = psv.getReview(p_number);
+	public void getReview(@RequestParam("p_number")int p_number, Model m, HttpSession ses) {
+		MemberVO sesMvo = (MemberVO) ses.getAttribute("ses");
+		ProductReviewDTO prdto = psv.getReview(p_number, sesMvo.getM_number());
 		m.addAttribute("prdto", prdto);
 	}
 	
 	@PostMapping("/review")
 	public String postReview(RedirectAttributes rAttr, ProductVO pvo, ProductReviewVO prvo) {
-		ProductReviewDTO prdto = new ProductReviewDTO(null, prvo, pvo, null, null, null, null);
+		ProductReviewDTO prdto = new ProductReviewDTO(null, null, prvo, pvo, null, null, null, null);
 		int isOk = psv.insertReview(prdto);
 		log.info(">>> 리뷰 작성 > "+(isOk>0?"성공":"실패"));
 		return "redirect:/product/list";

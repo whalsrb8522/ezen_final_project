@@ -15,6 +15,7 @@ import com.myweb.www.domain.ProductImageVO;
 import com.myweb.www.domain.ProductLikeVO;
 import com.myweb.www.domain.ProductPagingVO;
 import com.myweb.www.domain.ProductReviewDTO;
+import com.myweb.www.domain.ProductReviewVO;
 import com.myweb.www.domain.ProductVO;
 import com.myweb.www.domain.ReviewPagingVO;
 import com.myweb.www.repository.ChatDAO;
@@ -172,13 +173,16 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return pdao.updateIsDel(p_number);
 	}
+	
 	// detail review
 	@Override
-	public ProductReviewDTO getReview(int p_number) {
+	public ProductReviewDTO getReview(int p_number, int sesM_number) {
 		ProductReviewDTO prdto = new ProductReviewDTO();
 		prdto.setPvo(pdao.selectPno(p_number));
 		prdto.setPiList(pidao.selectFile(p_number));
-		prdto.setPrvol(prdao.selectPrvo(p_number));
+		prdto.setPrvo(prdao.selectPrvo(p_number, sesM_number));
+		log.info("피알브이오 : "+prdao.selectPrvo(p_number,sesM_number));
+		prdto.setPrvol(prdao.selectPrvol(prdto.getPvo().getM_number()));
 		prdto.setMivo(midao.selectMivo(prdto.getPvo().getM_number()));
 
 		MemberVO mvo = mdao.getMemberProduct(prdto.getPvo().getM_number());
@@ -188,47 +192,43 @@ public class ProductServiceImpl implements ProductService {
 		prdto.mergeLists();
 		log.info("prdto~: "+prdto.toString());
 		return prdto;
+		
 	}
 	
-
 	@Override
 	public int insertReview(ProductReviewDTO prdto) {
 		
 		return prdao.insertReview(prdto.getPrvo());
 	}
 	
-//	@Override
-//	public ProductReviewDTO getReviewList(int m_number) {
-//		ProductReviewDTO prdto = new ProductReviewDTO();
-//		prdto.setPrvol(prdao.selectReviewList(m_number));
-//		prdto.setMivo(midao.selectMivo(m_number));
-//		prdto.mergeLists();
-//		log.info("prdto!!: "+prdto.toString());
-//		return prdto;
-//	}
-	
 	// store 리뷰
 	@Override
-	public ProductReviewDTO getReviewList(ReviewPagingVO rpvo) {
-		ProductReviewDTO prdto = new ProductReviewDTO();
-		prdto.setPrvol(prdao.selectReviewList(rpvo));
-		prdto.setMivo(midao.selectRvMivo(prdto.getMvo().getM_number()));
-		prdto.mergeLists();
-		log.info("prdto!!: " + prdto.toString());
-		return prdto;
+	public List<ProductReviewDTO> getReviewList(ReviewPagingVO rpvo) {
+		List<ProductReviewDTO> listPrdto = new ArrayList<ProductReviewDTO>();
+		List<ProductReviewVO> listPrvo = prdao.selectReviewList(rpvo);
+		for(ProductReviewVO a : listPrvo) {
+			List<MemberImageVO> mivo = midao.selectRvMivo(a);
+			listPrdto.add(new ProductReviewDTO(null, null, a, null, null, null, mivo, null));
+			log.info("엠아븨오"+mivo.toString());
+		}
+		return listPrdto;
 	}
 
+	// store 리뷰
 //	@Override
-//	public ProductReviewDTO getReviewList(ReviewPagingVO rpvo) {
-//		List<ProductReviewDTO> listRvdto = new ArrayList<ProductReviewDTO>();
-//		List<ProductReviewVO> listRvo = prdao.selectReviewList(rpvo);
-//		for(ProductReviewVO prvo : listRvo) {
-//			List<MemberImageVO> mivo = midao.selectMivo(prvo);
-//			listRvdto.add(new ProductReviewDTO(listRvo, null, null, null, null, mivo, null));
-//		}
-//		return listRvdto;
+//	public List<ProductReviewDTO> getReviewList(ReviewPagingVO rpvo) {
+//		ProductReviewDTO prdto = new ProductReviewDTO();
+//		prdto.setPrvol(prdao.selectReviewList(rpvo));
+//		prdto.setMivo(midao.selectRvMivo(rpvo));
+//		prdto.mergeLists();
+//		log.info("prdto!!: "+prdto.toString());
+//		log.info("나와라: "+rpvo.getPr_seller());
+//		log.info("rpvo??뭐가들었니 : "+rpvo.toString());
+//		
+//		return prdto;
 //	}
-	
+
+
 	@Override
 	public int getTotalRvCount(ReviewPagingVO rpvo) {
 		// TODO Auto-generated method stub
@@ -271,6 +271,8 @@ public class ProductServiceImpl implements ProductService {
 
 	    return likedProductList;
 	}
+
+	
 
 
 	

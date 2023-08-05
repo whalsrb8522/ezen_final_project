@@ -16,7 +16,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
 	<!-- 프로필 사진 미리보기 X심볼 -->
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@30,400,1,200" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,500,0,0" />
 	
 	<!-- 구글 폰트 -->
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -44,13 +44,16 @@
 			
 			<div id="oldPasswordContainer">
 				<h2>기존 비밀번호</h2>
+				<div id="oldPasswordError" class="error-message"></div>
 				<h6>영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</h6>
 				<input type="password" id="userpw" name="m_pw" class="border-gray input-box" placeholder="비밀번호">
 				<div class="passwordAlert"></div>
+				<input type="hidden" id="oldUserpwValid" value="false">
 			</div>			
 			
 			<div id="newPasswordContainer">
 				<h2>변경 비밀번호</h2>
+				<div id="passwordError" class="error-message"></div>
 				<h6>영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</h6>
 				<input type="password" id="changePw" name="m_chgPw" class="border-gray input-box" placeholder="비밀번호">
 				<div class="newPasswordAlert"></div>
@@ -59,15 +62,20 @@
 			
 			<div id="newPasswordCheckContainer">
 				<h2>변경 비밀번호 확인</h2>
+				<div id="passwordError1" class="error-message"></div>
 				<input type="password" id="changePwChk" name="m_chgPw_check" class="border-gray input-box" placeholder="비밀번호 확인">
 				<div class="successPwChk"></div>
 				<input type="hidden" id="userpwMatch" value="false">
 			</div>
 			
 			<div id="nickNameContainer">
+				<input type="hidden" id="memberNumber" value="${member.mvo.m_number}">
+				
 				<h2>닉네임</h2>
+				<div id="nickError" class="error-message"></div>
+				<div id="nickError1" class="error-message"></div>
 				<h6>다른 유저와 겹치지 않도록 입력해주세요. (2~15자)</h6>
-				<input type="text" id="nick" value="${member.mvo.m_nick_name}" name="m_nick_name" class="border-gray input-box" placeholder="닉네임"  maxlength="15" onblur="checkNickname();">
+				<input type="text" id="nick" value="${member.mvo.m_nick_name}" name="m_nick_name" class="border-gray input-box" placeholder="닉네임"  maxlength="15">
 				<div class="successNameChk"></div>
 				<input type="hidden" id="nickValid" value="false">
     			<input type="hidden" id="nickValid1" value="false">
@@ -80,6 +88,7 @@
 			
 			<div id="mapContainer">
 				<h2>주소 선택</h2>
+				<div id="mapError" class="error-message"></div>
 				<div style="display: flex;">
 					<input type="text" id="mapAddress" value="${member.mvo.m_address}" class="border-gray input-box" placeholder="주소" disabled="disabled" name="m_address">
 					<input type="hidden" id="m_address" name="m_address">
@@ -98,7 +107,7 @@
 			    <div id="imageWrapper" style="position: relative; display: none; margin-top: 10px;">
 			        <img id="imagePreview" src="/resources/fileUpload/${member.mivo.mi_dir}/${member.mivo.mi_uuid}_th_${member.mivo.mi_name}" alt="selected image"/>
 			        <div id="removeImage" style="  cursor: pointer; z-index: 100">
-			        	<span class="material-symbols-outlined">cancel</span>
+			        	<span class="material-symbols-outlined" style="">disabled_by_default</span>
 				   	</div>
 				</div>
 			</div>

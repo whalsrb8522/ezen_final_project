@@ -2,13 +2,12 @@ package com.myweb.www.repository;
 
 import java.util.List;
 
-import com.myweb.www.domain.ProductReviewDTO;
+import org.apache.ibatis.annotations.Param;
+
 import com.myweb.www.domain.ProductReviewVO;
 import com.myweb.www.domain.ReviewPagingVO;
 
 public interface ProductReviewDAO {
-
-	List<ProductReviewVO> selectPrvo(int p_number);
 
 	int insertReview(ProductReviewVO productReviewVO);
 
@@ -17,6 +16,10 @@ public interface ProductReviewDAO {
 	int getTotalRvCount(ReviewPagingVO rpvo);
 
 	List<ProductReviewVO> selectReviewList(ReviewPagingVO rpvo);
+
+	List<ProductReviewVO> selectPrvol(int m_number);
+
+	ProductReviewVO selectPrvo(@Param("p_number")int p_number, @Param("sesM_number")int sesM_number);
 
 
 }
