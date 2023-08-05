@@ -29,8 +29,9 @@ window.onload = () => {
             }
 
             if (chatRoomNumber == message.cr_number) {
-                updateReadDate(cmvo);
-                printMessage(cmvo, sessionMemberNumber);
+                updateReadDate(cmvo, () => {
+                    printMessage(cmvo, sessionMemberNumber);
+                });
             }
 
             printChatList();
@@ -51,8 +52,9 @@ function getChat(cr_number) {
 
     chatDisplayNone.classList.add('dp_none');
 
-    printChatRoom();
-    printChatList();
+    printChatRoom(() => {
+        printChatList();
+    });
 
     // stomp.subscribe("/sub/chat/main/" + chatRoomNumber, (chat) => {
     //     let message = JSON.parse(chat.body);
@@ -139,7 +141,7 @@ async function printChatList() {
 }
 
 // 채팅방 내용 출력
-async function printChatRoom() {
+async function printChatRoom(callback) {
     console.log(">>> printChatRoom()");
 
     try {
@@ -165,16 +167,21 @@ async function printChatRoom() {
         roomMidBox.innerHTML = '';
 
         for (let cmvo of listCmvo) {
-            updateReadDate(cmvo);
-            printMessage(cmvo, sessionMemberNumber);
+            updateReadDate(cmvo, () => {
+                printMessage(cmvo, sessionMemberNumber);
+            });
         }
     } catch (error) {
         console.error(error);
     }
+
+    if (callback) {
+        callback();
+    }
 }
 
 // 읽은 시간 업데이트
-function updateReadDate(cmvo) {
+function updateReadDate(cmvo, callback) {
     try {
         const UpdateReadDate = fetch("/chat/update/", {
             method: 'PUT',
@@ -188,6 +195,10 @@ function updateReadDate(cmvo) {
         })
     } catch (error) {
         console.log(error);
+    }
+
+    if (callback) {
+        callback();
     }
 }
 
@@ -284,16 +295,13 @@ function showFileUploadWindow() {
 }
 
 // 지도
-function showMap() {
-}
+function showMap() { }
 
 // 달력
-function showRemittanceWindow() {
-}
+function showRemittanceWindow() { }
 
 // 이미지 확대
-function showImage() {
-}
+function showImage() { }
 
 // 모달 여는 버튼 설정
 const openModalBtn = document.getElementById('modalBtn');

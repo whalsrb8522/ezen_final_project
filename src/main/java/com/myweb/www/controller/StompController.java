@@ -32,7 +32,6 @@ public class StompController {
 
     @MessageMapping(value = "/chat/message")
     public void message(ChatMessageVO cmvo) {
-    	log.info(">>> cmvo : " + cmvo);
 		csvc.insertMessage(cmvo);
         messagingTemplate.convertAndSend("/sub/chat/main/" + cmvo.getCr_number(), cmvo);
     }

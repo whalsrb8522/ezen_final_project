@@ -214,7 +214,7 @@ public class ProductServiceImpl implements ProductService {
 		prdto.setPrvol(prdao.selectReviewList(rpvo));
 		prdto.setMivo(midao.selectRvMivo(prdto.getMvo().getM_number()));
 		prdto.mergeLists();
-		log.info("prdto!!: "+prdto.toString());
+		log.info("prdto!!: " + prdto.toString());
 		return prdto;
 	}
 
