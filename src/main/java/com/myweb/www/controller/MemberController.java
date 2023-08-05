@@ -28,7 +28,10 @@ import com.myweb.www.domain.MemberDTO;
 import com.myweb.www.domain.MemberImageVO;
 import com.myweb.www.domain.MemberVO;
 import com.myweb.www.domain.ProductDTO;
+import com.myweb.www.domain.ProductReviewDTO;
+import com.myweb.www.domain.ReviewPagingVO;
 import com.myweb.www.handler.MemberImageHandler;
+import com.myweb.www.handler.ReviewPagingHandler;
 import com.myweb.www.service.MemberService;
 import com.myweb.www.service.ProductService;
 
@@ -162,10 +165,11 @@ public class MemberController {
 	
 	// 회원정보
 	@GetMapping("/detail")
-	public String getMemberDetails(HttpServletRequest request, Model model) {
+	public String getMemberDetails(ReviewPagingVO rpvo, HttpServletRequest request, Model model) {
 	    HttpSession session = request.getSession();
 	    Integer m_number = (Integer) session.getAttribute("m_number");
-	    
+	    //페이징
+	    model.addAttribute("rpvo", rpvo);
 	    MemberDTO member = memberService.getMemberDetails(m_number);
 	    
 	    // 상품 정보를 가져옵니다.
@@ -174,11 +178,21 @@ public class MemberController {
 	    // 찜한 상품 정보를 가져옵니다.
 	    List<ProductDTO> likedProductList = psv.getLikedProductsByMember(m_number);
 	    
+	    // 리뷰 상품 정보를 가져옵니다.
+	    List<ProductReviewDTO> reviewList = psv.getReviewList(rpvo);
+	    
 	    model.addAttribute("member", member);
 	    //내가 작성한 상품 리스트
 	    model.addAttribute("productList", productList);
 	    //내가 찜한 게시글
 	    model.addAttribute("likedProductList", likedProductList);
+	    //리뷰
+	    model.addAttribute("reviewList", reviewList);
+	    int totalCount = psv.getTotalRvCount(rpvo);
+	    log.info(">>> totalrv > "+totalCount);
+	    
+	    ReviewPagingHandler rph = new ReviewPagingHandler(rpvo, totalCount);
+	    model.addAttribute("rph", rph);
 	    
 	    if (member != null) {
 	        return "/member/detail";

@@ -1,23 +1,38 @@
 
 //각 버튼 별 내 상품 리스트, 리뷰, 찜 상품 출력
-function showProductList() {
-    document.querySelector('.productList').style.display = 'block';
-    document.querySelector('.reviewList').style.display = 'none';
-    document.querySelector('.likedProductList').style.display = 'none';
-}
+//function showProductList() {
+//    document.querySelector('.productList').style.display = 'block';
+//    document.querySelector('.reviewList').style.display = 'none';
+//   document.querySelector('.likedProductList').style.display = 'none';
+//}
+//
+//function showReviewList() {
+//    document.querySelector('.productList').style.display = 'none';
+//    document.querySelector('.reviewList').style.display = 'block';
+//    document.querySelector('.likedProductList').style.display = 'none';
+//}
+//
+//function showLikedProductList() {
+//    document.querySelector('.productList').style.display = 'none';
+//    document.querySelector('.reviewList').style.display = 'none';
+//    document.querySelector('.likedProductList').style.display = 'block';
+//}
 
-function showReviewList() {
-    document.querySelector('.productList').style.display = 'none';
-    document.querySelector('.reviewList').style.display = 'block';
-    document.querySelector('.likedProductList').style.display = 'none';
-}
+// 상품, 상품 후기 버튼 누르면 내용 바뀜
+let tabMenu = document.querySelectorAll('.btn_ac');
+let tabInner = document.querySelectorAll('.swiper-container');
 
-function showLikedProductList() {
-    document.querySelector('.productList').style.display = 'none';
-    document.querySelector('.reviewList').style.display = 'none';
-    document.querySelector('.likedProductList').style.display = 'block';
-}
+tabMenu.forEach((tab, idx) => {
+    tab.addEventListener('click', function () {
+        // 탭 클릭시 내용 바뀜
+        tabInner.forEach((inner) => {
+            inner.setAttribute('style', 'display:none');
+        });
 
+        // 탭 클릭시 내용 바뀜
+        tabInner[idx].setAttribute('style', 'display:block');
+    });
+})
 
 
 
