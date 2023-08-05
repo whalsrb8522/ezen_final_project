@@ -99,25 +99,28 @@ public class ChatController {
 	}
 	
 	// 이미지 업로드
-	@PostMapping(value = "/upload", consumes = "multipart/form-data")
+	@PostMapping(value = "/upload", consumes = "multipart/form-data", produces = {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file) {
 		try {
 			log.info(">>> upload()");
 			
 			ChatMessageImageVO cmivo = cmihd.uploadFiles(file);
-			csvc.registerChatImage(cmivo);
+			int cm_number = csvc.registerChatImage(cmivo);
 			
-			return new ResponseEntity<String>("success", HttpStatus.OK);
+			return new ResponseEntity<>(Integer.toString(cm_number), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<String>("fail", HttpStatus.BAD_REQUEST);
+			return null;
 		}
 	}
     
     // 이미지 불러오기
 	@GetMapping(value = "/image/{cm_number}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<ChatMessageImageVO> image(@PathVariable("cm_number") int cm_number) {
+		log.info(">>> image() : ");
+		
 		ChatMessageImageVO cmivo = csvc.getImage(cm_number);
+		log.info(cmivo.toString());
 		
 		return new ResponseEntity<ChatMessageImageVO>(cmivo, HttpStatus.OK);
 	}
@@ -126,10 +129,8 @@ public class ChatController {
 	@PutMapping(value = "/update", consumes = "application/json")
 	public ResponseEntity<HttpStatus> update(@RequestBody ChatMessageVO cmvo) {
 		log.info(">>> update()");
-		log.info(cmvo.toString());
 		
 		int isOk = csvc.modifyReadDate(cmvo.getCr_number(), cmvo.getCm_sender());
-		log.info(Integer.toString(isOk));
 		
 		return ResponseEntity.ok(HttpStatus.OK);
 	}

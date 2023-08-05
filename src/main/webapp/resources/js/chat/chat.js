@@ -29,12 +29,15 @@ window.onload = () => {
             }
 
             if (chatRoomNumber == message.cr_number) {
-                updateReadDate(cmvo, () => {
-                    printMessage(cmvo, sessionMemberNumber);
-                });
+                // updateReadDate(cmvo, () => {
+                //     printChatList();
+                // });
+                printChatList();
+                printMessage(cmvo, sessionMemberNumber);
+            } else {
+                printChatList();
             }
 
-            printChatList();
         });
 
         if (selectRoomNumber != null && selectRoomNumber != '') {
@@ -52,9 +55,8 @@ function getChat(cr_number) {
 
     chatDisplayNone.classList.add('dp_none');
 
-    printChatRoom(() => {
-        printChatList();
-    });
+    printChatRoom();
+    printChatList();
 
     // stomp.subscribe("/sub/chat/main/" + chatRoomNumber, (chat) => {
     //     let message = JSON.parse(chat.body);
@@ -141,7 +143,7 @@ async function printChatList() {
 }
 
 // 채팅방 내용 출력
-async function printChatRoom(callback) {
+async function printChatRoom() {
     console.log(">>> printChatRoom()");
 
     try {
@@ -167,21 +169,19 @@ async function printChatRoom(callback) {
         roomMidBox.innerHTML = '';
 
         for (let cmvo of listCmvo) {
-            updateReadDate(cmvo, () => {
-                printMessage(cmvo, sessionMemberNumber);
-            });
+            console.log(">>> cmvo : ");
+            console.log(cmvo);
+
+            updateReadDate(cmvo);
+            printMessage(cmvo, sessionMemberNumber);
         }
     } catch (error) {
         console.error(error);
     }
-
-    if (callback) {
-        callback();
-    }
 }
 
 // 읽은 시간 업데이트
-function updateReadDate(cmvo, callback) {
+function updateReadDate(cmvo) {
     try {
         const UpdateReadDate = fetch("/chat/update/", {
             method: 'PUT',
@@ -196,14 +196,10 @@ function updateReadDate(cmvo, callback) {
     } catch (error) {
         console.log(error);
     }
-
-    if (callback) {
-        callback();
-    }
 }
 
 // 메시지 내용 출력 함수
-function printMessage(cmvo, sessionMemberNumber) {
+async function printMessage(cmvo, sessionMemberNumber) {
     console.log(">>> printMessage")
     console.log(cmvo);
 
@@ -228,12 +224,12 @@ function printMessage(cmvo, sessionMemberNumber) {
             </div>
         `;
     } else if (cmvo.cm_type == 'i') {
-        (async () => {
-            try {
-                const resp = await fetch("/chat/image/" + cmvo.cm_number);
-                const cmivo = await resp.json();
+        // (async () => {
+        try {
+            const resp = await fetch("/chat/image/" + cmvo.cm_number);
+            const cmivo = await resp.json();
 
-                div.innerHTML += `
+            div.innerHTML += `
                     <div class="chatMessage">
                         <div class="chatImage">
                             <img alt="" src="/resources/fileUpload/chat/${cmivo.cmi_dir}/${cmivo.cmi_uuid}_th_${cmivo.cmi_name}" onload="javascript: roomMidBox.scrollTop = roomMidBox.scrollHeight;">
@@ -243,10 +239,10 @@ function printMessage(cmvo, sessionMemberNumber) {
                         ${hours}:${minutes}
                     </div>
                 `;
-            } catch (error) {
-                console.error(error);
-            }
-        })();
+        } catch (error) {
+            console.error(error);
+        }
+        // })();
     }
 
     roomMidBox.appendChild(div);
@@ -281,13 +277,14 @@ function showFileUploadWindow() {
                 cm_content: '사진',
                 cm_sender: sessionMemberNumber,
                 cm_send_date: new Date(),
-                cm_type: 'i'
+                cm_type: 'i',
             }));
 
             const resp = await fetch("/chat/upload", {
                 method: 'POST',
                 body: formData
             });
+            chatRoomNumber = await resp.text();
         } else {
             alert("이미지 파일만 선택 가능합니다.");
         }

@@ -88,6 +88,9 @@ public class ChatServiceImpl implements ChatService {
 
 	@Override
 	public void insertMessage(ChatMessageVO cmvo) {
+    	log.info(">>> insertMessage()");
+    	log.info(cmvo.toString());
+    	
 		cdao.insertMessage(cmvo);
 		cdao.updateSendDate(cmvo);
 	}
@@ -100,11 +103,13 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	@Override
-	public void registerChatImage(ChatMessageImageVO cmivo) {
+	public int registerChatImage(ChatMessageImageVO cmivo) {
 		log.info(">>> registerChatImage()");
-		log.info(">>> cmivo : " + cmivo.toString());
 		
 		cdao.insertChatImage(cmivo);
+		log.info("cmivo : " + cmivo.toString());
+		
+		return cmivo.getCm_number();
 	}
 
 	@Override

@@ -19,7 +19,7 @@ public interface ChatService {
 
 	int registerChatRoom(ChatRoomVO crvo);
 
-	void registerChatImage(ChatMessageImageVO cmivo);
+	int registerChatImage(ChatMessageImageVO cmivo);
 
 	ChatMessageImageVO getImage(int cm_number);
 

@@ -59,7 +59,7 @@
 			cm_sender != #{sesMvo.m_number};
 	</select>
 	
-	<insert id="insertChatImage">
+	<insert id="insertChatImage">	
 		insert into chat_message_image(cmi_uuid, cm_number, cmi_name, cmi_dir)
 		values (
 			#{cmi_uuid},
@@ -67,6 +67,10 @@
 			#{cmi_name},
 			#{cmi_dir}
 		);
+		
+		<selectKey resultType="int" keyProperty="cm_number" order="AFTER">
+		    select max(cm_number) from chat_message;
+		</selectKey>
 	</insert>
 	
 	<select id="selectImage" resultType="com.myweb.www.domain.ChatMessageImageVO">
