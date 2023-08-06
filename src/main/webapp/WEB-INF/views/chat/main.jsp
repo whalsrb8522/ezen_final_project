@@ -44,7 +44,7 @@
 										</div>
 									</c:if>
 									<div class="chatListImg">
-										<img alt="프로필" src="">
+										<img alt="프로필" src="/resources/image/profile.png">
 									</div>
 									<div class="chatListText">
 										<div class="chatListTextUp">

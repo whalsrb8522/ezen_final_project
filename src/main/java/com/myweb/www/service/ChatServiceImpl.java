@@ -37,6 +37,8 @@ public class ChatServiceImpl implements ChatService {
 
 	@Override
 	public List<ChatRoomDTO> getChatList(MemberVO sesMvo) {
+		log.info(">>> getChatList" );
+		
 		List<ChatRoomDTO> listCdto = new ArrayList<ChatRoomDTO>();
 		
 		List<ChatRoomVO> listCrvo = cdao.selectChatRoom(sesMvo);
@@ -50,7 +52,7 @@ public class ChatServiceImpl implements ChatService {
 			listCdto.add(new ChatRoomDTO(crvo, lastMessage, notReadCount, sender_mvo, receiver_mvo));
 		}
 		
-		log.info(">>> getChatList > listCdto : " + listCdto.toString());
+		log.info(listCdto.toString());
 		
 		return listCdto;
 	}
@@ -88,6 +90,9 @@ public class ChatServiceImpl implements ChatService {
 
 	@Override
 	public void insertMessage(ChatMessageVO cmvo) {
+    	log.info(">>> insertMessage()");
+    	log.info(cmvo.toString());
+    	
 		cdao.insertMessage(cmvo);
 		cdao.updateSendDate(cmvo);
 	}
@@ -100,11 +105,13 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	@Override
-	public void registerChatImage(ChatMessageImageVO cmivo) {
+	public int registerChatImage(ChatMessageImageVO cmivo) {
 		log.info(">>> registerChatImage()");
-		log.info(">>> cmivo : " + cmivo.toString());
 		
 		cdao.insertChatImage(cmivo);
+		log.info("cmivo : " + cmivo.toString());
+		
+		return cmivo.getCm_number();
 	}
 
 	@Override
