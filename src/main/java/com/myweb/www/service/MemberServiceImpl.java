@@ -59,14 +59,14 @@ public class MemberServiceImpl implements MemberService {
 
 	    int isOk = mdao.insertMember(member);
 	    if (isOk <= 0) {
-	        log.error("Failed to insert member");
+	        log.error("회원 등록 실패");
 	        return 0;
 	    }
 
 	    // 회원 정보 가져오기
 	    MemberVO insertedMember = mdao.getNewMember(member.getM_mail());
 	    if (insertedMember == null) {
-	        log.error("Unable to get new member");
+	        log.error("회원 정보를 가져올 수 없음");
 	        return 0;
 	    }
 	    int m_number = insertedMember.getM_number();
@@ -160,12 +160,17 @@ public class MemberServiceImpl implements MemberService {
 
 	        mdao.updateMember(member); // member업데이트
 
-	        // 업데이트된 회원정보 불러오기
-	       // MemberVO updatedMember = mdao.getMember(member.getM_mail());
-	        
+	       
+	 
 	        // MemberImageVO 객체가 null이 아니면 이미지 정보 업데이트
 	        if(memberDTO.getMivo() != null) {
-	            midao.updateMemberImage(memberDTO.getMivo());
+	            MemberImageVO existingImage = midao.selectMemberImage(member.getM_number());
+
+	            if (existingImage == null) {
+	                midao.insertMemberImage(memberDTO.getMivo());
+	            } else {
+	                midao.updateMemberImage(memberDTO.getMivo());
+	            }
 	        }
 	    } catch (Exception e) {
 	        log.error("회원정보수정 중 오류 발생", e);
