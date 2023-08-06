@@ -19,10 +19,10 @@ import net.coobird.thumbnailator.Thumbnails;
 @AllArgsConstructor
 @Component
 public class ProductImageHandler {
-	
-	private final String UP_DIR = "E:\\Workspace\\ezen_final_project\\src\\main\\webapp\\resources\\fileUpload";
-			//"D:\\_final_project\\ezen_final_project\\src\\main\\webapp\\resources\\fileUpload";
-	
+
+//	private final String UP_DIR = "E:\\Workspace\\ezen_final_project\\src\\main\\webapp\\resources\\fileUpload";
+//	private final String UP_DIR = "D:\\_final_project\\ezen_final_project\\src\\main\\webapp\\resources\\fileUpload";
+	private final String UP_DIR = "/upload/fileUpload";
 	
 	public List<ProductImageVO> uploadFiles(MultipartFile[] files){
 		LocalDate date = LocalDate.now();
