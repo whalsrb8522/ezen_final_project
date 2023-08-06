@@ -12,7 +12,7 @@ public class BoardLocationPagingVO extends BoardLocationVO {
 	private int qty;
 	private int pageCnt;  // 페이지네이션 개수
 	
-	private String p_category;
+	private String bl_location;
 	
 	private String type;
 	private String keyword;

@@ -13,4 +13,12 @@ public interface BoardLocationService {
 
 	int boardLocationRegister(BoardLocationDTO bldto);
 
+	BoardLocationDTO selectblList(int bl_number);
+
+	int updateModify(BoardLocationDTO bldto);
+
+	int removeFile(String blf_uuid);
+
+	int removeIsDel(int bl_number);
+
 }
