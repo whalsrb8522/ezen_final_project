@@ -64,5 +64,8 @@
 	<select id="getMemberProduct" resultType="com.myweb.www.domain.MemberVO">
 		select * from member where m_number=#{m_number}
 	</select>
+	<select id="getBoardLocationMember" resultType="com.myweb.www.domain.MemberVO">
+		select * from member where m_number=#{bl_m_number}
+	</select>
 
 </mapper>

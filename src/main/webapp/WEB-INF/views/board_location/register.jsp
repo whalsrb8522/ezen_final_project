@@ -27,6 +27,7 @@
 		<form action="/board_location/register" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="bl_location" class="location-sub" value="${ses.m_address }">
 		<input type="hidden" name="bl_writer" value="${ses.m_nick_name }">
+		<input type="hidden" name="bl_m_number" value="${ses.m_number }">
 		<div class="inner-box">
 			<div class="loc-select"><label for="loc-select">주제</label></div>
 			<select name="bl_subject" id="loc-select" class="border-gray">
@@ -52,25 +53,21 @@
 		</div>		
 		
 		<div class="inner-box">
-			<span>사진첨부(0/5)</span><br>
+			<span>사진첨부</span><br>
 			<span class="attachment-text">사진을 첨부하면 정확한 답변을 받을 수 있어요</span><br>
 			<div class="file-container">
 			  <div class="file-box">
 			  	
-		            <input type="file" name="qna">
+		            <input type="file" id="file" name="files" class="file-input" onchange="setDetailImage(event);" multiple>
        			
 			  </div>
-			  <div class="file-box"></div>
-			  <div class="file-box"></div>
-			  <div class="file-box"></div>
-			  <div class="file-box"></div>
 			</div>	
 		</div>
 		
 		<div class="inner-box">
 		  <div class="button-container">
-		    <button class="background-purple submit-button">제출</button>
-		    <button class="background-gray cancel-button submit-button">취소</button>
+		    <button class="background-purple submit-button">등록</button>
+		    <a href="javascript:window.history.back();"><button type="button" class="background-gray cancel-button submit-button">취소</button></a>
 		  </div>
 		</div>
 				

@@ -95,7 +95,7 @@ function setDetailImage(event) {
     }
 }
 
-
+// DB에서 이미지 삭제
 async function removeFileToserver(uuid) {
     try {
         const url = '/product/file/' + uuid;

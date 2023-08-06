@@ -15,4 +15,12 @@ public interface BoardLocationDAO {
 
 	int selectBlnumber();
 
+	BoardLocationVO selectblList(int bl_number);
+
+	int selectBlvo(BoardLocationVO blvo);
+
+	int updateModify(BoardLocationVO blvo);
+
+	int updateIsDel(int bl_number);
+
 }

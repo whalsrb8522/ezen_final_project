@@ -145,6 +145,7 @@
 	    border: none;
  		width: 100%;
  		margin-left: 0; /* 인풋박스 왼쪽 여백 제거 */
+ 		padding: 0 5px;
 	}
 	
 	#searchBox #searchInput:focus {
@@ -193,4 +194,8 @@
 		padding : 8px 0 10px 0;
 		font-size: 12px;
 	}
+    
+    .list-wrap{
+    	cursor: pointer;
+    }
     

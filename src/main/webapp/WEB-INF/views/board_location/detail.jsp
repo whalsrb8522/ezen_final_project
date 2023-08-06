@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,40 +20,45 @@
 	<div id="container">	
 	
 		<div id="inner-box">
-			<span class="attachment-tag">동네질문</span> 
+			<span class="attachment-tag">${bldto.blvo.bl_subject }</span> 
 		</div>
 		
 		<div id="inner-box">
 			<div id="writer-box">
 				<div id="writer-profile">
-					<img src="/resources/image/cat.jpg" alt="Image">
+					<!-- 회원이 프로필 사진을 등록 안했을 경우 -->
+					<c:if test="${empty bldto.mdto.mivo.mi_name}">
+						<img alt="프로필 사진" src="/resources/image/profile.png" style="width:40px;height:40px;">
+					</c:if>
+					<!-- 회원이 프로필 사진을 등록 했을 경우 -->
+					<c:if test="${not empty bldto.mdto.mivo.mi_name}">
+						<img alt="프로필 사진" src="/resources/fileUpload/${bldto.mdto.mivo.mi_dir}/${bldto.mdto.mivo.mi_uuid}_th_${bldto.mdto.mivo.mi_name}" style="width:40px;height:40px;">
+					</c:if>
 				</div>
 				<div id="writer-info">
 					<div id="nick-info">
-						<span class="nickname">마리집사</span>
+						<span class="nickname">${bldto.blvo.bl_writer }</span>
 					</div>
 					<div id="reg-info">
-						<span class="reg_location">계양구</span>
+						<span class="reg_location">${bldto.blvo.bl_location }</span>
 						<span class="reg_dot">·</span>
-						<span class="reg_time">13:25</span>
+						<span class="reg_time">${bldto.blvo.bl_reg_date }</span>
 					</div>
 				</div>
 			</div>
 		</div>
 		
 		<div id="inner-box">
-			<span class="loc-title">동물병원 추천해주세요..</span> 
+			<span class="loc-title">${bldto.blvo.bl_title }</span> 
 		</div>
 		
 		<div id="inner-box">
 			<span class="loc-content">
-				안녕하세요. 15살 페르시안 친칠라 집사입니다.<br>
-				만성 신부전증이 있어서 큰 병원에서 정기검진이 필요합니다.<br>
-				괜찮은 병원이 있다면 정보 공유 부탁드립니다.
+				${bldto.blvo.bl_content }
 			</span> 
 		</div>
 				
-		<hr>		
+		<!-- <hr>		
 		<div id="inner-box">
 			<div id="icon-box">
 				<a href="#">
@@ -70,10 +76,11 @@
 				<span class="material-text">댓글</span>
 				<span class="material-text">1</span>
 			</div>
-		</div>			
+		</div>	 -->		
 		<hr class="last_hr">
 		
-		<div id="inner-box">
+		<div id="cmtListArea">
+		<!-- <div id="inner-box">
 		<div id="writer-container">
 			<div id="writer-box2">
 				<div id="writer-profile">
@@ -92,37 +99,43 @@
 			</div>
 			<div id="comment">SKY 동물병원 규모가 좀 커요!</div>
 		</div>
+		</div> -->
 		</div>
 	
-		<form>
 		<div id="inner-box">
 			<div id="comment-box" class="border-gray" >
 				<div id="comment-info">
-					<div id="writer-profile">
-						<img src="/resources/image/cat2.png" alt="Image">
-					</div>
+						<input type="hidden" id="cmtWriter" name="blc_writer" value="${ses.m_nick_name }">
 					<div id="writer-comment">
 		 				<textarea class="border-gray" id="loc-content" name="loc-content" 
 		 				rows="4" maxlength="200" placeholder="내용을 입력해주세요"></textarea>
 					</div>
 				</div>
 				<div id="comment-btn">
-					<a><button class="background-purple submit-button">댓글쓰기</button></a>
+					<button class="background-purple submit-button" id="postCmt">댓글쓰기</button>
 				</div>
 			</div>
 		</div>
-		</form>
 		
 		<div id="inner-box">
 		  <div class="button-container">
-		    <a href="/board_location/modify"><button class="background-gray submit-button">수정</button></a>
-		    <a href="#"><button class="background-gray cancel-button submit-button">삭제</button></a>
+		  <c:if test="${ses.m_number eq bldto.blvo.bl_m_number }">
+			    <a href="/board_location/modify?bl_number=${bldto.blvo.bl_number }"><button type="button" class="background-gray submit-button">수정</button></a>
+			    <a href="/board_location/remove?bl_number=${bldto.blvo.bl_number }"><button type="button" class="background-gray cancel-button submit-button">삭제</button></a>
+		    </c:if>
 		  </div>
 		</div>
 		
 		
 	</div>
 	
-	<jsp:include page="../layout/footer.jsp"></jsp:include>	
+	<jsp:include page="../layout/footer.jsp"></jsp:include>
+	<script type="text/javascript" src="/resources/js/board_location_comment/locationComment.js"></script>
+	<script type="text/javascript">
+		const bl_number = `<c:out value="${bldto.blvo.bl_number}"/>`;
+	</script>
+	<script type="text/javascript">
+		getCommentList(bl_number);
+	</script>
 </body>
 </html>
