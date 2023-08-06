@@ -105,7 +105,7 @@
 			        <input type="button" id="imageChoose" class="background-purple" value="파일 선택" onclick="document.getElementById('imagePath').click()">
 			    </div>
 			    <div id="imageWrapper" style="position: relative; display: none; margin-top: 10px;">
-			        <img id="imagePreview" src="/resources/fileUpload/${member.mivo.mi_dir}/${member.mivo.mi_uuid}_th_${member.mivo.mi_name}" alt="selected image"/>
+			        <img id="imagePreview" src="/upload/${member.mivo.mi_dir}/${member.mivo.mi_uuid}_th_${member.mivo.mi_name}" alt="selected image"/>
 			        <div id="removeImage" style="  cursor: pointer; z-index: 100">
 			        	<span class="material-symbols-outlined" style="">disabled_by_default</span>
 				   	</div>

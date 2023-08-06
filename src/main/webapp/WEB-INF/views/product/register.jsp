@@ -33,7 +33,7 @@
 			<div id="all-title">
 				<input type="hidden" name="m_number" value="${ses.m_number }">
 				<input class="border-gray title-input" id="nameInput" name="p_name" placeholder="상품 제목을 입력해 주세요." onkeyup="counterTitle(); deleteErrorMsg();" maxlength="20">
-				<a href="/" class="input-a">거래금지품목</a>
+				<a href="/board_notice/detail?bn_number=4" class="input-a">거래금지품목</a>
 				<div><span id="countingTitle">0/20</span></div>
 			</div>
 			<span id="nameError" class="error-message"></span>

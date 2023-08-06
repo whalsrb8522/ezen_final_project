@@ -24,7 +24,7 @@
 			</div>
 			<div id="rv-product">
 				<div id="rv-product-image">
-					<img alt="없음" src="/resources/fileUpload/${flist[0].pi_dir }/${flist[0].pi_uuid }_th_${flist[0].pi_name }" style="width:50px; height:50px;">
+					<img alt="없음" src="/upload/${flist[0].pi_dir }/${flist[0].pi_uuid }_th_${flist[0].pi_name }" style="width:50px; height:50px;">
 				</div>
 				<div id="rv-product-title">${pvo.p_name }</div>
 			</div>

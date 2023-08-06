@@ -32,7 +32,7 @@
 				<c:set value="${productList.piList }" var="piList"></c:set>
 					<div onclick="location.href='/product/detail?p_number=${productList.pvo.p_number }'" class="product">
 						<div class="product-image">
-							<img alt="상품 이미지" src="/resources/fileUpload/${productList.piList[0].pi_dir }/${productList.piList[0].pi_uuid }_th_${productList.piList[0].pi_name }">
+							<img alt="상품 이미지" src="/upload/${productList.piList[0].pi_dir }/${productList.piList[0].pi_uuid }_th_${productList.piList[0].pi_name }">
 						</div>
 						
 						<div class="product-text">

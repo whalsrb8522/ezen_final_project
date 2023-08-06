@@ -27,7 +27,7 @@
 						<!-- 회원이 프로필 사진을 등록 했을 경우 -->
 						<!-- DB에 사진이 추가되고, 사진을 불러오기까지 오래걸림(10~30분 정도.. 왜지.. -->
 						<c:if test="${not empty member.mivo.mi_name}">
-							<img alt="프로필 사진" src="/resources/fileUpload/${member.mivo.mi_dir}/${member.mivo.mi_uuid}_th_${member.mivo.mi_name}">
+							<img alt="프로필 사진" src="/upload/${member.mivo.mi_dir}/${member.mivo.mi_uuid}_th_${member.mivo.mi_name}">
 							
 						</c:if>
 					</div>
@@ -114,7 +114,7 @@
 						<c:if test="${productList.pvo.m_number == member.mvo.m_number}">
 						<div class="product-wrapper" onclick="location.href='/product/detail?p_number=${productList.pvo.p_number }'">
 							<div class="product-photo">
-								<img alt="없음" src="/resources/fileUpload/${productList.piList[0].pi_dir }/${productList.piList[0].pi_uuid }_th_${productList.piList[0].pi_name }" class="product-photo">
+								<img alt="없음" src="/upload/${productList.piList[0].pi_dir }/${productList.piList[0].pi_uuid }_th_${productList.piList[0].pi_name }" class="product-photo">
 								<!-- 구매가능, 예약중, 거래완료 -->
 								<div class="product-status">
 								<c:if test="${productList.pvo.p_status eq 0 }">
@@ -156,7 +156,7 @@
 									</c:if>
 									<!-- 회원이 프로필 사진을 등록 했을 경우 -->
 									<c:if test="${not empty mivo.mi_name}">
-										<img alt="프로필 사진" src="/resources/fileUpload/${mivo.mi_dir}/${mivo.mi_uuid}_th_${mivo.mi_name}" style="width:32px;height:32px">
+										<img alt="프로필 사진" src="/upload/${mivo.mi_dir}/${mivo.mi_uuid}_th_${mivo.mi_name}" style="width:32px;height:32px">
 									</c:if>
 									</a>
 									<div class="review-info">
@@ -193,7 +193,7 @@
 				        <div class="product-wrapper" onclick="location.href='/product/detail?p_number=${likedProduct.pvo.p_number }'">
 				            <div class="product-photo">
 				                
-				                <img alt="없음" src="/resources/fileUpload/${likedProduct.piList[0].pi_dir }/${likedProduct.piList[0].pi_uuid }_th_${likedProduct.piList[0].pi_name }" class="product-photo">
+				                <img alt="없음" src="/upload/${likedProduct.piList[0].pi_dir }/${likedProduct.piList[0].pi_uuid }_th_${likedProduct.piList[0].pi_name }" class="product-photo">
 				                <!-- 구매가능, 예약중, 거래완료 -->
 				                <div class="product-status">
 				                    <c:if test="${likedProduct.pvo.p_status eq 0 }">

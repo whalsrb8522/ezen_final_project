@@ -28,7 +28,7 @@
 					</li>
 					<c:forEach items="${flist }" var="flist">
 						<li class="regi-file">
-							<img src="/resources/fileUpload/${flist.pi_dir }/${flist.pi_uuid }_th_${flist.pi_name }" style="width:202px; height:202px;">
+							<img src="/upload/${flist.pi_dir }/${flist.pi_uuid }_th_${flist.pi_name }" style="width:202px; height:202px;">
 							<button type="button" class="file-del" data-uuid="${flist.pi_uuid }" onclick="deleteFile(this);"></button>
 						</li>
 					</c:forEach>

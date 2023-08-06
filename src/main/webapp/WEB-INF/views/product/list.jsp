@@ -41,7 +41,7 @@
 			<c:set value="${productList.piList }" var="piList"></c:set>
 			<div class="product-wrapper" onclick="location.href='/product/detail?p_number=${productList.pvo.p_number }'">
 				<div class="product-photo">
-					<img alt="없음" src="/resources/fileUpload/${productList.piList[0].pi_dir }/${productList.piList[0].pi_uuid }_th_${productList.piList[0].pi_name }" class="product-photo">
+					<img alt="없음" src="/upload/${productList.piList[0].pi_dir }/${productList.piList[0].pi_uuid }_th_${productList.piList[0].pi_name }" class="product-photo">
 					<!-- 구매가능, 예약중, 거래완료 -->
 					<div class="product-status">
 					<c:if test="${productList.pvo.p_status eq 0 }">

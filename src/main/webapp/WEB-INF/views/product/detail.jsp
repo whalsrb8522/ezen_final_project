@@ -72,7 +72,7 @@
 			<div class="slider_inner">
 			<c:forEach items="${flist }" varStatus="status" var="flist">
 				<div class="detail-img">
-					<img alt="없음" src="/resources/fileUpload/${flist.pi_dir }/${flist.pi_uuid }_${flist.pi_name }" width="300px" height="300px">
+					<img alt="없음" src="/upload/${flist.pi_dir }/${flist.pi_uuid }_${flist.pi_name }" width="300px" height="300px">
 				</div>
 			</c:forEach>
 			</div>
@@ -171,7 +171,7 @@
 									</c:if>
 									<!-- 회원이 프로필 사진을 등록 했을 경우 -->
 									<c:if test="${not empty mivo.mi_name}">
-										<img alt="프로필 사진" src="/resources/fileUpload/${mivo.mi_dir}/${mivo.mi_uuid}_th_${mivo.mi_name}" style="width:48px;height:48px;">
+										<img alt="프로필 사진" src="/upload/${mivo.mi_dir}/${mivo.mi_uuid}_th_${mivo.mi_name}" style="width:48px;height:48px;">
 									</c:if>
 								</a>
 							</div>
@@ -195,7 +195,7 @@
 									</c:if>
 									<!-- 회원이 프로필 사진을 등록 했을 경우 -->
 									<c:if test="${not empty prvoList.mivo.mi_name}">
-										<img alt="프로필 사진" src="/resources/fileUpload/${prvoList.mivo.mi_dir}/${prvoList.mivo.mi_uuid}_th_${prvoList.mivo.mi_name}" style="width:32px;height:32px">
+										<img alt="프로필 사진" src="/upload/${prvoList.mivo.mi_dir}/${prvoList.mivo.mi_uuid}_th_${prvoList.mivo.mi_name}" style="width:32px;height:32px">
 									</c:if>
 									</a>
 									<div class="review-info">

@@ -32,7 +32,7 @@
 					</c:if>
 					<!-- 회원이 프로필 사진을 등록 했을 경우 -->
 					<c:if test="${not empty bldto.mdto.mivo.mi_name}">
-						<img alt="프로필 사진" src="/resources/fileUpload/${bldto.mdto.mivo.mi_dir}/${bldto.mdto.mivo.mi_uuid}_th_${bldto.mdto.mivo.mi_name}" style="width:40px;height:40px;">
+						<img alt="프로필 사진" src="/upload/${bldto.mdto.mivo.mi_dir}/${bldto.mdto.mivo.mi_uuid}_th_${bldto.mdto.mivo.mi_name}" style="width:40px;height:40px;">
 					</c:if>
 				</div>
 				<div id="writer-info">

@@ -158,7 +158,7 @@ async function printChatRoom() {
         roomTopBoxNick.innerHTML = mvo.m_nick_name;
 
         let div = `
-            <img alt = "" src = "/resources/fileUpload/${pdto.piList[0].pi_dir}/${pdto.piList[0].pi_uuid}_th_${pdto.piList[0].pi_name}" class="item-image" >
+            <img alt = "" src = "/upload/${pdto.piList[0].pi_dir}/${pdto.piList[0].pi_uuid}_th_${pdto.piList[0].pi_name}" class="item-image" >
             <div class="item-info">
                 <span class="trade-status">거래중</span>
                 <span class="price">${pdto.pvo.p_price}원</span>
