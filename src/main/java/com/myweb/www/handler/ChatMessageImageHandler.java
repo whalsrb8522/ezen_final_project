@@ -20,7 +20,7 @@ public class ChatMessageImageHandler {
 
 //	private final String UP_DIR = "E:\\Workspace\\ezen_final_project\\src\\main\\webapp\\resources\\fileUpload";
 //	private final String UP_DIR = "D:\\_final_project\\ezen_final_project\\src\\main\\webapp\\resources\\fileUpload";
-	private final String UP_DIR = "/upload/fileUpload";
+	private final String UP_DIR = "/upload/fileUpload/chat";
 
 //	public List<ChatMessageImageVO> uploadFiles(MultipartFile[] files){
 	public ChatMessageImageVO uploadFiles(MultipartFile file){
