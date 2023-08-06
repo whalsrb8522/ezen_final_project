@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myweb.www.domain.ChatMessageDTO;
-import com.myweb.www.domain.ChatMessageImageDTO;
 import com.myweb.www.domain.ChatMessageImageVO;
 import com.myweb.www.domain.ChatMessageVO;
 import com.myweb.www.domain.ChatRoomDTO;
@@ -32,7 +33,6 @@ import com.myweb.www.handler.ChatMessageImageHandler;
 import com.myweb.www.repository.ProductDAO;
 import com.myweb.www.service.ChatService;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -46,6 +46,8 @@ public class ChatController {
 	private ProductDAO pdao;
 	@Inject
 	private ChatMessageImageHandler cmihd;
+	@Inject	
+    private final SimpMessagingTemplate messagingTemplate = null;
 	
 	//채팅방 목록 조회
     @GetMapping(value = "/main")
@@ -100,13 +102,22 @@ public class ChatController {
 	
 	// 이미지 업로드
 	@PostMapping(value = "/upload", consumes = "multipart/form-data", produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file) {
+	public ResponseEntity<String> upload(
+			@RequestParam("file") MultipartFile file,
+			@RequestParam("cmvo") String cmvoString) {
 		try {
 			log.info(">>> upload()");
+			ObjectMapper mapper = new ObjectMapper();
+
+			ChatMessageVO cmvo = mapper.readValue(cmvoString, ChatMessageVO.class);
+			csvc.insertMessage(cmvo);
 			
 			ChatMessageImageVO cmivo = cmihd.uploadFiles(file);
 			int cm_number = csvc.registerChatImage(cmivo);
-			
+			cmvo.setCm_number(cm_number);
+
+	        messagingTemplate.convertAndSend("/sub/chat/main/" + cmvo.getCr_number(), cmvo);
+	        
 			return new ResponseEntity<>(Integer.toString(cm_number), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

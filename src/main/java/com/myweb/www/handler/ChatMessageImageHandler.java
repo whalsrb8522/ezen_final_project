@@ -3,8 +3,6 @@ package com.myweb.www.handler;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import org.apache.tika.Tika;
@@ -19,8 +17,9 @@ import net.coobird.thumbnailator.Thumbnails;
 @AllArgsConstructor
 @Component
 public class ChatMessageImageHandler {
-	
-	private final String UP_DIR = "E:\\Workspace\\Spring\\ezen_final_project\\src\\main\\webapp\\resources\\fileUpload\\chat";
+
+//	private final String UP_DIR = "E:\\Workspace\\Spring\\ezen_final_project\\src\\main\\webapp\\resources\\fileUpload\\chat";
+	private final String UP_DIR = "E:\\fileUpload\\chat";
 
 //	public List<ChatMessageImageVO> uploadFiles(MultipartFile[] files){
 	public ChatMessageImageVO uploadFiles(MultipartFile file){

@@ -37,6 +37,8 @@ public class ChatServiceImpl implements ChatService {
 
 	@Override
 	public List<ChatRoomDTO> getChatList(MemberVO sesMvo) {
+		log.info(">>> getChatList" );
+		
 		List<ChatRoomDTO> listCdto = new ArrayList<ChatRoomDTO>();
 		
 		List<ChatRoomVO> listCrvo = cdao.selectChatRoom(sesMvo);
@@ -50,7 +52,7 @@ public class ChatServiceImpl implements ChatService {
 			listCdto.add(new ChatRoomDTO(crvo, lastMessage, notReadCount, sender_mvo, receiver_mvo));
 		}
 		
-		log.info(">>> getChatList > listCdto : " + listCdto.toString());
+		log.info(listCdto.toString());
 		
 		return listCdto;
 	}
