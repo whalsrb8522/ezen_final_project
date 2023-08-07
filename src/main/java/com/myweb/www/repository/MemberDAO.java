@@ -14,7 +14,6 @@ public interface MemberDAO {
 
 	int insertMember(MemberVO member);
 
-	
 	int emailCheck(String m_mail);
 	
 	int nicknameCheck1(String m_nick_name);
