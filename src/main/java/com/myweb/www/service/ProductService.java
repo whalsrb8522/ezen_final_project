@@ -40,8 +40,6 @@ public interface ProductService {
 
 	int insertReview(ProductReviewDTO prdto);
 
-//	ProductReviewDTO getReviewList(int m_number);
-
 	int getTotalRvCount(ReviewPagingVO rpvo);
 
 	List<ProductReviewDTO> getReviewList(ReviewPagingVO rpvo);
