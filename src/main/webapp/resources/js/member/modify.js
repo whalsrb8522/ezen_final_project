@@ -399,7 +399,7 @@ window.addEventListener('load', function() {
         event.preventDefault();
 
         var oldPassword = document.getElementById('userpw').value;
-        console.log("Submitting form with password: " + oldPassword);
+        
 
         $.ajax({
             type: "POST",
@@ -410,9 +410,6 @@ window.addEventListener('load', function() {
             dataType: "json",
             async: false,  // Make request synchronous
             success: function(response) {
-                console.log("Response received: " + response);
-                console.log("Submitted password (unencrypted): " + oldPassword);
-                
                 if (response === true) {
                     document.getElementById('oldUserpwValid').value = "true";
                 } else {

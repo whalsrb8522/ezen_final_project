@@ -42,7 +42,7 @@
 				<span><b>카테고리</b></span><br><br>
 			
 			<div class="border-gray category" onclick="location.href='/board_location/list?bl_location=강화군'">강화군</div>
-			<div class="border-gray category" onclick="location.href='/board_location/list?bl_location=옹진'">옹진군</div>
+			<div class="border-gray category" onclick="location.href='/board_location/list?bl_location=옹진군'">옹진군</div>
 			<div class="border-gray category" onclick="location.href='/board_location/list?bl_location=중구'">중구</div>
 			<div class="border-gray category" onclick="location.href='/board_location/list?bl_location=동구'">동구</div> <br>
 			<div class="border-gray category" onclick="location.href='/board_location/list?bl_location=미추홀구'">미추홀구</div>
