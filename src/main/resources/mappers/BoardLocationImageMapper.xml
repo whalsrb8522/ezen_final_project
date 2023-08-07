@@ -11,4 +11,9 @@
 		insert into board_location_file(blf_uuid, bl_number, blf_name, blf_dir)
 		values (#{blf_uuid}, #{bl_number}, #{blf_name}, #{blf_dir})
 	</insert>
+	
+	<delete id="deleteFile">
+		delete from board_location_file where blf_uuid=#{blf_uuid}
+	</delete>
+	
 </mapper>

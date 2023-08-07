@@ -42,7 +42,7 @@ public class BoardNoticeController {
 	}
 	
 	@GetMapping({"detail","modify"})
-	public void detail(@RequestParam("bn_number")int bn_number, Model m) {
+	public void deatil(@RequestParam("bn_number")int bn_number, Model m) {
 		BoardNoticeVO bnvo = bnsv.detailNotice(bn_number);
 		m.addAttribute("bnvo", bnvo);
 	}

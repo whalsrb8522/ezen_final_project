@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,16 +41,16 @@
 			<div id="cate-wrap">
 				<span><b>카테고리</b></span><br><br>
 			
-			<div class="border-gray category">강화군</div>
-			<div class="border-gray category">옹진군</div>
-			<div class="border-gray category">중구</div>
-			<div class="border-gray category">동구</div> <br>
-			<div class="border-gray category">미추홀구</div>
-			<div class="border-gray category">연수구</div>
-			<div class="border-gray category">남동구</div>
-			<div class="border-gray category">부평구</div>
-			<div class="border-gray category">계양구</div>
-			<div class="border-gray category">서구</div>
+			<div class="border-gray category" onclick="location.href='/board_location/list?bl_location=강화군'">강화군</div>
+			<div class="border-gray category" onclick="location.href='/board_location/list?bl_location=옹진군'">옹진군</div>
+			<div class="border-gray category" onclick="location.href='/board_location/list?bl_location=중구'">중구</div>
+			<div class="border-gray category" onclick="location.href='/board_location/list?bl_location=동구'">동구</div> <br>
+			<div class="border-gray category" onclick="location.href='/board_location/list?bl_location=미추홀구'">미추홀구</div>
+			<div class="border-gray category" onclick="location.href='/board_location/list?bl_location=연수구'">연수구</div>
+			<div class="border-gray category" onclick="location.href='/board_location/list?bl_location=남동구'">남동구</div>
+			<div class="border-gray category" onclick="location.href='/board_location/list?bl_location=부평구'">부평구</div>
+			<div class="border-gray category" onclick="location.href='/board_location/list?bl_location=계양구'">계양구</div>
+			<div class="border-gray category" onclick="location.href='/board_location/list?bl_location=서구'">서구</div>
 			<br>
 			</div>
 		</div>
@@ -58,19 +59,21 @@
 		<div id="inner-box">
 			<div id="third-inner">
 				<div id="icon-box">
-					<a href="#"><span class="material-symbols-outlined">refresh</span></a>
+					<a onClick="window.location.reload()"><span class="material-symbols-outlined">refresh</span></a>
 				</div>
+				<form action="/board_location/list">
 				<div id="searchBox" class="border-gray2">
 					<span id="searchIcon" class="material-symbols-outlined">search</span>
-					<input type="text" id="searchInput" placeholder=" 계양구 근처에서 검색">
+					<input type="text" name="keyword" id="searchInput" placeholder="검색">
 				</div>
+				</form>
 			</div>
 		</div>
 
 		<hr>
 		<c:forEach items="${bldto }" var="bldto">
 		<c:set var="blivo" value="${bldto.blivo }"></c:set>
-			<div id="inner-box" onclick="location.href='/board_location/detail?bl_number=${bldto.blvo.bl_number}'">
+			<div id="inner-box" class="list-wrap" onclick="location.href='/board_location/detail?bl_number=${bldto.blvo.bl_number}'">
 			<div id="list-box">
 				<div id="list-main">
 					<span>${bldto.blvo.bl_title }</span>
@@ -78,7 +81,10 @@
 				<div id="list-info">
 					<span>${bldto.blvo.bl_writer }</span>
 					<span>·</span>
-					<span>${bldto.blvo.bl_reg_date }</span>
+					<span>
+						<fmt:parseDate value="${bldto.blvo.bl_reg_date }" var="regDate" pattern="yyyy-MM-dd HH:mm:ss" />
+						<fmt:formatDate value="${regDate }" pattern="yyyy-MM-dd" />
+					</span>
 					<span>·</span>
 					<span>조회수 3회</span>
 				</div>
@@ -92,7 +98,7 @@
 			</div>			
 			<hr>
 		</c:forEach>
-		
+		<br>
 		<div id="inner-box">
 			<!-- 페이지네이션 -->
 		<div id="page-wrap">

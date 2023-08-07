@@ -58,13 +58,15 @@
 
  	 .file-box {
 	    position: relative;
+	    display: flex;
+	    margin-right: 30px;
 	    width: 180px;
 	    height: 180px;
 		border: 1px solid #ccc;
 		border-radius: 4px;
   	}
 
-	  .file-box::after {
+	  .file-box::before {
 	    content: "+";
 	    position: absolute;
 	    top: 50%;
@@ -73,6 +75,33 @@
 	    font-size: 30px;
 	    color: #ccc;
 	  }
+	  
+	    .file-input{
+	width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    opacity: 0;
+    cursor: pointer;
+    font-size: 0px;
+}
+
+.file-del{
+	width: 20px;
+    height: 20px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 12px 12px;
+    background-image: url(/resources/image/delete.svg);
+    background-color: rgba(30, 29, 41, 0.32);
+    border-radius: 50%;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    border: none;
+	
+}
 	
 	.background-purple {
     background-color: #C97FE8;

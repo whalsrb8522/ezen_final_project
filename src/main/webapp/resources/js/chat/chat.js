@@ -3,6 +3,7 @@ var sockJs = new SockJS("/echo");
 var stomp = Stomp.over(sockJs);
 
 var chatRoomNumber;      // 채팅방 번호
+var chatMessageNumber;      // 메시지 번호
 var sessionMemberNumber = sessionMemberNumber;  // 로그인한 회원 번호
 
 var chatDisplayNone = document.getElementById('chatDisplayNone');
@@ -26,14 +27,18 @@ window.onload = () => {
                 cm_content: message.cm_content,
                 cm_send_date: message.cm_send_date,
                 cm_type: message.cm_type,
+                cm_number: message.cm_number,
             }
+
+            console.log("!!! cmvo : ");
+            console.log(cmvo);
 
             if (chatRoomNumber == message.cr_number) {
-                updateReadDate(cmvo);
+                printChatList();
                 printMessage(cmvo, sessionMemberNumber);
+            } else {
+                printChatList();
             }
-
-            printChatList();
         });
 
         if (selectRoomNumber != null && selectRoomNumber != '') {
@@ -118,7 +123,7 @@ async function printChatList() {
                 <div class="chatList" onclick="getChat(${cdto.crvo.cr_number}, ${sessionMemberNumber})">
                     ${cdto.notReadCount > 0 ? `<div class="chatListCount">${cdto.notReadCount}</div>` : ``}
                     <div class="chatListImg">
-                        <img alt="프로필" src="">
+                        <img alt="프로필" src="/resources/image/profile.png">
                     </div>
                     <div class="chatListText">
                         <div class="chatListTextUp">
@@ -161,7 +166,6 @@ async function printChatRoom() {
             <span class="trade-title">${pdto.pvo.p_name}</span>`;
 
         roomMidBoxEx.innerHTML = div;
-
         roomMidBox.innerHTML = '';
 
         for (let cmvo of listCmvo) {
@@ -214,24 +218,33 @@ function printMessage(cmvo, sessionMemberNumber) {
             </div >
             <div class="chatTime">
                 ${hours}:${minutes}
-            </div>
-        `;
+            </div>`;
     } else if (cmvo.cm_type == 'i') {
         (async () => {
             try {
                 const resp = await fetch("/chat/image/" + cmvo.cm_number);
                 const cmivo = await resp.json();
 
+                // div.innerHTML += `
+                //     <div class="chatMessage">
+                //         <div class="chatImage">
+                //             <img alt="" src="/resources/fileUpload/chat/${cmivo.cmi_dir}/${cmivo.cmi_uuid}_th_${cmivo.cmi_name}" onload="javascript: roomMidBox.scrollTop = roomMidBox.scrollHeight;">
+                //         </div>
+                //     </div >
+                //     <div class="chatTime">
+                //         ${hours}:${minutes}
+                //     </div>`;
+
                 div.innerHTML += `
-                    <div class="chatMessage">
-                        <div class="chatImage">
-                            <img alt="" src="/resources/fileUpload/chat/${cmivo.cmi_dir}/${cmivo.cmi_uuid}_th_${cmivo.cmi_name}" onload="javascript: roomMidBox.scrollTop = roomMidBox.scrollHeight;">
-                        </div>
-                    </div >
-                    <div class="chatTime">
-                        ${hours}:${minutes}
+                <div class="chatMessage">
+                    <div class="chatImage">
+                        <img alt="" src="/upload/chat/${cmivo.cmi_dir}/${cmivo.cmi_uuid}_th_${cmivo.cmi_name}" onload="javascript: roomMidBox.scrollTop = roomMidBox.scrollHeight;">
                     </div>
-                `;
+                </div >
+                <div class="chatTime">
+                    ${hours}:${minutes}
+                </div>`;
+
             } catch (error) {
                 console.error(error);
             }
@@ -261,22 +274,35 @@ function showFileUploadWindow() {
     fileInput.addEventListener('change', async function (event) {
         const selectedFile = event.target.files[0];
 
+        let cmvo = {
+            cr_number: chatRoomNumber,
+            cm_content: '사진',
+            cm_sender: sessionMemberNumber,
+            cm_send_date: new Date(),
+            cm_type: 'i',
+        }
+
         const formData = new FormData();
         formData.append('file', selectedFile);
+        formData.append('cmvo', JSON.stringify(cmvo));
 
         if (selectedFile.type.startsWith("image/")) {
-            stomp.send('/pub/chat/message', {}, JSON.stringify({
-                cr_number: chatRoomNumber,
-                cm_content: '사진',
-                cm_sender: sessionMemberNumber,
-                cm_send_date: new Date(),
-                cm_type: 'i'
-            }));
+            // stomp.send('/pub/chat/message', {}, JSON.stringify({
+            //     cr_number: chatRoomNumber,
+            //     cm_content: '사진',
+            //     cm_sender: sessionMemberNumber,
+            //     cm_send_date: new Date(),
+            //     cm_type: 'i',
+            // }));
 
             const resp = await fetch("/chat/upload", {
                 method: 'POST',
                 body: formData
             });
+            chatMessageNumber = await resp.text();
+
+            console.log("!!! chatMessageNumber");
+            console.log(chatMessageNumber);
         } else {
             alert("이미지 파일만 선택 가능합니다.");
         }
@@ -284,16 +310,13 @@ function showFileUploadWindow() {
 }
 
 // 지도
-function showMap() {
-}
+function showMap() { }
 
 // 달력
-function showRemittanceWindow() {
-}
+function showRemittanceWindow() { }
 
 // 이미지 확대
-function showImage() {
-}
+function showImage() { }
 
 // 모달 여는 버튼 설정
 const openModalBtn = document.getElementById('modalBtn');

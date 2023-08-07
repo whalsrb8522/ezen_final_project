@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Param;
 
 import com.myweb.www.domain.ProductLikeVO;
 import com.myweb.www.domain.ProductPagingVO;
-import com.myweb.www.domain.ProductReviewVO;
 import com.myweb.www.domain.ProductVO;
 
 public interface ProductDAO {

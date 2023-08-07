@@ -94,7 +94,12 @@ hr {
 	height: 50px;
 	border-radius: 50%;
 	overflow: hidden;
-	border: 1px solid gray;
+	/* border: 1px solid gray; */
+}
+
+.chatListImg img {
+	width: 50px;
+	height: 50px;
 }
 
 .chatListText {
@@ -306,13 +311,15 @@ hr {
 }
 
 .chatImage {
-    width: 300px;
-    margin: 8px 3px;
-    border-radius: 10px;
-    position: relative;
-    display: flex;
-    overflow: hidden;
-} .chatImage img {
+	width: 300px;
+	margin: 8px 3px;
+	border-radius: 10px;
+	position: relative;
+	display: flex;
+	overflow: hidden;
+}
+
+.chatImage img {
 	width: 100%;
 }
 

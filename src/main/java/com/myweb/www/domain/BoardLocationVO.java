@@ -21,5 +21,7 @@ public class BoardLocationVO {
 	private String bl_reg_date;
 	private String bl_mod_date;
 	private int bl_isDel;
+	private String bl_subject;
+	private int bl_m_number;
 	
 }

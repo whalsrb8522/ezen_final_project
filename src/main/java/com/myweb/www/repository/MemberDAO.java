@@ -27,12 +27,12 @@ public interface MemberDAO {
 	
 	int updateMember(MemberVO member);
 	
+	int updateMemberStatus(Map<String, Object> params);
 
-	
 	// 작성자 : 김경아
 	MemberVO getMemberProduct(int m_number);
+	MemberVO getBoardLocationMember(int bl_m_number);
 
-	int updateMemberStatus(Map<String, Object> params);
 
 	
 
